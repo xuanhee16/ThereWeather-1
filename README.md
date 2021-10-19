@@ -1,4 +1,4 @@
-# ThereWeather - 
+# ThereWeather
 
 ## LOGO
 ![schema](https://cdn-icons-png.flaticon.com/128/2204/2204346.png)
