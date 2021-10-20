@@ -31,4 +31,4 @@ assignees: ''
 * Estimated time: `E: 1h`
 * Group : `client`, `server`
 * Sprint: `Sprint__NUMBER__`
-* Level: `Bare`, `Advanced`, `Night`
+* Level: `Bare`, `Recommended`, `Advanced`
