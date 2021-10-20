@@ -1,5 +1,5 @@
 ---
-name: "[server/client] task 이슈카드 제목"
+name: "[Server/Client] task 이슈카드 제목"
 about: Describe this issue template's purpose here.
 title: ''
 labels: Task
