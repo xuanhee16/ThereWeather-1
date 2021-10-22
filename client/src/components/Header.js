@@ -76,7 +76,7 @@ const Buttons = styled.div`
 const Button = styled.button`
 	background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
 	color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
-	font-size: ${(props) => (props.isText ? "1.2rem" : "1.8rem")};
+	font-size: ${(props) => (props.isText ? "1.2rem" : "1.6rem")};
 	padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
 	margin: 0.5rem;
 	border-radius: 10%;
