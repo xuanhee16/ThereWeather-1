@@ -4,6 +4,7 @@ import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "
 
 const HeaderOuter = styled.div`
     width: 100vw;
+		height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,7 +14,7 @@ const HeaderOuter = styled.div`
 
 	@media screen and (min-width: 1081px) {
 		width: 100vw;
-		height: 150px;
+		height: 125px;
 		background-color: white;
 		border-bottom: 1px solid #757575;
 		flex-direction: row;
@@ -25,25 +26,25 @@ const Wings = styled.div`
     display: none;
 
     @media screen and (min-width: 1081px) {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        width: 20vw;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			width: 20vw;
     }
 
     & > img {
-        width: 20%;
-        height: 20%;
+			width: 20%;
+			height: 20%;
     }
 `
 
 const Center = styled.div`
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-    @media screen and (min-width: 1081px) {
-        flex-direction: row;
-    }
+	@media screen and (min-width: 1081px) {
+		flex-direction: row;
+	}
 `
 
 const InputAndSubmit = styled.div`
