@@ -7,7 +7,6 @@ const Outer = styled.div`
 	justify-content: space-around;
 	align-items: center;
 	width: 100vw;
-	height: 5rem;
 	z-index: 1;
 
 	@media screen and (min-width: 1081px) {
