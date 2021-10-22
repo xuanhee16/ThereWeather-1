@@ -11,13 +11,14 @@ const HeaderOuter = styled.div`
     background-color: #85c1e9;
     padding: 1rem;
 
-    @media screen and (min-width: 1081px) {
-        width: 100vw;
-        background-color: white;
-        border-bottom: 1px solid #757575;
-        flex-direction: row;
-        justify-content: space-around;
-    }
+	@media screen and (min-width: 1081px) {
+		width: 100vw;
+		height: 150px;
+		background-color: white;
+		border-bottom: 1px solid #757575;
+		flex-direction: row;
+		justify-content: space-around;
+	}
 `
 
 const Wings = styled.div`
