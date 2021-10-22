@@ -20,7 +20,7 @@ function App() {
 	return (
 		<div>
 			<Header />
-			<Header isInput />
+			{/* <Header isInput /> */}
 			{/* <Map></Map> */}
 			<Login />
 			<MenuBar></MenuBar>

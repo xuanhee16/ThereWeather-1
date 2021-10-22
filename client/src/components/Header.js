@@ -2,6 +2,12 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
 
+{/* TODO
+	- [] 로고와 이름 사이의 간격
+	- [] 로그인 - 회원가입 버튼 사이의 간격
+	- [] 모바일에서 h2 로그인 위의 공간 줄이기
+*/}
+
 const HeaderOuter = styled.div`
 	width: 100vw;
 	height: 200px;

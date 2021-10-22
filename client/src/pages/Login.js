@@ -61,6 +61,7 @@ const Button = styled.button`
   font-weight: bold;
   color: white;
   background-color: ${ props => props.google ? '#EA4335' : '#419300' };
+  border-radius: 1rem;
 
   >span {
     margin: .25rem;
