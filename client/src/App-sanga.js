@@ -17,15 +17,15 @@ import MenuBar from "./components/MenuBar"
 }
 
 function App() {
-    const isInput = true
-    return (
-        <div>
-            <Header isInput={isInput}></Header>
-            {/* <Map></Map> */}
-            <Login />
-            <MenuBar></MenuBar>
-        </div>
-    )
+	const isInput = true
+	return (
+		<div>
+			<Header isInput={isInput}></Header>
+			{/* <Map></Map> */}
+			<Login />
+			<MenuBar></MenuBar>
+		</div>
+	)
 }
 
 export default App

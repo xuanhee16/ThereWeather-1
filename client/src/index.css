@@ -10,6 +10,10 @@
     padding: 0;
 }
 
+h1, h2, h3, h4, h5 {
+	font-weight: normal;
+}
+
 button {
     border-radius: none;
     border: none;
@@ -17,6 +21,8 @@ button {
     cursor: pointer;
 }
 
+
+/* [start] create-react-app default style */
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -27,3 +33,4 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+/* [end] create-react-app default style */
