@@ -1,11 +1,28 @@
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <div>이곳을지우고 작성하세요</div>
-    </div>
-  );
+import "./App.css"
+import Map from "./pages/Map"
+import Header from "./components/Header"
+import MenuBar from "./components/MenuBar"
+{
+    /* <Route exact path="/map"> */
+}
+{
+    /* </Route> */
+}
+{
+    /* <Route exact path="/login">
+                <Login></Login>
+            </Route> */
 }
 
-export default App;
+function App() {
+    const isInput = true
+    return (
+        <div>
+            <Header isInput={isInput}></Header>
+            <Map></Map>
+            <MenuBar></MenuBar>
+        </div>
+    )
+}
+
+export default App
