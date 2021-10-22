@@ -62,17 +62,22 @@ const Input = styled.input`
 `
 
 const Buttons = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	svg:hover {
+		color: black;
+	}
 `
 
 const Button = styled.button`
-    background-color: ${(props) => (props.grey ? "#E0E0E0" : "white")};
-    font-size: ${(props) => (props.isText ? "1.2rem" : "1.8rem")};
-    padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
-    margin: 0.5rem;
-    border-radius: 10%;
+	background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
+	color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
+	font-size: ${(props) => (props.isText ? "1.2rem" : "1.8rem")};
+	padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
+	margin: 0.5rem;
+	border-radius: 10%;
 `
 
 export default function Header({ isInput }) {
@@ -86,7 +91,7 @@ export default function Header({ isInput }) {
                 <Center className="headerCenter">
                     <InputAndSubmit className="inputAndSubmit">
                         <Input type="text" placeholder="위치 검색" />
-                        <Button grey>
+                        <Button bgGrey>
                             <FontAwesomeIcon icon={faSearch} />
                         </Button>
                     </InputAndSubmit>
