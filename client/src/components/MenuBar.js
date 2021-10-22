@@ -17,7 +17,7 @@ const Outer = styled.div`
 `
 
 const Buttons = styled.div`
-    background-color: #85c1e9;
+    background-color: #A2D2FF;
     position: fixed;
     right: 0;
     bottom: 0;

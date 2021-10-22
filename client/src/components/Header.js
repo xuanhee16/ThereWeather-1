@@ -3,14 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
 
 const HeaderOuter = styled.div`
-    width: 100vw;
-		height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #85c1e9;
-    padding: 1rem;
+	width: 100vw;
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #A2D2FF;
+	padding: 1rem;
+
+	h1 {
+		font-weight: bold;
+		font-size: 2.5rem;
+		margin: 0;
+		padding: 0;
+	}
 
 	@media screen and (min-width: 1081px) {
 		width: 100vw;
@@ -23,27 +30,33 @@ const HeaderOuter = styled.div`
 `
 
 const Wings = styled.div`
-    display: none;
+	display: none;
 
-    @media screen and (min-width: 1081px) {
-			display: flex;
-			align-items: center;
-			justify-content: space-around;
-			width: 20vw;
-    }
+	@media screen and (min-width: 1081px) {
+		display: flex;
+		flex-growth: 1;
+		align-items: center;
+		justify-content: space-around;
+		width: 20vw;
+	}
 
-    & > img {
-			width: 20%;
-			height: 20%;
-    }
+	& img {
+		width: 20%;
+		height: 20%;
+	}
 `
 
 const Center = styled.div`
 	display: flex;
+	
 	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
 	@media screen and (min-width: 1081px) {
 		flex-direction: row;
+		flex-growth: 2;
+		width: 60vw;
 	}
 `
 
@@ -51,6 +64,10 @@ const InputAndSubmit = styled.div`
     flex-growth: 1;
     display: flex;
     align-items: center;
+
+		div {
+			margin: auto 1rem;
+		}
 `
 
 const Input = styled.input`
@@ -116,7 +133,7 @@ export default function Header({ isInput }) {
                     </Buttons>
                 </Center>
             ) : (
-                ""
+                <Center className="headerCenter" />
             )}
             <Wings>
                 <Button isText>로그인</Button>

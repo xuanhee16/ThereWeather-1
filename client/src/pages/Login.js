@@ -11,6 +11,13 @@ const Outer = styled.section`
   flex-direction: column;
   justify-content: center;
 
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
   @media screen and (min-width: 1081px) {
     height: calc(100vh - 125px);
 	}
@@ -63,6 +70,7 @@ const Button = styled.button`
 export default function Login() {
   return (
     <Outer className="loginPageComponent">
+      <h2>로그인</h2>
       <div className="Login--center">
         <InputAndTitle>
           <h3>아이디</h3>
