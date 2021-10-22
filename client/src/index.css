@@ -14,19 +14,20 @@
 	/* 색상 */
 	--page-bg-color: #FEF9EF;
 	--mobile-header-color: #A2D2FF;
-	--button-positive-color: #419300;
-	--button-negative-color: #FF4545;
-	--button-edit-color: #2F6ECB;
-	--button-google-color: #EA4335;
+	--button-bg-normal: #EDEDED;
+	--button-bg-positive: #419300;
+	--button-bg-negative: #FF4545;
+	--button-bg-edit: #2F6ECB;
+	--button-bg-google: #EA4335;
 	--modal-bg-color: #00000066;
-	--modal-confirm-bg-color: #F2F2F2;
-	--modal-confirm-button-color: #C4C4C4;
+	--modal-confirm-bg: #F2F2F2;
+	--modal-confirm-button-bg: #C4C4C4;
 
 	/* 길이 */
 	--mobile-header-height: 200px;
 	--desktop-header-height: 125px;
-	--mobile-page-height: calc(1vh - 200px);
-	--desktop-page-height: calc(1vh - 125px);
+	--mobile-page-height: calc(100vh - 200px);
+	--desktop-page-height: calc(100vh - 125px);
 }
 
 /* 속성값 통일 */
