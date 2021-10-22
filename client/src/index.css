@@ -1,7 +1,23 @@
 :root {
-    --main-bg-color: brown;
-    --modal-bg-color: #7e7e7e6b;
-    --page-bg-color: #FEF9EF;
+	/*
+		[사용법] var(컬러이름)
+		[예시] div의 배경색을 바꿀 때,
+			div {
+				background-color: var(--page-bg-color);
+			}
+
+		스타일드 컴포넌트에서도 사용 가능합니다!
+	*/
+	
+	--page-bg-color: #FEF9EF;
+	--mobile-header-color: #A2D2FF;
+	--button-positive-color: #419300;
+	--button-negative-color: #FF4545;
+	--button-edit-color: #2F6ECB;
+	--button-google-color: #EA4335;
+	--modal-bg-color: #00000066;
+	--modal-confirm-bg-color: #F2F2F2;
+	--modal-confirm-button-color: #C4C4C4;
 }
 
 * {
