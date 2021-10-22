@@ -10,6 +10,10 @@ const Outer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media screen and (min-width: 1081px) {
+    height: calc(100vh - 125px);
+	}
 `;
 
 const InputAndTitle = styled.div`
