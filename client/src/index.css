@@ -1,4 +1,4 @@
-:root {
+/* 사용자 지정 속성 */
 	/*
 		[사용법] var(컬러이름)
 		[예시] div의 배경색을 바꿀 때,
@@ -8,7 +8,10 @@
 
 		스타일드 컴포넌트에서도 사용 가능합니다!
 	*/
-	
+
+
+:root {
+	/* 색상 */
 	--page-bg-color: #FEF9EF;
 	--mobile-header-color: #A2D2FF;
 	--button-positive-color: #419300;
@@ -18,16 +21,19 @@
 	--modal-bg-color: #00000066;
 	--modal-confirm-bg-color: #F2F2F2;
 	--modal-confirm-button-color: #C4C4C4;
+
+	/* 길이 */
+	--mobile-header-height: 200px;
+	--desktop-header-height: 125px;
+	--mobile-page-height: calc(1vh - 200px);
+	--desktop-page-height: calc(1vh - 125px);
 }
 
+/* 속성값 통일 */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-h1, h2, h3, h4, h5 {
-	font-weight: normal;
 }
 
 button {
