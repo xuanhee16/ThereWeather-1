@@ -3,9 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
 
 {/* TODO
-	- [] 로고와 이름 사이의 간격
-	- [] 로그인 - 회원가입 버튼 사이의 간격
-	- [] 모바일에서 h2 로그인 위의 공간 줄이기
+	- [x] 로고와 이름 사이의 간격
+	- [x] 로그인 - 회원가입 버튼 사이의 간격 : 
+			// justify-content:center,
+			// margin 조절
+	- [x] 모바일에서 h2 로그인 위의 공간 줄이기
+	- [x] 모바일에서 로고 보이게
 */}
 
 const HeaderOuter = styled.div`
@@ -35,22 +38,26 @@ const HeaderOuter = styled.div`
 	}
 `
 
-const Wings = styled.div`
+const Wing = styled.div`
 	display: none;
 
 	@media screen and (min-width: 1081px) {
 		display: flex;
 		flex-growth: 1;
 		align-items: center;
-		justify-content: space-around;
+		justify-content: center;
 		width: 20vw;
 	}
+`;
+
+const TitleAndLogo = styled(Wing)`
+	display: flex;
 
 	& img {
 		width: 20%;
-		height: 20%;
+		margin-right: 1rem;
 	}
-`
+`;
 
 const Center = styled.div`
 	display: flex;
@@ -108,10 +115,10 @@ const Button = styled.button`
 export default function Header({ isInput }) {
     return (
         <HeaderOuter className="header">
-            <Wings className="title">
+            <TitleAndLogo className="titleAndLogo">
                 <img src="img/sun.png" alt="logo" />
                 <h1>거기날씨</h1>
-            </Wings>
+            </TitleAndLogo>
             {isInput ? (
                 <Center className="headerCenter">
                     <InputAndSubmit className="inputAndSubmit">
@@ -141,10 +148,10 @@ export default function Header({ isInput }) {
             ) : (
                 <Center className="headerCenter" />
             )}
-            <Wings>
-                <Button isText>로그인</Button>
-                <Button isText>회원가입</Button>
-            </Wings>
+            <Wing className="loginAndSingupButtons">
+                <Button className="login" isText>로그인</Button>
+                <Button className="signup" isText>회원가입</Button>
+            </Wing>
         </HeaderOuter>
     )
 }

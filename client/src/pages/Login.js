@@ -5,11 +5,12 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 const Outer = styled.section`
   position: relative;
   width: 100vw;
-  height: calc(100vh - 200px);
+  height: var(--mobile-page-height);
   background-color: var(--page-bg-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   h2 {
     text-align: center;

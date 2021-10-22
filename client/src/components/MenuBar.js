@@ -11,33 +11,33 @@ const Outer = styled.div`
 
 	@media screen and (min-width: 1081px) {
 		width: 1080px;
-		position: relative;
 		z-index: 1;
 	}
 `
 
 const Buttons = styled.div`
-    background-color: #A2D2FF;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	background-color: #A2D2FF;
+	height: 70px;
+	right: 0;
+	bottom: 0;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-    @media screen and (min-width: 1081px) {
-        background-color: white;
-      	border-top : 1px solid black;
-				border-left : 1px solid black;
-        width: 400px;
-    }
+	@media screen and (min-width: 1081px) {
+		position: fixed;
+		background-color: white;
+		border-top : 1px solid black;
+		border-left : 1px solid black;
+		width: 400px;
+	}
 `
 
 const Button = styled.button`
-    padding: 0.5rem;
-    margin: 0.5rem;
-    font-size: 2rem;
+	padding: 0.5rem;
+	margin: 0.5rem;
+	font-size: 2rem;
 `
 
 export default function MenuBar() {
