@@ -3,19 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
 
 const HeaderOuter = styled.div`
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #85c1e9;
-    padding: 1rem;
-
+    // background-color: yellow;
+    width: 100%;
+    //아래가 pc
     @media screen and (min-width: 1081px) {
-        width: 100vw;
-        background-color: white;
-        border-bottom: 1px solid #757575;
-        flex-direction: row;
+        // background-color: #d9f576;
+        width: 100%;
+        // height: 3rem;
+        display: flex;
+        align-items: center;
         justify-content: space-around;
     }
 `
@@ -24,10 +20,12 @@ const Wings = styled.div`
     display: none;
 
     @media screen and (min-width: 1081px) {
+        // border: 1px solid red;
         display: flex;
         align-items: center;
         justify-content: space-around;
-        width: 20vw;
+        font-size: 0.8rem;
+        max-width: 20vw;
     }
 
     & > img {
@@ -46,15 +44,22 @@ const Center = styled.div`
 `
 
 const InputAndSubmit = styled.div`
-    flex-growth: 1;
-    display: flex;
-    align-items: center;
+    // border: 1px solid red;
+    margin: 0 auto;
+    // display: flex;
+    // justify-content: space-around;
+    @media screen and (min-width: 1081px) {
+        flex-growth: 1;
+        display: flex;
+        align-items: center;
+    }
 `
 
 const Input = styled.input`
     padding: 0.5rem;
     font-size: 1.2rem;
     text-align: center;
+    font-family: "BMDOHYEON";
 
     @media screen and (min-width: 1081px) {
         width: 300px;
@@ -79,7 +84,10 @@ export default function Header({ isInput }) {
     return (
         <HeaderOuter className="header">
             <Wings className="title">
-                <img src="img/sun.png" alt="logo" />
+                {/* <img src="img/img0.png" alt="logo" /> */}
+                {/* <img src="img/img1.png" alt="logo" /> */}
+                {/* <img src="img/img2.png" alt="logo" /> */}
+                <img src="img/img3.png" alt="logo" />
                 <h1>거기날씨</h1>
             </Wings>
             {isInput ? (
@@ -112,8 +120,12 @@ export default function Header({ isInput }) {
                 ""
             )}
             <Wings>
-                <Button isText>로그인</Button>
-                <Button isText>회원가입</Button>
+                <Button isText>
+                    <div font-family="BMDOHYEON">Login</div>
+                </Button>
+                <Button isText>
+                    <div font-family="BMDOHYEON">SignUp</div>
+                </Button>
             </Wings>
         </HeaderOuter>
     )

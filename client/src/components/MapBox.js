@@ -2,9 +2,18 @@ import styled from "styled-components"
 import React, { useEffect } from "react"
 
 const ImgContainer = styled.div`
-    // border: 2px solid red;
-    width: 100%;
-    height: 85vh;
+    // min-width: 10000px;
+    // position: relative;
+    padding-top: 222%;
+
+    //아래가pc
+    @media screen and (min-width: 1081px) {
+        // max-width: 1920px;
+        // max-height: 1080px;
+        // height: 1080px;
+        // position: relative;
+        padding-top: 56%;
+    }
 `
 
 export default function Location(props) {
