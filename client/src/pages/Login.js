@@ -12,7 +12,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons"
       - [x] input이 없는 경우
       - [] 등록되지 않은 정보인 경우
         - [] 악시오스
-        - [] 모달? alert?
+        - [] 모달? alert? 페이지에 렌더링?
 */
 
 const Outer = styled.section`
