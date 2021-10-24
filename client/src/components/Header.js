@@ -2,14 +2,14 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
 
-{/* TODO
+/* TODO
 	- [x] 로고와 이름 사이의 간격
 	- [x] 로그인 - 회원가입 버튼 사이의 간격 : 
 			// justify-content:center,
 			// margin 조절
 	- [x] 모바일에서 h2 로그인 위의 공간 줄이기
 	- [x] 모바일에서 로고 보이게
-*/}
+*/
 
 const HeaderOuter = styled.div`
 	width: 100vw;
@@ -50,12 +50,22 @@ const Wing = styled.div`
 	}
 `;
 
-const TitleAndLogo = styled(Wing)`
-	display: flex;
+const TitleAndLogo = styled.div`
+	display: ${props => props.isLogo ? 'flex' : 'none'};
+	justify-content: center;
+	align-items: center;
 
 	& img {
 		width: 20%;
 		margin-right: 1rem;
+	}
+
+	@media screen and (min-width: 1081px) {
+		display: flex;
+		flex-growth: 1;
+		align-items: center;
+		justify-content: center;
+		width: 20vw;
 	}
 `;
 
@@ -112,46 +122,48 @@ const Button = styled.button`
 	border-radius: 10%;
 `
 
-export default function Header({ isInput }) {
-    return (
-        <HeaderOuter className="header">
-            <TitleAndLogo className="titleAndLogo">
-                <img src="img/sun.png" alt="logo" />
-                <h1>거기날씨</h1>
-            </TitleAndLogo>
-            {isInput ? (
-                <Center className="headerCenter">
-                    <InputAndSubmit className="inputAndSubmit">
-                        <Input type="text" placeholder="위치 검색" />
-                        <Button bgGrey>
-                            <FontAwesomeIcon icon={faSearch} />
-                        </Button>
-                    </InputAndSubmit>
-                    <Buttons className="headerButtons">
-                        <Button>
-                            <FontAwesomeIcon icon={faSun} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faCloud} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faCloudRain} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faPooStorm} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faSnowflake} />
-                        </Button>
-                    </Buttons>
-                </Center>
-            ) : (
-                <Center className="headerCenter" />
-            )}
-            <Wing className="loginAndSingupButtons">
-                <Button className="login" isText>로그인</Button>
-                <Button className="signup" isText>회원가입</Button>
-            </Wing>
-        </HeaderOuter>
-    )
+export default function Header({ isInput, isLogo }) {
+	return (
+		<HeaderOuter className="header">
+			<TitleAndLogo className="titleAndLogo" isLogo={isLogo} >
+				<img src="img/sun.png" alt="logo" />
+				<h1>거기날씨</h1>
+			</TitleAndLogo>
+
+			{isInput ? (
+				<Center className="headerCenter">
+					<InputAndSubmit className="inputAndSubmit">
+						<Input type="text" placeholder="위치 검색" />
+						<Button bgGrey>
+							<FontAwesomeIcon icon={faSearch} />
+						</Button>
+					</InputAndSubmit>
+					<Buttons className="headerButtons">
+						<Button>
+							<FontAwesomeIcon icon={faSun} />
+						</Button>
+						<Button>
+							<FontAwesomeIcon icon={faCloud} />
+						</Button>
+						<Button>
+							<FontAwesomeIcon icon={faCloudRain} />
+						</Button>
+						<Button>
+							<FontAwesomeIcon icon={faPooStorm} />
+						</Button>
+						<Button>
+							<FontAwesomeIcon icon={faSnowflake} />
+						</Button>
+					</Buttons>
+				</Center>
+			) : (
+				<Center className="headerCenter" />
+			)}
+
+			<Wing className="loginAndSingupButtons">
+				<Button className="login" isText>로그인</Button>
+				<Button className="signup" isText>회원가입</Button>
+			</Wing>
+		</HeaderOuter>
+	)
 }
