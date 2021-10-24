@@ -3,9 +3,17 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 
-// TODO
-// [x] 여러개의 Input 상태 관리
-// [] 유효성 검사
+/*
+  TODO
+  [x] 여러개의 Input 상태 관리
+  [] 유효성 검사
+    - [x] ul, li 추가
+    - [] 함수로 구현
+      - [x] input이 없는 경우
+      - [] 등록되지 않은 정보인 경우
+        - [] 악시오스
+        - [] 모달? alert?
+*/
 
 const Outer = styled.section`
   position: relative;
@@ -42,7 +50,7 @@ const InputAndTitle = styled.div`
   margin: 1rem;
 
   h3 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin: 1rem;
     font-weight: bold;
   }
@@ -57,11 +65,12 @@ const InputText = styled.input`
 
 const ValidationListBox = styled.ul`
   list-style: none;
-  padding: .5rem 1.5rem;
-  font-size: 1.1rem;
+  padding: 0 1.5rem;
+  font-size: 1rem;
 
   li {
-    padding: .5rem 1.5rem;
+    height: 1.2rem;
+    padding: 0 1.5rem;
     color: var(--font-validation-negative);
   }
 `;
@@ -92,19 +101,31 @@ const Button = styled.button`
 `;
 
 export default function Login() {
-  // input 상태 관리
+  // input 상태 관리, 유효성 검사
   const [ idInput, setIdInput ] = useState('');
   const [ pwInput, setPwInput ] = useState('');
+  const [ idInputMessage, setIdInputMessage ] = useState('아이디를 입력하세요.');
+  const [ pwInputMessage, setPwInputMessage ] = useState('비밀번호를 입력하세요.');
 
   const idOnChangeHanlder = (e) => {
     setIdInput(prevInput => e.target.value);
+
+    if (e.target.value.length === 0) {
+      setIdInputMessage(prevText => '아이디를 입력하세요.');
+    } else {
+      setIdInputMessage(prevText => '');
+    }
   }
 
   const pwOnChangeHandler = (e) => {
     setPwInput(prevInput => e.target.value);
-  }
 
-  // 유효성 검사
+    if (e.target.value.length === 0) {
+      setPwInputMessage(prevText => '비밀번호를 입력하세요.');
+    } else {
+      setPwInputMessage(prevText => '');
+    }
+  }
 
   return (
     <Outer className="loginPageComponent">
@@ -112,7 +133,7 @@ export default function Login() {
       <div className="Login--center">
         <StyledArticle className="id">
           <InputAndTitle className="inputIdSection">
-            <h3>아이디 {idInput}</h3>
+            <h3>아이디</h3>
             <InputText
               type="text"
               name="idInput"
@@ -121,13 +142,13 @@ export default function Login() {
             />
           </InputAndTitle>
           <ValidationListBox className="idValidationList">
-            <li>아이디를 입력하세요</li>
+            <li>{idInputMessage}</li>
           </ValidationListBox>
         </StyledArticle>
 
         <StyledArticle className="password">
           <InputAndTitle className="inputPwSection">
-            <h3>비밀번호 {pwInput}</h3>
+            <h3>비밀번호</h3>
             <InputText
               type="text"
               name="pwInput"
@@ -136,7 +157,7 @@ export default function Login() {
             />
           </InputAndTitle>
           <ValidationListBox className="pwValidationList">
-            <li>비밀번호를 입력하세요</li>
+            <li>{pwInputMessage}</li>
           </ValidationListBox>
         </StyledArticle>
       </div>
