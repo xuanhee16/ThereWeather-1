@@ -1,6 +1,11 @@
+import { useState } from "react"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
+
+// TODO
+// [x] 여러개의 Input 상태 관리
+// [] 유효성 검사
 
 const Outer = styled.section`
   position: relative;
@@ -24,6 +29,12 @@ const Outer = styled.section`
 	}
 `;
 
+const StyledArticle = styled.article`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const InputAndTitle = styled.div`
   display: flex;
   justify-content: center;
@@ -42,6 +53,17 @@ const InputText = styled.input`
   width: 30vw;
   font-size: 1.2rem;
   padding: .5rem;
+`;
+
+const ValidationListBox = styled.ul`
+  list-style: none;
+  padding: .5rem 1.5rem;
+  font-size: 1.1rem;
+
+  li {
+    padding: .5rem 1.5rem;
+    color: var(--font-validation-negative);
+  }
 `;
 
 const Buttons = styled.div`
@@ -70,18 +92,53 @@ const Button = styled.button`
 `;
 
 export default function Login() {
+  // input 상태 관리
+  const [ idInput, setIdInput ] = useState('');
+  const [ pwInput, setPwInput ] = useState('');
+
+  const idOnChangeHanlder = (e) => {
+    setIdInput(prevInput => e.target.value);
+  }
+
+  const pwOnChangeHandler = (e) => {
+    setPwInput(prevInput => e.target.value);
+  }
+
+  // 유효성 검사
+
   return (
     <Outer className="loginPageComponent">
       <h2>로그인</h2>
       <div className="Login--center">
-        <InputAndTitle>
-          <h3>아이디</h3>
-          <InputText type="text" placeholder="아이디를 입력하세요" />
-        </InputAndTitle>
-        <InputAndTitle>
-          <h3>비밀번호</h3>
-          <InputText type="text" placeholder="비밀번호를 입력하세요" />
-        </InputAndTitle>
+        <StyledArticle className="id">
+          <InputAndTitle className="inputIdSection">
+            <h3>아이디 {idInput}</h3>
+            <InputText
+              type="text"
+              name="idInput"
+              placeholder="아이디를 입력하세요"
+              onChange={idOnChangeHanlder}
+            />
+          </InputAndTitle>
+          <ValidationListBox className="idValidationList">
+            <li>아이디를 입력하세요</li>
+          </ValidationListBox>
+        </StyledArticle>
+
+        <StyledArticle className="password">
+          <InputAndTitle className="inputPwSection">
+            <h3>비밀번호 {pwInput}</h3>
+            <InputText
+              type="text"
+              name="pwInput"
+              placeholder="비밀번호를 입력하세요"
+              onChange={pwOnChangeHandler}
+            />
+          </InputAndTitle>
+          <ValidationListBox className="pwValidationList">
+            <li>비밀번호를 입력하세요</li>
+          </ValidationListBox>
+        </StyledArticle>
       </div>
       <Buttons className="login--buttons">
         <Button>로그인</Button>
