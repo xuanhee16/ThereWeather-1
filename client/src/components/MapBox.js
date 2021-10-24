@@ -3,8 +3,9 @@ import React, { useEffect } from "react"
 
 const ImgContainer = styled.div`
     // border: 2px solid red;
+    position: relative;
     width: 100%;
-    height: 85vh;
+    height: var(--desktop-page-height);
 `
 
 export default function Location(props) {

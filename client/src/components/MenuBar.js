@@ -7,11 +7,10 @@ const Outer = styled.div`
 	justify-content: space-around;
 	align-items: center;
 	width: 100vw;
-	z-index: 1;
+	z-index: 100;
 
 	@media screen and (min-width: 1081px) {
-		width: 1080px;
-		z-index: 1;
+	    width: 1080px;
 	}
 `
 
@@ -24,6 +23,7 @@ const Buttons = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+    z-index: 101;
 
 	@media screen and (min-width: 1081px) {
 		position: fixed;

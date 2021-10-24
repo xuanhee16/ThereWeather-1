@@ -9,12 +9,11 @@
 		스타일드 컴포넌트에서도 사용 가능합니다!
 	*/
 
-
 :root {
 	/* 색상 */
 	--page-bg-color: #FEF9EF;
 	--mobile-header-color: #A2D2FF;
-	--button-bg-normal: #EDEDED;
+	--button-bg-normal: #DDD;
 	--button-bg-positive: #419300;
 	--button-bg-negative: #FF4545;
 	--button-bg-edit: #2F6ECB;
