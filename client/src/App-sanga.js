@@ -1,6 +1,6 @@
 import "./App.css"
 // import styled from "styled-components"
-// import Map from "./pages/Map"
+import Map from "./pages/Map"
 import Header from "./components/Header"
 import Login from "./pages/Login"
 import MenuBar from "./components/MenuBar"
@@ -22,14 +22,15 @@ import MenuBar from "./components/MenuBar"
 function App() {
 	return (
 		<div>
-			{/* 로그인페이지 */}
-			<Header isLogo/>
+			{/* 로그인 페이지, 로그아웃(로그인을 안 한) 상태 */}
+			{/* <Header isMobileLogo={true} isLogin={false} />
 			<Login />
+			<MenuBar /> */}
+
+			{/* 지도 페이지, 로그인한 경우 */}
+			<Header isInput={true} isLogin={true}/>
+			<Map />
 			<MenuBar />
-			{/* 지도페이지 */}
-			{/* <Header isInput /> */}
-			{/* <Map></Map> */}
-			{/* <MenuBar /> */}
 		</div>
 	)
 }

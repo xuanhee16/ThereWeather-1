@@ -2,15 +2,6 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
 
-/* TODO
-	- [x] 로고와 이름 사이의 간격
-	- [x] 로그인 - 회원가입 버튼 사이의 간격 : 
-			// justify-content:center,
-			// margin 조절
-	- [x] 모바일에서 h2 로그인 위의 공간 줄이기
-	- [x] 모바일에서 로고 보이게
-*/
-
 const HeaderOuter = styled.div`
 	width: 100vw;
 	height: 200px;
@@ -51,7 +42,7 @@ const Wing = styled.div`
 `;
 
 const TitleAndLogo = styled.div`
-	display: ${props => props.isLogo ? 'flex' : 'none'};
+	display: ${props => props.isMobileLogo ? 'flex' : 'none'};
 	justify-content: center;
 	align-items: center;
 
@@ -122,10 +113,14 @@ const Button = styled.button`
 	border-radius: 10%;
 `
 
-export default function Header({ isInput, isLogo }) {
+export default function Header({ isInput, isMobileLogo, isLogin }) {
+	// isInput : Map 페이지 사용시 true
+	// isMobileLogo : Map 페이지 사용시 false
+	// isLogin : 로그인 상태에 따라 - 로그인 되어있으면 true, 아니면 false
+
 	return (
 		<HeaderOuter className="header">
-			<TitleAndLogo className="titleAndLogo" isLogo={isLogo} >
+			<TitleAndLogo className="titleAndLogo" isMobileLogo={isMobileLogo} >
 				<img src="img/sun.png" alt="logo" />
 				<h1>거기날씨</h1>
 			</TitleAndLogo>
@@ -160,10 +155,18 @@ export default function Header({ isInput, isLogo }) {
 				<Center className="headerCenter" />
 			)}
 
-			<Wing className="loginAndSingupButtons">
-				<Button className="login" isText>로그인</Button>
-				<Button className="signup" isText>회원가입</Button>
-			</Wing>
+			{
+				isLogin ?
+					<Wing className="loginAndSingupButtons">
+						<Button className="login" isText>로그아웃</Button>
+						<Button className="signup" isText>마이페이지</Button>
+					</Wing>
+				:
+					<Wing className="loginAndSingupButtons">
+						<Button className="login" isText>로그인</Button>
+						<Button className="signup" isText>회원가입</Button>
+					</Wing>
+			}
 		</HeaderOuter>
 	)
 }
