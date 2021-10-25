@@ -8,12 +8,13 @@ import styled from "styled-components"
   [x] 여러개의 Input 상태 관리
   [] 유효성 검사
     - [x] ul, li 추가
-    - [] 함수로 구현
+    - [x] 함수로 구현
       - [x] (둘 다) input이 없는 경우 - li
-      - [] (새 비밀번호) 조건에 안 맞는 경우 - li
+      - [x] (새 비밀번호) 조건에 안 맞는 경우 - li
       - [] (현재 비밀번호) 등록되지 않은 정보인 경우
         - [] 악시오스
         - [] 모달? alert? 페이지에 렌더링?
+  [] 최종 결과 모아서 악시오스 요청
 */
 
 const Outer = styled.section`
@@ -68,12 +69,6 @@ const ValidationListBox = styled.ul`
   list-style: none;
   padding: 0 1.5rem;
   font-size: 1rem;
-
-  // li {
-  //   height: 1.2rem;
-  //   padding: 0 1.5rem;
-  //   color: ${ props => props.valid ? `var(--font-validation-positive)` : `var(--font-validation-negative)` };
-  // }
 `;
 
 const StyledLi = styled.li`
@@ -102,14 +97,6 @@ const Button = styled.button`
   border-radius: 1rem;
 `;
 
-const TextButton = styled.button`
-  background-color: transparent;
-  color: grey;
-  text-decoration: underline;
-  align-self: flex-end;
-  margin-right: 3rem;
-  font-size: 1rem;
-`;
 
 export default function PasswordEdit() {
   const [ curPwd, setCurPwd ] = useState('');
@@ -124,6 +111,7 @@ export default function PasswordEdit() {
   const [ isValid, setIsValid ] = useState('');
 
   const validationReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g;
+    // 정규식 : 문자/숫자/특수문자 모두 포함, 8자 이상
 
   const curInputHandler = (e) => {
     setCurPwd(prev => e.target.value);
@@ -137,6 +125,7 @@ export default function PasswordEdit() {
   const newInputHandler = (e) => {
     setNewPwd(prev => e.target.value);
 
+    // 유효성 검사
     if (e.target.value.length === 0) {
       setNewPwdInputWarning(prev => {
         return {...prev, isNoInput: '비밀번호를 입력해주세요.'}
@@ -170,9 +159,24 @@ export default function PasswordEdit() {
     }
   }
 
+  const editButtonHandler = (e) => {
+    let newPwdValid = validationReg.test(newPwd)
+    console.log('새 비밀번호 유효성 검사 결과', newPwdValid);
+    // TODO
+      // true인 경우 axios 통신 후 성공 메시지? 페이지? 모달? 새로고침?
+      // 현재 비밀번호의 처리
+  }
+
+  const cancelButtonHandler = (e) => {
+    console.log('취소 버튼 동작 확인')
+    // TODO 이전 페이지로 redirect
+  }
+
+
   return (
     <Outer className="loginPageComponent">
       <h2>비밀번호 변경</h2>
+
       <div className="Login--center">
         <StyledArticle className="id">
           <InputAndTitle className="inputIdSection">
@@ -209,13 +213,15 @@ export default function PasswordEdit() {
           </ValidationListBox>
         </StyledArticle>
       </div>
+
       <Buttons className="login--buttons">
         <div>
-          <Button edit>수정</Button>
-          <Button>취소</Button>
+          <Button onClick={editButtonHandler} edit>수정</Button>
+          <Button onClick={cancelButtonHandler}>취소</Button>
         </div>
       </Buttons>
-      <TextButton className="removeUserInfo">회원탈퇴</TextButton>
+
+      {/* <TextButton className="removeUserInfo">회원탈퇴</TextButton> */}
     </Outer>
   );
 }
