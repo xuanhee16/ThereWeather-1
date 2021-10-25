@@ -8,13 +8,11 @@ const GlobalStyle = createGlobalStyle`
 
   HeaderOuter {
     font-family: "BMDOHYEON";    
-
   }
-div{
-    font-family: "BMDOHYEON";    
 
-}
-
+  // Header {
+  //   font-family: "BMDOHYEON";    
+  // }
 
   
 `
