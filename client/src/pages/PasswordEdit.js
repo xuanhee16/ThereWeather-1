@@ -108,6 +108,7 @@ const TextButton = styled.button`
   text-decoration: underline;
 `;
 
+
 export default function PasswordEdit() {
   let history = useHistory();
 
@@ -171,6 +172,7 @@ export default function PasswordEdit() {
     }
   }
 
+  // 버튼 클릭 이벤트
   const editButtonHandler = (e) => {
     let newPwdValid = validationReg.test(newPwd)
     console.log('새 비밀번호 유효성 검사 결과', newPwdValid);
@@ -188,10 +190,28 @@ export default function PasswordEdit() {
     history.push('/home');
   }
 
+  // 탈퇴 모달에 붙은 함수
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const withdrawButtonHandler = (e) => {
     console.log('탈퇴 버튼 동작확인');
     setIsModalOpen(true);
+  }
+
+  const modalSelectList = [
+    [null, "--탈퇴 이유 선택--"],
+    ["notMuchUse", "사용을 많이 하지 않음"],
+    ["inconvenientDesign", "디자인이 불편함"],
+    ["chooseOtherApps", "다른 앱을 이용하기 위해"],
+    ["etc", "기타"]
+  ];
+  const [ modalSelected, setModalSelected ] = useState("");
+  const handleChangeSelect = (e) => {
+    setModalSelected(prev => e.target.value);
+  }
+
+  const modalCloseButtonHandler = (e) => {
+    console.log('모달 닫기 버튼 동작 확인');
+    setIsModalOpen(false);
   }
 
   const modalYesButtonHandler = (e) => {
@@ -203,10 +223,6 @@ export default function PasswordEdit() {
     setIsModalOpen(false);
   }
 
-  const modalCloseButtonHandler = (e) => {
-    console.log('모달 닫기 버튼 동작 확인');
-    setIsModalOpen(false);
-  }
 
   return (
     <Outer className="loginPageComponent">
@@ -261,12 +277,18 @@ export default function PasswordEdit() {
       {
         isModalOpen?
           <ModalConfirm
-            isOpen={true}
             yesHandler={modalYesButtonHandler}
             noHandler={modalNoButtonHandler}
             closeHandler={modalCloseButtonHandler}
           >
-            탈퇴하시겠습니까?
+            <p>탈퇴하시겠습니까?</p>
+            <select name="reasons" className="reason-select" onChange={handleChangeSelect} value={modalSelected}>
+              {
+                modalSelectList.map((elem, idx) => {
+                  return (<option value={elem[0]} key={idx}>{elem[1]}</option>);
+                })
+              }
+            </select>
           </ModalConfirm>
         :
           ''

@@ -1,3 +1,5 @@
+// TODO 회원탈퇴, 글 수정, 글 삭제에 사용 예정
+
 import styled from "styled-components"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -40,6 +42,12 @@ const Popup = styled.section`
     margin: 0 2rem;
     font-size: 1.5rem;
   }
+
+  & select {
+    font-size: 1rem;
+    margin: .5rem;
+    padding: .3rem;
+  }
 `;
 
 const Button = styled.button`
@@ -52,7 +60,8 @@ const Button = styled.button`
   background-color: var(--modal-confirm-button-bg);
 `;
 
-export default function ModalConfirm({ children, yesHandler, noHandler, closeHandler }) {
+
+export default function ModalConfirm({ children, closeHandler, yesHandler, noHandler }) {
   const yesButtonHandler = () => {
     yesHandler();
   }
@@ -85,11 +94,18 @@ export default function ModalConfirm({ children, yesHandler, noHandler, closeHan
   );
 }
 
+
 /* 사용 예시
 - props
-  - isOpen
-    - true 할당 -> 보인다
-    - isOpen을 쓰지 않거나 false 할당 -> 안 보인다
+  - children
+    - 여는 태그와 닫는 태그 사이에 태그나 텍스트를 넣을 수 있다
+  - closeHandler
+    - 'x' 버튼을 눌렀을 때의 이벤트 함수 지정
+  - yesHandler
+    - '예' 버튼 눌렀을 때 이벤트 함수
+  - noHandler
+    - '아니오' 버튼 눌렀을 때 이벤트 함수
+
 (1) 삭제
   <ModalConfirm>삭제하시겠습니까?</ModalConfirm>
 
