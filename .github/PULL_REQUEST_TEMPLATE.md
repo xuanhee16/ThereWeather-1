@@ -1,13 +1,5 @@
----
-name: 'Pull Request Template'
-about: P/R 템플릿
-title: '[Client/Server] {수정한 파일}, P/R리뷰필요'
-labels: 
-assignees: ''
-
----
-
 ```plain
+제목 : [Client/Server] {수정한 파일 이름}, {코멘트}
 - 단순 줄바꿈 코드수정인경우 "단순줄바꿈" 코멘트 작성
 - 작업중인 코드인경우 "작업중" 코멘트 작성
 - 작업완료된 코드인 경우 "P/R리뷰필요"코멘트 작성
