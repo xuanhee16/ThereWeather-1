@@ -7,12 +7,13 @@ import Home from "./pages/Home"
 import Header from "./components/Header"
 import MenuBar from "./components/MenuBar"
 import Login from "./pages/Login"
+import PasswordEdit from "./pages/PasswordEdit";
 import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
 import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
-import PasswordEdit from "./pages/PasswordEdit";
+
 
 const Body = styled.div`
 //바디넣을 디자인 

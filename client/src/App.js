@@ -7,6 +7,8 @@ import MenuBar from "./components/MenuBar"
 import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
+import Login from "./pages/Login" // 이상아
+import PasswordEdit from "./pages/PasswordEdit"; // 이상아
 import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 
@@ -22,11 +24,17 @@ function App() {
       <Header isInput={isInput} />
         <Switch>
             <Route exact path="/map">
-              <Map></Map>  
-            </Route>  
+              <Map></Map>
+            </Route>
             <Route exact path="/home">
-              <Home></Home>  
-            </Route> 
+              <Home></Home>
+            </Route>
+            <Route exact path="/login"> {/* 이상아 - 로그인 */}
+              <Login></Login>
+            </Route>
+            <Route exact path="/editpassword"> {/* 이상아 - 비밀번호 수정 */}
+              <PasswordEdit></PasswordEdit>
+            </Route>
         </Switch>
     <MenuBar></MenuBar>
     </>

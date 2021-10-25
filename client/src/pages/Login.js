@@ -10,7 +10,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons"
     - [x] ul, li 추가
     - [] 함수로 구현
       - [x] input이 없는 경우
-      - [] 등록되지 않은 정보인 경우
+      - [] 등록되지 않은 정보인 경우 (버튼과 연결?)
         - [] 악시오스
         - [] 모달? alert? 페이지에 렌더링?
 */
