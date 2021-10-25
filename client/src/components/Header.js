@@ -15,13 +15,13 @@ const HeaderOuter = styled.div`
         width: 100vw;
         background-color: white;
         border-bottom: 1px solid #757575;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-around;
     }
 `
 
 const Wings = styled.div`
-    display: none;
+    /* display: none; */
 
     @media screen and (min-width: 1081px) {
         display: flex;

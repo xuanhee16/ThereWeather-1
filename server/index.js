@@ -6,7 +6,7 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const express = require("express")
 const app = express()
-// const controllers = require("./controllers")
+const controllers = require("./controllers")
 const multer = require("multer")
 const logger = require("morgan")
 
@@ -38,7 +38,27 @@ app.get("/", (req, res) => {
   res.send("Hello World!!")
 })
 
-// app.get("/auth", controllers.auth)
+//get 
+app.get("/auth", controllers.auth)
+app.get("/bookmark", controllers.bookmark)
+app.get("/codi", controllers.codi)
+app.get("/home", controllers.home)
+app.get("/map", controllers.map)
+app.get("/mypage", controllers.mypage)
+
+//post 
+app.post("/login", controllers.login)
+app.post("/signout", controllers.signout)
+app.post("/signup", controllers.signup)
+
+//put 
+app.put("/password", controllers.password)
+app.put("/userinfo", controllers.userinfo)
+app.put("/userphoto", controllers.userphoto)
+
+//delete
+app.delete("/deletepost", controllers.deletepost)
+app.delete("/removeuser", controllers.removeuser)
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80
 
