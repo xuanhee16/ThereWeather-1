@@ -13,7 +13,7 @@ import More from "./pages/More"
 import MyPage from "./pages/MyPage"
 import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
-
+import ModalConfirm from "./components/ModalConfirm"
 
 const Body = styled.div`
 //바디넣을 디자인 
@@ -23,9 +23,10 @@ function App() {
   return (
     <div className="App">
       <Header isLogin isMobileLogo />
-      <Login />
+      {/* <Login /> */}
       <PasswordEdit />
       <MenuBar />
+      {/* <ModalConfirm isOpen>삭제하시겠습니까?</ModalConfirm> */}
     </div>
   );
 }

@@ -52,12 +52,24 @@ const Button = styled.button`
   background-color: var(--modal-confirm-button-bg);
 `;
 
-export default function ModalConfirm({ children }) {
+export default function ModalConfirm({ children, yesHandler, noHandler, closeHandler }) {
+  const yesButtonHandler = () => {
+    yesHandler();
+  }
+
+  const noButtonHandler = () => {
+    noHandler();
+  }
+
+  const closeButtonHandler = () => {
+    closeHandler();
+  }
+
   return (
     <Outer className="modalBackground">
       <Popup className="modalConfirm">
         <article className="closeButtonArea">
-          <button className="modalCloseButton">
+          <button className="modalCloseButton" onClick={closeButtonHandler}>
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </article>
@@ -65,8 +77,8 @@ export default function ModalConfirm({ children }) {
           {children}
         </article>
         <article className="modalConfirmButtons">
-          <Button className="modalButtonYes">예</Button>
-          <Button className="modalButtonNo">아니오</Button>
+          <Button className="modalButtonYes" onClick={yesButtonHandler}>예</Button>
+          <Button className="modalButtonNo" onClick={noButtonHandler}>아니오</Button>
         </article>
       </Popup>
     </Outer>

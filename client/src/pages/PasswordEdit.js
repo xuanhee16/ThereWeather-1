@@ -1,5 +1,8 @@
-import { useState } from "react"
 import styled from "styled-components"
+import { useState } from "react"
+import { useHistory } from "react-router-dom";
+import ModalConfirm from "../components/ModalConfirm";
+
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 // import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 
@@ -97,8 +100,17 @@ const Button = styled.button`
   border-radius: 1rem;
 `;
 
+const TextButton = styled.button`
+  align-self: flex-end;
+  margin: 1rem 3rem;
+  font-size: 1rem;
+  color: grey;
+  text-decoration: underline;
+`;
 
 export default function PasswordEdit() {
+  let history = useHistory();
+
   const [ curPwd, setCurPwd ] = useState('');
   const [ newPwd, setNewPwd ] = useState('');
   const [ curPwdInputWarning, setCurPwdInputWarning ] = useState('비밀번호를 입력해주세요.');
@@ -169,9 +181,32 @@ export default function PasswordEdit() {
 
   const cancelButtonHandler = (e) => {
     console.log('취소 버튼 동작 확인')
-    // TODO 이전 페이지로 redirect
+    setCurPwd(prev => '');
+    setNewPwd(prev => '');
+    setIsValid(prev => '');
+    // TODO 이전 페이지로
+    history.push('/home');
   }
 
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const withdrawButtonHandler = (e) => {
+    console.log('탈퇴 버튼 동작확인');
+    setIsModalOpen(true);
+  }
+
+  const modalYesButtonHandler = (e) => {
+    console.log('모달 yes 버튼 동작 확인');
+  }
+
+  const modalNoButtonHandler = (e) => {
+    console.log('모달 no 버튼 동작 확인');
+    setIsModalOpen(false);
+  }
+
+  const modalCloseButtonHandler = (e) => {
+    console.log('모달 닫기 버튼 동작 확인');
+    setIsModalOpen(false);
+  }
 
   return (
     <Outer className="loginPageComponent">
@@ -184,7 +219,7 @@ export default function PasswordEdit() {
             <InputText
               type="password"
               name="curPwd"
-              placeholder="아이디를 입력하세요"
+              placeholder="현재 비밀번호를 입력하세요"
               onChange={curInputHandler}
               value={curPwd}
             />
@@ -221,7 +256,21 @@ export default function PasswordEdit() {
         </div>
       </Buttons>
 
-      {/* <TextButton className="removeUserInfo">회원탈퇴</TextButton> */}
+      <TextButton className="removeUserInfo" onClick={withdrawButtonHandler}>회원탈퇴</TextButton>
+
+      {
+        isModalOpen?
+          <ModalConfirm
+            isOpen={true}
+            yesHandler={modalYesButtonHandler}
+            noHandler={modalNoButtonHandler}
+            closeHandler={modalCloseButtonHandler}
+          >
+            탈퇴하시겠습니까?
+          </ModalConfirm>
+        :
+          ''
+      }
     </Outer>
   );
 }
