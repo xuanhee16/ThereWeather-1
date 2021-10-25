@@ -7,8 +7,6 @@ import MenuBar from "./components/MenuBar"
 import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
-
-// import { Switch, Route } from "react-router-dom"
 import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 
