@@ -47,12 +47,12 @@ export default function MenuBar() {
         <Outer className="menuBar">
             <Buttons>
                 {/*
-          <Link to='/mainpage'>
-            <Button>
-              <FontAwesomeIcon icon={faHome} />
-            </Button>
-          </Link>
-        */}
+                    <Link to='/mainpage'>
+                    <Button>
+                        <FontAwesomeIcon icon={faHome} />
+                    </Button>
+                    </Link>
+                */}
                 <Button>
                     <FontAwesomeIcon icon={faHome} />
                 </Button>
