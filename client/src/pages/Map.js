@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import { changeUser } from "../actions/index"
-import MapBox from "../components/MapBox"
+// import MapBox from "../components/MapBox"
 
 const Container = styled.div``
 

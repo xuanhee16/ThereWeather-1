@@ -3,7 +3,6 @@ import {Switch, Route, Redirect} from "react-router-dom";
 import Map from "./pages/Map"
 import Header from "./components/Header"
 import MenuBar from "./components/MenuBar"
-import Body from "./components/Body"
 import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
