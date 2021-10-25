@@ -25,13 +25,13 @@
 	--modal-confirm-button-bg: #C4C4C4;
 
 	/* 길이 - 모바일 */
+	--mobile-page-height: calc(100vh - 200px - 70px);
 	--mobile-header-height: 200px;
 	--mobile-menubar-height: 70px;
-	--mobile-page-height: calc(100vh - 200px - 70px);
 	
 	/* 길이 - 데스크탑*/
-	--desktop-page-height: calc(100vh - 125px);
 	--desktop-header-height: 125px;
+	--desktop-page-height: calc(100vh - 125px);
 }
 
 /* 속성값 통일 */

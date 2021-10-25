@@ -23,14 +23,14 @@ function App() {
 	return (
 		<div>
 			{/* 로그인 페이지, 로그아웃(로그인을 안 한) 상태 */}
-			<Header isMobileLogo={true} isLogin={false} />
+			{/* <Header isMobileLogo={true} isLogin={false} />
 			<Login />
-			<MenuBar />
+			<MenuBar /> */}
 
 			{/* 지도 페이지, 로그인한 경우 */}
-			{/* <Header isInput={true} isLogin={true}/>
+			<Header isInput={true} isLogin={false}/>
 			<Map />
-			<MenuBar /> */}
+			<MenuBar />
 		</div>
 	)
 }
