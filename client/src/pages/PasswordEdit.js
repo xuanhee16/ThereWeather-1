@@ -1,16 +1,17 @@
 import { useState } from "react"
 import styled from "styled-components"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGoogle } from "@fortawesome/free-brands-svg-icons"
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+// import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 
 /*
-  TODO
+  TODO - 비밀번호 수정 페이지
   [x] 여러개의 Input 상태 관리
   [] 유효성 검사
     - [x] ul, li 추가
     - [] 함수로 구현
-      - [x] input이 없는 경우
-      - [] 등록되지 않은 정보인 경우
+      - [] (둘 다) input이 없는 경우 - li
+      - [] (새 비밀번호) 조건에 안 맞는 경우 - li
+      - [] (현재 비밀번호) 등록되지 않은 정보인 경우
         - [] 악시오스
         - [] 모달? alert? 페이지에 렌더링?
 */
@@ -77,99 +78,91 @@ const ValidationListBox = styled.ul`
 
 const Buttons = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 3rem auto;
 `;
 
 const Button = styled.button`
-  width: 50vw;
-  min-width: 100px;
-  max-width: 300px;
+  width: 25vw;
+  min-width: 50px;
+  max-width: 200px;
   margin: 1rem;
   padding: .8rem;
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
-  background-color: ${ props => props.google ? '#EA4335' : '#419300' };
+  background-color: ${ props => props.edit ? `var(--button-bg-edit)` : `var(--button-bg-negative)` };
   border-radius: 1rem;
-
-  >span {
-    margin: .25rem;
-  }
 `;
 
-export default function Login() {
-  // input 상태 관리, 유효성 검사
-  const [ idInput, setIdInput ] = useState('');
-  const [ pwInput, setPwInput ] = useState('');
-  const [ idInputMessage, setIdInputMessage ] = useState('아이디를 입력하세요.');
-  const [ pwInputMessage, setPwInputMessage ] = useState('비밀번호를 입력하세요.');
+const TextButton = styled.button`
+  background-color: transparent;
+  color: grey;
+  text-decoration: underline;
+  align-self: flex-end;
+  margin-right: 3rem;
+  font-size: 1rem;
+`;
 
-  const idOnChangeHanlder = (e) => {
-    setIdInput(prevInput => e.target.value);
-
-    if (e.target.value.length === 0) {
-      setIdInputMessage(prevText => '아이디를 입력하세요.');
-    } else {
-      setIdInputMessage(prevText => '');
-    }
+export default function PasswordEdit() {
+  const [ inputs, setInputs ] = useState({ curPwd: '', newPwd: '' });
+  const { curPwd, newPwd } = inputs;
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    setInputs(prevInputs => {
+      return { ...prevInputs, [name]: value }
+    });
   }
 
-  const pwOnChangeHandler = (e) => {
-    setPwInput(prevInput => e.target.value);
+  const [ noInputWarning, setNoInputWarning ] = useState('비밀번호를 입력해 주세요');
+  const validationTester = () => {
 
-    if (e.target.value.length === 0) {
-      setPwInputMessage(prevText => '비밀번호를 입력하세요.');
-    } else {
-      setPwInputMessage(prevText => '');
-    }
   }
 
   return (
     <Outer className="loginPageComponent">
-      <h2>로그인</h2>
+      <h2>비밀번호 변경</h2>
       <div className="Login--center">
         <StyledArticle className="id">
           <InputAndTitle className="inputIdSection">
-            <h3>아이디</h3>
+            <h3>현재 비밀번호</h3>
             <InputText
-              type="text"
-              name="idInput"
+              type="password"
+              name="curPwd"
               placeholder="아이디를 입력하세요"
-              value={idInput}
-              onChange={idOnChangeHanlder}
+              onChange={inputHandler}
+              value={curPwd}
             />
           </InputAndTitle>
           <ValidationListBox className="idValidationList">
-            <li>{idInputMessage}</li>
+            <li>{noInputWarning}</li>
           </ValidationListBox>
         </StyledArticle>
 
         <StyledArticle className="password">
           <InputAndTitle className="inputPwSection">
-            <h3>비밀번호</h3>
+            <h3>새 비밀번호</h3>
             <InputText
               type="password"
-              name="pwInput"
+              name="newPwd"
               placeholder="비밀번호를 입력하세요"
-              value={pwInput}
-              onChange={pwOnChangeHandler}
+              onChange={inputHandler}
+              value={newPwd}
             />
           </InputAndTitle>
           <ValidationListBox className="pwValidationList">
-            <li>{pwInputMessage}</li>
+            <li>{noInputWarning}</li>
           </ValidationListBox>
         </StyledArticle>
       </div>
       <Buttons className="login--buttons">
-        <Button>로그인</Button>
-        <Button google>
-          <FontAwesomeIcon icon={faGoogle} />
-          <span>구글 로그인</span>
-        </Button>
+        <div>
+          <Button edit>수정</Button>
+          <Button>취소</Button>
+        </div>
       </Buttons>
+      <TextButton className="removeUserInfo">회원탈퇴</TextButton>
     </Outer>
   );
 }
