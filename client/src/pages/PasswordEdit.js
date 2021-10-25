@@ -69,11 +69,17 @@ const ValidationListBox = styled.ul`
   padding: 0 1.5rem;
   font-size: 1rem;
 
-  li {
-    height: 1.2rem;
-    padding: 0 1.5rem;
-    color: var(--font-validation-negative);
-  }
+  // li {
+  //   height: 1.2rem;
+  //   padding: 0 1.5rem;
+  //   color: ${ props => props.valid ? `var(--font-validation-positive)` : `var(--font-validation-negative)` };
+  // }
+`;
+
+const StyledLi = styled.li`
+  height: 1.2rem;
+  padding: 0 1.5rem;
+  color: ${ props => props.valid ? `var(--font-validation-positive)` : `var(--font-validation-negative)` };
 `;
 
 const Buttons = styled.div`
@@ -108,13 +114,21 @@ const TextButton = styled.button`
 export default function PasswordEdit() {
   const [ curPwd, setCurPwd ] = useState('');
   const [ newPwd, setNewPwd ] = useState('');
-  const [ curPwdInputWarning, setCurPwdInputWarning ] = useState('비밀번호를 입력해주세요');
-  const [ newPwdInputWarning, setNewPwdInputWarning ] = useState('비밀번호를 입력해주세요');
+  const [ curPwdInputWarning, setCurPwdInputWarning ] = useState('비밀번호를 입력해주세요.');
+  const [ newPwdInputWarning, setNewPwdInputWarning ] = useState({
+    isNoInput: '비밀번호를 입력해주세요.',
+    isTooShort: '8자 이상이어야 합니다.',
+    isWrongType: '숫자와 문자를 포함해야 합니다.'
+  });
+  const { isNoInput, isTooShort, isWrongType } = newPwdInputWarning;
+  const [ isValid, setIsValid ] = useState('');
+
+  const validationReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g;
 
   const curInputHandler = (e) => {
     setCurPwd(prev => e.target.value);
     if (e.target.value.length === 0) {
-      setCurPwdInputWarning(prev => '비밀번호를 입력해주세요');
+      setCurPwdInputWarning(prev => '비밀번호를 입력해주세요.');
     } else {
       setCurPwdInputWarning(prev => '');
     }
@@ -122,10 +136,37 @@ export default function PasswordEdit() {
 
   const newInputHandler = (e) => {
     setNewPwd(prev => e.target.value);
+
     if (e.target.value.length === 0) {
-      setNewPwdInputWarning(prev => '비밀번호를 입력해주세요');
+      setNewPwdInputWarning(prev => {
+        return {...prev, isNoInput: '비밀번호를 입력해주세요.'}
+      });
     } else {
-      setNewPwdInputWarning(prev => '');
+      setNewPwdInputWarning(prev => {
+        return {...prev, isNoInput: ''}
+      });
+    }
+
+    if (!validationReg.test(e.target.value)) {
+      setNewPwdInputWarning(prev => {
+        return {...prev, isWrongType: '문자, 숫자, 특수문자가 모두 포함되어야 합니다.'}
+      });
+      setIsValid(prev => '')
+    } else {
+      setNewPwdInputWarning(prev => {
+        return {...prev, isWrongType: ''}
+      });
+      setIsValid(prev => '사용 가능합니다.')
+    }
+
+    if (e.target.value.length < 8) {
+      setNewPwdInputWarning(prev => {
+        return {...prev, isTooShort: '8자 이상이어야 합니다.'}
+      });
+    } else {
+      setNewPwdInputWarning(prev => {
+        return {...prev, isTooShort: ''}
+      });
     }
   }
 
@@ -145,7 +186,7 @@ export default function PasswordEdit() {
             />
           </InputAndTitle>
           <ValidationListBox className="idValidationList">
-            <li>{curPwdInputWarning}</li>
+            <StyledLi>{curPwdInputWarning}</StyledLi>
           </ValidationListBox>
         </StyledArticle>
 
@@ -161,7 +202,10 @@ export default function PasswordEdit() {
             />
           </InputAndTitle>
           <ValidationListBox className="pwValidationList">
-            <li>{newPwdInputWarning}</li>
+            <StyledLi valid>{isValid}</StyledLi>
+            <StyledLi>{isNoInput}</StyledLi>
+            <StyledLi>{isTooShort}</StyledLi>
+            <StyledLi>{isWrongType}</StyledLi>
           </ValidationListBox>
         </StyledArticle>
       </div>
