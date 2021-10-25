@@ -9,7 +9,7 @@ import styled from "styled-components"
   [] 유효성 검사
     - [x] ul, li 추가
     - [] 함수로 구현
-      - [] (둘 다) input이 없는 경우 - li
+      - [x] (둘 다) input이 없는 경우 - li
       - [] (새 비밀번호) 조건에 안 맞는 경우 - li
       - [] (현재 비밀번호) 등록되지 않은 정보인 경우
         - [] 악시오스
@@ -106,18 +106,27 @@ const TextButton = styled.button`
 `;
 
 export default function PasswordEdit() {
-  const [ inputs, setInputs ] = useState({ curPwd: '', newPwd: '' });
-  const { curPwd, newPwd } = inputs;
-  const inputHandler = (e) => {
-    const { name, value } = e.target;
-    setInputs(prevInputs => {
-      return { ...prevInputs, [name]: value }
-    });
+  const [ curPwd, setCurPwd ] = useState('');
+  const [ newPwd, setNewPwd ] = useState('');
+  const [ curPwdInputWarning, setCurPwdInputWarning ] = useState('비밀번호를 입력해주세요');
+  const [ newPwdInputWarning, setNewPwdInputWarning ] = useState('비밀번호를 입력해주세요');
+
+  const curInputHandler = (e) => {
+    setCurPwd(prev => e.target.value);
+    if (e.target.value.length === 0) {
+      setCurPwdInputWarning(prev => '비밀번호를 입력해주세요');
+    } else {
+      setCurPwdInputWarning(prev => '');
+    }
   }
 
-  const [ noInputWarning, setNoInputWarning ] = useState('비밀번호를 입력해 주세요');
-  const validationTester = () => {
-
+  const newInputHandler = (e) => {
+    setNewPwd(prev => e.target.value);
+    if (e.target.value.length === 0) {
+      setNewPwdInputWarning(prev => '비밀번호를 입력해주세요');
+    } else {
+      setNewPwdInputWarning(prev => '');
+    }
   }
 
   return (
@@ -131,12 +140,12 @@ export default function PasswordEdit() {
               type="password"
               name="curPwd"
               placeholder="아이디를 입력하세요"
-              onChange={inputHandler}
+              onChange={curInputHandler}
               value={curPwd}
             />
           </InputAndTitle>
           <ValidationListBox className="idValidationList">
-            <li>{noInputWarning}</li>
+            <li>{curPwdInputWarning}</li>
           </ValidationListBox>
         </StyledArticle>
 
@@ -147,12 +156,12 @@ export default function PasswordEdit() {
               type="password"
               name="newPwd"
               placeholder="비밀번호를 입력하세요"
-              onChange={inputHandler}
+              onChange={newInputHandler}
               value={newPwd}
             />
           </InputAndTitle>
           <ValidationListBox className="pwValidationList">
-            <li>{noInputWarning}</li>
+            <li>{newPwdInputWarning}</li>
           </ValidationListBox>
         </StyledArticle>
       </div>
