@@ -45,6 +45,7 @@ grid-area:
 ;
 grid-gap:0.1rem;
 transition: all 0.01s ease-in-out;
+//(max-width: 1081px)
 @media (max-width: 600px) {
   grid-template-rows: 0.5fr 0.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
   grid-template-columns: 1fr;

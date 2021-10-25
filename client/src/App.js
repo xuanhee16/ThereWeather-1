@@ -2,6 +2,7 @@ import "./App.css"
 import {Switch, Route, Redirect} from "react-router-dom";
 import Map from "./pages/Map"
 import Home from "./pages/Home"
+import BookMark from "./pages/BookMark"
 import Header from "./components/Header"
 import MenuBar from "./components/MenuBar"
 import UserInfo from "./pages/UserInfo"
@@ -26,6 +27,9 @@ function App() {
             </Route>  
             <Route exact path="/home">
               <Home></Home>  
+            </Route> 
+            <Route exact path="/bookmark">
+              <BookMark></BookMark>  
             </Route> 
         </Switch>
     <MenuBar></MenuBar>
