@@ -5,7 +5,6 @@ import PostListContainer from "./PostListView"
 const Outer = styled.div`
     width: 100%;
 
-    //아래가 pc
     @media screen and (min-width: 1081px) {
         // border: 1px solid red;
 
@@ -20,7 +19,6 @@ const Outer = styled.div`
 const Outer2 = styled.div`
     width: 100%;
 
-    //아래가 pc
     @media screen and (min-width: 1081px) {
         border: 1px solid red;
         // background-color: white;

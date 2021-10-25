@@ -6,10 +6,6 @@ const GlobalStyle = createGlobalStyle`
     // font-family: "BMDOHYEON";    
   }
 
-  HeaderOuter {
-    font-family: "BMDOHYEON";    
-  }
-
   // Header {
   //   font-family: "BMDOHYEON";    
   // }

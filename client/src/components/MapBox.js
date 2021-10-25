@@ -6,7 +6,6 @@ const ImgContainer = styled.div`
     // position: relative;
     padding-top: 222%;
 
-    //아래가pc
     @media screen and (min-width: 1081px) {
         // max-width: 1920px;
         // max-height: 1080px;

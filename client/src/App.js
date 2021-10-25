@@ -15,8 +15,7 @@ const Wrap = styled.div`
 
     width: 100%;
 
-    //아래가 pc
-    @media screen and (min-width: 1081px) {
+        @media screen and (min-width: 1081px) {
         border: 1px solid black;
         width: 95%;
         margin: 0 auto;
@@ -26,8 +25,7 @@ const Body = styled.div`
     // background-color: #3ae823;
     width: 100%;
 
-    //아래가 pc
-    @media screen and (min-width: 1081px) {
+        @media screen and (min-width: 1081px) {
         // background-color: green;
         position: relative;
         // border: 1px solid blue;

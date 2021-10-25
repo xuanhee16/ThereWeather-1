@@ -5,7 +5,7 @@ import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "
 const HeaderOuter = styled.div`
     // background-color: yellow;
     width: 100%;
-    //아래가 pc
+
     @media screen and (min-width: 1081px) {
         // background-color: #d9f576;
         width: 100%;
@@ -26,6 +26,7 @@ const Wings = styled.div`
         justify-content: space-around;
         font-size: 0.8rem;
         max-width: 20vw;
+        font-family: "BMDOHYEON";
     }
 
     & > img {
@@ -87,7 +88,7 @@ export default function Header({ isInput }) {
                 {/* <img src="img/img0.png" alt="logo" /> */}
                 {/* <img src="img/img1.png" alt="logo" /> */}
                 {/* <img src="img/img2.png" alt="logo" /> */}
-                <img src="img/img3.png" alt="logo" />
+                <img src="img/img2.png" alt="logo" />
                 <h1>거기날씨</h1>
             </Wings>
             {isInput ? (
@@ -121,7 +122,7 @@ export default function Header({ isInput }) {
             )}
             <Wings>
                 <Button isText>
-                    <div font-family="BMDOHYEON">Login</div>
+                    <div font-family="BMDOHYEON">Signin</div>
                 </Button>
                 <Button isText>
                     <div font-family="BMDOHYEON">SignUp</div>
