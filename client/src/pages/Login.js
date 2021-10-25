@@ -127,6 +127,16 @@ export default function Login() {
     }
   }
 
+  const loginButtonHandler = (e) => {
+    if (idInput.length === 0 && pwInput.length === 0) {
+      console.log('모든 항목을 입력해야 합니다.')
+    }
+  }
+
+  const googleLoginButtonHandler = (e) => {
+    console.log('구글 로그인 버튼 동작 확인');
+  }
+
   return (
     <Outer className="loginPageComponent">
       <h2>로그인</h2>
@@ -163,9 +173,12 @@ export default function Login() {
           </ValidationListBox>
         </StyledArticle>
       </div>
+
       <Buttons className="login--buttons">
-        <Button>로그인</Button>
-        <Button google>
+        <Button onClick={loginButtonHandler}>로그인</Button>
+
+        {/* 소셜로그인 */}
+        <Button onClick={googleLoginButtonHandler} google>
           <FontAwesomeIcon icon={faGoogle} />
           <span>구글 로그인</span>
         </Button>

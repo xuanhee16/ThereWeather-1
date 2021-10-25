@@ -6,6 +6,7 @@ import Map from "./pages/Map"
 import Home from "./pages/Home"
 import Header from "./components/Header"
 import MenuBar from "./components/MenuBar"
+import Login from "./pages/Login"
 import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className="App">
       <Header isLogin isMobileLogo />
+      <Login />
       <PasswordEdit />
       <MenuBar />
     </div>
