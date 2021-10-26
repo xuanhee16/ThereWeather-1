@@ -10,28 +10,13 @@ import { Wind as StrongWind } from "@emotion-icons/fa-solid"
 import { Thermometer, ThermometerHalf, ThermometerHigh } from "@emotion-icons/bootstrap"
 
 
-/*
-import {Zap} from '@emotion-icons/octicons'
-
-v @emotion-icons/fluentui-system-filled/WeatherSunny
-v @emotion-icons/ionicons-sharp/Cloudy
-v @emotion-icons/ionicons-solid/Rainy
-v @emotion-icons/fa-regular/Snowflake
-
-v @emotion-icons/feather/Wind
-v @emotion-icons/boxicons-regular/Wind
-@emotion-icons/fa-solid/Wind
-
-v @emotion-icons/bootstrap/Thermometer
-v @emotion-icons/bootstrap/ThermometerHalf
-v @emotion-icons/bootstrap/ThermometerHigh
-*/
-
 /* TODO
   [] 업로드된 이미지의 크기 정리를 어떻게 할지
     - 가로, 세로 비율 유지 방법
   [] 날씨 버튼
     - 버튼 아이콘, 스타일
+      - [ ] background-color, padding, height, width
+      - [ ] button type
     - 필터링을 위한 post 요청
       - 버튼에 value 주고, 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯
       - 선택된 버튼의 스타일 바꾸기
