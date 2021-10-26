@@ -1,5 +1,5 @@
 /* 사용자 지정 속성 */
-	/*
+/*
 		[사용법] var(컬러이름)
 		[예시] div의 배경색을 바꿀 때,
 			div {
@@ -47,7 +47,6 @@ button {
     background-color: transparent;
     cursor: pointer;
 }
-
 
 /* [start] create-react-app default style */
 body {

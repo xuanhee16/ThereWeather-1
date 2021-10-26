@@ -1,5 +1,7 @@
+import React, { useState } from "react"
+import { Switch, Route, Redirect, useHistory, Router } from "react-router-dom"
+import axios from "axios"
 import "./App.css"
-import {Switch, Route, Redirect} from "react-router-dom";
 import Map from "./pages/Map"
 import Home from "./pages/Home"
 import Header from "./components/Header"
@@ -9,36 +11,45 @@ import More from "./pages/More"
 import MyPage from "./pages/MyPage"
 import Login from "./pages/Login" // 이상아
 import PasswordEdit from "./pages/PasswordEdit"; // 이상아
+import SignUp from "./pages/SignUp"
 import styled from "styled-components"
+import MyPost from "./pages/MyPost"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 
-const Body = styled.div`
-//바디넣을 디자인 
-`;
 
 
-function App() {
+export default function App() {
     const isInput = true
     return (
-    <>
-      <Header isInput={isInput} />
-        <Switch>
-            <Route exact path="/map">
-              <Map></Map>
-            </Route>
-            <Route exact path="/home">
-              <Home></Home>
-            </Route>
-            <Route exact path="/login"> {/* 이상아 - 로그인 */}
-              <Login></Login>
-            </Route>
-            <Route exact path="/editpassword"> {/* 이상아 - 비밀번호 수정 */}
-              <PasswordEdit></PasswordEdit>
-            </Route>
-        </Switch>
-    <MenuBar></MenuBar>
-    </>
+        <>
+            <Header isInput={isInput} />
+                <Switch>
+                    <Route exact path="/map">
+                        <Map></Map>
+                    </Route>
+                    <Route exact path="/home">
+                        <Home></Home>
+                    </Route>
+                    <Route exact path="/userinfo">
+                        <UserInfo></UserInfo>
+                    </Route>
+                    <Route exact path="/more">
+                        <More></More>
+                    </Route>
+                    <Route exact path="/mypage">
+                        <MyPage></MyPage>
+                    </Route>
+                    <Route exact path="/login">
+                        <Login></Login>
+                    </Route>
+                    <Route exact path="/signup">
+                        <SignUp></SignUp>
+                    </Route>
+                    <Route exact path="/editpassword"> {/* 이상아 - 비밀번호 수정 */}
+                        <PasswordEdit></PasswordEdit>
+                    </Route>
+                </Switch>
+            <MenuBar></MenuBar>
+        </>
     )
 }
-
-export default App
