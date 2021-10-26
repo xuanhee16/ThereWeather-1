@@ -126,7 +126,7 @@ export default function Login() {
             setPwInputMessage((prevText) => "")
         }
     }
-  }
+  
 
   const loginButtonHandler = (e) => {
     if (idInput.length === 0 && pwInput.length === 0) {
