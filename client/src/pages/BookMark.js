@@ -3,15 +3,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faDigitalTachograph, faHeart } from "@fortawesome/free-solid-svg-icons"
-import { updateCurrentPage, updateStartEndPage } from "../actions/index"
+//import { updateCurrentPage, updateStartEndPage } from "../actions/index"
+import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
 export default function BookMark() { 
   const state = useSelector(state => state.itemReducer);
   const { start, end, current } = state; 
   const dispatch = useDispatch();
-  const updateCurrentPages = dispatch(updateCurrentPage);
-  const updateStartEndPages = dispatch(updateStartEndPage);
-  
+  // const updateCurrentPages = dispatch(updateCurrentPage);
+  // const updateStartEndPages = dispatch(updateStartEndPage);
+  const updateCurrentPages = page => (dispatchs) => {
+    dispatch({ type: UPDATE_CURRENT_PAGE, payload: page })
+  }
+  const updateStartEndPages = (start, end) => (dispatchs) => {
+    dispatch({ type: UPDATE_START_END_PAGE, payload: { start, end } })
+  }
+
   const per = 4;
   //테스트중 갯수 20개로 고정
   const total = Math.ceil(20 / per);
@@ -96,7 +103,7 @@ export default function BookMark() {
       padding: 1rem;
     `;
   
-    const Pagenation = styled.div`
+    const Pagination = styled.div`
       display: flex;
       justify-content: center;
       margin: 2rem;
@@ -105,15 +112,15 @@ export default function BookMark() {
         font-size: 1rem;
       }
     `;
-    const PrevPage = styled.button`
+    const PrevPage = styled.div`
    `;
-    const PageNumber = styled.button`
+    const PageNumber = styled.div`
      li {
       float: left;
       margin: 1.5rem;
      }
     `;
-    const NextPage = styled.button`
+    const NextPage = styled.div`
     `;
 
 
@@ -155,7 +162,7 @@ export default function BookMark() {
             <NextPage>다음</NextPage>
           </Pagenation> */}
         </Container>
-           <Pagenation>
+           <Pagination>
             <PrevPage>
               <li className="prevPage">
                 <button className="previousPages" onClick={()=>{
@@ -196,7 +203,7 @@ export default function BookMark() {
                 </button>
               </li>
             </NextPage>
-          </Pagenation>
+          </Pagination>
         </div>
     )
 }
