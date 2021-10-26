@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { useHistory } from "react-router-dom"
 
 const HeaderOuter = styled.div`
     width: 100vw;
@@ -115,6 +116,7 @@ const Button = styled.button`
 `
 
 export default function Header({ isInput, isMobileLogo, isLogin }) {
+    const history = useHistory()
     // isInput : Map 페이지 사용시 true
     // isMobileLogo : Map 페이지 사용시 false
     // isLogin : 로그인 상태에 따라 - 로그인 되어있으면 true, 아니면 false
@@ -167,10 +169,10 @@ export default function Header({ isInput, isMobileLogo, isLogin }) {
                 </Wing>
             ) : (
                 <Wing className="loginAndSingupButtons">
-                    <Button className="login" isText>
+                    <Button onClick={() => history.push("/login")} className="login" isText>
                         로그인
                     </Button>
-                    <Button className="signup" isText>
+                    <Button onClick={() => history.push("/signup")} className="signup" isText>
                         회원가입
                     </Button>
                 </Wing>
