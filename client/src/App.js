@@ -9,32 +9,20 @@ import MenuBar from "./components/MenuBar"
 import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
-import Login from "./pages/Login"
+import Login from "./pages/Login" // 이상아
+import PasswordEdit from "./pages/PasswordEdit"; // 이상아
 import SignUp from "./pages/SignUp"
 import styled from "styled-components"
 import MyPost from "./pages/MyPost"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 
 
-const Body = styled.div`
-    // background-color: #3ae823;
-    width: 100%;
-    //아래가 pc
-    @media screen and (min-width: 1081px) {
-        // background-color: green;
-        position: relative;
-        // border: 1px solid blue;
-        width: 100%;
-    }
-`
 
 export default function App() {
     const isInput = true
     return (
-
         <>
             <Header isInput={isInput} />
-            <Body>
                 <Switch>
                     <Route exact path="/map">
                         <Map></Map>
@@ -57,10 +45,11 @@ export default function App() {
                     <Route exact path="/signup">
                         <SignUp></SignUp>
                     </Route>
+                    <Route exact path="/editpassword"> {/* 이상아 - 비밀번호 수정 */}
+                        <PasswordEdit></PasswordEdit>
+                    </Route>
                 </Switch>
-            </Body>
             <MenuBar></MenuBar>
         </>
-
     )
 }
