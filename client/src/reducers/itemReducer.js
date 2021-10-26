@@ -15,10 +15,10 @@ const itemReducer = (state = initialState, action) => {
         // case CHANGE_USER_INFO:
         //     break
         case UPDATE_CURRENT_PAGE: 
-          return {
-              ...state,
-              current: action.payload
-          } 
+            return {
+                ...state,
+                current: action.payload
+            } 
         case UPDATE_START_END_PAGE:
             return {
                 ...state, 

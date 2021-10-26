@@ -1,5 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
 const Outer = styled.div`
   background-color: #FEF9EF;
@@ -11,22 +13,10 @@ const Outer = styled.div`
     padding-top: 5vh;
   }
 
-  ul{
-    display:flex;
-  }
-  li {
-    list-style: none;
-  }
-  button{
-    color: red;
-    font-size: 2rem;
-  }
 
-  ////////
-  /* li{
-    padding: 50px;
-    font-size: 3rem;
-  } */
+  button{
+    font-size: 1.5rem;
+  }
 
 `
 // 스크롤시 메세지
@@ -101,42 +91,43 @@ const PostInfo = styled.div`
   }
 `
 
+// 페이지네이션
+const Page = styled.div`
+  background-color: yellow;
+  display: flex;
+  justify-content: center;
+  li {
+    list-style: none;
+  }
+  button{
+    border: 1px solid red;
+    margin: 0 1vw;
+  }
+`
+
 export default function MyPost() {
-/* 무한스크롤 XX
-  const useInfinite = (callback) => {
-    const [isFetching, setIsFetching] = useState(false);
-    useEffect(() => {
-      window.addEventListener("scroll", handleScroll);
-    }, []);
-    useEffect(() => {
-      if(!isFetching) return;
-      callback(() => {
-        console.log("callBack");
-      });
-    }, [isFetching])
-
-    function handleScroll(){
-      if(window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isFetching) return;
-      setIsFetching(true);
-    }
-    return [isFetching, setIsFetching]
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.itemReducer)
+  const { start, end, current } = state;
+  const updateCurrPage = page => (dispatchs) => {
+    dispatch({ type : UPDATE_CURRENT_PAGE, payload: page })
+  }
+  const updateStartEndPage = (start, end) => (dispatchs) => {
+    dispatch({type: UPDATE_START_END_PAGE, payload: {start, end}})
   }
 
-  const [listItems, setListItems] = useState(
-    Array.from(Array(50).keys(), (n) => n + 1)  // 처음 요소 50개
-  )
-  const [isFetching, setIsFetching] = useInfinite(fetchMoreList);
+  // 페이지별 담는 글 갯수
+  const per = 4;
 
-  function fetchMoreList(){
-    setTimeout(() => {
-      setListItems((prevState) => [
-        ...prevState,
-        ...Array.from(Array(15).keys(), (n) => n + prevState.length + 1)  // 15개씩 늘어남
-      ]);
-      setIsFetching(false)
-    }, 1000)
+  // 총 몇개 페이지가 필요한지?
+  const total = Math.ceil(20 / per);
+  // total의 갯수만큼 각 페이지번호가 있는 박스들을 생성하기 위한 mapping을 위한 배열
+  const array = [];
+  for(let i = 0; i < total; i++){
+    array.push(i + 1);
   }
-*/
+  // 총페이지가 10페이지가 넘을 경우에 10개씩 자른다.
+  const target = array.slice(start, end)
 
   return (
     <Outer>
@@ -150,31 +141,85 @@ export default function MyPost() {
             <p>온도 : {'따뜻함'}</p>
           </PostInfo>
         </div>
+        <div className="item">
+          <PostImg/>
+          <PostInfo>
+            <p>{}</p>
+            <p>날씨 : {}</p>
+            <p>바람 : {}</p>
+            <p>온도 : {}</p>
+          </PostInfo>
+        </div>
+        <div className="item">
+          <PostImg/>
+          <PostInfo>
+            <p>{}</p>
+            <p>날씨 : {}</p>
+            <p>바람 : {}</p>
+            <p>온도 : {}</p>
+          </PostInfo>
+        </div>
+        <div className="item">
+          <PostImg/>
+          <PostInfo>
+            <p>{}</p>
+            <p>날씨 : {}</p>
+            <p>바람 : {}</p>
+            <p>온도 : {}</p>
+          </PostInfo>
+        </div>
       </GridArea>
 
-
-      {/* <ul className="list-group mb-2">
-        <GridArea>
-          {listItems.map((listItem) => (
-            // <li className="list-group-item" key={listItem}>
-              <div className="item">
-                <PostImg></PostImg>
-                <PostInfo>
-                  <p>{`10/19`}</p>
-                  <p>날씨 : {'맑음'}</p>
-                  <p>바람 : {'조금'}</p>
-                  <p>온도 : {'따뜻함'}</p>
-                </PostInfo>
-              </div>
-            // </li>
-          ))}
-        </GridArea>
-      </ul>
-      {isFetching && 
-        <Waiting>Loading...</Waiting>
-      } */}
-
       {/* 페이지네이션이나 무한스크롤 */}
+      <Page>
+        <li id="prev" className="page-item">
+          <button
+            className="item page-link"
+            onClick={() => {
+              if(current === 1) return alert('첫번째 페이지 입니다.')
+              if(current % 10 === 1){
+                const s = start - 10;
+                const e = end - 10;
+                updateStartEndPage(s, e);
+              }
+              updateCurrPage(current - 1);
+            }}
+          >
+            이전
+          </button>
+        </li>
+
+        {target.map(el => (
+          <li className="page-item" key={el}>
+            <button
+              className="item page-link"
+              onClick={() => {
+                updateCurrPage(el)
+              }}
+            >
+              {el}
+            </button>
+          </li>
+        ))}
+
+        <li className="page-item">
+          <button
+            className="item page-link"
+            onClick={() => {
+              if(current === 1) return alert('첫번째 페이지 입니다.')
+              if(current % 10 === 1){
+                const s = start - 10;
+                const e = end - 10;
+                updateStartEndPage(s, e);
+              }
+              updateCurrPage(current + 1);
+            }}
+          >
+            다음
+          </button>
+        </li>
+      </Page>
+
     </Outer>
   )
 }
