@@ -12,6 +12,9 @@ import MyPage from "./pages/MyPage"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import styled from "styled-components"
+import MyPost from "./pages/MyPost"
+// import { faRoute } from "@fortawesome/free-solid-svg-icons"
+
 
 const Body = styled.div`
     // background-color: #3ae823;
@@ -28,6 +31,7 @@ const Body = styled.div`
 export default function App() {
     const isInput = true
     return (
+
         <>
             <Header isInput={isInput} />
             <Body>
@@ -57,5 +61,6 @@ export default function App() {
             </Body>
             <MenuBar></MenuBar>
         </>
+
     )
 }
