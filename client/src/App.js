@@ -4,6 +4,7 @@ import axios from "axios"
 import "./App.css"
 import Map from "./pages/Map"
 import Home from "./pages/Home"
+import BookMark from "./pages/BookMark"
 import Header from "./components/Header"
 import MenuBar from "./components/MenuBar"
 import UserInfo from "./pages/UserInfo"
@@ -29,6 +30,9 @@ export default function App() {
                     </Route>
                     <Route exact path="/home">
                         <Home></Home>
+                    </Route>
+                    <Route exact path="/bookmark">
+                        <BookMark></BookMark>
                     </Route>
                     <Route exact path="/userinfo">
                         <UserInfo></UserInfo>
