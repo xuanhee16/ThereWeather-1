@@ -1,6 +1,6 @@
 import styled from "styled-components"
+import { WeatherSunny } from "@styled-icons/fluentui-system-filled"
 import { useState } from "react"
-// import { useHistory } from "react-router-dom";
 
 /* TODO
   [] 업로드된 이미지의 크기 정리를 어떻게 할지
@@ -13,6 +13,9 @@ import { useState } from "react"
   [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
 */
 
+const StyledSunny = styled(WeatherSunny)`
+  color: black;
+`;
 
 const Outer = styled.div`
   display: flex;
@@ -202,7 +205,9 @@ export default function Write() {
           <FlexColumnCenter className="smallSection">
             <p>날씨를 선택하세요.</p>
             <FilteringButtons>
-              <button>1</button>
+              <button value="sunny">
+                <StyledSunny />
+              </button>
               <button>2</button>
               <button>3</button>
               <button>4</button>
