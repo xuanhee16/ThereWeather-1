@@ -2,12 +2,11 @@ import styled from "styled-components"
 
 export default function MyPage() {
   const Outer = styled.div`
-    /* margin: 0 auto; */
-    /* border: 1px solid red; */
     background-color: #FEF9EF;
     width: 100vw;
-    height: 100vh;
-
+    height: auto;
+    min-height: 100vh;
+    position: relative;
     display: flex;
 
     @media screen and (max-width: 1081px) {
@@ -19,26 +18,38 @@ export default function MyPage() {
     width: 30%;
     padding: 20vh 1vw 1vh 1vw;
     text-align: center;
-    p {
-      font-size: 2rem;
+
+    span{
+      display: flex;
+      margin: 2vh;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    a{
+      color: #336FC9;
+      font-size: 1.5rem;
+      margin-top: 1vh;
     }
     
     @media screen and (max-width: 1081px) {
       margin: 0 auto;
+      margin-top: 3vh;
       width: 50%;
-      padding: 3vh 0 0 0;
-      p {
-        font-size: 2.5rem;
-        margin: 1vh;
+      padding: 0;
+
+      span{
+        display: flex;
+        margin-top: 2vh;
+        justify-content: center;
       }
     }
 
   `
   /* 프로필 사진 */
   const ProfileImg = styled.img`
-    border: 1px solid red;
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     padding: 10px 10px;
     border-radius: 50%;
     background-color: #FFFFFF;
@@ -54,19 +65,18 @@ export default function MyPage() {
     font-size: 1.2rem;
 
     @media screen and (max-width: 1081px) {
+      width: 50vw;
       align-items: center;
-      
-      height: 3vh;
+      height: 10vh;
+      position: absolute;
+      bottom: 0;
     }
   `
 
-
   // 내가 쓴 예보 (grid)
-  const GridArea = styled.div`  
-    /* background-color: greenyellow; */
+  const GridArea = styled.div`
     width: 100vw;
     padding: 2vh 2vw 2vh 7vw;
-
     display: grid;
     grid-template-columns: 400px 400px 400px;
     grid-template-rows: 200px 400px 400px;
@@ -84,63 +94,67 @@ export default function MyPage() {
     div{
       border: 1px solid black;
     }
+    div:hover{
+      border: 1px solid #A2D2FF;
+    }
+
     .more {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
     }
     p{
-      font-size: 2rem;
-      margin: 0
+      font-size: 3rem;
+      margin: 0 auto;
+      font-weight: bold;
     }
-    a{
-      font-size: 1.2rem;
-      text-decoration: none
+    .moreView{
+      font-size: 1.5rem;
+      color: #336FC9;
     }
 
     @media screen and (max-width: 1081px) {
       margin: 0 auto;
       padding: 0;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 100px 400px 400px;
+      grid-template-rows: 150px 300px 300px;
       p{
         font-size: 3rem;
       }
-      a{
-        font-size: 2rem;
+      .item{
+        margin: 0.5vh;
       }
-
+      .moreView{
+        margin-left: 1vw;
+      }
     }
-
   `
-
   return (
     <Outer>
       <ProfileArea>
         <ProfileImg src='img/default-user.png'/>
-        <p>{'김코딩'}</p>
-        <p>성별 : {'남성'}</p>
-        <p>나의 위치 : {'서울시 종로구'}</p>
+        <span>{'김코딩'}</span>
+        <span>성별 : {'남성'}</span>
+        <span>나의 위치 : {'서울시 종로구'}</span>
+        <a href="">정보수정</a>
         <ButtonArea>
-          <a>비밀번호 수정</a>
-          <a>회원탈퇴</a>
+          <a href="">비밀번호 수정</a>
+          <a href="">회원탈퇴</a>
         </ButtonArea>
       </ProfileArea>
 
       <GridArea>
-        <div class="item more">
+        <div className="item more">
           <p>내가 쓴 예보</p>
-          <a href="">더 보기</a>
         </div>
-        <div class="item">B</div>
-        <div class="item">A</div>
-        <div class="item">B</div>
-        <div class="item">C</div>
-        <div class="item">D</div>
-        <div class="item">E</div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <a className="moreView" href="">더 보기</a>
       </GridArea>
     </Outer>
   )
-
-
 }
