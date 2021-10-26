@@ -1,7 +1,7 @@
 ---
 name: "[Server/Client] task 이슈카드 제목"
 about: Describe this issue template's purpose here.
-title: ''
+title: "[Server/Client] 제목을 작성하세요"
 labels: Task
 assignees: ''
 

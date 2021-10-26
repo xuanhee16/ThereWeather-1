@@ -1,7 +1,7 @@
 ---
 name: "[KPT] 0주차 0요일"
 about: Describe this issue template's purpose here.
-title: ''
+title: "[KPT] 0주차 0요일"
 labels: KPT
 assignees: ''
 

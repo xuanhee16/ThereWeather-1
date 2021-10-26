@@ -1,7 +1,7 @@
 ---
 name: "[Error Handling] 에러핸들링 제목"
 about: Describe this issue template's purpose here.
-title: ''
+title: "[Error Handling] 제목을 작성하세요"
 labels: error
 assignees: ''
 
