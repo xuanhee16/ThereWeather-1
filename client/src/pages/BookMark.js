@@ -1,14 +1,31 @@
 import React, { useState } from "react"
+import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHeart } from "@fortawesome/free-solid-svg-icons"
-
+import { faDigitalTachograph, faHeart } from "@fortawesome/free-solid-svg-icons"
+import { updateCurrentPage, updateStartEndPage } from "../actions/index"
 
 export default function BookMark() { 
-    const Container = styled.div`
-    
+  const state = useSelector(state => state.itemReducer);
+  const { start, end, current } = state; 
+  const dispatch = useDispatch();
+  const updateCurrentPages = dispatch(updateCurrentPage);
+  const updateStartEndPages = dispatch(updateStartEndPage);
+  
+  const per = 4;
+  //테스트중 갯수 20개로 고정
+  const total = Math.ceil(20 / per);
+  
+  const arr = [];
+  for(let i = 0; i < total; i++){
+    arr.push(i + 1);
+  }
+  const target = arr.slice(start, end);
+
+
+    const Container = styled.div`  
       display: grid;
-      height: 100vh;
+      height: 83vh;
       gap: 4rem;
       margin: 2rem;
       justify-content: center;
@@ -22,7 +39,7 @@ export default function BookMark() {
       // (max-width: 600px)
       @media (max-width: 1081px) {
         gap: 2rem;
-        grid-template-rows: 2fr 2fr 2fr 2fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 0.2fr;
         grid-template-columns: 5fr;
         grid-template-areas: 
         "div"
@@ -79,13 +96,29 @@ export default function BookMark() {
       padding: 1rem;
     `;
   
-    // const Pagenation = styled(BookMarkContainer)``;
-    // const PrevPage = styled.div`
-    // `;
-    // const NextPage = styled.div`
-    // `;
+    const Pagenation = styled.div`
+      display: flex;
+      justify-content: center;
+      margin: 2rem;
+      list-style: none;
+      h4 {
+        font-size: 1rem;
+      }
+    `;
+    const PrevPage = styled.button`
+   `;
+    const PageNumber = styled.button`
+     li {
+      float: left;
+      margin: 1.5rem;
+     }
+    `;
+    const NextPage = styled.button`
+    `;
+
 
     return (
+      <div className="bookMark">
         <Container>
           <BookMarkContainer>
           <BookMarkPhoto>
@@ -122,5 +155,48 @@ export default function BookMark() {
             <NextPage>다음</NextPage>
           </Pagenation> */}
         </Container>
+           <Pagenation>
+            <PrevPage>
+              <li className="prevPage">
+                <button className="previousPages" onClick={()=>{
+                  if(current === 1) return alert('첫번째 페이지입니다')
+                  if(current % 10 === 1) {
+                    const s = start - 10;
+                    const e = end - 10;
+                    updateStartEndPages(s, e);
+                  }
+                  updateCurrentPages(current - 1);
+                }}>
+                  <h4>이전</h4>
+                </button>
+              </li>
+            </PrevPage>
+
+            <PageNumber>
+            {target.map(el => (
+              <li className="pageNum" key={el}>
+                <button className="pageNumbers" onClick={()=> {updateCurrentPages(el)}}>
+                  {el}
+                </button>
+              </li>
+            ))}
+            </PageNumber>
+            
+            <NextPage>
+            <li className="nexPage">
+                <button className="nextPages" onClick={()=>{
+                  if(current % 10 === 1) {
+                    const s = start - 10;
+                    const e = end - 10;
+                    updateStartEndPages(s, e);
+                  }
+                  updateCurrentPages(current + 1);
+                }}>
+                  <h4>다음</h4>
+                </button>
+              </li>
+            </NextPage>
+          </Pagenation>
+        </div>
     )
 }
