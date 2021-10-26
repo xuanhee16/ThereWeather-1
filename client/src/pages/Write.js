@@ -10,7 +10,7 @@ import { useState } from "react"
     - 필터링을 위한 post 요청
       - 버튼에 value 주고, 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯
       - 선택된 버튼의 스타일 바꾸기
-  [] 인풋 텍스트 내부의 텍스트 정렬 방법
+  [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
 */
 
 
@@ -28,6 +28,14 @@ const Outer = styled.div`
   }
 `;
 
+const Button = styled.button`
+  border: 1px solid black;
+  background-color: var(--button-bg-normal);
+  font-size: 1.5rem;
+  padding: .5rem 3rem;
+  margin: 1rem;
+`;
+
 const PictureSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -35,11 +43,42 @@ const PictureSection = styled.section`
   align-items: center;
   margin: 1rem;
 
-  border: 1px solid red;
-
   & > img {
     width: 90%;
     height: 90%;
+  }
+`;
+
+const ButtonsAndSelects = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+`;
+
+const FlexColumnCenter = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+
+  & > p {
+    margin: .5rem;
+    font-weight: bold;
+  }
+`;
+
+const FilteringButtons = styled.article`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > button {
+    border: 1px solid red;
+    padding:.5rem;
+    margin: .3rem;
   }
 `;
 
@@ -50,30 +89,8 @@ const TextSection = styled.section`
   align-items: center;
   margin: 2rem auto;
 
-  border: 1px solid red;
-`;
-
-const ButtonsAndSelects = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto;
-
-  border: 1px solid red;
-`;
-
-const FilteringButtons = styled.article`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem;
-  border: 1px solid red;
-
-  & > button {
-    border: 1px solid red;
-    padding:.5rem;
-    margin: .3rem;
+  & > .submitButton {
+    margin: 2rem auto;
   }
 `;
 
@@ -84,25 +101,18 @@ const SelectArea = styled.article`
 
   & > select {
     padding: .3rem;
-    margin: 1rem;
+    margin: auto .5rem;
   }
 `;
 
-const WriteInput = styled.input`
+const WriteInput = styled.textarea`
   width: 80vw;
   height: 20vh;
   text-align: justify;
   line-height: 1.2rem;
-  padding: .5rem;
   font-size: 1.2rem;
-`;
-
-const Button = styled.button`
-  border: 1px solid black;
-  background-color: var(--button-bg-normal);
-  font-size: 1.5rem;
-  padding: .5rem 3rem;
-  margin: .5rem;
+  margin: 1rem;
+  padding: 1rem;
 `;
 
 
@@ -157,25 +167,28 @@ export default function Write() {
     <Outer className="writePage">
       <PictureSection className="pictureUploadSection">
         <img src={photoSrc} alt="dummy image" />
-        <Button onClick={photoUploadButtonHandler}>사진 업로드</Button>
+        <Button className="uploadButton" onClick={photoUploadButtonHandler}>사진 업로드</Button>
       </PictureSection>
-      <TextSection className="textInputSection">
-        <ButtonsAndSelects className="ButtonsAndSelects">
+
+      <ButtonsAndSelects className="ButtonsAndSelects">
+        <FlexColumnCenter className="smallSection">
           <p>날씨를 선택하세요.</p>
           <FilteringButtons>
             <button>1</button>
             <button>2</button>
             <button>3</button>
             <button>4</button>
+            <button>5</button>
             <button>1</button>
             <button>2</button>
             <button>3</button>
-            <button>4</button>
             <button>1</button>
             <button>2</button>
             <button>3</button>
-            <button>4</button>
           </FilteringButtons>
+        </FlexColumnCenter>
+
+        <FlexColumnCenter className="smallSection">
           <p>의상을 선택하세요.</p>
           <SelectArea>
             <select className="top" value={selectValueTop} onChange={selectTopHandler}>
@@ -193,10 +206,13 @@ export default function Write() {
               }
             </select>
           </SelectArea>
-        </ButtonsAndSelects>
+        </FlexColumnCenter>
+      </ButtonsAndSelects>
+
+      <TextSection>
         <WriteInput type="text" placeholder="글을 입력하세요." />
+        <Button className="submitButton" onClick={submitButtonHandler}>등록</Button>
       </TextSection>
-      <Button onClick={submitButtonHandler}>등록</Button>
     </Outer>
   );
 }
