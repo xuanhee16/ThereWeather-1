@@ -129,7 +129,6 @@ export default function MyPage() {
       }
     }
   `
-  
   return (
     <Outer>
       <ProfileArea>
