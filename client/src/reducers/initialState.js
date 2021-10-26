@@ -3,4 +3,7 @@ export const initialState = {
     userInfo: { id: 1, userId: "kimcoding", password: "kim3" },
     usernick: { id: 99, userId: "kimcoding2", password: "kim4" },
     accessToken: { accessToken: "aslgkajslkglasfjdf" },
+    start: 0,
+    end: 10, 
+    current: 1
 }
