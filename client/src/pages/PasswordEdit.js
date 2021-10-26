@@ -204,6 +204,7 @@ export default function PasswordEdit() {
     ["chooseOtherApps", "다른 앱을 이용하기 위해"],
     ["etc", "기타"]
   ];
+
   const [ modalSelected, setModalSelected ] = useState("");
   const handleChangeSelect = (e) => {
     setModalSelected(prev => e.target.value);
