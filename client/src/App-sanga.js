@@ -20,11 +20,11 @@ import MyPost from "./pages/MyPost"
 // 테스트 시작
 import Write from "./pages/Write"
 
-
 export default function App() {
     // const isInput = true
     return (
         <>
+            {/* <h1><Lock /></h1> */}
             <Header isMobileLogo/>
             <Write />
             <MenuBar />

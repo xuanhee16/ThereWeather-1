@@ -1,6 +1,31 @@
 import styled from "styled-components"
-import { WeatherSunny } from "@styled-icons/fluentui-system-filled"
 import { useState } from "react"
+import { WeatherSunny } from "@emotion-icons/fluentui-system-filled"
+import { Cloudy } from "@emotion-icons/ionicons-sharp"
+import { Rainy } from "@emotion-icons/ionicons-solid"
+import { Snowflake } from "@emotion-icons/fa-regular"
+import { Wind as Breeze } from "@emotion-icons/feather"
+import { Wind } from "@emotion-icons/boxicons-regular"
+import { Wind as StrongWind } from "@emotion-icons/fa-solid"
+import { Thermometer, ThermometerHalf, ThermometerHigh } from "@emotion-icons/bootstrap"
+
+
+/*
+import {Zap} from '@emotion-icons/octicons'
+
+v @emotion-icons/fluentui-system-filled/WeatherSunny
+v @emotion-icons/ionicons-sharp/Cloudy
+v @emotion-icons/ionicons-solid/Rainy
+v @emotion-icons/fa-regular/Snowflake
+
+v @emotion-icons/feather/Wind
+v @emotion-icons/boxicons-regular/Wind
+@emotion-icons/fa-solid/Wind
+
+v @emotion-icons/bootstrap/Thermometer
+v @emotion-icons/bootstrap/ThermometerHalf
+v @emotion-icons/bootstrap/ThermometerHigh
+*/
 
 /* TODO
   [] 업로드된 이미지의 크기 정리를 어떻게 할지
@@ -12,10 +37,6 @@ import { useState } from "react"
       - 선택된 버튼의 스타일 바꾸기
   [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
 */
-
-const StyledSunny = styled(WeatherSunny)`
-  color: black;
-`;
 
 const Outer = styled.div`
   display: flex;
@@ -101,7 +122,8 @@ const FilteringButtons = styled.article`
 
   & > button {
     border: 1px solid red;
-    padding:.5rem;
+    height: 2rem;
+    width: 2rem;
     margin: .3rem;
   }
 `;
@@ -206,18 +228,35 @@ export default function Write() {
             <p>날씨를 선택하세요.</p>
             <FilteringButtons>
               <button value="sunny">
-                <StyledSunny />
+                <WeatherSunny/>
               </button>
-              <button>2</button>
-              <button>3</button>
-              <button>4</button>
-              <button>5</button>
-              <button>1</button>
-              <button>2</button>
-              <button>3</button>
-              <button>1</button>
-              <button>2</button>
-              <button>3</button>
+              <button value="cloudy">
+                <Cloudy/>
+              </button>
+              <button value="rainy">
+                <Rainy/>
+              </button>
+              <button value="snowy">
+                <Snowflake/>
+              </button>
+              <button value="breezy">
+                <Breeze/>
+              </button>
+              <button value="windy">
+                <Wind/>
+              </button>
+              <button value="veryWindy">
+                <StrongWind/>
+              </button>
+              <button value="temparatureCold">
+                <Thermometer/>
+              </button>
+              <button value="temperatureFine">
+                <ThermometerHalf/>
+              </button>
+              <button value="temperatureHot">
+                <ThermometerHigh/>
+              </button>
             </FilteringButtons>
           </FlexColumnCenter>
 
