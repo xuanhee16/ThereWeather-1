@@ -19,12 +19,15 @@ const Outer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  width: 100vw;
   min-height: var(--mobile-page-height);
   padding: 3rem;
   background-color: var(--page-bg-color);
 
   @media screen and (min-width: 1081px) {
+    flex-direction: row;
     min-height: calc(100vh - 125px);
+    padding: 2rem;
   }
 `;
 
@@ -46,6 +49,24 @@ const PictureSection = styled.section`
   & > img {
     width: 90%;
     height: 90%;
+  }
+
+  @media screen and (min-width: 1081px) {
+    justify-content: space-around;
+    width: 40vw;
+  }
+`;
+
+const DesktopRight = styled.section`
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (min-width: 1081px) {
+    justify-content: space-around;
+    width: 40vw;
   }
 `;
 
@@ -107,12 +128,18 @@ const SelectArea = styled.article`
 
 const WriteInput = styled.textarea`
   width: 80vw;
+  min-width: 400px;
   height: 20vh;
   text-align: justify;
   line-height: 1.2rem;
   font-size: 1.2rem;
   margin: 1rem;
   padding: 1rem;
+
+  @media screen and (min-width: 1081px) {
+    width: 40vw;
+    max-width: 800px;
+  }
 `;
 
 
@@ -165,54 +192,56 @@ export default function Write() {
 
   return (
     <Outer className="writePage">
-      <PictureSection className="pictureUploadSection">
+      <PictureSection className="pictureUploadSection writePageLeft">
         <img src={photoSrc} alt="dummy image" />
         <Button className="uploadButton" onClick={photoUploadButtonHandler}>사진 업로드</Button>
       </PictureSection>
 
-      <ButtonsAndSelects className="ButtonsAndSelects">
-        <FlexColumnCenter className="smallSection">
-          <p>날씨를 선택하세요.</p>
-          <FilteringButtons>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-          </FilteringButtons>
-        </FlexColumnCenter>
+      <DesktopRight className="writePageRight">
+        <ButtonsAndSelects className="ButtonsAndSelects">
+          <FlexColumnCenter className="smallSection">
+            <p>날씨를 선택하세요.</p>
+            <FilteringButtons>
+              <button>1</button>
+              <button>2</button>
+              <button>3</button>
+              <button>4</button>
+              <button>5</button>
+              <button>1</button>
+              <button>2</button>
+              <button>3</button>
+              <button>1</button>
+              <button>2</button>
+              <button>3</button>
+            </FilteringButtons>
+          </FlexColumnCenter>
 
-        <FlexColumnCenter className="smallSection">
-          <p>의상을 선택하세요.</p>
-          <SelectArea>
-            <select className="top" value={selectValueTop} onChange={selectTopHandler}>
-              {
-                clothesTop.map((elem, idx) => {
-                  return (<option value={elem[0]} key={idx}>{elem[1]}</option>);
-                })
-              }
-            </select>
-            <select className="bottom" value={selectValueBottom} onChange={selectBottomHandler}>
-              {
-                clothesBottom.map((elem, idx) => {
-                  return (<option value={elem[0]} key={idx}>{elem[1]}</option>);
-                })
-              }
-            </select>
-          </SelectArea>
-        </FlexColumnCenter>
-      </ButtonsAndSelects>
+          <FlexColumnCenter className="smallSection">
+            <p>의상을 선택하세요.</p>
+            <SelectArea>
+              <select className="top" value={selectValueTop} onChange={selectTopHandler}>
+                {
+                  clothesTop.map((elem, idx) => {
+                    return (<option value={elem[0]} key={idx}>{elem[1]}</option>);
+                  })
+                }
+              </select>
+              <select className="bottom" value={selectValueBottom} onChange={selectBottomHandler}>
+                {
+                  clothesBottom.map((elem, idx) => {
+                    return (<option value={elem[0]} key={idx}>{elem[1]}</option>);
+                  })
+                }
+              </select>
+            </SelectArea>
+          </FlexColumnCenter>
+        </ButtonsAndSelects>
 
-      <TextSection>
-        <WriteInput type="text" placeholder="글을 입력하세요." />
-        <Button className="submitButton" onClick={submitButtonHandler}>등록</Button>
-      </TextSection>
+        <TextSection>
+          <WriteInput type="text" placeholder="글을 입력하세요." />
+          <Button className="submitButton" onClick={submitButtonHandler}>등록</Button>
+        </TextSection>
+      </DesktopRight>
     </Outer>
   );
 }
