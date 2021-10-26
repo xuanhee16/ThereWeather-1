@@ -8,6 +8,7 @@ import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
 import styled from "styled-components"
+import MyPost from "./pages/MyPost"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 
 const Body = styled.div`
@@ -26,7 +27,7 @@ function App() {
             </Route>  
             <Route exact path="/home">
               <Home></Home>  
-            </Route> 
+            </Route>
         </Switch>
     <MenuBar></MenuBar>
     </>
