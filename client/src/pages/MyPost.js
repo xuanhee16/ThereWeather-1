@@ -29,6 +29,9 @@ const GridArea = styled.div`
   .item:nth-child(even){
     margin-right: 5vw;
   }
+  .item:hover{
+
+  }
 
   @media screen and (min-width: 2100px){
     .item:nth-child(odd){
@@ -90,34 +93,33 @@ export default function MyPost() {
         <div className="item">
           <PostImg/>
           <PostInfo>
-            <p>{`10/19`}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
+            <p>{}</p>
+            <p>날씨 : {}</p>
+            <p>바람 : {}</p>
+            <p>온도 : {}</p>
           </PostInfo>
         </div>
         <div className="item">
           <PostImg/>
           <PostInfo>
-            <p>{`10/19`}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
+            <p>{}</p>
+            <p>날씨 : {}</p>
+            <p>바람 : {}</p>
+            <p>온도 : {}</p>
           </PostInfo>
         </div>
         <div className="item">
           <PostImg/>
           <PostInfo>
-            <p>{`10/19`}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
+            <p>{}</p>
+            <p>날씨 : {}</p>
+            <p>바람 : {}</p>
+            <p>온도 : {}</p>
           </PostInfo>
         </div>
       </GridArea>
 
       {/*페이지네이션*/}
-
     </Outer>
   )
 }
