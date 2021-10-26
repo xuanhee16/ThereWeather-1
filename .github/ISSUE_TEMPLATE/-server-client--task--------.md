@@ -13,9 +13,9 @@ assignees: ''
 * Detail: 내용 
 
 ### TODO
- [ ] Job1
- [ ] Job2
- [ ] Job3
+- [ ] Job1
+- [ ] Job2
+- [ ] Job3
  
 ### Estimated time
 > Pick one
