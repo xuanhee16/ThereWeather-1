@@ -5,11 +5,6 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     // font-family: "BMDOHYEON";    
   }
-
-  // Header {
-  //   font-family: "BMDOHYEON";    
-  // }
-
   
 `
 

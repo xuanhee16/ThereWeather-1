@@ -2,17 +2,13 @@ import styled from "styled-components"
 import React, { useEffect } from "react"
 
 const ImgContainer = styled.div`
-    // min-width: 10000px;
-    // position: relative;
-    padding-top: 222%;
+	position: relative;
+	width: 100%;
+	height: var(--mobile-page-height);
 
-    @media screen and (min-width: 1081px) {
-        // max-width: 1920px;
-        // max-height: 1080px;
-        // height: 1080px;
-        // position: relative;
-        padding-top: 56%;
-    }
+	@media screen and (min-width: 1081px) {
+		height: var(--desktop-page-height);
+	}
 `
 
 export default function Location(props) {
