@@ -24,7 +24,6 @@ export default function App() {
     return (
         <>
             <Header isInput={isInput} />
-
                 <Switch>
                     <Route exact path="/map">
                         <Map></Map>
@@ -55,6 +54,7 @@ export default function App() {
                     </Route>
                     <Route exact path="/write">
                         <Write></Write>
+                    </Route>
                     <Route exact path="/mypost">
                         <MyPost></MyPost>
                     </Route>
@@ -62,7 +62,6 @@ export default function App() {
                         <PostRead></PostRead>
                     </Route>
                 </Switch>
-
             <MenuBar></MenuBar>
         </>
     )
