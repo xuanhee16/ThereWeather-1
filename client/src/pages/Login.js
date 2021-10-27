@@ -1,4 +1,8 @@
-import { useState } from "react"
+import React, { useState } from "react"
+// import { useDispatch } from "react-redux"
+// import { loginUser } from "../actions"
+// import { useHistory } from "react-router-dom"
+// import axios from "axios"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
@@ -101,31 +105,34 @@ const Button = styled.button`
 `
 
 export default function Login() {
-    // input 상태 관리, 유효성 검사
-    const [idInput, setIdInput] = useState("")
-    const [pwInput, setPwInput] = useState("")
-    const [idInputMessage, setIdInputMessage] = useState("아이디를 입력하세요.")
-    const [pwInputMessage, setPwInputMessage] = useState("비밀번호를 입력하세요.")
+  // const dispatch = useDispatch()
+  // const history = useHistory()
 
-    const idOnChangeHanlder = (e) => {
-        setIdInput((prevInput) => e.target.value)
+  // input 상태 관리, 유효성 검사
+  const [idInput, setIdInput] = useState("")
+  const [pwInput, setPwInput] = useState("")
+  const [idInputMessage, setIdInputMessage] = useState("아이디를 입력하세요.")
+  const [pwInputMessage, setPwInputMessage] = useState("비밀번호를 입력하세요.")
 
-        if (e.target.value.length === 0) {
-            setIdInputMessage((prevText) => "아이디를 입력하세요.")
-        } else {
-            setIdInputMessage((prevText) => "")
-        }
+  const idOnChangeHanlder = (e) => {
+    setIdInput((prevInput) => e.target.value)
+
+    if (e.target.value.length === 0) {
+      setIdInputMessage((prevText) => "아이디를 입력하세요.")
+    } else {
+        setIdInputMessage((prevText) => "")
+    }
+  }
+
+  const pwOnChangeHandler = (e) => {
+    setPwInput((prevInput) => e.target.value)
+
+    if (e.target.value.length === 0) {
+      setPwInputMessage((prevText) => "비밀번호를 입력하세요.")
+    } else {
+      setPwInputMessage((prevText) => "")
     }
 
-    const pwOnChangeHandler = (e) => {
-        setPwInput((prevInput) => e.target.value)
-
-        if (e.target.value.length === 0) {
-            setPwInputMessage((prevText) => "비밀번호를 입력하세요.")
-        } else {
-            setPwInputMessage((prevText) => "")
-        }
-    }
 
     const loginButtonHandler = (e) => {
         if (idInput.length === 0 && pwInput.length === 0) {
@@ -137,40 +144,75 @@ export default function Login() {
         console.log("구글 로그인 버튼 동작 확인")
     }
 
-    return (
-        <Outer className="loginPageComponent">
-            <h2>로그인</h2>
-            <div className="Login--center">
-                <StyledArticle className="id">
-                    <InputAndTitle className="inputIdSection">
-                        <h3>아이디</h3>
-                        <InputText type="text" name="idInput" placeholder="아이디를 입력하세요" value={idInput} onChange={idOnChangeHanlder} />
-                    </InputAndTitle>
-                    <ValidationListBox className="idValidationList">
-                        <li>{idInputMessage}</li>
-                    </ValidationListBox>
-                </StyledArticle>
 
-                <StyledArticle className="password">
-                    <InputAndTitle className="inputPwSection">
-                        <h3>비밀번호</h3>
-                        <InputText type="password" name="pwInput" placeholder="비밀번호를 입력하세요" value={pwInput} onChange={pwOnChangeHandler} />
-                    </InputAndTitle>
-                    <ValidationListBox className="pwValidationList">
-                        <li>{pwInputMessage}</li>
-                    </ValidationListBox>
-                </StyledArticle>
-            </div>
+    // e.preventDefault();
+    // let body = {
+    //   user_id: idInput,
+    //   password: pwInput
+    // }
+    
+    // dispatch(loginUser(body))
+    // .then(res => {
+    //   if(res.payload.loginSuccess){
+    //     history.push('home')
+    //   }
+    //   else{
+    //     alert("로그인 오류")
+    //   }
+    // })
+  }
 
-            <Buttons className="login--buttons">
-                <Button onClick={loginButtonHandler}>로그인</Button>
+  const googleLoginButtonHandler = (e) => {
+    console.log('구글 로그인 버튼 동작 확인');
+  }
 
-                {/* 소셜로그인 */}
-                <Button onClick={googleLoginButtonHandler} google>
-                    <FontAwesomeIcon icon={faGoogle} />
-                    <span>구글 로그인</span>
-                </Button>
-            </Buttons>
-        </Outer>
-    )
+  return (
+    <Outer className="loginPageComponent">
+      <h2>로그인</h2>
+      <div className="Login--center">
+        <StyledArticle className="id">
+          <InputAndTitle className="inputIdSection">
+            <h3>아이디</h3>
+            <InputText
+              type="text"
+              name="idInput"
+              placeholder="아이디를 입력하세요"
+              value={idInput}
+              onChange={idOnChangeHanlder}
+            />
+          </InputAndTitle>
+          <ValidationListBox className="idValidationList">
+            <li>{idInputMessage}</li>
+          </ValidationListBox>
+        </StyledArticle>
+
+        <StyledArticle className="password">
+          <InputAndTitle className="inputPwSection">
+            <h3>비밀번호</h3>
+            <InputText
+              type="password"
+              name="pwInput"
+              placeholder="비밀번호를 입력하세요"
+              value={pwInput}
+              onChange={pwOnChangeHandler}
+            />
+          </InputAndTitle>
+          <ValidationListBox className="pwValidationList">
+            <li>{pwInputMessage}</li>
+          </ValidationListBox>
+        </StyledArticle>
+      </div>
+
+      <Buttons className="login--buttons">
+        <Button onClick={loginButtonHandler}>로그인</Button>
+
+        {/* 소셜로그인 */}
+        <Button onClick={googleLoginButtonHandler} google>
+          <FontAwesomeIcon icon={faGoogle} />
+          <span>구글 로그인</span>
+        </Button>
+      </Buttons>
+    </Outer>
+  );
 }
+
