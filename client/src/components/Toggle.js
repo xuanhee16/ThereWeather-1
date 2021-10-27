@@ -1,5 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styled from "styled-components"
+import { useDispatch, useSelector } from "react-redux"
+import { changeGender } from "../actions/index"
+//회원가입시 남녀 선택 토글
 
 const ToggleContainer = styled.div`
     // border: 1px solid red;
@@ -51,21 +54,26 @@ const ToggleContainer = styled.div`
 const Desc = styled.div`
     text-align: center;
 `
+// const dispatch = useDispatch()
+// const { userInfo } = useSelector((state) => state.itemReducer)
+// dispatch(changeUser(axiosData))
 
 export const Toggle = () => {
-    const [isOn, setisOn] = useState(false)
+    const dispatch = useDispatch()
+    const [isOn, setisOn] = useState(2)
 
     const toggleHandler = () => {
-        isOn === true ? setisOn(false) : setisOn(true)
+        isOn === 1 ? setisOn(2) : setisOn(1)
         console.log(isOn)
+        dispatch(changeGender(isOn))
     }
 
     return (
         <>
             <ToggleContainer onClick={toggleHandler}>
-                <div className={isOn ? "toggle-container toggle--checked" : "toggle-container"} />
-                <div className={isOn ? "toggle-circle toggle--checked" : "toggle-circle"} />
-                <Desc>{isOn ? "여성" : "남성"}</Desc>
+                <div className={isOn === 1 ? "toggle-container toggle--checked" : "toggle-container"} />
+                <div className={isOn === 1 ? "toggle-circle toggle--checked" : "toggle-circle"} />
+                <Desc>{isOn === 1 ? "여성" : "남성"}</Desc>
             </ToggleContainer>
         </>
     )
