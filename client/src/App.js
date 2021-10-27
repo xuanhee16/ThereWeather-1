@@ -13,8 +13,9 @@ import MyPage from "./pages/MyPage"
 import Login from "./pages/Login" // 이상아
 import PasswordEdit from "./pages/PasswordEdit"; // 이상아
 import SignUp from "./pages/SignUp"
-import styled from "styled-components"
 import MyPost from "./pages/MyPost"
+import PostRead from "./pages/PostRead"
+import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 
 
@@ -51,6 +52,12 @@ export default function App() {
                     </Route>
                     <Route exact path="/editpassword"> {/* 이상아 - 비밀번호 수정 */}
                         <PasswordEdit></PasswordEdit>
+                    </Route>
+                    <Route exact path="/mypost">
+                        <MyPost></MyPost>
+                    </Route>
+                    <Route exact path="/postread">
+                        <PostRead></PostRead>
                     </Route>
                 </Switch>
             <MenuBar></MenuBar>
