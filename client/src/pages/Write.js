@@ -18,7 +18,7 @@ import { Thermometer, ThermometerHalf, ThermometerHigh } from "@emotion-icons/bo
       - [ ] background-color, padding, height, width
       - [ ] button type
     - 필터링을 위한 post 요청
-      - 버튼에 value 주고, 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯
+      - 버튼에 value 주고, 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯 (오전11:44 여기 하는 중)
       - 선택된 버튼의 스타일 바꾸기
   [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
 */
@@ -107,9 +107,17 @@ const FilteringButtons = styled.article`
 
   & > button {
     border: 1px solid red;
-    height: 2rem;
-    width: 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    padding: .3rem;
     margin: .3rem;
+    background-color: white;
+    border: 2px solid #A1A1A1;
+    border-radius: .3rem;
+
+    svg {
+      color: grey;
+    }
   }
 `;
 
@@ -154,7 +162,20 @@ const WriteInput = styled.textarea`
 
 
 export default function Write() {
+  // img src 상태
   const [ photoSrc, setPhotoSrc ] = useState("https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)");
+
+  // 날씨 필터링용 버튼 핸들러
+  const [ clickedWeatherButtons, setClickedWeatherButtons ] = useState([]);
+  const weatherBtnHandler = (e) => {
+    if (clickedWeatherButtons.includes(e.target.name)) {
+      setClickedWeatherButtons(arr => [...arr.filter(btnName => btnName !== e.target.name)]);
+    } else {
+      setClickedWeatherButtons(arr => [...arr, e.target.name]);
+    }
+    console.log(e.target.name);
+    console.log(clickedWeatherButtons);
+  }
 
   // 상의 더미데이터
   const clothesTop = [
@@ -203,7 +224,7 @@ export default function Write() {
   return (
     <Outer className="writePage">
       <PictureSection className="pictureUploadSection writePageLeft">
-        <img src={photoSrc} alt="dummy image" />
+        <img src={photoSrc} alt="dummy" />
         <Button className="uploadButton" onClick={photoUploadButtonHandler}>사진 업로드</Button>
       </PictureSection>
 
@@ -212,34 +233,34 @@ export default function Write() {
           <FlexColumnCenter className="smallSection">
             <p>날씨를 선택하세요.</p>
             <FilteringButtons>
-              <button value="sunny">
+              <button name="sunny" type="button" onClick={(e) => weatherBtnHandler(e)}>
                 <WeatherSunny/>
               </button>
-              <button value="cloudy">
+              <button name="cloudy" type="button" onClick={weatherBtnHandler}>
                 <Cloudy/>
               </button>
-              <button value="rainy">
+              <button name="rainy" type="button" onClick={weatherBtnHandler}>
                 <Rainy/>
               </button>
-              <button value="snowy">
+              <button name="snowy" type="button" onClick={weatherBtnHandler}>
                 <Snowflake/>
               </button>
-              <button value="breezy">
+              <button name="breezy" type="button" onClick={weatherBtnHandler}>
                 <Breeze/>
               </button>
-              <button value="windy">
+              <button name="windy" type="button" onClick={weatherBtnHandler}>
                 <Wind/>
               </button>
-              <button value="veryWindy">
+              <button name="veryWindy" type="button" onClick={weatherBtnHandler}>
                 <StrongWind/>
               </button>
-              <button value="temparatureCold">
+              <button name="temparatureCold" type="button" onClick={weatherBtnHandler}>
                 <Thermometer/>
               </button>
-              <button value="temperatureFine">
+              <button name="temperatureFine" type="button" onClick={weatherBtnHandler}>
                 <ThermometerHalf/>
               </button>
-              <button value="temperatureHot">
+              <button name="temperatureHot" type="button" onClick={weatherBtnHandler}>
                 <ThermometerHigh/>
               </button>
             </FilteringButtons>
