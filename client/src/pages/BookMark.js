@@ -118,7 +118,7 @@ export default function BookMark() {
      li {
       float: left;
       margin: 1.5rem;
-     }
+      }
     `;
     const NextPage = styled.div`
     `;
@@ -162,10 +162,11 @@ export default function BookMark() {
             <NextPage>다음</NextPage>
           </Pagenation> */}
         </Container>
+
            <Pagination>
             <PrevPage>
               <li className="prevPage">
-                <button className="previousPages" onClick={()=>{
+                <button className="previousPages" onClick={() => {
                   if(current === 1) return alert('첫번째 페이지입니다')
                   if(current % 10 === 1) {
                     const s = start - 10;
@@ -182,7 +183,7 @@ export default function BookMark() {
             <PageNumber>
             {target.map(el => (
               <li className="pageNum" key={el}>
-                <button className="pageNumbers" onClick={()=> {updateCurrentPages(el)}}>
+                <button className="pageNumbers" onClick={() => {updateCurrentPages(el)}}>
                   {el}
                 </button>
               </li>
@@ -191,7 +192,7 @@ export default function BookMark() {
             
             <NextPage>
             <li className="nexPage">
-                <button className="nextPages" onClick={()=>{
+                <button className="nextPages" onClick={() =>{
                   if(current % 10 === 1) {
                     const s = start - 10;
                     const e = end - 10;
