@@ -45,16 +45,19 @@ app.get("/codi", controllers.codi)
 app.get("/home", controllers.home)
 app.get("/map", controllers.map)
 app.get("/mypage", controllers.mypage)
+app.get("/readpost", controllers.readpost)
 
 //post 
 app.post("/login", controllers.login)
 app.post("/signout", controllers.signout)
 app.post("/signup", controllers.signup)
+app.post("/post", controllers.post)
 
 //put 
 app.put("/password", controllers.password)
 app.put("/userinfo", controllers.userinfo)
 app.put("/userphoto", controllers.userphoto)
+app.put("/editpost", controllers.editpost)
 
 //delete
 app.delete("/deletepost", controllers.deletepost)
