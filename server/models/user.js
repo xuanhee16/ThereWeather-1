@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -15,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   user.init({
     user_id: DataTypes.STRING,
-    nickname: DataTypes.STRING,
+    nickName: DataTypes.STRING,
     password: DataTypes.STRING,
     gender: DataTypes.INTEGER,
     location: DataTypes.STRING,
@@ -26,3 +27,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return user;
 };
+

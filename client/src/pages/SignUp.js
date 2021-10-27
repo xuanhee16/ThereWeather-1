@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
+import { useSelector } from "react-redux"
+import axios from "axios"
+import { useHistory } from "react-router-dom"
 
 /*
   TODO
@@ -80,23 +83,6 @@ const InputAndTitle2 = styled.div`
         margin-left: 2rem;
     }
 `
-const InputAndTitle3 = styled.div`
-    border: 1px solid red;
-    display: flex;
-    justify-content: left;
-    flex-direction: row;
-
-    align-items: center;
-    margin: 1rem;
-
-    h3 {
-        font-size: 1.4rem;
-        margin: 1rem;
-        font-weight: bold;
-        margin-right: -1rem;
-        margin-bottom: -7rem;
-    }
-`
 
 const InputText = styled.input`
     min-width: 150px;
@@ -141,6 +127,76 @@ const Button = styled.button`
         margin: 0.25rem;
     }
 `
+const Buttons2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem auto;
+`
+
+const Button3 = styled.button`
+    width: 50vw;
+    min-width: 100px;
+    max-width: 300px;
+    margin: 1rem;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    border-radius: 1rem;
+
+    > span {
+        margin: 0.25rem;
+    }
+`
+
+const Button2 = styled.input`
+    width: 50vw;
+    min-width: 100px;
+    max-width: 300px;
+    margin: 1rem;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    border-radius: 1rem;
+
+    > span {
+        margin: 0.25rem;
+    }
+`
+////////////////////////
+const PhotoUploadSection = styled.form`
+    // border: 2px solid yellow;
+    // margin: auto 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+`
+
+const PhotoBox = styled.div`
+    min-width: 300px;
+    width: 30vh;
+    height: 30vh;
+    background-color: #ececec;
+    font-size: 30px;
+    color: palevioletred;
+    border: 1px solid #b5b5b5;
+    /* width: 300px;
+height: 150px; */
+    object-fit: cover;
+`
+const PhotoBox2 = styled.img`
+    min-width: 300px;
+    width: 30vh;
+    height: 30vh;
+`
+////////////////////////
+const url = process.env.REACT_APP_URL || "http://ec2-54-180-102-202.ap-northeast-2.compute.amazonaws.com"
 
 export default function SignUp() {
     // input 상태 관리, 유효성 검사
@@ -148,8 +204,22 @@ export default function SignUp() {
     const [inputVaildMessage, setInputVaildMessage] = useState({ idInput: "아이디를 입력해주세요.", pwInput: "패스워드를 입력해주세요.", nickNameInput: "닉네임을 입력해주세요." })
     const [pwCheckInput, setPwCheckInput] = useState("")
     const [pwCheckInputMessage, setPwCheckInputMessage] = useState("패스워드를 다시한번 입력해주세요.")
-    const [userAddress, setUserAddress] = useState("")
     const [userRoadAddress, setRoadUserAddress] = useState("위 검색창에서 검색해주세요.")
+    const { genderToggle } = useSelector((state) => state.itemReducer)
+    const [photo, setPhoto] = useState("")
+    const [uploadedImg, setUploadedImg] = useState({
+        fileName: "blankProfile.png",
+        filePath: "/img/blankProfile.png",
+        // fileName: null,
+        // filePath: null,
+    })
+    const history = useHistory()
+
+    console.log(uploadedImg)
+
+    useEffect(() => {
+        console.log(genderToggle)
+    }, [genderToggle])
 
     const idOnChangeHanlder = (key) => (e) => {
         setInputSignUpData({
@@ -231,10 +301,67 @@ export default function SignUp() {
         }
     }, [inputSignUpData.nickNameInput])
 
-    function handleComplete(complevet) {
-        setRoadUserAddress(complevet.roadAddress)
-        setUserAddress(complevet.address)
+    function handleComplete(complevent) {
+        setRoadUserAddress(complevent.roadAddress)
     }
+
+    function signupFunc() {
+        console.log("프론트 콘솔:회원가입 입장")
+        if (inputVaildMessage.idInput || inputVaildMessage.pwInput || inputVaildMessage.nickNameInput || pwCheckInputMessage || userRoadAddress === "위 검색창에서 검색해주세요.") {
+            console.log("프론트:빈칸을 채워주세요")
+        } else {
+            console.log("프론트:빈칸 채우기 완료")
+            axios({
+                url: "http://localhost/users/signup",
+                method: "post",
+                data: {
+                    user_Id: inputSignUpData.idInput,
+                    password: inputSignUpData.pwInput,
+                    nickName: inputSignUpData.nickNameInput,
+                    gender: genderToggle,
+                    location: userRoadAddress,
+                    user_photo: uploadedImg.filePath,
+                },
+            }).then((res) => {
+                console.log(res)
+                if (res.status === 211) {
+                    alert("아이디 중복입니다.")
+                } else if (res.status === 212) {
+                    alert("닉네임 중복입니다.")
+                } else if (res.status === 210) {
+                    alert("회원가입 완료 입니다.")
+                    history.push("/login")
+                }
+            })
+        }
+    }
+    ////////////////////////////////////////////////
+    const onSubmit = (e) => {
+        console.log(e)
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append("img", photo)
+        console.log(formData)
+        axios
+            .post(url + "/users/photo", formData, {
+                "Content-Type": "application/json",
+                withCredentials: true,
+            })
+            .then((res) => {
+                const { fileName } = res.data
+                setUploadedImg({ fileName, filePath: `${url}/img/${fileName}` })
+                alert("사진을 성공적으로 업로드 하였습니다.")
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+    }
+
+    const addFile = (e) => {
+        console.log(e.target.files[0])
+        setPhoto(e.target.files[0])
+    }
+    ////////////////////////////////////////////////////
 
     return (
         <Outer className="SignUpPageComponent">
@@ -279,9 +406,8 @@ export default function SignUp() {
                 <StyledArticle className="1">
                     <InputAndTitle2 className="2">
                         <h3>성별</h3>
-                        <Toggle></Toggle>
+                        <Toggle />
                     </InputAndTitle2>
-                    <ValidationListBox className="pwValidationList">{/* <li>{inputVaildMessage}</li> */}</ValidationListBox>
                 </StyledArticle>
                 <StyledArticle className="password">
                     <InputAndTitle className="inputPwSection">
@@ -293,14 +419,20 @@ export default function SignUp() {
                 <StyledArticle className="password">
                     <InputAndTitle className="inputPwSection">
                         <h3>프로필사진</h3>
-                        <InputText type="text" name="photoInput" placeholder="사진" onChange={() => idOnChangeHanlder("photoInput")} />
+                        <Buttons2>
+                            {/* /////////////////////////////// */}
+                            <PhotoUploadSection onSubmit={onSubmit} className="photoUploadSection">
+                                <PhotoBox>{uploadedImg ? <PhotoBox2 src={uploadedImg.filePath} /> : <div></div>}</PhotoBox>
+                                <Button2 type="file" className="photoButton" onChange={addFile} />
+                                <Button3 type="submit">업로드</Button3>
+                            </PhotoUploadSection>
+                            {/* /////////////////////////////// */}
+                        </Buttons2>
                     </InputAndTitle>
-                    <ValidationListBox className="pwValidationList">{/* <li>{inputVaildMessage}</li> */}</ValidationListBox>
                 </StyledArticle>
             </div>
-
             <Buttons className="SignUp--buttons">
-                <Button>가입</Button>
+                <Button onClick={signupFunc}>가입</Button>
             </Buttons>
         </Outer>
     )

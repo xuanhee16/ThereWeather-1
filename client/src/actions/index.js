@@ -2,9 +2,13 @@
 
 // action types
 export const CHANGE_USER_INFO = "CHANGE_USER_INFO"
+
+export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
+
 export const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE"
 export const UPDATE_START_END_PAGE = "UPDATE_START_END_PAGE"
 // export const LOGIN_USER = "LOGIN_USER"
+
 
 // actions creator functions
 
@@ -42,3 +46,9 @@ export const updateStartEndPage = (start, end) => {
 //   }
 // }
 
+export const changeGender = (usergender) => {
+    return {
+        type: CHANGE_USER_GENDER,
+        payload: usergender,
+    }
+}

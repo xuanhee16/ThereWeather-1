@@ -16,4 +16,6 @@ module.exports = {
   editpost: require("./put/editpost"), 
   deletepost: require("./del/deletepost"),
   removeuser: require("./del/removeuser"),  
+  usersController: require("./users"),
 }  
+
