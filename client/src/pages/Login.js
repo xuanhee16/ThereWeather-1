@@ -132,12 +132,18 @@ export default function Login() {
     } else {
       setPwInputMessage((prevText) => "")
     }
-  
 
-  const loginButtonHandler = (e) => {
-    if (idInput.length === 0 && pwInput.length === 0) {
-      console.log('모든 항목을 입력해야 합니다.')
+
+    const loginButtonHandler = (e) => {
+        if (idInput.length === 0 && pwInput.length === 0) {
+            console.log("모든 항목을 입력해야 합니다.")
+        }
     }
+
+    const googleLoginButtonHandler = (e) => {
+        console.log("구글 로그인 버튼 동작 확인")
+    }
+
 
     // e.preventDefault();
     // let body = {
@@ -209,4 +215,4 @@ export default function Login() {
     </Outer>
   );
 }
-  
+
