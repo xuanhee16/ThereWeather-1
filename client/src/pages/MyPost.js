@@ -13,19 +13,10 @@ const Outer = styled.div`
     padding-top: 5vh;
   }
 
-
   button{
     font-size: 1.5rem;
   }
 
-`
-// 스크롤시 메세지
-const Waiting = styled.div`
-  text-align: center;
-  width: 100%;
-  height: 100px;
-  font-size: 2rem;
-  color: blue;
 `
 
 // 내가 쓴 글 (grid)
@@ -51,21 +42,19 @@ const GridArea = styled.div`
   }
 
   @media screen and (min-width: 2100px){
+    height: 50vh;
+
     .item:nth-child(odd){
-      margin-left: 10vw;
+      margin-left: 30vw;
     }
     .item:nth-child(even){
-      margin-right: 10vw;
+      margin-right: 30vw;
     }
   }
   @media screen and (max-width: 1081px) {
     grid-template-columns: 1fr;
     grid-template-rows: 3fr 3fr 3fr 3fr;
-    .item:nth-child(1){
-      border: 1px solid blue;
-      grid-column: 1 / 2;
-      grid-row: 1 / 2;
-    }
+
     .item:nth-child(odd),
     .item:nth-child(even){
       margin: 0 2vw;
@@ -77,6 +66,11 @@ const PostImg = styled.img`
   width: 50%;
   height: 100%;
   background-color: antiquewhite;
+
+  @media screen and (min-width: 2100px) {
+    width: 300px;
+    height: 300px;
+  }
 `
 // 게시물 내용
 const PostInfo = styled.div`
@@ -102,6 +96,14 @@ const Page = styled.div`
   button{
     border: 1px solid red;
     margin: 0 1vw;
+  }
+
+  @media screen and (min-width: 2100px){
+    /* margin-top: 0; */
+  }
+
+  @media screen and (max-width: 1081px) {
+    margin-top: 5vh;
   }
 `
 
