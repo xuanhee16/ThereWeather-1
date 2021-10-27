@@ -1,13 +1,15 @@
 import styled from "styled-components"
 import { useState } from "react"
-import { WeatherSunny } from "@emotion-icons/fluentui-system-filled"
-import { Cloudy } from "@emotion-icons/ionicons-sharp"
-import { Rainy } from "@emotion-icons/ionicons-solid"
-import { Snowflake } from "@emotion-icons/fa-regular"
-import { Wind as Breeze } from "@emotion-icons/feather"
-import { Wind } from "@emotion-icons/boxicons-regular"
-import { Wind as StrongWind } from "@emotion-icons/fa-solid"
-import { Thermometer, ThermometerHalf, ThermometerHigh } from "@emotion-icons/bootstrap"
+
+import { WeatherSunny } from "@styled-icons/fluentui-system-filled"
+import { Cloudy } from "@styled-icons/ionicons-sharp"
+import { Rainy } from "@styled-icons/ionicons-solid"
+import { Snowflake } from "@styled-icons/fa-regular"
+import { Wind as Breeze } from "@styled-icons/feather"
+import { Wind } from "@styled-icons/boxicons-regular"
+import { Wind as StrongWind } from "@styled-icons/fa-solid"
+import { Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
+
 
 
 /* TODO
@@ -18,7 +20,7 @@ import { Thermometer, ThermometerHalf, ThermometerHigh } from "@emotion-icons/bo
       - [ ] background-color, padding, height, width
       - [ ] button type
     - 필터링을 위한 post 요청
-      - 버튼에 value 주고, 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯 (오전11:44 여기 하는 중)
+      - 버튼에 value 주고, 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯 (11:44 여기 하는 중)
       - 선택된 버튼의 스타일 바꾸기
   [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
 */
