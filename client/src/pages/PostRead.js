@@ -16,7 +16,7 @@ const PostHeader = styled.div`
 `
 const Title = styled.div`
   border: 1px solid red;
-  width: 100vw;
+  /* width: 100vw; */
   height: 10vh;
   padding-top: 4vh;
 
@@ -29,9 +29,8 @@ const Title = styled.div`
 
 const BookmarkIcon = styled.div`
   border: 1px solid red;
-  /* float: right; */
-  
-  margin-right: 2vh;
+  margin: 2vh 2vw;
+  float: right;
 `
 
 const Profile = styled.div`
