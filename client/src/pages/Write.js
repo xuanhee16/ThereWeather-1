@@ -1,16 +1,13 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
-import { WeatherSunny } from "@styled-icons/fluentui-system-filled"
-import { Cloudy } from "@styled-icons/ionicons-sharp"
-import { Rainy } from "@styled-icons/ionicons-solid"
-import { Snowflake } from "@styled-icons/fa-regular"
+import { SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
+
+/*
 import { Wind as Breeze } from "@styled-icons/feather"
 import { Wind } from "@styled-icons/boxicons-regular"
 import { Wind as StrongWind } from "@styled-icons/fa-solid"
-import { Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
-
-
+*/
 
 /* TODO
   [] 업로드된 이미지의 크기 정리를 어떻게 할지
@@ -20,8 +17,10 @@ import { Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/boo
       - [ ] background-color, padding, height, width
       - [ ] button type
     - 필터링을 위한 post 요청
-      - 버튼에 value 주고, 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯 (11:44 여기 하는 중)
-      - 선택된 버튼의 스타일 바꾸기
+      - [x] 버튼에 name 주기, name을 모으는 state 변수 (배열)
+      - [] 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯
+      - [] 선택된 버튼의 스타일 바꾸기
+        - 현재 상황 : 선택된 요소에만 클래스 적용할 방법을 고민중
   [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
 */
 
@@ -108,19 +107,29 @@ const FilteringButtons = styled.article`
   align-items: center;
 
   & > button {
-    border: 1px solid red;
+    border: 1px solid grey;
     height: 2.5rem;
     width: 2.5rem;
     padding: .3rem;
     margin: .3rem;
     background-color: white;
-    border: 2px solid #A1A1A1;
     border-radius: .3rem;
 
     svg {
       color: grey;
     }
   }
+
+  & > button.active {
+    border: 1px solid black;
+
+    svg {
+      color: black;
+    }
+  }
+`;
+
+const FilteringBtn = styled.button`
 `;
 
 const TextSection = styled.section`
@@ -167,17 +176,35 @@ export default function Write() {
   // img src 상태
   const [ photoSrc, setPhotoSrc ] = useState("https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)");
 
-  // 날씨 필터링용 버튼 핸들러
+  // 날씨 버튼
+  // 날씨 필터링용 state
   const [ clickedWeatherButtons, setClickedWeatherButtons ] = useState([]);
+  // click, unclick 스타일 적용 state
+  const [ weatherBtnClassList, setWeatherBtnClassList ] = useState(['weatherButton']);
+
+  // 날씨 버튼 handler
   const weatherBtnHandler = (e) => {
-    if (clickedWeatherButtons.includes(e.target.name)) {
-      setClickedWeatherButtons(arr => [...arr.filter(btnName => btnName !== e.target.name)]);
-    } else {
-      setClickedWeatherButtons(arr => [...arr, e.target.name]);
+    if (e.target.nodeName === 'ARTICLE') return;
+
+    let elem = e.target;
+    while (!elem.classList.contains('weatherButton')) {
+      elem = elem.parentNode;
     }
-    console.log(e.target.name);
-    console.log(clickedWeatherButtons);
+
+    if (clickedWeatherButtons.includes(elem.name)) {
+      setClickedWeatherButtons(arr => [...arr.filter(btnName => btnName !== elem.name)]);
+      // console.log('배열에서 빼기', clickedWeatherButtons);
+      setWeatherBtnClassList(classList => [...classList.filter(elem => elem !== 'active')])
+    } else {
+      setClickedWeatherButtons(arr => [...arr, elem.name]);
+      // console.log('배열에 넣기', clickedWeatherButtons);
+      setWeatherBtnClassList(classList => [...classList, 'active']);
+    }
   }
+
+  useEffect (() => {
+    console.log('useEffect', clickedWeatherButtons);
+  },[clickedWeatherButtons]);
 
   // 상의 더미데이터
   const clothesTop = [
@@ -231,40 +258,31 @@ export default function Write() {
       </PictureSection>
 
       <DesktopRight className="writePageRight">
-        <ButtonsAndSelects className="ButtonsAndSelects">
+        <ButtonsAndSelects className="buttonsAndSelects">
           <FlexColumnCenter className="smallSection">
             <p>날씨를 선택하세요.</p>
-            <FilteringButtons>
-              <button name="sunny" type="button" onClick={(e) => weatherBtnHandler(e)}>
-                <WeatherSunny/>
-              </button>
-              <button name="cloudy" type="button" onClick={weatherBtnHandler}>
-                <Cloudy/>
-              </button>
-              <button name="rainy" type="button" onClick={weatherBtnHandler}>
-                <Rainy/>
-              </button>
-              <button name="snowy" type="button" onClick={weatherBtnHandler}>
-                <Snowflake/>
-              </button>
-              <button name="breezy" type="button" onClick={weatherBtnHandler}>
-                <Breeze/>
-              </button>
-              <button name="windy" type="button" onClick={weatherBtnHandler}>
-                <Wind/>
-              </button>
-              <button name="veryWindy" type="button" onClick={weatherBtnHandler}>
-                <StrongWind/>
-              </button>
-              <button name="temparatureCold" type="button" onClick={weatherBtnHandler}>
+            <FilteringButtons className="filteringButtons" onClick={weatherBtnHandler}>
+              <FilteringBtn name="sunny" className={weatherBtnClassList} type="button">
+                <SunFill/>
+              </FilteringBtn>
+              <FilteringBtn name="cloudy" className="weatherButton" type="button">
+                <CloudyFill/>
+              </FilteringBtn>
+              <FilteringBtn name="rainy" className="weatherButton" type="button">
+                <CloudRainFill/>
+              </FilteringBtn>
+              <FilteringBtn name="snowy" className="weatherButton" type="button">
+                <Snow/>
+              </FilteringBtn>
+              <FilteringBtn name="temparatureCold" className="weatherButton" type="button">
                 <Thermometer/>
-              </button>
-              <button name="temperatureFine" type="button" onClick={weatherBtnHandler}>
+              </FilteringBtn>
+              <FilteringBtn name="temperatureFine" className="weatherButton" type="button">
                 <ThermometerHalf/>
-              </button>
-              <button name="temperatureHot" type="button" onClick={weatherBtnHandler}>
+              </FilteringBtn>
+              <FilteringBtn name="temperatureHot" className="weatherButton" type="button">
                 <ThermometerHigh/>
-              </button>
+              </FilteringBtn>
             </FilteringButtons>
           </FlexColumnCenter>
 
