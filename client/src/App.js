@@ -14,12 +14,9 @@ import Login from "./pages/Login" // 이상아
 import PasswordEdit from "./pages/PasswordEdit"; // 이상아
 import SignUp from "./pages/SignUp"
 import MyPost from "./pages/MyPost"
-<<<<<<< HEAD
 import Write from "./pages/Write"
-=======
 import PostRead from "./pages/PostRead"
 import styled from "styled-components"
->>>>>>> 602753d42a123382a6a49a9004c5a61490f0b4cf
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 
 
@@ -57,16 +54,13 @@ export default function App() {
                     <Route exact path="/editpassword">
                         <PasswordEdit></PasswordEdit>
                     </Route>
-<<<<<<< HEAD
                     <Route exact path="/write">
                         <Write></Write>
-=======
                     <Route exact path="/mypost">
                         <MyPost></MyPost>
                     </Route>
                     <Route exact path="/postread">
                         <PostRead></PostRead>
->>>>>>> 602753d42a123382a6a49a9004c5a61490f0b4cf
                     </Route>
                 </Switch>
             <MenuBar></MenuBar>
