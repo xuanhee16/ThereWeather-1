@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faDigitalTachograph, faHeart } from "@fortawesome/free-solid-svg-icons"
-// import { updateCurrentPage, updateStartEndPage } from "../actions/index"
+//import { updateCurrentPage, updateStartEndPage } from "../actions/index"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
 export default function BookMark() { 
@@ -18,7 +18,7 @@ export default function BookMark() {
   const updateStartEndPages = (start, end) => (dispatchs) => {
     dispatch({ type: UPDATE_START_END_PAGE, payload: { start, end } })
   }
-  
+
   const per = 4;
   //테스트중 갯수 20개로 고정
   const total = Math.ceil(20 / per);
@@ -103,7 +103,7 @@ export default function BookMark() {
       padding: 1rem;
     `;
   
-    const Pagenation = styled.div`
+    const Pagination = styled.div`
       display: flex;
       justify-content: center;
       margin: 2rem;
@@ -113,9 +113,9 @@ export default function BookMark() {
       }
     `;
     const PrevPage = styled.div`
-    `;
+   `;
     const PageNumber = styled.div`
-      li {
+     li {
       float: left;
       margin: 1.5rem;
       }
@@ -162,7 +162,8 @@ export default function BookMark() {
             <NextPage>다음</NextPage>
           </Pagenation> */}
         </Container>
-            <Pagenation>
+
+           <Pagination>
             <PrevPage>
               <li className="prevPage">
                 <button className="previousPages" onClick={() => {
@@ -203,7 +204,7 @@ export default function BookMark() {
                 </button>
               </li>
             </NextPage>
-          </Pagenation>
+          </Pagination>
         </div>
     )
 }

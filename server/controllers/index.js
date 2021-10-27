@@ -5,12 +5,17 @@ module.exports = {
   home: require("./get/home"),
   map: require("./get/map"),
   mypage: require("./get/mypage"),
+  readpost: require("./get/readpost"),
   login: require("./post/login"),
   signout: require("./post/signout"),
   signup: require("./post/signup"),
+  post: require("./post/post"),
   password: require("./put/password"),
   userinfo: require("./put/userinfo"),
   userphoto: require("./put/userphoto"),  
+  editpost: require("./put/editpost"), 
   deletepost: require("./del/deletepost"),
   removeuser: require("./del/removeuser"),  
+  usersController: require("./users"),
 }  
+

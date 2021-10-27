@@ -3,6 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@emotion/react": "^11.5.0",
+        "@emotion/styled": "^11.3.0",
+        "@emotion/styled-base": "^11.0.0",
         "@fortawesome/fontawesome-free": "^5.15.4",
         "@fortawesome/fontawesome-svg-core": "^1.2.36",
         "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -13,6 +16,7 @@
         "@testing-library/react": "^11.2.7",
         "@testing-library/user-event": "^12.8.3",
         "axios": "^0.23.0",
+        "emotion-icons": "^3.27.0",
         "react": "^17.0.2",
         "react-daum-postcode": "^3.0.0",
         "react-dom": "^17.0.2",

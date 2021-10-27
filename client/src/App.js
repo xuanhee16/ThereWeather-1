@@ -11,14 +11,13 @@ import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
 import Login from "./pages/Login" // 이상아
-import PasswordEdit from "./pages/PasswordEdit"; // 이상아
+import PasswordEdit from "./pages/PasswordEdit" // 이상아
 import SignUp from "./pages/SignUp"
 import MyPost from "./pages/MyPost"
+import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
 import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
-
-
 
 export default function App() {
     const isInput = true
@@ -50,8 +49,11 @@ export default function App() {
                     <Route exact path="/signup">
                         <SignUp></SignUp>
                     </Route>
-                    <Route exact path="/editpassword"> {/* 이상아 - 비밀번호 수정 */}
+                    <Route exact path="/editpassword">
                         <PasswordEdit></PasswordEdit>
+                    </Route>
+                    <Route exact path="/write">
+                        <Write></Write>
                     </Route>
                     <Route exact path="/mypost">
                         <MyPost></MyPost>
