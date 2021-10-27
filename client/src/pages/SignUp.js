@@ -209,7 +209,7 @@ export default function SignUp() {
     const [photo, setPhoto] = useState("")
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankProfile.png",
-        filePath: "/img/blankProfile.png",
+        filePath: `${url}/img/blankProfile.png`,
         // fileName: null,
         // filePath: null,
     })
@@ -315,7 +315,7 @@ export default function SignUp() {
                 url: "http://localhost/users/signup",
                 method: "post",
                 data: {
-                    user_Id: inputSignUpData.idInput,
+                    user_id: inputSignUpData.idInput,
                     password: inputSignUpData.pwInput,
                     nickName: inputSignUpData.nickNameInput,
                     gender: genderToggle,

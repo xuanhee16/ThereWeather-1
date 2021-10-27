@@ -10,7 +10,7 @@ module.exports = {
 
         const user_Id_FindOne = await user.findOne({
             where: {
-                user_Id: req.body.user_Id,
+                user_id: req.body.user_id,
             },
         })
         const nickName_FindOne = await user.findOne({
@@ -29,7 +29,7 @@ module.exports = {
             //정상의경우
             console.log("중복이 아닙니다.")
             await user.create({
-                user_Id: req.body.user_Id,
+                user_id: req.body.user_id,
                 password: req.body.password,
                 nickName: req.body.nickName,
                 gender: req.body.gender,
