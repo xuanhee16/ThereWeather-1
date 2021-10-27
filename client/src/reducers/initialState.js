@@ -8,3 +8,4 @@ export const initialState = {
     end: 10, 
     current: 1
 }
+

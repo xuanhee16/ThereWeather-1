@@ -1,5 +1,5 @@
 import { CHANGE_USER_INFO } from "../actions/index"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
+import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGIN_USER } from "../actions/index"
 import { initialState } from "./initialState"
 
 const itemReducer = (state = initialState, action) => {
@@ -25,6 +25,11 @@ const itemReducer = (state = initialState, action) => {
                 start: action.payload.start,
                 end: action.payload.end
             }
+        // case LOGIN_USER:
+        //     return {
+        //         ...state, 
+        //         loginSuccess: action.payload
+        //     }    
         default:
             return state
     }
