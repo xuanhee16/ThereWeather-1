@@ -49,6 +49,7 @@ app.get("/home", controllers.home)
 app.get("/map", controllers.map)
 app.get("/mypage", controllers.mypage)
 app.get("/readpost", controllers.readpost)
+// app.get("/setpw",controllers.setpw)
 
 //post 
 app.post("/login", controllers.login)

@@ -7,6 +7,7 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { changeIsLogin } from "../actions/index"
+import { signInUser } from "../actions"
 
 /*
   TODO
@@ -100,6 +101,8 @@ const Button = styled.button`
     }
 `
 
+// axios.defaults.withCredentials = true;
+
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -155,54 +158,71 @@ export default function Login() {
         }
     }
     const loginButtonHandler = (e) => {
-        if (idInput.length === 0 && pwInput.length === 0) {
+      e.preventDefault();
+
+      if (idInput.length === 0 && pwInput.length === 0) {
             console.log("모든 항목을 입력해야 합니다.")
-        }
+        } 
+      dispatch(signInUser(idInput, pwInput))
+      
     }
 
+  
     function googleLoginButtonHandler() {
-        console.log("구글 로그인 버튼 동작 확인")
-        if (isLogin) {
-            alert("이미 로그인상태입니다.")
-        } else {
-            window.location.assign(GOOGLE_LOGIN_URL)
-        }
-    }
+      console.log("구글 로그인 버튼 동작 확인")
+      if (isLogin) {
+          alert("이미 로그인상태입니다.")
+      } else {
+          window.location.assign(GOOGLE_LOGIN_URL)
+      }
+  }
 
-    return (
-        <Outer className="loginPageComponent">
-            <h2>로그인</h2>
-            <div className="Login--center">
-                <StyledArticle className="id">
-                    <InputAndTitle className="inputIdSection">
-                        <h3>아이디</h3>
-                        <InputText type="text" name="idInput" placeholder="아이디를 입력하세요" value={idInput} onChange={idOnChangeHanlder} />
-                    </InputAndTitle>
-                    <ValidationListBox className="idValidationList">
-                        <li>{idInputMessage}</li>
-                    </ValidationListBox>
-                </StyledArticle>
+  return (
+    <Outer className="loginPageComponent">
+      <h2>로그인</h2>
+      <div className="Login--center">
+        <StyledArticle className="id">
+          <InputAndTitle className="inputIdSection">
+            <h3>아이디</h3>
+            <InputText
+              type="text"
+              name="idInput"
+              placeholder="아이디를 입력하세요"
+              value={idInput}
+              onChange={idOnChangeHanlder}
+            />
+          </InputAndTitle>
+          <ValidationListBox className="idValidationList">
+            <li>{idInputMessage}</li>
+          </ValidationListBox>
+        </StyledArticle>
 
-                <StyledArticle className="password">
-                    <InputAndTitle className="inputPwSection">
-                        <h3>비밀번호</h3>
-                        <InputText type="password" name="pwInput" placeholder="비밀번호를 입력하세요" value={pwInput} onChange={pwOnChangeHandler} />
-                    </InputAndTitle>
-                    <ValidationListBox className="pwValidationList">
-                        <li>{pwInputMessage}</li>
-                    </ValidationListBox>
-                </StyledArticle>
-            </div>
+        <StyledArticle className="password">
+          <InputAndTitle className="inputPwSection">
+            <h3>비밀번호</h3>
+            <InputText
+              type="password"
+              name="pwInput"
+              placeholder="비밀번호를 입력하세요"
+              value={pwInput}
+              onChange={pwOnChangeHandler}
+            />
+          </InputAndTitle>
+          <ValidationListBox className="pwValidationList">
+            <li>{pwInputMessage}</li>
+          </ValidationListBox>
+        </StyledArticle>
+      </div>
 
-            <Buttons className="login--buttons">
-                <Button onClick={loginButtonHandler}>로그인</Button>
+      <Buttons className="login--buttons">
+        <Button onClick={loginButtonHandler}>로그인</Button>
 
-                {/* 소셜로그인 */}
-                <Button onClick={googleLoginButtonHandler} google>
-                    <FontAwesomeIcon icon={faGoogle} />
-                    <span>구글 로그인</span>
-                </Button>
-            </Buttons>
-        </Outer>
-    )
+        {/* 소셜로그인 */}
+        <Button onClick={googleLoginButtonHandler} google>
+          <FontAwesomeIcon icon={faGoogle} />
+          <span>구글 로그인</span>
+        </Button>
+      </Buttons>
+    </Outer>
+  );
 }

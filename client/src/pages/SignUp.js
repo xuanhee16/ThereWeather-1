@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
-import { useSelector } from "react-redux"
+import {  useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
+import { signUpUser } from "../actions"
 
 /*
   TODO
@@ -199,6 +200,9 @@ const PhotoBox2 = styled.img`
 const url = process.env.REACT_APP_URL || "http://ec2-54-180-102-202.ap-northeast-2.compute.amazonaws.com"
 
 export default function SignUp() {
+    const state = useSelector(state => state.itemReducer)
+    const dispatch = useDispatch();
+
     // input 상태 관리, 유효성 검사
     const [inputSignUpData, setInputSignUpData] = useState({ idInput: "", pwInput: "", nickNameInput: "" })
     const [inputVaildMessage, setInputVaildMessage] = useState({ idInput: "아이디를 입력해주세요.", pwInput: "패스워드를 입력해주세요.", nickNameInput: "닉네임을 입력해주세요." })
@@ -299,7 +303,10 @@ export default function SignUp() {
         setRoadUserAddress(complevent.roadAddress)
     }
 
-    function signupFunc() {
+    function signupFunc(e) {
+        e.preventDefault();
+        
+
         console.log("프론트 콘솔:회원가입 입장")
         if (inputVaildMessage.idInput || inputVaildMessage.pwInput || inputVaildMessage.nickNameInput || pwCheckInputMessage || userRoadAddress === "위 검색창에서 검색해주세요.") {
             console.log("프론트:빈칸을 채워주세요")
@@ -328,6 +335,7 @@ export default function SignUp() {
                 }
             })
         }
+        dispatch(signUpUser(inputSignUpData, history))
     }
     ////////////////////////////////////////////////
     const onSubmit = (e) => {
