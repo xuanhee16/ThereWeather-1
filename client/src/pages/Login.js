@@ -1,8 +1,6 @@
-import React, { useState } from "react"
-// import { useDispatch } from "react-redux"
-// import { loginUser } from "../actions"
-// import { useHistory } from "react-router-dom"
-// import axios from "axios"
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { signInUser } from "../actions"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
@@ -104,9 +102,11 @@ const Button = styled.button`
     }
 `
 
+// axios.defaults.withCredentials = true;
+
 export default function Login() {
-  // const dispatch = useDispatch()
-  // const history = useHistory()
+  const state = useSelector(state => state.itemReducer)
+  const dispatch = useDispatch()
 
   // input 상태 관리, 유효성 검사
   const [idInput, setIdInput] = useState("")
@@ -132,35 +132,17 @@ export default function Login() {
     } else {
       setPwInputMessage((prevText) => "")
     }
-
+  }
 
     const loginButtonHandler = (e) => {
-        if (idInput.length === 0 && pwInput.length === 0) {
+      e.preventDefault();
+
+      if (idInput.length === 0 && pwInput.length === 0) {
             console.log("모든 항목을 입력해야 합니다.")
-        }
+        } 
+      dispatch(signInUser(idInput, pwInput))
+      
     }
-
-    const googleLoginButtonHandler = (e) => {
-        console.log("구글 로그인 버튼 동작 확인")
-    }
-
-
-    // e.preventDefault();
-    // let body = {
-    //   user_id: idInput,
-    //   password: pwInput
-    // }
-    
-    // dispatch(loginUser(body))
-    // .then(res => {
-    //   if(res.payload.loginSuccess){
-    //     history.push('home')
-    //   }
-    //   else{
-    //     alert("로그인 오류")
-    //   }
-    // })
-  }
 
   const googleLoginButtonHandler = (e) => {
     console.log('구글 로그인 버튼 동작 확인');
@@ -214,5 +196,5 @@ export default function Login() {
       </Buttons>
     </Outer>
   );
-}
 
+}

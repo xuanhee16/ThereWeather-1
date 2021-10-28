@@ -1,5 +1,5 @@
 import { CHANGE_USER_INFO, CHANGE_USER_GENDER } from "../actions/index"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGIN_USER } from "../actions/index"
+import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGGEDIN_USER, SIGNIN_USER, SIGNUP_USER } from "../actions/index"
 import { initialState } from "./initialState"
 
 const itemReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 userInfo: action.payload,
             }
-
+            break;
         //     break
         // 새로운기능은 아래양식으로 만들어서 쓸수있다.
 
@@ -18,7 +18,7 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 genderToggle: action.payload,
             }
-            break
+            break;
 
 
         // case CHANGE_USER_INFO:
@@ -28,18 +28,40 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 current: action.payload
             } 
+            break;
         case UPDATE_START_END_PAGE:
             return {
                 ...state, 
                 start: action.payload.start,
                 end: action.payload.end
             }
-        // case LOGIN_USER:
-        //     return {
-        //         ...state, 
-        //         loginSuccess: action.payload
-        //     }    
-
+            break;
+        case LOGGEDIN_USER:
+            return {
+                ...state,
+                userLoggedIn: {
+                isLoggedIn: true,
+                accessToken: action.accessToken,
+                path: action.path
+                },
+            }
+            break;
+        case SIGNIN_USER:
+            return {
+                ...state, 
+                userSignin: {
+                    signIn: false,
+                  }
+            }    
+            break;
+        case SIGNUP_USER:
+            return {
+              ...state, 
+              signUp: {
+                signUpStatus: false
+              }
+            }
+            break;
         default:
             return state
     }
