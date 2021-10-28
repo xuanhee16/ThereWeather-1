@@ -175,28 +175,38 @@ export default function Write() {
   const [ photoSrc, setPhotoSrc ] = useState("https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)");
 
   // 날씨 버튼
-  // 날씨 필터링용 state
+    // 날씨 필터링용 state
   const [ clickedWeatherButtons, setClickedWeatherButtons ] = useState([]);
-  // click, unclick 스타일 적용 state
+    // click, unclick 스타일 적용 state
   const [ weatherBtnClassList, setWeatherBtnClassList ] = useState(['weatherButton']);
-
-  // 날씨 버튼 handler
+    // 날씨 버튼 handler
   const weatherBtnHandler = (e) => {
     if (e.target.nodeName === 'ARTICLE') return;
 
     let elem = e.target;
+    console.log('***outside of while***', elem)
     while (!elem.classList.contains('weatherButton')) {
       elem = elem.parentNode;
+      console.log('***inside of while***', elem);
+
+      if (elem.nodeName === 'ARTICLE') {
+        elem = null;
+        console.log('**is Elem null?***', elem);
+        return;
+      }
     }
 
-    if (clickedWeatherButtons.includes(elem.name)) {
+    console.log('***elem processed***', elem);
+    if (elem && clickedWeatherButtons.includes(elem.name)) {
       setClickedWeatherButtons(arr => [...arr.filter(btnName => btnName !== elem.name)]);
-      // console.log('배열에서 빼기', clickedWeatherButtons);
-      setWeatherBtnClassList(classList => [...classList.filter(elem => elem !== 'active')])
+      console.log('배열에서 빼기', clickedWeatherButtons);
+      // setWeatherBtnClassList(classList => [...classList.filter(elem => elem !== 'active')]);
+      // elem.classList = [...elem.classList.filter(cls => cls !== 'active')];
     } else {
       setClickedWeatherButtons(arr => [...arr, elem.name]);
-      // console.log('배열에 넣기', clickedWeatherButtons);
-      setWeatherBtnClassList(classList => [...classList, 'active']);
+      console.log('배열에 넣기', clickedWeatherButtons);
+      // setWeatherBtnClassList(classList => [...classList, 'active']);
+      // elem.classList = [...elem.classList, 'active'];
     }
   }
 
