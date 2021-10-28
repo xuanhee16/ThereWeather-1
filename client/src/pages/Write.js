@@ -1,19 +1,14 @@
 import styled from "styled-components"
 import { useState, useEffect } from "react"
-import { Upload, SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
 
-/*
-import { Wind as Breeze } from "@styled-icons/feather"
-import { Wind } from "@styled-icons/boxicons-regular"
-import { Wind as StrongWind } from "@styled-icons/fa-solid"
-*/
+// import { Upload, SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
 
 /* TODO
   [] 업로드된 이미지의 크기 정리를 어떻게 할지
     - 가로, 세로 비율 유지 방법
   [] 날씨 버튼
     - 버튼 아이콘, 스타일
-      - [] 아이콘을 png 파일로 대체하기
+      - [x] 아이콘을 png 파일로 대체하기
       - [x] background-color, padding, height, width
       - [x] button type
     - 필터링을 위한 post 요청
@@ -24,6 +19,7 @@ import { Wind as StrongWind } from "@styled-icons/fa-solid"
 */
 
 const Outer = styled.div`
+    overflow: scroll;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -35,23 +31,21 @@ const Outer = styled.div`
 
     @media screen and (min-width: 1081px) {
       flex-direction: row;
-      min-height: calc(100vh - 125px);
+      height: calc(100vh - 125px);
       padding: 2rem;
     }
 `
 
 const Button = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
     border-radius: ${props => props.round ? '50%' : null};
     background-color: var(--button-bg-normal);
     font-size: 1.25rem;
-    padding: ${props => props.round ? '.8rem' : '.8rem 2rem'};
+    padding: ${props => props.round ? '.5rem .5rem' : '.5rem 2rem'};
     margin: ${props => props.round ? '.5rem' : '1rem'};
-
-    & > svg {
-      height: 1.5rem;
-      width: 1.5rem;
-    }
 
     & > img {
       height: 1.5rem;
@@ -113,22 +107,22 @@ const FlexColumnCenter = styled.div`
 
 const FilteringButtons = styled.article`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 `;
 
 const FilteringBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 3px solid grey;
-  border: ${props => props.active ? '1px solid black' : '1px solid grey'};
+  border: ${props => props.active ? '3px solid black' : '3px solid grey'};
   height: 2rem;
   width: 2rem;
   margin: .25rem;
-  background-color: ${props => props.active ? 'var(--button-bg-normal)' : 'white'};;
+  background-color: white;
   border-radius: .3rem;
-
-  svg {
-    color: ${props => props.active ? 'black' : 'grey'};
-  }
 
   img {
     width: 1.5rem;
@@ -191,6 +185,7 @@ export default function Write() {
   const [ photoSrc, setPhotoSrc ] = useState(imageUrl.realImageNormal);
 
   // 날씨 버튼
+  const weathers = ['sunny', 'cloudy', 'rainy', 'snowy', 'breezy', 'windy', 'strong', 'cold', 'hot'];
     // 날씨 필터링용 state
   const [ clickedWeatherButtons, setClickedWeatherButtons ] = useState([]);
     // 스타일 적용 state
@@ -199,9 +194,11 @@ export default function Write() {
     cloudy: false,
     rainy: false,
     snowy: false,
-    tempCold: false,
-    tempNice: false,
-    tempHot: false
+    breezy: false,
+    windy: false,
+    strong: false,
+    cold: false,
+    hot: false
   });
 
     // 날씨 버튼 handler
@@ -292,7 +289,8 @@ export default function Write() {
       <PictureSection className="pictureUploadSection writePageLeft">
         <img src={photoSrc} alt="dummy" />
         <Button className="uploadButton" onClick={photoUploadButtonHandler} round>
-          <Upload />
+          {/* <Upload /> */}
+          <img src={`${process.env.PUBLIC_URL}img/icons-write/upload.png`} />
         </Button>
       </PictureSection>
 
@@ -301,44 +299,19 @@ export default function Write() {
           <FlexColumnCenter className="smallSection">
             <p>날씨를 선택하세요.</p>
             <FilteringButtons className="filteringButtons" onClick={weatherBtnHandler}>
-              {/*
-              const weathers = ['sunny', 'cloudy', 'rainy', 'snowy', 'breezy', 'windy', 'strong', 'cold', 'hot'];
-              <FilteringBtn
-                key={idx}
-                name={weatherType}
-                className="weatherButton"
-                type="button"
-                active={isFilteringBtnActive[weatherType]}
-              >
-                <img src={`${process.env.PUBLIC_URL}img/icons-write/${weatherType}.png`} />
-              </FilteringBtn>
-              */}
-              <FilteringBtn name="sunny" className="weatherButton" type="button" active={isFilteringBtnActive.sunny}>
-                <img src={process.env.PUBLIC_URL + 'img/icons-write/sunny.png'} />
-              </FilteringBtn>
-              <FilteringBtn name="cloudy" className="weatherButton" type="button" active={isFilteringBtnActive.cloudy}>
-                {/* <CloudyFill/> */}
-                <img src={process.env.PUBLIC_URL + 'img/icons-write/cloudy.png'} />
-              </FilteringBtn>
-              <FilteringBtn name="rainy" className="weatherButton" type="button" active={isFilteringBtnActive.rainy}>
-                {/* <CloudRainFill/> */}
-                <img src={process.env.PUBLIC_URL + 'img/icons-write/rainy.png'} />
-              </FilteringBtn>
-              <FilteringBtn name="snowy" className="weatherButton" type="button" active={isFilteringBtnActive.snowy}>
-                {/* <Snow/> */}
-                <img src={process.env.PUBLIC_URL + 'img/icons-write/snowy.png'} />
-              </FilteringBtn>
-              <FilteringBtn name="tempCold" className="weatherButton" type="button" active={isFilteringBtnActive.tempCold}>
-                {/* <Thermometer/> */}
-                <img src={process.env.PUBLIC_URL + 'img/icons-write/cold.png'} />
-              </FilteringBtn>
-              {/* <FilteringBtn name="tempNice" className="weatherButton" type="button" active={isFilteringBtnActive.tempNice}>
-                <ThermometerHalf/>
-              </FilteringBtn> */}
-              <FilteringBtn name="tempHot" className="weatherButton" type="button" active={isFilteringBtnActive.tempHot}>
-                {/* <ThermometerHigh/> */}
-                <img src={process.env.PUBLIC_URL + 'img/icons-write/hot.png'} />
-              </FilteringBtn>
+              {weathers.map((weather, idx) => {
+                return (
+                  <FilteringBtn
+                    key={idx}
+                    name={weather}
+                    className="weatherButton"
+                    type="button"
+                    active={isFilteringBtnActive[weather]}
+                  >
+                    <img src={`${process.env.PUBLIC_URL}img/icons-write/${weather}.png`} />
+                  </FilteringBtn>
+                );
+              })}
             </FilteringButtons>
           </FlexColumnCenter>
 
