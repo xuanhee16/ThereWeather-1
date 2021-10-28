@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { useState, useEffect } from "react"
-
 import { SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
 
 /*
@@ -25,81 +24,81 @@ import { Wind as StrongWind } from "@styled-icons/fa-solid"
 */
 
 const Outer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: 100vw;
-  min-height: var(--mobile-page-height);
-  padding: 3rem;
-  background-color: var(--page-bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    min-height: var(--mobile-page-height);
+    padding: 3rem;
+    background-color: var(--page-bg-color);
 
-  @media screen and (min-width: 1081px) {
-    flex-direction: row;
-    min-height: calc(100vh - 125px);
-    padding: 2rem;
-  }
-`;
+    @media screen and (min-width: 1081px) {
+        flex-direction: row;
+        min-height: calc(100vh - 125px);
+        padding: 2rem;
+    }
+`
 
 const Button = styled.button`
-  border: 1px solid black;
-  background-color: var(--button-bg-normal);
-  font-size: 1.5rem;
-  padding: .5rem 3rem;
-  margin: 1rem;
-`;
+    border: 1px solid black;
+    background-color: var(--button-bg-normal);
+    font-size: 1.5rem;
+    padding: 0.5rem 3rem;
+    margin: 1rem;
+`
 
 const PictureSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
 
-  & > img {
-    width: 90%;
-    height: 90%;
-  }
+    & > img {
+        width: 90%;
+        height: 90%;
+    }
 
-  @media screen and (min-width: 1081px) {
-    justify-content: space-around;
-    width: 40vw;
-  }
-`;
+    @media screen and (min-width: 1081px) {
+        justify-content: space-around;
+        width: 40vw;
+    }
+`
 
 const DesktopRight = styled.section`
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  @media screen and (min-width: 1081px) {
-    justify-content: space-around;
-    width: 40vw;
-  }
-`;
+    @media screen and (min-width: 1081px) {
+        justify-content: space-around;
+        width: 40vw;
+    }
+`
 
 const ButtonsAndSelects = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem;
-`;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+`
 
 const FlexColumnCenter = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
 
-  & > p {
-    margin: .5rem;
-    font-weight: bold;
-  }
-`;
+    & > p {
+        margin: 0.5rem;
+        font-weight: bold;
+    }
+`
 
 const FilteringButtons = styled.article`
   display: flex;
@@ -133,44 +132,43 @@ const FilteringBtn = styled.button`
 `;
 
 const TextSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin: 2rem auto;
-
-  & > .submitButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     margin: 2rem auto;
-  }
-`;
+
+    & > .submitButton {
+        margin: 2rem auto;
+    }
+`
 
 const SelectArea = styled.article`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  & > select {
-    padding: .3rem;
-    margin: auto .5rem;
-  }
-`;
+    & > select {
+        padding: 0.3rem;
+        margin: auto 0.5rem;
+    }
+`
 
 const WriteInput = styled.textarea`
-  width: 80vw;
-  min-width: 400px;
-  height: 20vh;
-  text-align: justify;
-  line-height: 1.2rem;
-  font-size: 1.2rem;
-  margin: 1rem;
-  padding: 1rem;
+    width: 80vw;
+    min-width: 400px;
+    height: 20vh;
+    text-align: justify;
+    line-height: 1.2rem;
+    font-size: 1.2rem;
+    margin: 1rem;
+    padding: 1rem;
 
-  @media screen and (min-width: 1081px) {
-    width: 40vw;
-    max-width: 800px;
-  }
-`;
-
+    @media screen and (min-width: 1081px) {
+        width: 40vw;
+        max-width: 800px;
+    }
+`
 
 export default function Write() {
   // img src 상태
