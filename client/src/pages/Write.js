@@ -29,21 +29,21 @@ const Outer = styled.div`
     align-items: center;
     width: 100vw;
     min-height: var(--mobile-page-height);
-    padding: 3rem;
+    padding: 3rem auto;
     background-color: var(--page-bg-color);
 
     @media screen and (min-width: 1081px) {
-        flex-direction: row;
-        min-height: calc(100vh - 125px);
-        padding: 2rem;
+      flex-direction: row;
+      min-height: calc(100vh - 125px);
+      padding: 2rem;
     }
 `
 
 const Button = styled.button`
     border: 1px solid black;
     background-color: var(--button-bg-normal);
-    font-size: 1.5rem;
-    padding: 0.5rem 3rem;
+    font-size: 1.25rem;
+    padding: 0.5rem 2rem;
     margin: 1rem;
 `
 
@@ -55,8 +55,8 @@ const PictureSection = styled.section`
     margin: 1rem;
 
     & > img {
-        width: 90%;
-        height: 90%;
+      width: 80%;
+      height: 80%;
     }
 
     @media screen and (min-width: 1081px) {
@@ -111,7 +111,7 @@ const FilteringBtn = styled.button`
   height: 2rem;
   width: 2rem;
   padding: .3rem;
-  margin: .3rem;
+  margin: .25rem;
   background-color: white;
   border-radius: .3rem;
 
@@ -145,7 +145,7 @@ const SelectArea = styled.article`
 
 const WriteInput = styled.textarea`
     width: 80vw;
-    min-width: 300px;
+    min-width: 250px;
     height: 20vh;
     text-align: justify;
     line-height: 1.2rem;
@@ -161,7 +161,13 @@ const WriteInput = styled.textarea`
 
 export default function Write() {
   // img src 상태
-  const [ photoSrc, setPhotoSrc ] = useState("https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)");
+    // 테스트용 이미지
+  const normalLarge = "https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)";
+  const normalSmall = "https://dummyimage.com/300x180/000/fff&text=300x180"
+  const narrowLong = "https://dummyimage.com/400x800/857285/fff.png&text=400x800";
+  const wideShort = "https://dummyimage.com/800x300/857285/fff.png&text=800x300";
+    // state 변수
+  const [ photoSrc, setPhotoSrc ] = useState(normalSmall);
 
   // 날씨 버튼
     // 날씨 필터링용 state
