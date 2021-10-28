@@ -6,8 +6,7 @@ import axios from "axios"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
-import { changeIsLogin } from "../actions/index"
-import { signInUser } from "../actions"
+import { changeIsLogin, signInUser } from "../actions/index"
 
 /*
   TODO
@@ -101,7 +100,6 @@ const Button = styled.button`
     }
 `
 
-// axios.defaults.withCredentials = true;
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -157,14 +155,23 @@ export default function Login() {
             setPwInputMessage((prevText) => "")
         }
     }
+
     const loginButtonHandler = (e) => {
       e.preventDefault();
 
       if (idInput.length === 0 && pwInput.length === 0) {
             console.log("모든 항목을 입력해야 합니다.")
         } 
-      dispatch(signInUser(idInput, pwInput))
-      
+
+        axios.post("http://localhost/login",
+        { user_id: idInput, password: pwInput },
+        { headers: { "Content-Type" : "application/json" }, withCredentials: true })
+        .then((res) => 
+            dispatch(changeIsLogin(true))
+            // dispatch(loggedInUser(res.data.data.accessToken))
+            //dispatch(Home(history))  
+        )
+      // dispatch(signInUser(idInput, pwInput))
     }
 
   

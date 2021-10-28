@@ -3,9 +3,9 @@ dotenv.config()
 
 module.exports = {
     development: {
-        username: process.env.MYSQL_ID,
-        password: process.env.MYSQL_PASSWORD,
-        database: "TWD",
+        username: "root",
+        password: "1234",
+        database: "there_weather",
         host: "127.0.0.1",
         dialect: "mysql",
     },

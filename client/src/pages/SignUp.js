@@ -200,8 +200,8 @@ const PhotoBox2 = styled.img`
 const url = process.env.REACT_APP_URL || "http://ec2-54-180-102-202.ap-northeast-2.compute.amazonaws.com"
 
 export default function SignUp() {
-    const state = useSelector(state => state.itemReducer)
-    const dispatch = useDispatch();
+    // const state = useSelector(state => state.itemReducer)
+    // const dispatch = useDispatch();
 
     // input 상태 관리, 유효성 검사
     const [inputSignUpData, setInputSignUpData] = useState({ idInput: "", pwInput: "", nickNameInput: "" })
@@ -304,7 +304,7 @@ export default function SignUp() {
     }
 
     function signupFunc(e) {
-        e.preventDefault();
+        // e.preventDefault();
         
 
         console.log("프론트 콘솔:회원가입 입장")
@@ -335,7 +335,7 @@ export default function SignUp() {
                 }
             })
         }
-        dispatch(signUpUser(inputSignUpData, history))
+        // dispatch(signUpUser(inputSignUpData, history))
     }
     ////////////////////////////////////////////////
     const onSubmit = (e) => {

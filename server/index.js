@@ -69,7 +69,8 @@ app.put("/editpost", controllers.editpost)
 // app.delete("/removeuser", controllers.removeuser)
 
 //겹치는거
-// app.use("/users", upload.single("img"), userRouter)
+app.use("/users", upload.single("img"), userRouter)
+
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80
 
