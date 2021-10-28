@@ -104,28 +104,6 @@ const FilteringButtons = styled.article`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  & > button {
-    border: 1px solid grey;
-    height: 2.5rem;
-    width: 2.5rem;
-    padding: .3rem;
-    margin: .3rem;
-    background-color: white;
-    border-radius: .3rem;
-
-    svg {
-      color: grey;
-    }
-  }
-
-  & > button.active {
-    border: 1px solid black;
-
-    svg {
-      color: black;
-    }
-  }
 `;
 
 const FilteringBtn = styled.button`
@@ -189,6 +167,16 @@ export default function Write() {
   // 날씨 버튼
     // 날씨 필터링용 state
   const [ clickedWeatherButtons, setClickedWeatherButtons ] = useState([]);
+    // 스타일 적용 state
+  const [ isFilteringBtnActive, setIsFilteringBtnActive  ] = useState({
+    sunny: false,
+    cloudy: false,
+    rainy: false,
+    snowy: false,
+    tempCold: false,
+    tempNice: false,
+    tempHot: false
+  });
     // 날씨 버튼 handler
   const weatherBtnHandler = (e) => {
     console.log('button?');
@@ -208,9 +196,17 @@ export default function Write() {
     if (elem && clickedWeatherButtons.includes(elem.name)) {
       setClickedWeatherButtons(arr => [...arr.filter(btnName => btnName !== elem.name)]);
       console.log('배열에서 빼기', clickedWeatherButtons);
+
+      setIsFilteringBtnActive(btnListObj => {
+        return {...btnListObj, [elem.name]: false};
+      })
     } else {
       setClickedWeatherButtons(arr => [...arr, elem.name]);
       console.log('배열에 넣기', clickedWeatherButtons);
+
+      setIsFilteringBtnActive(btnListObj => {
+        return {...btnListObj, [elem.name]: true};
+      })
     }
     // elem.classList
   }
@@ -275,25 +271,25 @@ export default function Write() {
           <FlexColumnCenter className="smallSection">
             <p>날씨를 선택하세요.</p>
             <FilteringButtons className="filteringButtons" onClick={weatherBtnHandler}>
-              <FilteringBtn name="sunny" className="weatherButton" type="button">
+              <FilteringBtn name="sunny" className="weatherButton" type="button" active={isFilteringBtnActive.sunny}>
                 <SunFill/>
               </FilteringBtn>
-              <FilteringBtn name="cloudy" className="weatherButton" type="button">
+              <FilteringBtn name="cloudy" className="weatherButton" type="button" active={isFilteringBtnActive.cloudy}>
                 <CloudyFill/>
               </FilteringBtn>
-              <FilteringBtn name="rainy" className="weatherButton" type="button">
+              <FilteringBtn name="rainy" className="weatherButton" type="button" active={isFilteringBtnActive.rainy}>
                 <CloudRainFill/>
               </FilteringBtn>
-              <FilteringBtn name="snowy" className="weatherButton" type="button">
+              <FilteringBtn name="snowy" className="weatherButton" type="button" active={isFilteringBtnActive.snowy}>
                 <Snow/>
               </FilteringBtn>
-              <FilteringBtn name="tempCold" className="weatherButton" type="button">
+              <FilteringBtn name="tempCold" className="weatherButton" type="button" active={isFilteringBtnActive.tempCold}>
                 <Thermometer/>
               </FilteringBtn>
-              <FilteringBtn name="tempNice" className="weatherButton" type="button">
+              <FilteringBtn name="tempNice" className="weatherButton" type="button" active={isFilteringBtnActive.tempNice}>
                 <ThermometerHalf/>
               </FilteringBtn>
-              <FilteringBtn name="tempHot" className="weatherButton" type="button">
+              <FilteringBtn name="tempHot" className="weatherButton" type="button" active={isFilteringBtnActive.tempHot}>
                 <ThermometerHigh/>
               </FilteringBtn>
             </FilteringButtons>
