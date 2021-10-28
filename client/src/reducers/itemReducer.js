@@ -1,5 +1,4 @@
-import { CHANGE_USER_INFO, CHANGE_USER_GENDER } from "../actions/index"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGIN_USER } from "../actions/index"
+import { CHANGE_USER_INFO, CHANGE_USER_GENDER, CHANGE_IS_LOGIN, UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGIN_USER } from "../actions/index"
 import { initialState } from "./initialState"
 
 const itemReducer = (state = initialState, action) => {
@@ -20,25 +19,30 @@ const itemReducer = (state = initialState, action) => {
             }
             break
 
-
         // case CHANGE_USER_INFO:
         //     break
-        case UPDATE_CURRENT_PAGE: 
+        case UPDATE_CURRENT_PAGE:
             return {
                 ...state,
-                current: action.payload
-            } 
+                current: action.payload,
+            }
         case UPDATE_START_END_PAGE:
             return {
-                ...state, 
+                ...state,
                 start: action.payload.start,
-                end: action.payload.end
+                end: action.payload.end,
             }
         // case LOGIN_USER:
         //     return {
-        //         ...state, 
+        //         ...state,
         //         loginSuccess: action.payload
-        //     }    
+        //     }
+
+        case CHANGE_IS_LOGIN:
+            return {
+                ...state,
+                isLogin: action.payload,
+            }
 
         default:
             return state

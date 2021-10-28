@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Switch, Route, Redirect, useHistory, Router } from "react-router-dom"
+import { useSelector } from "react-redux"
 import axios from "axios"
 import "./App.css"
 import Map from "./pages/Map"
@@ -21,47 +22,51 @@ import styled from "styled-components"
 
 export default function App() {
     const isInput = true
+    const { isLogin } = useSelector((state) => state.itemReducer)
     return (
         <>
             <Header isInput={isInput} />
-                <Switch>
-                    <Route exact path="/map">
-                        <Map></Map>
-                    </Route>
-                    <Route exact path="/home">
-                        <Home></Home>
-                    </Route>
-                    <Route exact path="/bookmark">
-                        <BookMark></BookMark>
-                    </Route>
-                    <Route exact path="/userinfo">
-                        <UserInfo></UserInfo>
-                    </Route>
-                    <Route exact path="/more">
-                        <More></More>
-                    </Route>
-                    <Route exact path="/mypage">
-                        <MyPage></MyPage>
-                    </Route>
-                    <Route exact path="/login">
-                        <Login></Login>
-                    </Route>
-                    <Route exact path="/signup">
-                        <SignUp></SignUp>
-                    </Route>
-                    <Route exact path="/editpassword">
-                        <PasswordEdit></PasswordEdit>
-                    </Route>
-                    <Route exact path="/write">
-                        <Write></Write>
-                    </Route>
-                    <Route exact path="/mypost">
-                        <MyPost></MyPost>
-                    </Route>
-                    <Route exact path="/postread">
-                        <PostRead></PostRead>
-                    </Route>
-                </Switch>
+            <Switch>
+                <Route exact path="/map">
+                    <Map></Map>
+                </Route>
+                <Route exact path="/home">
+                    <Home></Home>
+                </Route>
+                <Route exact path="/bookmark">
+                    <BookMark></BookMark>
+                </Route>
+                <Route exact path="/userinfo">
+                    <UserInfo></UserInfo>
+                </Route>
+                <Route exact path="/more">
+                    <More></More>
+                </Route>
+                <Route exact path="/mypage">
+                    <MyPage></MyPage>
+                </Route>
+                <Route exact path="/login">
+                    <Login></Login>
+                </Route>
+                <Route exact path="/signup">
+                    <SignUp></SignUp>
+                </Route>
+                <Route exact path="/editpassword">
+                    <PasswordEdit></PasswordEdit>
+                </Route>
+                <Route exact path="/write">
+                    <Write></Write>
+                </Route>
+                <Route exact path="/mypost">
+                    <MyPost></MyPost>
+                </Route>
+                <Route exact path="/postread">
+                    <PostRead></PostRead>
+                </Route>
+                <Route exact path="/">
+                    {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}
+                </Route>
+            </Switch>
             <MenuBar></MenuBar>
         </>
     )
