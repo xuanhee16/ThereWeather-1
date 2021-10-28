@@ -26,48 +26,6 @@ export default function App() {
     return (
         <>
             <Header isInput={isInput} />
-<<<<<<< HEAD
-
-                <Switch>
-                    <Route exact path="/map">
-                        <Map></Map>
-                    </Route>
-                    <Route exact path="/home">
-                        <Home></Home>
-                    </Route>
-                    <Route exact path="/bookmark">
-                        <BookMark></BookMark>
-                    </Route>
-                    <Route exact path="/userinfo">
-                        <UserInfo></UserInfo>
-                    </Route>
-                    <Route exact path="/more">
-                        <More></More>
-                    </Route>
-                    <Route exact path="/mypage">
-                        <MyPage></MyPage>
-                    </Route>
-                    <Route exact path="/login">
-                        <Login></Login>
-                    </Route>
-                    <Route exact path="/signup">
-                        <SignUp></SignUp>
-                    </Route>
-                    <Route exact path="/editpassword">
-                        <PasswordEdit></PasswordEdit>
-                    </Route>
-                    <Route exact path="/write">
-                        <Write></Write>
-                    </Route>
-                    <Route exact path="/mypost">
-                        <MyPost></MyPost>
-                    </Route>
-                    <Route exact path="/postread">
-                        <PostRead></PostRead>
-                    </Route>
-                </Switch>
-
-=======
             <Switch>
                 <Route exact path="/map">
                     <Map></Map>
@@ -109,7 +67,6 @@ export default function App() {
                     {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}
                 </Route>
             </Switch>
->>>>>>> a23b0cdc3636df9ecea569a78487b1c87f2f089a
             <MenuBar></MenuBar>
         </>
     )
