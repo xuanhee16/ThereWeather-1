@@ -13,13 +13,12 @@ import { Wind as StrongWind } from "@styled-icons/fa-solid"
     - 가로, 세로 비율 유지 방법
   [] 날씨 버튼
     - 버튼 아이콘, 스타일
-      - [ ] background-color, padding, height, width
-      - [ ] button type
+      - [x] background-color, padding, height, width
+      - [x] button type
     - 필터링을 위한 post 요청
       - [x] 버튼에 name 주기, name을 모으는 state 변수 (배열)
       - [] 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯
-      - [] 선택된 버튼의 스타일 바꾸기
-        - 현재 상황 : 선택된 요소에만 클래스 적용할 방법을 고민중
+      - [x] 선택된 버튼의 스타일 바꾸기
   [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
 */
 
@@ -109,8 +108,8 @@ const FilteringButtons = styled.article`
 const FilteringBtn = styled.button`
   border: 3px solid grey;
   border: ${props => props.active ? '1px solid black' : '1px solid grey'};
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 2rem;
+  width: 2rem;
   padding: .3rem;
   margin: .3rem;
   background-color: white;
@@ -146,7 +145,7 @@ const SelectArea = styled.article`
 
 const WriteInput = styled.textarea`
     width: 80vw;
-    min-width: 400px;
+    min-width: 300px;
     height: 20vh;
     text-align: justify;
     line-height: 1.2rem;
