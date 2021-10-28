@@ -29,14 +29,12 @@ const Outer = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     h2 {
         text-align: center;
         font-size: 2rem;
         font-weight: bold;
         margin-bottom: 2rem;
     }
-
     @media screen and (min-width: 1081px) {
         height: calc(100vh - 125px);
     }
@@ -53,7 +51,6 @@ const InputAndTitle = styled.div`
     justify-content: center;
     align-items: center;
     margin: 1rem;
-
     h3 {
         font-size: 1.4rem;
         margin: 1rem;
@@ -72,7 +69,6 @@ const ValidationListBox = styled.ul`
     list-style: none;
     padding: 0 1.5rem;
     font-size: 1rem;
-
     li {
         height: 1.2rem;
         padding: 0 1.5rem;
@@ -99,7 +95,6 @@ const Button = styled.button`
     color: white;
     background-color: ${(props) => (props.google ? "#EA4335" : "#419300")};
     border-radius: 1rem;
-
     > span {
         margin: 0.25rem;
     }
