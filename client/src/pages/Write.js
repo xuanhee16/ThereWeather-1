@@ -129,6 +129,18 @@ const FilteringButtons = styled.article`
 `;
 
 const FilteringBtn = styled.button`
+  border: 3px solid grey;
+  border: ${props => props.active ? '1px solid black' : '1px solid grey'};
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: .3rem;
+  margin: .3rem;
+  background-color: white;
+  border-radius: .3rem;
+
+  svg {
+    color: ${props => props.active ? 'black' : 'grey'};
+  }
 `;
 
 const TextSection = styled.section`
@@ -177,41 +189,34 @@ export default function Write() {
   // 날씨 버튼
     // 날씨 필터링용 state
   const [ clickedWeatherButtons, setClickedWeatherButtons ] = useState([]);
-    // click, unclick 스타일 적용 state
-  const [ weatherBtnClassList, setWeatherBtnClassList ] = useState(['weatherButton']);
     // 날씨 버튼 handler
   const weatherBtnHandler = (e) => {
+    console.log('button?');
     if (e.target.nodeName === 'ARTICLE') return;
-
     let elem = e.target;
-    console.log('***outside of while***', elem)
+
     while (!elem.classList.contains('weatherButton')) {
       elem = elem.parentNode;
-      console.log('***inside of while***', elem);
+      console.log('while - work?', elem.name);
 
       if (elem.nodeName === 'ARTICLE') {
         elem = null;
-        console.log('**is Elem null?***', elem);
         return;
       }
     }
 
-    console.log('***elem processed***', elem);
     if (elem && clickedWeatherButtons.includes(elem.name)) {
       setClickedWeatherButtons(arr => [...arr.filter(btnName => btnName !== elem.name)]);
       console.log('배열에서 빼기', clickedWeatherButtons);
-      // setWeatherBtnClassList(classList => [...classList.filter(elem => elem !== 'active')]);
-      // elem.classList = [...elem.classList.filter(cls => cls !== 'active')];
     } else {
       setClickedWeatherButtons(arr => [...arr, elem.name]);
       console.log('배열에 넣기', clickedWeatherButtons);
-      // setWeatherBtnClassList(classList => [...classList, 'active']);
-      // elem.classList = [...elem.classList, 'active'];
     }
+    // elem.classList
   }
 
   useEffect (() => {
-    console.log('useEffect', clickedWeatherButtons);
+    console.log('***clickedWeatherButtons: useEffect***', clickedWeatherButtons);
   },[clickedWeatherButtons]);
 
   // 상의 더미데이터
@@ -270,7 +275,7 @@ export default function Write() {
           <FlexColumnCenter className="smallSection">
             <p>날씨를 선택하세요.</p>
             <FilteringButtons className="filteringButtons" onClick={weatherBtnHandler}>
-              <FilteringBtn name="sunny" className={weatherBtnClassList} type="button">
+              <FilteringBtn name="sunny" className="weatherButton" type="button">
                 <SunFill/>
               </FilteringBtn>
               <FilteringBtn name="cloudy" className="weatherButton" type="button">
@@ -282,13 +287,13 @@ export default function Write() {
               <FilteringBtn name="snowy" className="weatherButton" type="button">
                 <Snow/>
               </FilteringBtn>
-              <FilteringBtn name="temparatureCold" className="weatherButton" type="button">
+              <FilteringBtn name="tempCold" className="weatherButton" type="button">
                 <Thermometer/>
               </FilteringBtn>
-              <FilteringBtn name="temperatureFine" className="weatherButton" type="button">
+              <FilteringBtn name="tempNice" className="weatherButton" type="button">
                 <ThermometerHalf/>
               </FilteringBtn>
-              <FilteringBtn name="temperatureHot" className="weatherButton" type="button">
+              <FilteringBtn name="tempHot" className="weatherButton" type="button">
                 <ThermometerHigh/>
               </FilteringBtn>
             </FilteringButtons>
