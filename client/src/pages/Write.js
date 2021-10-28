@@ -177,9 +177,9 @@ export default function Write() {
     tempNice: false,
     tempHot: false
   });
+
     // 날씨 버튼 handler
   const weatherBtnHandler = (e) => {
-    console.log('button?');
     if (e.target.nodeName === 'ARTICLE') return;
     let elem = e.target;
 
@@ -195,27 +195,23 @@ export default function Write() {
 
     if (elem && clickedWeatherButtons.includes(elem.name)) {
       setClickedWeatherButtons(arr => [...arr.filter(btnName => btnName !== elem.name)]);
-      console.log('배열에서 빼기', clickedWeatherButtons);
-
       setIsFilteringBtnActive(btnListObj => {
         return {...btnListObj, [elem.name]: false};
       })
     } else {
       setClickedWeatherButtons(arr => [...arr, elem.name]);
-      console.log('배열에 넣기', clickedWeatherButtons);
-
       setIsFilteringBtnActive(btnListObj => {
         return {...btnListObj, [elem.name]: true};
       })
     }
-    // elem.classList
   }
 
-  useEffect (() => {
-    console.log('***clickedWeatherButtons: useEffect***', clickedWeatherButtons);
-  },[clickedWeatherButtons]);
+  /* clickedWeatherButtons 상태 확인용 */
+  // useEffect (() => { 
+  //   console.log('***clickedWeatherButtons: useEffect***', clickedWeatherButtons);
+  // },[clickedWeatherButtons]);
 
-  // 상의 더미데이터
+  // 상의 더미데이터 (state 변수가 필요하게 될까?)
   const clothesTop = [
     ["default", "상의 선택"],
     ["tshirts", "티셔츠"],
@@ -249,6 +245,12 @@ export default function Write() {
       // axios 요청
       // 이미지 src 바꾸기
         // setPhotoSrc(res로 받은 src);
+  }
+
+  // textarea state & handler
+  const [ postText, setPostText ] = useState('');
+  const postTextHandler = (e) => {
+    setPostText(e.target.value);
   }
 
   // 등록버튼 이벤트
@@ -317,8 +319,9 @@ export default function Write() {
         </ButtonsAndSelects>
 
         <TextSection>
-          <WriteInput type="text" placeholder="글을 입력하세요." />
+          <WriteInput type="text" placeholder="글을 입력하세요." value={postText} onChange={postTextHandler} />
           <Button className="submitButton" onClick={submitButtonHandler}>등록</Button>
+          {postText}
         </TextSection>
       </DesktopRight>
     </Outer>
