@@ -11,8 +11,8 @@ import MenuBar from "./components/MenuBar"
 import UserInfo from "./pages/UserInfo"
 import More from "./pages/More"
 import MyPage from "./pages/MyPage"
-import Login from "./pages/Login" // 이상아
-import PasswordEdit from "./pages/PasswordEdit" // 이상아
+import Login from "./pages/Login"
+import PasswordEdit from "./pages/PasswordEdit"
 import SignUp from "./pages/SignUp"
 import MyPost from "./pages/MyPost"
 import Write from "./pages/Write"
