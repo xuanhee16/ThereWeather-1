@@ -1,21 +1,10 @@
-import styled from "styled-components"
 import { useState, useEffect } from "react"
-
-// import { Upload, SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
+import styled from "styled-components"
+import { ModalConfirm } from "../components/ModalConfirm"
 
 /* TODO
-  [] 업로드된 이미지의 크기 정리를 어떻게 할지
-    - 가로, 세로 비율 유지 방법
-  [] 날씨 버튼
-    - 버튼 아이콘, 스타일
-      - [x] 아이콘을 png 파일로 대체하기
-      - [x] background-color, padding, height, width
-      - [x] button type
-    - 필터링을 위한 post 요청
-      - [x] 버튼에 name 주기, name을 모으는 state 변수 (배열)
-      - [] 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯
-      - [x] 선택된 버튼의 스타일 바꾸기
-  [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
+  [] Write.js와의 관계성
+  [] 수정하시겠습니까 모달 추가
 */
 
 const Outer = styled.div`
@@ -169,7 +158,7 @@ const WriteInput = styled.textarea`
     }
 `
 
-export default function Write() {
+export default function PostEdit() {
   // img src 상태
     // 테스트용 이미지
   const imageUrl = {
@@ -337,7 +326,7 @@ export default function Write() {
 
         <TextSection>
           <WriteInput type="text" placeholder="글을 입력하세요." value={postText} onChange={postTextHandler} />
-          <Button className="submitButton" onClick={submitButtonHandler}>등록</Button>
+          <Button className="submitButton" onClick={submitButtonHandler}>수정</Button>
           {postText}
         </TextSection>
       </DesktopRight>
