@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
-import { ModalConfirm } from "../components/ModalConfirm"
+import ModalConfirm from "../components/ModalConfirm"
 
 /* TODO
-  [] Write.js와의 관계성
-  [] 수정하시겠습니까 모달 추가
+  [] 악시오스 요청
+  [] redirect
+  [] 원래 썼던 게시물을 Load
 */
 
 const Outer = styled.div`
@@ -20,7 +21,7 @@ const Outer = styled.div`
 
     @media screen and (min-width: 1081px) {
       flex-direction: row;
-      height: calc(100vh - 125px);
+      height: var(--desktop-page-height);
       padding: 2rem;
     }
 `
@@ -29,9 +30,10 @@ const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    border: ${props => props.blue ? null : '1px solid black'};
     border-radius: ${props => props.round ? '50%' : null};
-    background-color: var(--button-bg-normal);
+    background-color: ${props => props.blue ? 'var(--button-bg-edit)' : 'var(--button-bg-normal)'};
+    color: ${props => props.blue ? 'white' : 'black'};
     font-size: 1.25rem;
     padding: ${props => props.round ? '.5rem .5rem' : '.5rem 2rem'};
     margin: ${props => props.round ? '.5rem' : '1rem'};
@@ -265,12 +267,27 @@ export default function PostEdit() {
     setPostText(e.target.value);
   }
 
+  // 모달 오픈 여부 state
+  const [ isEditModalOpen, setIsEditModalOpen ] = useState(false);
+
   // 등록버튼 이벤트
-  const submitButtonHandler = (e) => {
-    console.log('등록버튼 동작 확인');
-    // TODO
-      // axios.post
-      // 페이지 이동 : '글 읽기' 페이지로?
+  const editSubmitHandler = (e) => {
+    console.log('수정버튼 동작 확인');
+    setIsEditModalOpen(prev => true);
+  }
+
+  // 모달 닫기/예/아니오 이벤트 함수
+  const editYesHandler = (e) => {
+    // TODO 악시오스 요청, 페이지 redirection
+    console.log('수정 yes');
+  }
+
+  const editNoHandler = (e) => {
+    setIsEditModalOpen(prev => false);
+  }
+
+  const modalCloseHandler = (e) => {
+    setIsEditModalOpen(prev => false);
   }
 
   return (
@@ -326,10 +343,23 @@ export default function PostEdit() {
 
         <TextSection>
           <WriteInput type="text" placeholder="글을 입력하세요." value={postText} onChange={postTextHandler} />
-          <Button className="submitButton" onClick={submitButtonHandler}>수정</Button>
+          <Button className="submitButton" onClick={editSubmitHandler} blue>수정</Button>
           {postText}
         </TextSection>
       </DesktopRight>
+
+      {
+        isEditModalOpen?
+          <ModalConfirm
+            yesHandler={editYesHandler}
+            noHandler={editNoHandler}
+            closeHandler={modalCloseHandler}
+          >
+            <p>수정하시겠습니까?</p>
+          </ModalConfirm>
+        :
+          ''
+      }
     </Outer>
   );
 }

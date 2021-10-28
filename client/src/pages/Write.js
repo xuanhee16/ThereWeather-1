@@ -31,7 +31,7 @@ const Outer = styled.div`
 
     @media screen and (min-width: 1081px) {
       flex-direction: row;
-      height: calc(100vh - 125px);
+      height: var(--desktop-page-height);
       padding: 2rem;
     }
 `
