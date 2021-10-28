@@ -26,7 +26,6 @@ export default function App() {
     return (
         <>
             <Header isInput={isInput} />
-
             <Switch>
                 <Route exact path="/map">
                     <Map></Map>
@@ -68,7 +67,6 @@ export default function App() {
                     {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}
                 </Route>
             </Switch>
-
             <MenuBar></MenuBar>
         </>
     )
