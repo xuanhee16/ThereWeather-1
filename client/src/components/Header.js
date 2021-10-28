@@ -119,7 +119,7 @@ export default function Header({ isInput, isMobileLogo, isLogin }) {
     const history = useHistory()
     // isInput : Map 페이지 사용시 true
     // isMobileLogo : Map 페이지 사용시 false
-    // isLogin : 로그인 상태에 따라 - 로그인 되어있으면 true, 아니면 false
+    // isLogin : 로그인-회원가입 또는 로그아웃-마이페이지
 
     return (
         <HeaderOuter className="header">

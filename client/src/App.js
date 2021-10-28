@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Switch, Route, Redirect, useHistory, Router } from "react-router-dom"
+import { useSelector } from "react-redux"
 import axios from "axios"
 import "./App.css"
 import Map from "./pages/Map"
@@ -13,15 +14,19 @@ import MyPage from "./pages/MyPage"
 import Login from "./pages/Login" // 이상아
 import PasswordEdit from "./pages/PasswordEdit" // 이상아
 import SignUp from "./pages/SignUp"
-import styled from "styled-components"
 import MyPost from "./pages/MyPost"
+import Write from "./pages/Write"
+import PostRead from "./pages/PostRead"
+import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 
 export default function App() {
     const isInput = true
+    const { isLogin } = useSelector((state) => state.itemReducer)
     return (
         <>
             <Header isInput={isInput} />
+
             <Switch>
                 <Route exact path="/map">
                     <Map></Map>
@@ -48,11 +53,22 @@ export default function App() {
                     <SignUp></SignUp>
                 </Route>
                 <Route exact path="/editpassword">
-                    {" "}
-                    {/* 이상아 - 비밀번호 수정 */}
                     <PasswordEdit></PasswordEdit>
                 </Route>
+                <Route exact path="/write">
+                    <Write></Write>
+                </Route>
+                <Route exact path="/mypost">
+                    <MyPost></MyPost>
+                </Route>
+                <Route exact path="/postread">
+                    <PostRead></PostRead>
+                </Route>
+                <Route exact path="/">
+                    {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}
+                </Route>
             </Switch>
+
             <MenuBar></MenuBar>
         </>
     )

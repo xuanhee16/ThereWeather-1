@@ -215,12 +215,6 @@ export default function SignUp() {
     })
     const history = useHistory()
 
-    console.log(uploadedImg)
-
-    useEffect(() => {
-        console.log(genderToggle)
-    }, [genderToggle])
-
     const idOnChangeHanlder = (key) => (e) => {
         setInputSignUpData({
             ...inputSignUpData,
