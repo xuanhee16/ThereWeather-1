@@ -13,6 +13,7 @@ import { Wind as StrongWind } from "@styled-icons/fa-solid"
     - 가로, 세로 비율 유지 방법
   [] 날씨 버튼
     - 버튼 아이콘, 스타일
+      - [] 아이콘을 png 파일로 대체하기
       - [x] background-color, padding, height, width
       - [x] button type
     - 필터링을 위한 post 요청
@@ -48,6 +49,11 @@ const Button = styled.button`
     margin: ${props => props.round ? '.5rem' : '1rem'};
 
     & > svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    & > img {
       height: 1.5rem;
       width: 1.5rem;
     }
@@ -116,13 +122,17 @@ const FilteringBtn = styled.button`
   border: ${props => props.active ? '1px solid black' : '1px solid grey'};
   height: 2rem;
   width: 2rem;
-  padding: .3rem;
   margin: .25rem;
-  background-color: white;
+  background-color: ${props => props.active ? 'var(--button-bg-normal)' : 'white'};;
   border-radius: .3rem;
 
   svg {
     color: ${props => props.active ? 'black' : 'grey'};
+  }
+
+  img {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 `;
 
@@ -291,26 +301,43 @@ export default function Write() {
           <FlexColumnCenter className="smallSection">
             <p>날씨를 선택하세요.</p>
             <FilteringButtons className="filteringButtons" onClick={weatherBtnHandler}>
+              {/*
+              const weathers = ['sunny', 'cloudy', 'rainy', 'snowy', 'breezy', 'windy', 'strong', 'cold', 'hot'];
+              <FilteringBtn
+                key={idx}
+                name={weatherType}
+                className="weatherButton"
+                type="button"
+                active={isFilteringBtnActive[weatherType]}
+              >
+                <img src={`${process.env.PUBLIC_URL}img/icons-write/${weatherType}.png`} />
+              </FilteringBtn>
+              */}
               <FilteringBtn name="sunny" className="weatherButton" type="button" active={isFilteringBtnActive.sunny}>
-                <SunFill/>
+                <img src={process.env.PUBLIC_URL + 'img/icons-write/sunny.png'} />
               </FilteringBtn>
               <FilteringBtn name="cloudy" className="weatherButton" type="button" active={isFilteringBtnActive.cloudy}>
-                <CloudyFill/>
+                {/* <CloudyFill/> */}
+                <img src={process.env.PUBLIC_URL + 'img/icons-write/cloudy.png'} />
               </FilteringBtn>
               <FilteringBtn name="rainy" className="weatherButton" type="button" active={isFilteringBtnActive.rainy}>
-                <CloudRainFill/>
+                {/* <CloudRainFill/> */}
+                <img src={process.env.PUBLIC_URL + 'img/icons-write/rainy.png'} />
               </FilteringBtn>
               <FilteringBtn name="snowy" className="weatherButton" type="button" active={isFilteringBtnActive.snowy}>
-                <Snow/>
+                {/* <Snow/> */}
+                <img src={process.env.PUBLIC_URL + 'img/icons-write/snowy.png'} />
               </FilteringBtn>
               <FilteringBtn name="tempCold" className="weatherButton" type="button" active={isFilteringBtnActive.tempCold}>
-                <Thermometer/>
+                {/* <Thermometer/> */}
+                <img src={process.env.PUBLIC_URL + 'img/icons-write/cold.png'} />
               </FilteringBtn>
-              <FilteringBtn name="tempNice" className="weatherButton" type="button" active={isFilteringBtnActive.tempNice}>
+              {/* <FilteringBtn name="tempNice" className="weatherButton" type="button" active={isFilteringBtnActive.tempNice}>
                 <ThermometerHalf/>
-              </FilteringBtn>
+              </FilteringBtn> */}
               <FilteringBtn name="tempHot" className="weatherButton" type="button" active={isFilteringBtnActive.tempHot}>
-                <ThermometerHigh/>
+                {/* <ThermometerHigh/> */}
+                <img src={process.env.PUBLIC_URL + 'img/icons-write/hot.png'} />
               </FilteringBtn>
             </FilteringButtons>
           </FlexColumnCenter>
