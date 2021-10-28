@@ -44,7 +44,7 @@ const Title = styled.div`
   }
 
   @media screen and (max-width: 1081px) {
-    width: 50rem;
+    width: 80%;
   }
 `
 // 북마크 아이콘
@@ -198,11 +198,11 @@ export default function PostRead(){
     <Outer>
       <PostHeader>
         <Title>
-          <span>{'오늘 날씨 맑음'}</span>
-
           <BookmarkIcon>
           <FontAwesomeIcon icon={faHeart} size="2x" className="heart"/>
           </BookmarkIcon>
+          <span>{'오늘 날씨 맑음'}</span>
+
         </Title>
 
         <Profile>
