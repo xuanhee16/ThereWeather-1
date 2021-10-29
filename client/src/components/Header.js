@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { useHistory } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const HeaderOuter = styled.div`
     width: 100vw;
@@ -115,17 +116,18 @@ const Button = styled.button`
     border-radius: 10%;
 `
 
-export default function Header({ isInput, isMobileLogo, isLogin }) {
+export default function Header({ isInput, isMobileLogo }) {
     const history = useHistory()
+    const { isLogin } = useSelector((state) => state.itemReducer)
+
     // isInput : Map 페이지 사용시 true
     // isMobileLogo : Map 페이지 사용시 false
-    // isLogin : 로그인-회원가입 또는 로그아웃-마이페이지
 
     return (
         <HeaderOuter className="header">
             <TitleAndLogo className="titleAndLogo" isMobileLogo={isMobileLogo}>
-                <img src="img/img2.png" alt="logo" />
-                <h1>거기날씨</h1>
+                <img onClick={() => history.push("/")} src="img/img4.png" alt="logo" />
+                <h1 onClick={() => history.push("/")}>거기날씨</h1>
             </TitleAndLogo>
 
             {isInput ? (
@@ -163,7 +165,7 @@ export default function Header({ isInput, isMobileLogo, isLogin }) {
                     <Button className="login" isText>
                         로그아웃
                     </Button>
-                    <Button className="signup" isText>
+                    <Button onClick={() => history.push("/mypage")} className="signup" isText>
                         마이페이지
                     </Button>
                 </Wing>

@@ -24,9 +24,3 @@ module.exports = async (req, res) => {
         console.log(err)
     })
 }
-
-// const { getAccessToken } = require("../tokenFunc");
-// const { user } = require("../../models");
-// const refreshToken = async (req, res) => {
-//     res.send()
-// }

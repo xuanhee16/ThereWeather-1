@@ -1,24 +1,14 @@
-import axios from "axios"
-import { useHistory } from "react-router-dom"
-
 // action types
 export const CHANGE_USER_INFO = "CHANGE_USER_INFO"
 export const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE"
 export const UPDATE_START_END_PAGE = "UPDATE_START_END_PAGE"
 
-export const SIGNIN_USER = "SIGNIN_USER"
+// export const SIGNIN_USER = "SIGNIN_USER"
 export const LOGGEDIN_USER = "LOGGEDIN_USER"
 export const SIGNUP_USER = "SIGNUP_USER"
 export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
 export const CHANGE_IS_LOGIN = "CHANGE_IS_LOGIN"
-
 // export const LOGIN_USER = "LOGIN_USER"
-<<<<<<< HEAD
-
-=======
->>>>>>> b80992d1beeb2faba0efc11115504b420e4286dc
-
-
 // actions creator functions
 export const changeUser = (userinfo) => {
     return {
@@ -46,15 +36,6 @@ export const updateStartEndPage = (start, end) => {
     }
 }
 
-//홈 바로가기
-export const Home = (history) => () => {
-    history.push("/home")
-}
-//로그인 화면 바로가기 
-export const Login = (history) => () => {
-    history.push("/login")
-}
-
 
 //로그인된 상태 
 export const loggedInUser = (accessToken, path) => {
@@ -65,7 +46,7 @@ export const loggedInUser = (accessToken, path) => {
     };
 };
 
-//로그인
+
 export const signInUser = (userInfoId, userInfoPw, history) => (dispatch) => {
     dispatch({
     type: SIGNIN_USER
@@ -92,18 +73,6 @@ export const signUpUser = (data, history) => (dispatch) => {
     })
 }
 
-
-<<<<<<< HEAD
-// export const loginUser = (data) => {
-//   const loginDate = axios.post("http://localhost:3000/login", data)
-//   .then(res => res.data)
-//   return {
-//       type: LOGIN_USER,
-//       payload: loginDate
-//   }
-// }
-=======
->>>>>>> b80992d1beeb2faba0efc11115504b420e4286dc
 
 export const changeGender = (usergender) => {
     return {

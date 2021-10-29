@@ -10,9 +10,9 @@ export const initialState = {
     
     //로그인 테스트 
     //로그인시 
-    userSignin: {
-      signIn: null,
-    },
+    // userSignin: {
+    //   signIn: null,
+    // },
 
     //로그인된 상태 
     userLoggedIn: {
@@ -22,8 +22,8 @@ export const initialState = {
     },
     
     //회원가입 
-    signUp: {
-      signUpStatus: false
-    }
+    // signUp: {
+    //   signUpStatus: false
+    // }
 
 }
