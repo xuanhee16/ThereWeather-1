@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components"
-import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 import ModalConfirm from "../components/ModalConfirm"
 
@@ -175,7 +174,6 @@ export default function MyPage() {
         <span>나의 위치 : {'서울시 종로구'}</span>
         <button>정보수정</button>
         <ButtonArea>
-        <Link to="/editpassword">비밀번호 수정</Link>
           <button onClick={() => history.push('/editpassword')}>비밀번호 수정</button>
           <button onClick={removeUserInfo}>회원탈퇴</button>
           {
