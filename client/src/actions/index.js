@@ -3,9 +3,7 @@ export const CHANGE_USER_INFO = "CHANGE_USER_INFO"
 export const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE"
 export const UPDATE_START_END_PAGE = "UPDATE_START_END_PAGE"
 
-// export const SIGNIN_USER = "SIGNIN_USER"
 export const LOGGEDIN_USER = "LOGGEDIN_USER"
-export const SIGNUP_USER = "SIGNUP_USER"
 export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
 export const CHANGE_IS_LOGIN = "CHANGE_IS_LOGIN"
 // export const LOGIN_USER = "LOGIN_USER"
@@ -34,43 +32,6 @@ export const updateStartEndPage = (start, end) => {
             end,
         },
     }
-}
-
-
-//로그인된 상태 
-export const loggedInUser = (accessToken, path) => {
-    return {
-        type: LOGGEDIN_USER,
-        accessToken,
-        path
-    };
-};
-
-
-export const signInUser = (userInfoId, userInfoPw, history) => (dispatch) => {
-    dispatch({
-    type: SIGNIN_USER
-    })
-    axios.post("http://localhost/users/login",
-    { user_id: userInfoId.user_id, password: userInfoPw.password },
-    { headers: { "Content-Type" : "application/json" }, withCredentials: true })
-    .then((res) => {
-        dispatch(loggedInUser(res.data.data.accessToken))
-        dispatch(Home(history))  
-    })
-}
-
-//회원가입 
-export const signUpUser = (data, history) => (dispatch) => {
-    axios.post("http://localhost/users/signup", data, {
-    headers: { "Content-Type": "application/json" }, withCredentials: true })
-    .then((res) => {
-    //console.log(res.data)
-    dispatch({ 
-        type: SIGNUP_USER 
-        })
-        dispatch(Login(history))
-    })
 }
 
 
