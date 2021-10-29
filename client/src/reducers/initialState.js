@@ -5,7 +5,6 @@ export const initialState = {
 
     //북마크 페이지네이션
     start: 0,
-<<<<<<< HEAD
     end: 10, 
     current: 1,
     
@@ -27,8 +26,4 @@ export const initialState = {
       signUpStatus: false
     }
 
-=======
-    end: 10,
-    current: 1,
->>>>>>> a23b0cdc3636df9ecea569a78487b1c87f2f089a
 }
