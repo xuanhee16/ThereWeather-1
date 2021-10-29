@@ -39,21 +39,6 @@ module.exports = {
         })
     },
 
-    //액세스 토큰 유효성검사, 해독
-    checkAuthAccessToken: (req, res) => {
-        const { authorization } = req.headers //req.headers.cookie
-        const token = authorization && authorization.split(" ")[1] //다르게 잘라야될수도있음
-        if (!token) {
-            return res.status(400).send("Access token을 찾을 수 없습니다.")
-        }
-        // jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        try {
-            return verify(token, process.env.ACCESS_SECRET)
-        } catch (err) {
-            return null
-        }
-    },
-
     //리프레시 토큰 유효성검사, 해독
     checkAuthRefreshToken: (refreshToken) => {
         try {
