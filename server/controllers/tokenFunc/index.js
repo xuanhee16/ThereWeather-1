@@ -49,14 +49,16 @@ module.exports = {
     },
     isAuthorized: (req) => {
         const authorization = req.headers.authorization
-
+        //console.log("여기 tokenfunc/index.js:" ,authorization) //token e~
         if (!authorization) {
             return null
         }
         const atoken = authorization.split(" ")[1]
+        //console.log("server/tokenfunc/index.js:", atoken) //토큰값 잘 찍힘
         try {
             return verify(atoken, process.env.ACCESS_SECRET)
-        } catch (err) {
+        } 
+        catch (err) {
             return null
         }
     },

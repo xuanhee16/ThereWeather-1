@@ -1,8 +1,8 @@
-const { checkAuthAccessToken } = require("../tokenFunc");
+const { isAuthorized } = require("../tokenFunc");
 const { user } = require("../../models");
 
 module.exports = async (req, res) => {
-    const accessTokenData = checkAuthAccessToken(req);
+    const accessTokenData = isAuthorized(req);
     if(!accessTokenData){
         return res.json({ data: null, message: "유효하지 않은 토큰입니다." })
     } 

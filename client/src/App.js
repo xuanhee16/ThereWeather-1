@@ -44,6 +44,7 @@ export default function App() {
             dispatch(changeIsLogin(res.data))
         })
     }, [])
+    //wiki api 문서 참고!!!
     return (
         <>
             <Header isInput={isInput} />
@@ -116,7 +117,6 @@ export default function App() {
                 </Route>    
                 <Route exact path="/editpost">
                     <PostEdit></PostEdit>
-
                 </Route>
                 <Route exact path="/">
                     {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}
