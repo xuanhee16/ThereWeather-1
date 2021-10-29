@@ -1,4 +1,4 @@
-import { LOGGEDIN_USER, SIGNIN_USER, SIGNUP_USER, CHANGE_USER_INFO, CHANGE_USER_GENDER, CHANGE_IS_LOGIN, UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGIN_USER } from "../actions/index"
+import { LOGGEDIN_USER, SIGNIN_USER, SIGNUP_USER, CHANGE_USER_INFO, CHANGE_USER_GENDER, CHANGE_IS_LOGIN, UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 import { initialState } from "./initialState"
 
 const itemReducer = (state = initialState, action) => {
@@ -49,15 +49,15 @@ const itemReducer = (state = initialState, action) => {
                 ...state, 
                 userSignin: {
                     signIn: false,
-                  }
+                }
             }    
             break;
         case SIGNUP_USER:
             return {
-              ...state, 
-              signUp: {
-                signUpStatus: false
-              }
+                ...state, 
+                signUp: {
+                    signUpStatus: false
+                }
             }
             break;
         // case LOGIN_USER:
