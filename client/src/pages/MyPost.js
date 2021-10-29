@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
+import GoBackButton from  "../components/GoBackButton"
+
 
 const Outer = styled.div`
   background-color: #FEF9EF;
@@ -16,7 +18,6 @@ const Outer = styled.div`
   button{
     font-size: 1.5rem;
   }
-
 `
 
 // 내가 쓴 글 (grid)
@@ -38,7 +39,6 @@ const GridArea = styled.div`
     margin-right: 5vw;
   }
   .item:hover{
-
   }
 
   @media screen and (min-width: 2100px){
@@ -87,23 +87,20 @@ const PostInfo = styled.div`
 
 // 페이지네이션
 const Page = styled.div`
-  background-color: yellow;
   display: flex;
   justify-content: center;
   li {
     list-style: none;
   }
   button{
-    border: 1px solid red;
     margin: 0 1vw;
   }
 
   @media screen and (min-width: 2100px){
-    /* margin-top: 0; */
   }
 
   @media screen and (max-width: 1081px) {
-    margin-top: 5vh;
+    margin-top: 10rem;
   }
 `
 
@@ -133,6 +130,7 @@ export default function MyPost() {
 
   return (
     <Outer>
+      <GoBackButton/>
       <GridArea>
         <div className="item">
           <PostImg/>
@@ -204,6 +202,7 @@ export default function MyPost() {
           </li>
         ))}
 
+        
         <li className="page-item">
           <button
             className="item page-link"
@@ -221,7 +220,6 @@ export default function MyPost() {
           </button>
         </li>
       </Page>
-
     </Outer>
   )
 }
