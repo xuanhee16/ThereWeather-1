@@ -117,7 +117,6 @@ export default function App() {
                 </Route>    
                 <Route exact path="/editpost">
                     <PostEdit></PostEdit>
-
                 </Route>
                 <Route exact path="/">
                     {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}

@@ -200,7 +200,7 @@ export default function PasswordEdit() {
      .then((res) => {
       // console.log(res.data)
       dispatch(changeUserPw(true))
-      history.push("/")
+      history.push("/mypage")
      })
   }
 

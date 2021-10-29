@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function MyPage() {
   const Outer = styled.div`
@@ -139,7 +140,7 @@ export default function MyPage() {
         <span>나의 위치 : {'서울시 종로구'}</span>
         <a href="">정보수정</a>
         <ButtonArea>
-          <a href="">비밀번호 수정</a>
+        <Link to="/editpassword">비밀번호 수정</Link>
           <a href="">회원탈퇴</a>
         </ButtonArea>
       </ProfileArea>
