@@ -18,4 +18,3 @@ module.exports = {
   removeuser: require("./del/removeuser"),  
   usersController: require("./users"),
 }  
-

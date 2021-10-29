@@ -41,6 +41,11 @@ app.get("/", (req, res) => {
     res.send("Hello World!!ThereWeather!!")
 })
 
+
+//겹치는거
+app.use("/users", upload.single("img"), userRouter)
+app.use("/auth", userRouter)
+
 //get 
 app.get("/auth", controllers.auth) //인증 - App.js
 app.get("/bookmark", controllers.bookmark) //북마크 보는 곳 - BookMark.js  
@@ -66,10 +71,6 @@ app.put("/editpost", controllers.editpost) //예보글 수정시 - PostRead.js
 //delete
 app.delete("/deletepost", controllers.deletepost) //예보글 삭제 - PostRead.js 
 app.delete("/removeuser", controllers.removeuser) //회원탈퇴 - MyPage.js   
-
-//겹치는거
-app.use("/users", upload.single("img"), userRouter) 
-
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80
 

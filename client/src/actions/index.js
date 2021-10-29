@@ -8,11 +8,7 @@ export const LOGGEDIN_USER = "LOGGEDIN_USER"
 export const SIGNUP_USER = "SIGNUP_USER"
 export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
 export const CHANGE_IS_LOGIN = "CHANGE_IS_LOGIN"
-
 // export const LOGIN_USER = "LOGIN_USER"
-
-
-
 // actions creator functions
 export const changeUser = (userinfo) => {
     return {
@@ -39,6 +35,7 @@ export const updateStartEndPage = (start, end) => {
         },
     }
 }
+
 
 //로그인된 상태 
 export const loggedInUser = (accessToken, path) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Switch, Route, Redirect, useHistory, Router } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import "./App.css"
 import Map from "./pages/Map"
@@ -20,10 +20,30 @@ import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
+import { changeIsLogin, signInUser } from "./actions/index"
 
 export default function App() {
+    const dispatch = useDispatch()
+
     const isInput = true
     const { isLogin } = useSelector((state) => state.itemReducer)
+    useEffect(() => {
+        console.log(JSON.parse(localStorage.getItem("ATOKEN")))
+        //auth할차례
+        axios({
+            url: "http://localhost/users/auth",
+            method: "get",
+            headers: {
+                authorization: `token ${JSON.parse(
+                    localStorage.getItem("ATOKEN")
+                )}`,
+                accept: "application/json",
+            },
+        }).then((res) => {
+            console.log(res.data)
+            dispatch(changeIsLogin(res.data))
+        })
+    }, [])
     return (
         <>
             <Header isInput={isInput} />
@@ -64,8 +84,39 @@ export default function App() {
                 <Route exact path="/postread">
                     <PostRead></PostRead>
                 </Route>
+
+
+                <Route exact path="/writeorlogin">
+                    {isLogin ? (
+                        <Redirect to="/write" />
+                    ) : (
+                        <Redirect to="/login" />
+                    )}
+                </Route>
+                <Route exact path="/bookmarkorlogin">
+                    {isLogin ? (
+                        <Redirect to="/bookmark" />
+                    ) : (
+                        <Redirect to="/login" />
+                    )}
+                </Route>
+                <Route exact path="/homeorlogin">
+                    {isLogin ? (
+                        <Redirect to="/home" />
+                    ) : (
+                        <Redirect to="/login" />
+                    )}
+                </Route>
+                <Route exact path="/moreoruserinfo">
+                    {isLogin ? (
+                        <Redirect to="/userinfo" />
+                    ) : (
+                        <Redirect to="/more" />
+                    )}
+
                 <Route exact path="/editpost">
                     <PostEdit></PostEdit>
+
                 </Route>
                 <Route exact path="/">
                     {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}
