@@ -23,7 +23,7 @@ import { changeIsLogin, signInUser } from "../actions/index"
 const Outer = styled.section`
     position: relative;
     width: 100vw;
-    height: var(--mobile-page-height);
+    min-height: var(--mobile-page-height);
     background-color: var(--page-bg-color);
     display: flex;
     flex-direction: column;
@@ -33,7 +33,7 @@ const Outer = styled.section`
         text-align: center;
         font-size: 2rem;
         font-weight: bold;
-        margin-bottom: 2rem;
+        margin: 2rem auto;
     }
     @media screen and (min-width: 1081px) {
         height: calc(100vh - 125px);
@@ -100,7 +100,6 @@ const Button = styled.button`
     }
 `
 
-// axios.defaults.withCredentials = true;
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -160,11 +159,13 @@ export default function Login() {
             setPwInputMessage((prevText) => "")
         }
     }
+
     const loginButtonHandler = (e) => {
         e.preventDefault()
 
         if (idInput.length === 0 && pwInput.length === 0) {
             console.log("모든 항목을 입력해야 합니다.")
+
         }
 
         axios
@@ -189,6 +190,7 @@ export default function Login() {
                 history.push("/")
             })
     }
+
 
     function googleLoginButtonHandler() {
         console.log("구글 로그인 버튼 동작 확인")

@@ -115,6 +115,7 @@ export default function MyPage() {
 
     @media screen and (max-width: 1081px) {
       margin: 0 auto;
+      margin-bottom: 7vh;
       padding: 0;
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: 150px 300px 300px;

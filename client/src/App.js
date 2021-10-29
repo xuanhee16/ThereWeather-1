@@ -17,6 +17,7 @@ import SignUp from "./pages/SignUp"
 import MyPost from "./pages/MyPost"
 import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
+import PostEdit from "./pages/PostEdit"
 import styled from "styled-components"
 // import { faRoute } from "@fortawesome/free-solid-svg-icons"
 import { changeIsLogin, signInUser } from "./actions/index"
@@ -84,6 +85,7 @@ export default function App() {
                     <PostRead></PostRead>
                 </Route>
 
+
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
                         <Redirect to="/write" />
@@ -111,6 +113,10 @@ export default function App() {
                     ) : (
                         <Redirect to="/more" />
                     )}
+
+                <Route exact path="/editpost">
+                    <PostEdit></PostEdit>
+
                 </Route>
                 <Route exact path="/">
                     {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}

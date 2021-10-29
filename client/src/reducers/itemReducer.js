@@ -17,23 +17,24 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 genderToggle: action.payload,
             }
-            break
 
-        // case CHANGE_USER_INFO:
-        //     break
+            break;
         case UPDATE_CURRENT_PAGE:
             return {
                 ...state,
-                current: action.payload,
-            }
-            break
+                current: action.payload
+            } 
+            break;
+
         case UPDATE_START_END_PAGE:
             return {
                 ...state,
                 start: action.payload.start,
                 end: action.payload.end,
             }
-            break
+
+            break;
+
         case LOGGEDIN_USER:
             return {
                 ...state,
@@ -43,35 +44,17 @@ const itemReducer = (state = initialState, action) => {
                     path: action.path,
                 },
             }
-            break
-        case SIGNIN_USER:
-            return {
-                ...state,
-                userSignin: {
-                    signIn: false,
-                },
-            }
-            break
-        case SIGNUP_USER:
-            return {
-                ...state,
-                signUp: {
-                    signUpStatus: false,
-                },
-            }
-            break
-        // case LOGIN_USER:
-        //     return {
-        //         ...state,
-        //         loginSuccess: action.payload
-        //     }
+
+            break;
 
         case CHANGE_IS_LOGIN:
             return {
                 ...state,
                 isLogin: action.payload,
             }
+
             break
+
 
         default:
             return state
