@@ -111,7 +111,11 @@ export default function App() {
                     ) : (
                         <Redirect to="/more" />
                     )}
+<<<<<<< HEAD
                 </Route>
+=======
+                </Route>    
+>>>>>>> d4aabf949ad3fffd17410081da8224572b1d0187
                 <Route exact path="/editpost">
                     <PostEdit></PostEdit>
                 </Route>

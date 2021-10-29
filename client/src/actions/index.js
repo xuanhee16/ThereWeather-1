@@ -3,9 +3,7 @@ export const CHANGE_USER_INFO = "CHANGE_USER_INFO"
 export const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE"
 export const UPDATE_START_END_PAGE = "UPDATE_START_END_PAGE"
 
-// export const SIGNIN_USER = "SIGNIN_USER"
 export const LOGGEDIN_USER = "LOGGEDIN_USER"
-export const SIGNUP_USER = "SIGNUP_USER"
 export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
 export const CHANGE_IS_LOGIN = "CHANGE_IS_LOGIN"
 // export const LOGIN_USER = "LOGIN_USER"
@@ -36,6 +34,7 @@ export const updateStartEndPage = (start, end) => {
     }
 }
 
+<<<<<<< HEAD
 //로그인된 상태
 export const loggedInUser = (accessToken, path) => {
     return {
@@ -44,6 +43,8 @@ export const loggedInUser = (accessToken, path) => {
         path,
     }
 }
+=======
+>>>>>>> d4aabf949ad3fffd17410081da8224572b1d0187
 
 export const changeGender = (usergender) => {
     return {
