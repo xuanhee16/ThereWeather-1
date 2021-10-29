@@ -1,62 +1,13 @@
-/* 사용자 지정 속성 */
-/*
-		[사용법] var(컬러이름)
-		[예시] div의 배경색을 바꿀 때,
-			div {
-				background-color: var(--page-bg-color);
-			}
-
-		스타일드 컴포넌트에서도 사용 가능합니다!
-	*/
-
-:root {
-	/* 색상 */
-	--page-bg-color: #FEF9EF;
-	--mobile-header-color: #A2D2FF;
-	--button-bg-normal: #DDD;
-	--button-bg-positive: #419300;
-	--button-bg-negative: #FF4545;
-	--font-validation-negative: #FF4545;
-	--font-validation-positive: #419300;
-	--button-bg-edit: #2F6ECB;
-	--button-bg-google: #EA4335;
-	--modal-bg-color: #00000066;
-	--modal-confirm-bg: #F2F2F2;
-	--modal-confirm-button-bg: #C4C4C4;
-
-	/* 길이 - 모바일 */
-	--mobile-page-height: calc(100vh - 200px);
-	--mobile-header-height: 200px;
-	--mobile-menubar-height: 70px;
-	
-	/* 길이 - 데스크탑*/
-	--desktop-page-height: calc(100vh - 125px);
-	--desktop-header-height: 125px;
-}
-
-/* 속성값 통일 */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-button {
-    border-radius: none;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-/* [start] create-react-app default style */
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
-/* [end] create-react-app default style */
