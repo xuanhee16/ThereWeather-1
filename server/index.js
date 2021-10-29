@@ -58,8 +58,7 @@ app.get("/readpost", controllers.readpost) //예보글보기 - PostRead.js
 
 //post 
 app.post("/login", controllers.login) //로그인시 - Login.js 
-app.post("/signout", controllers.signout) //로그아웃시  
-app.post("/signup", controllers.signup) //회원가입시 - SignUp.js 
+app.post("/signout", controllers.signout) //로그아웃시
 app.post("/post", controllers.post) //글쓰는 곳 - Write.js 
 
 //put 
