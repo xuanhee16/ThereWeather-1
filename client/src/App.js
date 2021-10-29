@@ -84,8 +84,6 @@ export default function App() {
                 <Route exact path="/postread">
                     <PostRead></PostRead>
                 </Route>
-
-
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
                         <Redirect to="/write" />
@@ -113,10 +111,9 @@ export default function App() {
                     ) : (
                         <Redirect to="/more" />
                     )}
-
+                </Route>
                 <Route exact path="/editpost">
                     <PostEdit></PostEdit>
-
                 </Route>
                 <Route exact path="/">
                     {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}
