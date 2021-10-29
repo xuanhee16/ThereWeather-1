@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+import styled from "styled-components"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
-import GoBackButton from  "../components/GoBackButton"
-
+import GoBackButton from "../components/GoBackButton"
 
 const Outer = styled.div`
+
   background-color: var(--page-bg-color);
   width: 100vw;
   /* height: 100vh; */
@@ -24,47 +24,48 @@ const Outer = styled.div`
 
 // 내가 쓴 글 (grid)
 const GridArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-	grid-template-rows: 300px 300px;
-  grid-gap: 1.5rem;
-  height: 70vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 300px 300px;
+    grid-gap: 1.5rem;
+    height: 70vh;
 
-  .item{
-    /* border: 1px solid blue; */
-    display: flex;
-  }
-  .item:nth-child(odd){
-    margin-left: 5vw;
-  }
-  .item:nth-child(even){
-    margin-right: 5vw;
-  }
-  .item:hover{
-  }
-
-  @media screen and (min-width: 2100px){
-    height: 50vh;
-
-    .item:nth-child(odd){
-      margin-left: 30vw;
+    .item {
+        /* border: 1px solid blue; */
+        display: flex;
     }
-    .item:nth-child(even){
-      margin-right: 30vw;
+    .item:nth-child(odd) {
+        margin-left: 5vw;
     }
-  }
-  @media screen and (max-width: 1081px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 3fr 3fr 3fr 3fr;
+    .item:nth-child(even) {
+        margin-right: 5vw;
+    }
+    .item:hover {
+    }
 
-    .item:nth-child(odd),
-    .item:nth-child(even){
-      margin: 0 2vw;
+    @media screen and (min-width: 2100px) {
+        height: 50vh;
+
+        .item:nth-child(odd) {
+            margin-left: 30vw;
+        }
+        .item:nth-child(even) {
+            margin-right: 30vw;
+        }
     }
-  }
+    @media screen and (max-width: 1081px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: 3fr 3fr 3fr 3fr;
+
+        .item:nth-child(odd),
+        .item:nth-child(even) {
+            margin: 0 2vw;
+        }
+    }
 `
 // 게시물 사진
 const PostImg = styled.img`
+
   width: 50%;
   height: 100%;
   background-color: #FFFFFF;
@@ -92,28 +93,30 @@ const PostInfo = styled.div`
     padding: 1vh 2vw 2vh 2vw;
     font-size: 1.5rem;
   }
+
 `
 
 // 페이지네이션
 const Page = styled.div`
-  display: flex;
-  justify-content: center;
-  li {
-    list-style: none;
-  }
-  button{
-    margin: 0 1vw;
-  }
+    display: flex;
+    justify-content: center;
+    li {
+        list-style: none;
+    }
+    button {
+        margin: 0 1vw;
+    }
 
-  @media screen and (min-width: 2100px){
-  }
+    @media screen and (min-width: 2100px) {
+    }
 
-  @media screen and (max-width: 1081px) {
-    margin-top: 10rem;
-  }
+    @media screen and (max-width: 1081px) {
+        margin-top: 10rem;
+    }
 `
 
 export default function MyPost() {
+
   const dispatch = useDispatch()
   const state = useSelector(state => state.itemReducer)
   const { start, end, current } = state;
@@ -231,3 +234,4 @@ export default function MyPost() {
     </Outer>
   )
 }
+

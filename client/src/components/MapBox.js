@@ -2,13 +2,13 @@ import styled from "styled-components"
 import React, { useEffect } from "react"
 
 const ImgContainer = styled.div`
-	position: relative;
-	width: 100%;
-	height: var(--mobile-page-height);
+    position: relative;
+    width: 100%;
+    height: var(--mobile-page-height);
 
-	@media screen and (min-width: 1081px) {
-		height: var(--desktop-page-height);
-	}
+    @media screen and (min-width: 1081px) {
+        height: var(--desktop-page-height);
+    }
 `
 
 export default function Location(props) {
@@ -62,23 +62,21 @@ export default function Location(props) {
             console.log(markers)
         }
 
-        // 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
-        function setMarkers(map) {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(map)
-            }
-        }
-
-        // "마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
-        function showMarkers() {
-            setMarkers(map)
-        }
-
-        // "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
-        function hideMarkers() {
-            setMarkers(null)
-        }
-    }, [])
+        // // 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+        // function setMarkers(map) {
+        //     for (var i = 0; i < markers.length; i++) {
+        //         markers[i].setMap(map)
+        //     }
+        // }
+        // // "마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
+        // function showMarkers() {
+        //     setMarkers(map)
+        // }
+        // // "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
+        // function hideMarkers() {
+        //     setMarkers(null)
+        // }
+    }, [kakao.maps.LatLng, kakao.maps.Marker, kakao.maps.event, kakao.maps.Map])
 
     return <ImgContainer id="map"></ImgContainer>
 }

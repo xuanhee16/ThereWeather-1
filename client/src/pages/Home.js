@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
 import styled from "styled-components"
 
 const HomeContainer = styled.div`
+
 display: flex;
 flex-direction: row;
 padding-top: 200px; // Header.js에 가려져서 추가함
@@ -22,18 +23,19 @@ flex-wrap: wrap;
 }
 `;
 
+
 const LeftNav1 = styled.nav`
-  text-align: center;
-  flex-basis: 310px;
-  flex-grow: 1;
-  margin: 5px;
-  padding: 10px;
+    text-align: center;
+    flex-basis: 310px;
+    flex-grow: 1;
+    margin: 5px;
+    padding: 10px;
 `
 const LeftNav2 = styled(LeftNav1)``
 const LeftNav3 = styled(LeftNav1)``
 
-
 const RightContainer = styled.div`
+
   display: grid;
   height:100vh;
   width: 80vw;
@@ -59,17 +61,16 @@ const RightContainer = styled.div`
   }
 `;
 
-const RightNav1 = styled.nav`
-  margin-top: 0.8rem;
-  text-align: center;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: 
-  "nav nav";
-  grid-column: 1 / 3;
-  grid-row: 1 / 2; 
-`;
-// const RightNav2 = styled(RightNav1)``;
 
+const RightNav1 = styled.nav`
+    margin-top: 0.8rem;
+    text-align: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "nav nav";
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+`
+// const RightNav2 = styled(RightNav1)``;
 
 export default function Home() {
     // const dispatch = useDispatch()
@@ -78,39 +79,37 @@ export default function Home() {
 
     return (
         <div className="homecontainer">
-          <HomeContainer>
-          <LeftContainer1>
-            <LeftNav1>
-            00구 주민예보
-              <div className="weatherInfo"></div>
-            </LeftNav1>
-            <LeftNav2>
-            기상청 일기예보
-              <div className="weatherInfo"></div>
-            </LeftNav2>
-            <LeftNav3>
-            00구 날씨 기반 추천 코디
-              <div className="codiInfo"></div>
-           </LeftNav3>
-          </LeftContainer1>
+            <HomeContainer>
+                <LeftContainer1>
+                    <LeftNav1>
+                        00구 주민예보
+                        <div className="weatherInfo"></div>
+                    </LeftNav1>
+                    <LeftNav2>
+                        기상청 일기예보
+                        <div className="weatherInfo"></div>
+                    </LeftNav2>
+                    <LeftNav3>
+                        00구 날씨 기반 추천 코디
+                        <div className="codiInfo"></div>
+                    </LeftNav3>
+                </LeftContainer1>
 
-          <RightContainer>
-            <RightNav1>
-            00구 주민예보글
-            </RightNav1>
-            {/* <RightNav2>
+                <RightContainer>
+                    <RightNav1>00구 주민예보글</RightNav1>
+                    {/* <RightNav2>
             오른쪽2
             </RightNav2> */}
-            <div className="userPost">1</div>
-            <div className="userPost">2</div>
-            <div className="userPost">3</div>
-            <div className="userPost">4</div>
-            <div className="userPost">5</div>
-            <div className="userPost">6</div>
-            <div className="userPost">7</div>
-            <div className="userPost">8</div>
-          </RightContainer>
-          </HomeContainer>
+                    <div className="userPost">1</div>
+                    <div className="userPost">2</div>
+                    <div className="userPost">3</div>
+                    <div className="userPost">4</div>
+                    <div className="userPost">5</div>
+                    <div className="userPost">6</div>
+                    <div className="userPost">7</div>
+                    <div className="userPost">8</div>
+                </RightContainer>
+            </HomeContainer>
         </div>
     )
 }

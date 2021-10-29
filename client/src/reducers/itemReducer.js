@@ -9,7 +9,7 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 userInfo: action.payload,
             }
-            break
+
         //     break
         // 새로운기능은 아래양식으로 만들어서 쓸수있다.
 
@@ -19,13 +19,11 @@ const itemReducer = (state = initialState, action) => {
                 genderToggle: action.payload,
             }
 
-            break;
         case UPDATE_CURRENT_PAGE:
             return {
                 ...state,
-                current: action.payload
-            } 
-            break;
+                current: action.payload,
+            }
 
         case UPDATE_START_END_PAGE:
             return {
@@ -34,14 +32,15 @@ const itemReducer = (state = initialState, action) => {
                 end: action.payload.end,
             }
 
-            break;
         case CHANGE_IS_LOGIN:
             return {
                 ...state,
                 isLogin: action.payload,
             }
-            break;
+
+           
         case CHANGE_USER_PW:
+
             return {
                ...state,
                editPassword: action.payload,

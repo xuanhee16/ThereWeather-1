@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGoogle } from "@fortawesome/free-brands-svg-icons"
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+// import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
-import { signUpUser } from "../actions"
 
 /*
   TODO
@@ -199,20 +198,27 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////
-const url = process.env.REACT_APP_URL || "http://ec2-54-180-102-202.ap-northeast-2.compute.amazonaws.com"
+const url =
+    process.env.REACT_APP_URL ||
+    "http://ec2-54-180-102-202.ap-northeast-2.compute.amazonaws.com"
 
 export default function SignUp() {
-
-    const state = useSelector((state) => state.itemReducer)
-    const dispatch = useDispatch()
-
-
     // input 상태 관리, 유효성 검사
-    const [inputSignUpData, setInputSignUpData] = useState({ idInput: "", pwInput: "", nickNameInput: "" })
-    const [inputVaildMessage, setInputVaildMessage] = useState({ idInput: "아이디를 입력해주세요.", pwInput: "패스워드를 입력해주세요.", nickNameInput: "닉네임을 입력해주세요." })
+    const [inputSignUpData, setInputSignUpData] = useState({
+        idInput: "",
+        pwInput: "",
+        nickNameInput: "",
+    })
+    const [inputVaildMessage, setInputVaildMessage] = useState({
+        idInput: "아이디를 입력해주세요.",
+        pwInput: "패스워드를 입력해주세요.",
+        nickNameInput: "닉네임을 입력해주세요.",
+    })
     const [pwCheckInput, setPwCheckInput] = useState("")
-    const [pwCheckInputMessage, setPwCheckInputMessage] = useState("패스워드를 다시한번 입력해주세요.")
-    const [userRoadAddress, setRoadUserAddress] = useState("위 검색창에서 검색해주세요.")
+    const [pwCheckInputMessage, setPwCheckInputMessage] =
+        useState("패스워드를 다시한번 입력해주세요.")
+    const [userRoadAddress, setRoadUserAddress] =
+        useState("위 검색창에서 검색해주세요.")
     const { genderToggle } = useSelector((state) => state.itemReducer)
     const [photo, setPhoto] = useState("")
     const [uploadedImg, setUploadedImg] = useState({
@@ -239,7 +245,9 @@ export default function SignUp() {
     }
     // [유효성 검증 함수]: 최소 6자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함
     function strongPassword(str) {
-        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(str)
+        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(
+            str
+        )
     }
     //아이디길이가 4자이상인가
     function isMoreThan4Length(word) {
@@ -256,7 +264,10 @@ export default function SignUp() {
 
     useEffect(() => {
         //아이디 유효성검사
-        if (onlyNumberAndEnglish(inputSignUpData.idInput) && isMoreThan4Length(inputSignUpData.idInput)) {
+        if (
+            onlyNumberAndEnglish(inputSignUpData.idInput) &&
+            isMoreThan4Length(inputSignUpData.idInput)
+        ) {
             setInputVaildMessage({ ...inputVaildMessage, idInput: "" })
         } else {
             setInputVaildMessage({
@@ -280,7 +291,10 @@ export default function SignUp() {
             })
         }
         //패스워드 학인 유효성
-        if (isMatch(inputSignUpData.pwInput, pwCheckInput) && pwCheckInput.length === 0) {
+        if (
+            isMatch(inputSignUpData.pwInput, pwCheckInput) &&
+            pwCheckInput.length === 0
+        ) {
             setPwCheckInputMessage("패스워드를 다시한번 입력해주세요.")
         } else if (isMatch(inputSignUpData.pwInput, pwCheckInput)) {
             setPwCheckInputMessage("")
@@ -308,9 +322,14 @@ export default function SignUp() {
     }
 
     function signupFunc(e) {
-
         console.log("프론트 콘솔:회원가입 입장")
-        if (inputVaildMessage.idInput || inputVaildMessage.pwInput || inputVaildMessage.nickNameInput || pwCheckInputMessage || userRoadAddress === "위 검색창에서 검색해주세요.") {
+        if (
+            inputVaildMessage.idInput ||
+            inputVaildMessage.pwInput ||
+            inputVaildMessage.nickNameInput ||
+            pwCheckInputMessage ||
+            userRoadAddress === "위 검색창에서 검색해주세요."
+        ) {
             console.log("프론트:빈칸을 채워주세요")
         } else {
             console.log("프론트:빈칸 채우기 완료")
@@ -337,7 +356,6 @@ export default function SignUp() {
                 }
             })
         }
-
     }
     ////////////////////////////////////////////////
     const onSubmit = (e) => {
@@ -374,7 +392,12 @@ export default function SignUp() {
                 <StyledArticle className="id">
                     <InputAndTitle className="inputIdSection">
                         <h3>아이디</h3>
-                        <InputText type="text" name="idInput" placeholder="아이디" onChange={idOnChangeHanlder("idInput")} />
+                        <InputText
+                            type="text"
+                            name="idInput"
+                            placeholder="아이디"
+                            onChange={idOnChangeHanlder("idInput")}
+                        />
                     </InputAndTitle>
                     <ValidationListBox className="idValidationList">
                         <li>{inputVaildMessage.idInput}</li>
@@ -383,7 +406,12 @@ export default function SignUp() {
                 <StyledArticle className="password">
                     <InputAndTitle className="inputPwSection">
                         <h3>비밀번호</h3>
-                        <InputText type="password" name="pwInput" placeholder="비밀번호" onChange={idOnChangeHanlder("pwInput")} />
+                        <InputText
+                            type="password"
+                            name="pwInput"
+                            placeholder="비밀번호"
+                            onChange={idOnChangeHanlder("pwInput")}
+                        />
                     </InputAndTitle>
                     <ValidationListBox className="pwValidationList">
                         <li>{inputVaildMessage.pwInput}</li>
@@ -392,7 +420,12 @@ export default function SignUp() {
                 <StyledArticle className="password">
                     <InputAndTitle className="inputPwSection">
                         <h3>비밀번호 확인</h3>
-                        <InputText type="password" name="pwCheckInput" placeholder="비밀번호 확인" onChange={idOnChangeHanlder2} />
+                        <InputText
+                            type="password"
+                            name="pwCheckInput"
+                            placeholder="비밀번호 확인"
+                            onChange={idOnChangeHanlder2}
+                        />
                     </InputAndTitle>
                     <ValidationListBox className="pwValidationList">
                         <li>{pwCheckInputMessage}</li>
@@ -401,7 +434,12 @@ export default function SignUp() {
                 <StyledArticle className="password">
                     <InputAndTitle className="inputPwSection">
                         <h3>닉네임</h3>
-                        <InputText type="text" name="nickNameInput" placeholder="닉네임" onChange={idOnChangeHanlder("nickNameInput")} />
+                        <InputText
+                            type="text"
+                            name="nickNameInput"
+                            placeholder="닉네임"
+                            onChange={idOnChangeHanlder("nickNameInput")}
+                        />
                     </InputAndTitle>
                     <ValidationListBox className="pwValidationList">
                         <li>{inputVaildMessage.nickNameInput}</li>
@@ -418,16 +456,31 @@ export default function SignUp() {
                         <h3>사는곳</h3>
                         <DaumPostcode onComplete={handleComplete} />
                     </InputAndTitle>
-                    <ValidationListBox className="pwValidationList">{userRoadAddress}</ValidationListBox>
+                    <ValidationListBox className="pwValidationList">
+                        {userRoadAddress}
+                    </ValidationListBox>
                 </StyledArticle>
                 <StyledArticle className="password">
                     <InputAndTitle className="inputPwSection">
                         <h3>프로필사진</h3>
                         <Buttons2>
                             {/* /////////////////////////////// */}
-                            <PhotoUploadSection onSubmit={onSubmit} className="photoUploadSection">
-                                <PhotoBox>{uploadedImg ? <PhotoBox2 src={uploadedImg.filePath} /> : <div></div>}</PhotoBox>
-                                <Button2 type="file" className="photoButton" onChange={addFile} />
+                            <PhotoUploadSection
+                                onSubmit={onSubmit}
+                                className="photoUploadSection"
+                            >
+                                <PhotoBox>
+                                    {uploadedImg ? (
+                                        <PhotoBox2 src={uploadedImg.filePath} />
+                                    ) : (
+                                        <div></div>
+                                    )}
+                                </PhotoBox>
+                                <Button2
+                                    type="file"
+                                    className="photoButton"
+                                    onChange={addFile}
+                                />
                                 <Button3 type="submit">업로드</Button3>
                             </PhotoUploadSection>
                             {/* /////////////////////////////// */}
