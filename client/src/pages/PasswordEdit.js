@@ -23,12 +23,14 @@ import ModalConfirm from "../components/ModalConfirm";
 const Outer = styled.section`
   position: relative;
   width: 100vw;
-  height: var(--mobile-page-height);
+  /* height: var(--mobile-page-height); */
+  min-height: 100vh;
   background-color: var(--page-bg-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 300px; // Header.js에 가려져서 추가함
 
   h2 {
     text-align: center;
@@ -38,7 +40,7 @@ const Outer = styled.section`
   }
 
   @media screen and (min-width: 1081px) {
-    height: calc(100vh - 125px);
+    /* height: calc(100vh - 125px); */
 	}
 `;
 

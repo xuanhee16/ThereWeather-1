@@ -34,7 +34,6 @@ export const updateStartEndPage = (start, end) => {
     }
 }
 
-
 export const changeGender = (usergender) => {
     return {
         type: CHANGE_USER_GENDER,

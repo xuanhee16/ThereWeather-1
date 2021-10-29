@@ -6,13 +6,15 @@ import GoBackButton from  "../components/GoBackButton"
 
 
 const Outer = styled.div`
-  background-color: #FEF9EF;
+  background-color: var(--page-bg-color);
   width: 100vw;
-  height: 100vh;
-  padding-top: 10vh;
+  /* height: 100vh; */
+  min-height: 100vh;
+  padding-top: 200px; // Header.js에 가려져서 추가함
 
   @media screen and (max-width: 1081px) {
-    padding-top: 5vh;
+    padding-top: 250px;  // Header.js에 가려져서 추가함
+    padding-bottom: 100px; // MenuBar에 가려져서 추가
   }
 
   button{
@@ -65,23 +67,30 @@ const GridArea = styled.div`
 const PostImg = styled.img`
   width: 50%;
   height: 100%;
-  background-color: antiquewhite;
+  background-color: #FFFFFF;
 
   @media screen and (min-width: 2100px) {
     width: 300px;
     height: 300px;
   }
+
+  @media screen and (max-width: 1081px) {
+    // 이미지 크기 수정 필요
+  }
 `
 // 게시물 내용
 const PostInfo = styled.div`
-  /* background-color: grey; */
   width: 50%;
-  padding: 4vh 2vw 2vh 2vw;
+  padding: 3vh 2vw 2vh 2vw;
   font-size: 2rem;
   align-items: center;
+  p{
+    margin-top: 10px;
+  }
 
   @media screen and (max-width: 1081px) {
-    padding: 2vh 2vw 2vh 2vw;
+    padding: 1vh 2vw 2vh 2vw;
+    font-size: 1.5rem;
   }
 `
 
@@ -207,7 +216,6 @@ export default function MyPost() {
           <button
             className="item page-link"
             onClick={() => {
-              if(current === 1) return alert('첫번째 페이지 입니다.')
               if(current % 10 === 1){
                 const s = start - 10;
                 const e = end - 10;

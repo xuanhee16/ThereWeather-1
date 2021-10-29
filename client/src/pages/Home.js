@@ -4,6 +4,8 @@ import styled from "styled-components"
 const HomeContainer = styled.div`
 display: flex;
 flex-direction: row;
+padding-top: 200px; // Header.js에 가려져서 추가함
+background-color: var(--page-bg-color);
 `;
 
 const LeftContainer1 = styled.div`
@@ -20,7 +22,6 @@ flex-wrap: wrap;
 }
 `;
 
-
 const LeftNav1 = styled.nav`
   text-align: center;
   flex-basis: 310px;
@@ -33,29 +34,29 @@ const LeftNav3 = styled(LeftNav1)``
 
 
 const RightContainer = styled.div`
-display: grid;
-height:100vh;
-width: 80vw;
-grid-template-rows: 0.5fr 2.3fr 2.3fr 2.3fr 2.3fr;
-grid-template-columns: 1fr 1fr;
-grid-area: 
-"nav nav"
-"main main"
-"main main"
-;
-grid-gap:0.1rem;
-transition: all 0.01s ease-in-out;
-//(max-width: 1081px)
-@media (max-width: 600px) {
-  grid-template-rows: 0.5fr 0.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "nav"
-    "main"
-}
-.userPost {
-  text-align: center;
-}
+  display: grid;
+  height:100vh;
+  width: 80vw;
+  grid-template-rows: 0.5fr 2.3fr 2.3fr 2.3fr 2.3fr;
+  grid-template-columns: 1fr 1fr;
+  grid-area: 
+  "nav nav"
+  "main main"
+  "main main"
+  ;
+  grid-gap:0.1rem;
+  transition: all 0.01s ease-in-out;
+  //(max-width: 1081px)
+  @media (max-width: 600px) {
+    grid-template-rows: 0.5fr 0.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "nav"
+      "main"
+  }
+  .userPost {
+    text-align: center;
+  }
 `;
 
 const RightNav1 = styled.nav`
