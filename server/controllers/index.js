@@ -6,7 +6,6 @@ module.exports = {
   map: require("./get/map"),
   mypage: require("./get/mypage"),
   readpost: require("./get/readpost"),
-  // setpw: require("./get/setpw"),
   login: require("./post/login"),
   signout: require("./post/signout"),
   signup: require("./post/signup"),

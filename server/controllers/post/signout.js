@@ -1,3 +1,5 @@
 module.exports = async (req, res) => {
-    res.send()
+  delete req.headers.authorization;
+  res.clearCookie("refreshToken");
+  localStorage.clear();
 }
