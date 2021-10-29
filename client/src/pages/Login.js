@@ -24,7 +24,7 @@ import { signInUser } from "../actions"
 const Outer = styled.section`
     position: relative;
     width: 100vw;
-    height: var(--mobile-page-height);
+    min-height: var(--mobile-page-height);
     background-color: var(--page-bg-color);
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@ const Outer = styled.section`
         text-align: center;
         font-size: 2rem;
         font-weight: bold;
-        margin-bottom: 2rem;
+        margin: 2rem auto;
     }
     @media screen and (min-width: 1081px) {
         height: calc(100vh - 125px);

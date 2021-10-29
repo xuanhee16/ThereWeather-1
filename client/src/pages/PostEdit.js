@@ -1,21 +1,11 @@
-import styled from "styled-components"
 import { useState, useEffect } from "react"
-
-// import { Upload, SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
+import styled from "styled-components"
+import ModalConfirm from "../components/ModalConfirm"
 
 /* TODO
-  [] 업로드된 이미지의 크기 정리를 어떻게 할지
-    - 가로, 세로 비율 유지 방법
-  [] 날씨 버튼
-    - 버튼 아이콘, 스타일
-      - [x] 아이콘을 png 파일로 대체하기
-      - [x] background-color, padding, height, width
-      - [x] button type
-    - 필터링을 위한 post 요청
-      - [x] 버튼에 name 주기, name을 모으는 state 변수 (배열)
-      - [] 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯
-      - [x] 선택된 버튼의 스타일 바꾸기
-  [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
+  [] 악시오스 요청
+  [] redirect
+  [] 원래 썼던 게시물을 Load
 */
 
 const Outer = styled.div`
@@ -40,9 +30,10 @@ const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    border: ${props => props.blue ? null : '1px solid black'};
     border-radius: ${props => props.round ? '50%' : null};
-    background-color: var(--button-bg-normal);
+    background-color: ${props => props.blue ? 'var(--button-bg-edit)' : 'var(--button-bg-normal)'};
+    color: ${props => props.blue ? 'white' : 'black'};
     font-size: 1.25rem;
     padding: ${props => props.round ? '.5rem .5rem' : '.5rem 2rem'};
     margin: ${props => props.round ? '.5rem' : '1rem'};
@@ -169,7 +160,7 @@ const WriteInput = styled.textarea`
     }
 `
 
-export default function Write() {
+export default function PostEdit() {
   // img src 상태
     // 테스트용 이미지
   const imageUrl = {
@@ -276,12 +267,27 @@ export default function Write() {
     setPostText(e.target.value);
   }
 
+  // 모달 오픈 여부 state
+  const [ isEditModalOpen, setIsEditModalOpen ] = useState(false);
+
   // 등록버튼 이벤트
-  const submitButtonHandler = (e) => {
-    console.log('등록버튼 동작 확인');
-    // TODO
-      // axios.post
-      // 페이지 이동 : '글 읽기' 페이지로?
+  const editSubmitHandler = (e) => {
+    console.log('수정버튼 동작 확인');
+    setIsEditModalOpen(prev => true);
+  }
+
+  // 모달 닫기/예/아니오 이벤트 함수
+  const editYesHandler = (e) => {
+    // TODO 악시오스 요청, 페이지 redirection
+    console.log('수정 yes');
+  }
+
+  const editNoHandler = (e) => {
+    setIsEditModalOpen(prev => false);
+  }
+
+  const modalCloseHandler = (e) => {
+    setIsEditModalOpen(prev => false);
   }
 
   return (
@@ -337,10 +343,23 @@ export default function Write() {
 
         <TextSection>
           <WriteInput type="text" placeholder="글을 입력하세요." value={postText} onChange={postTextHandler} />
-          <Button className="submitButton" onClick={submitButtonHandler}>등록</Button>
+          <Button className="submitButton" onClick={editSubmitHandler} blue>수정</Button>
           {postText}
         </TextSection>
       </DesktopRight>
+
+      {
+        isEditModalOpen?
+          <ModalConfirm
+            yesHandler={editYesHandler}
+            noHandler={editNoHandler}
+            closeHandler={modalCloseHandler}
+          >
+            <p>수정하시겠습니까?</p>
+          </ModalConfirm>
+        :
+          ''
+      }
     </Outer>
   );
 }
