@@ -1,15 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTshirt, faSun, faWind, faThermometerHalf } from "@fortawesome/free-solid-svg-icons";
-import ModalConfirm from "../components/ModalConfirm"
-import GoBackButton from  "../components/GoBackButton"
-import { useHistory } from "react-router-dom"
 
 const Outer = styled.div`
   width: 100vw;
-  /* height: 100vh; */
-  /* height: auto; */
   background-color: #FEF9EF;
 
   // 오늘의 코디
@@ -21,9 +16,7 @@ const Outer = styled.div`
     font-weight: bold;
     color: #2E2E2E;
   }
-  @media screen and (max-width: 1081px){
-    /* height: 100vh; */
-    /* height: auto; */
+  @media screen and (max-width: 1081px) {
     .todayCodi{
       font-size: 15px;
       font-weight: bold;
@@ -144,7 +137,7 @@ const TodayCodi = styled.div`
     height: 100px;
   }
   .codi:nth-child(2){
-    margin-left: 2vh;
+    margin-left: 1vh;
   }
 
   @media screen and (max-width: 1081px) {
@@ -176,83 +169,40 @@ const Post = styled.div`
 const Buttons = styled.div`
   width: 15rem;
   margin: 0 auto;
-  padding-bottom: 10vh;
+  padding-bottom: 5vh;
 
-  .button{
+  button{
     width: 5rem;
     height: 3rem;
     border-radius: 5px;
     background-color: var(--button-bg-normal);
     font-size: 1.2rem;
   }
-  .button2{
+  button:nth-child(2){
     margin-left: 5rem;
   }
-  .button:before{
+  button:before{
     height: 0%;
     width: 2px;
   }
-  .button:active{
+  button:active{
     border: none;
     box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
     inset -4px -4px 6px 0 rgba(255,255,255,.2),
     inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   }
-
-  @media screen and (max-width: 1081px) {
-    .button2{
-      margin-left: 80px;
-    }
-  }
 `
 
 export default function PostRead(){
-  const history = useHistory()
-  const [isOpen, setIsOpen] = useState(false)
-
-  // 게시물 수정
-  const [edit, setEdit] = useState(false)
-  // 게시물 삭제
-  const [removePost, setRemovePost] = useState(false)
-
-  // 게시물 수정
-  const editPost = () => {
-    setEdit(!isOpen)
-    history.push()
-  }
-  // 게시물 삭제
-  const deletePost = () => {
-    setRemovePost(!isOpen)
-    history.push()
-  }
-  
-  const editModalYes = () => {
-    console.log('수정완료');
-    setEdit(false)
-  }
-  const removeModalYes = () => {
-    console.log('삭제완료')
-    setRemovePost(false)
-  }
-
-  const modalNoButtonHandler = () => {
-    setRemovePost(false)
-    setEdit(false)
-  }
-  const modalCloseButtonHandler = () => {
-    setRemovePost(false)
-    setEdit(false)
-  }
-
   return (
     <Outer>
-      <GoBackButton/>
       <PostHeader>
         <Title>
           <BookmarkIcon>
           <FontAwesomeIcon icon={faHeart} size="2x" className="heart"/>
           </BookmarkIcon>
           <span>{'오늘 날씨 맑음'}</span>
+
         </Title>
 
         <Profile>
@@ -277,8 +227,6 @@ export default function PostRead(){
         </div>
       </WeatherInfo>
       
-      {/* 코디가 있을 때, 없을 때 */}
-      {}
       <p className="todayCodi">오늘의 코디</p>
       <TodayCodi>
         <div className="codi">
@@ -312,56 +260,13 @@ export default function PostRead(){
           remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
           containing Lorem Ipsum passages, and more recently with desktop publishing software like 
           Aldus PageMaker including versions of Lorem Ipsum.
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-          It has survived not only five centuries, but also the leap into electronic typesetting, 
-          remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-          containing Lorem Ipsum passages, and more recently with desktop publishing software like 
-          Aldus PageMaker including versions of Lorem Ipsum.
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-          It has survived not only five centuries, but also the leap into electronic typesetting, 
-          remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-          containing Lorem Ipsum passages, and more recently with desktop publishing software like 
-          Aldus PageMaker including versions of Lorem Ipsum.
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-          It has survived not only five centuries, but also the leap into electronic typesetting, 
-          remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-          containing Lorem Ipsum passages, and more recently with desktop publishing software like 
-          Aldus PageMaker including versions of Lorem Ipsum.
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-          It has survived not only five centuries, but also the leap into electronic typesetting, 
-          remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-          containing Lorem Ipsum passages, and more recently with desktop publishing software like 
-          Aldus PageMaker including versions of Lorem Ipsum.
         </p>
       </Post>
 
       <Buttons>
-        <button className="button button1" value="delete" onClick={deletePost}>삭제</button>
-        {removePost === false ? null : (
-          <ModalConfirm
-            yesHandler={removeModalYes}
-            noHandler={modalNoButtonHandler}
-            closeHandler={modalCloseButtonHandler}
-          >삭제하시겠습니까</ModalConfirm>
-          )}
-        <button className="button button2" onClick={editPost}>수정</button>
-        {edit === false ? null : (
-          <ModalConfirm
-            yesHandler={editModalYes}
-            noHandler={modalNoButtonHandler}
-            closeHandler={modalCloseButtonHandler}
-          >수정하시겠습니까</ModalConfirm>
-        )}
+        <button>삭제</button>
+        <button>수정</button>
       </Buttons>
-
     </Outer>
   )
 }
