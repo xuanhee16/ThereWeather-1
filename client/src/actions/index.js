@@ -3,24 +3,15 @@ import { useHistory } from "react-router-dom"
 
 // action types
 export const CHANGE_USER_INFO = "CHANGE_USER_INFO"
-<<<<<<< HEAD
 export const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE"
 export const UPDATE_START_END_PAGE = "UPDATE_START_END_PAGE"
 
 export const SIGNIN_USER = "SIGNIN_USER"
 export const LOGGEDIN_USER = "LOGGEDIN_USER"
 export const SIGNUP_USER = "SIGNUP_USER"
-=======
 export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
-export const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE"
-export const UPDATE_START_END_PAGE = "UPDATE_START_END_PAGE"
 export const CHANGE_IS_LOGIN = "CHANGE_IS_LOGIN"
-
 // export const LOGIN_USER = "LOGIN_USER"
->>>>>>> a23b0cdc3636df9ecea569a78487b1c87f2f089a
-
-export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
-
 
 // actions creator functions
 export const changeUser = (userinfo) => {
@@ -48,7 +39,6 @@ export const updateStartEndPage = (start, end) => {
         },
     }
 }
-<<<<<<< HEAD
 
 //홈 바로가기
 export const Home = (history) => () => {
@@ -97,16 +87,6 @@ export const signUpUser = (data, history) => (dispatch) => {
 }
 
 
-=======
-// export const loginUser = (data) => {
-//   const loginDate = axios.post("http://localhost:3000/login", data)
-//   .then(res => res.data)
-//   return {
-//       type: LOGIN_USER,
-//       payload: loginDate
-//   }
-// }
->>>>>>> a23b0cdc3636df9ecea569a78487b1c87f2f089a
 
 export const changeGender = (usergender) => {
     return {

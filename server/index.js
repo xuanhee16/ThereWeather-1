@@ -41,35 +41,34 @@ app.get("/", (req, res) => {
     res.send("Hello World!!ThereWeather!!")
 })
 
-//get 
-app.get("/auth", controllers.auth)
-app.get("/bookmark", controllers.bookmark)
-app.get("/codi", controllers.codi)
-app.get("/home", controllers.home)
-app.get("/map", controllers.map)
-app.get("/mypage", controllers.mypage)
-app.get("/readpost", controllers.readpost)
-// app.get("/setpw",controllers.setpw)
+//겹치는거
+app.use("/users", upload.single("img"), userRouter)
+app.use("/auth", userRouter)
 
-//post 
+// //get
+// app.get("/bookmark", controllers.bookmark)
+// app.get("/codi", controllers.codi)
+// app.get("/home", controllers.home)
+// app.get("/map", controllers.map)
+// app.get("/mypage", controllers.mypage)
+// app.get("/readpost", controllers.readpost)
+// // app.get("/setpw",controllers.setpw)
+
+// //post
 app.post("/login", controllers.login)
-app.post("/signout", controllers.signout)
-app.post("/signup", controllers.signup)
-app.post("/post", controllers.post)
+// app.post("/signout", controllers.signout)
+// app.post("/signup", controllers.signup)
+// app.post("/post", controllers.post)
 
-//put 
-app.put("/password", controllers.password)
-app.put("/userinfo", controllers.userinfo)
-app.put("/userphoto", controllers.userphoto)
-app.put("/editpost", controllers.editpost)
-
+// //put
+// app.put("/password", controllers.password)
+// app.put("/userinfo", controllers.userinfo)
+// app.put("/userphoto", controllers.userphoto)
+// app.put("/editpost", controllers.editpost)
 
 //delete
 // app.delete("/deletepost", controllers.deletepost)
 // app.delete("/removeuser", controllers.removeuser)
-
-//겹치는거
-// app.use("/users", upload.single("img"), userRouter)
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80
 

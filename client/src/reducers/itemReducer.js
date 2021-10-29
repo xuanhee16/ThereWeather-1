@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import { CHANGE_USER_INFO, CHANGE_USER_GENDER } from "../actions/index"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGGEDIN_USER, SIGNIN_USER, SIGNUP_USER } from "../actions/index"
-=======
-import { CHANGE_USER_INFO, CHANGE_USER_GENDER, CHANGE_IS_LOGIN, UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGIN_USER } from "../actions/index"
->>>>>>> a23b0cdc3636df9ecea569a78487b1c87f2f089a
+import { CHANGE_USER_INFO, CHANGE_USER_GENDER, CHANGE_IS_LOGIN, UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGIN_USER, LOGGEDIN_USER, SIGNIN_USER, SIGNUP_USER } from "../actions/index"
 import { initialState } from "./initialState"
 
 const itemReducer = (state = initialState, action) => {
@@ -13,7 +8,7 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 userInfo: action.payload,
             }
-            break;
+            break
         //     break
         // 새로운기능은 아래양식으로 만들어서 쓸수있다.
 
@@ -22,56 +17,49 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 genderToggle: action.payload,
             }
-            break;
+            break
 
         // case CHANGE_USER_INFO:
         //     break
         case UPDATE_CURRENT_PAGE:
             return {
                 ...state,
-<<<<<<< HEAD
-                current: action.payload
-            } 
-            break;
-=======
                 current: action.payload,
             }
->>>>>>> a23b0cdc3636df9ecea569a78487b1c87f2f089a
+            break
         case UPDATE_START_END_PAGE:
             return {
                 ...state,
                 start: action.payload.start,
                 end: action.payload.end,
             }
-<<<<<<< HEAD
-            break;
+            break
         case LOGGEDIN_USER:
             return {
                 ...state,
                 userLoggedIn: {
-                isLoggedIn: true,
-                accessToken: action.accessToken,
-                path: action.path
+                    isLoggedIn: true,
+                    accessToken: action.accessToken,
+                    path: action.path,
                 },
             }
-            break;
+            break
         case SIGNIN_USER:
             return {
-                ...state, 
+                ...state,
                 userSignin: {
                     signIn: false,
-                  }
-            }    
-            break;
+                },
+            }
+            break
         case SIGNUP_USER:
             return {
-              ...state, 
-              signUp: {
-                signUpStatus: false
-              }
+                ...state,
+                signUp: {
+                    signUpStatus: false,
+                },
             }
-            break;
-=======
+            break
         // case LOGIN_USER:
         //     return {
         //         ...state,
@@ -83,8 +71,8 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 isLogin: action.payload,
             }
+            break
 
->>>>>>> a23b0cdc3636df9ecea569a78487b1c87f2f089a
         default:
             return state
     }

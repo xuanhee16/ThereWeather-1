@@ -6,8 +6,7 @@ import axios from "axios"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
-import { changeIsLogin } from "../actions/index"
-import { signInUser } from "../actions"
+import { changeIsLogin, signInUser } from "../actions/index"
 
 /*
   TODO
@@ -111,10 +110,12 @@ export default function Login() {
     const [idInput, setIdInput] = useState("")
     const [pwInput, setPwInput] = useState("")
     const [idInputMessage, setIdInputMessage] = useState("아이디를 입력하세요.")
-    const [pwInputMessage, setPwInputMessage] = useState("비밀번호를 입력하세요.")
+    const [pwInputMessage, setPwInputMessage] =
+        useState("비밀번호를 입력하세요.")
     const GOOGLE_LOGIN_URL =
         "https://accounts.google.com/o/oauth2/v2/auth?client_id=1079927639813-87e5g0991msheh50mt77eclt2vij4kks.apps.googleusercontent.com&response_type=token&redirect_uri=http://localhost:3000/login&scope=https://www.googleapis.com/auth/userinfo.email"
     const { isLogin } = useSelector((state) => state.itemReducer)
+   
     useEffect(() => {
         console.log("나는 login.js")
 
@@ -123,7 +124,9 @@ export default function Login() {
         if (hash) {
             const accessToken = hash.split("=")[1].split("&")[0]
             axios({
-                url: "https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + accessToken,
+                url:
+                    "https://www.googleapis.com/oauth2/v2/userinfo?access_token=" +
+                    accessToken,
                 method: "get",
                 headers: {
                     authorization: `token ${accessToken}`,
@@ -132,12 +135,12 @@ export default function Login() {
             }).then((res) => {
                 console.log(res.data.email)
                 dispatch(changeIsLogin(true))
+                alert("소셜 로그인 완료")
                 history.push("/")
             })
-            console.log(isLogin)
         }
     }, [])
-
+    console.log(isLogin)
     const idOnChangeHanlder = (e) => {
         setIdInput((prevInput) => e.target.value)
 
@@ -158,71 +161,90 @@ export default function Login() {
         }
     }
     const loginButtonHandler = (e) => {
-      e.preventDefault();
+        e.preventDefault()
 
-      if (idInput.length === 0 && pwInput.length === 0) {
+        if (idInput.length === 0 && pwInput.length === 0) {
             console.log("모든 항목을 입력해야 합니다.")
-        } 
-      dispatch(signInUser(idInput, pwInput))
-      
+        }
+
+        axios
+            .post(
+                "http://localhost/login",
+                { user_id: idInput, password: pwInput },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            )
+            .then((res) => {
+                console.log(res.data.data)
+                localStorage.setItem(
+                    "ATOKEN",
+                    JSON.stringify(res.data.data.accessToken)
+                )
+                dispatch(changeIsLogin(true))
+                alert("환영합니다")
+                history.push("/")
+            })
     }
 
-  
     function googleLoginButtonHandler() {
-      console.log("구글 로그인 버튼 동작 확인")
-      if (isLogin) {
-          alert("이미 로그인상태입니다.")
-      } else {
-          window.location.assign(GOOGLE_LOGIN_URL)
-      }
-  }
+        console.log("구글 로그인 버튼 동작 확인")
+        if (isLogin) {
+            alert("이미 로그인상태입니다.")
+        } else {
+            window.location.assign(GOOGLE_LOGIN_URL)
+        }
+    }
 
-  return (
-    <Outer className="loginPageComponent">
-      <h2>로그인</h2>
-      <div className="Login--center">
-        <StyledArticle className="id">
-          <InputAndTitle className="inputIdSection">
-            <h3>아이디</h3>
-            <InputText
-              type="text"
-              name="idInput"
-              placeholder="아이디를 입력하세요"
-              value={idInput}
-              onChange={idOnChangeHanlder}
-            />
-          </InputAndTitle>
-          <ValidationListBox className="idValidationList">
-            <li>{idInputMessage}</li>
-          </ValidationListBox>
-        </StyledArticle>
+    return (
+        <Outer className="loginPageComponent">
+            <h2>로그인</h2>
+            <div className="Login--center">
+                <StyledArticle className="id">
+                    <InputAndTitle className="inputIdSection">
+                        <h3>아이디</h3>
+                        <InputText
+                            type="text"
+                            name="idInput"
+                            placeholder="아이디를 입력하세요"
+                            value={idInput}
+                            onChange={idOnChangeHanlder}
+                        />
+                    </InputAndTitle>
+                    <ValidationListBox className="idValidationList">
+                        <li>{idInputMessage}</li>
+                    </ValidationListBox>
+                </StyledArticle>
 
-        <StyledArticle className="password">
-          <InputAndTitle className="inputPwSection">
-            <h3>비밀번호</h3>
-            <InputText
-              type="password"
-              name="pwInput"
-              placeholder="비밀번호를 입력하세요"
-              value={pwInput}
-              onChange={pwOnChangeHandler}
-            />
-          </InputAndTitle>
-          <ValidationListBox className="pwValidationList">
-            <li>{pwInputMessage}</li>
-          </ValidationListBox>
-        </StyledArticle>
-      </div>
+                <StyledArticle className="password">
+                    <InputAndTitle className="inputPwSection">
+                        <h3>비밀번호</h3>
+                        <InputText
+                            type="password"
+                            name="pwInput"
+                            placeholder="비밀번호를 입력하세요"
+                            value={pwInput}
+                            onChange={pwOnChangeHandler}
+                        />
+                    </InputAndTitle>
+                    <ValidationListBox className="pwValidationList">
+                        <li>{pwInputMessage}</li>
+                    </ValidationListBox>
+                </StyledArticle>
+            </div>
 
-      <Buttons className="login--buttons">
-        <Button onClick={loginButtonHandler}>로그인</Button>
+            <Buttons className="login--buttons">
+                <Button onClick={loginButtonHandler}>로그인</Button>
 
-        {/* 소셜로그인 */}
-        <Button onClick={googleLoginButtonHandler} google>
-          <FontAwesomeIcon icon={faGoogle} />
-          <span>구글 로그인</span>
-        </Button>
-      </Buttons>
-    </Outer>
-  );
+                {/* 소셜로그인 */}
+                <Button onClick={googleLoginButtonHandler} google>
+                    <FontAwesomeIcon icon={faGoogle} />
+                    <span>구글 로그인</span>
+                </Button>
+            </Buttons>
+        </Outer>
+    )
 }
