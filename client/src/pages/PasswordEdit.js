@@ -1,8 +1,10 @@
 import styled from "styled-components"
 import { useState } from "react"
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux"
 import ModalConfirm from "../components/ModalConfirm";
-
+import axios from "axios";
+import { changeUserPw } from "../actions/index"
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 // import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 
@@ -110,7 +112,10 @@ const TextButton = styled.button`
 
 
 export default function PasswordEdit() {
-  let history = useHistory();
+  const { password } = useSelector((state) => state.itemReducer)
+  const dispatch = useDispatch()
+  const history = useHistory()
+  
 
   const [ curPwd, setCurPwd ] = useState('');
   const [ newPwd, setNewPwd ] = useState('');
@@ -128,6 +133,7 @@ export default function PasswordEdit() {
 
   const curInputHandler = (e) => {
     setCurPwd(prev => e.target.value);
+    // console.log(e.target.value)
     if (e.target.value.length === 0) {
       setCurPwdInputWarning(prev => '비밀번호를 입력해주세요.');
     } else {
@@ -174,11 +180,28 @@ export default function PasswordEdit() {
 
   // 버튼 클릭 이벤트
   const editButtonHandler = (e) => {
+    // e.prevntDefault()
+
     let newPwdValid = validationReg.test(newPwd)
     console.log('새 비밀번호 유효성 검사 결과', newPwdValid);
     // TODO
-      // true인 경우 axios 통신 후 성공 메시지? 페이지? 모달? 새로고침?
-      // 현재 비밀번호의 처리
+    // 클라이언트 로컬스토리지에 있는 토큰을 찾아서 
+    // 헤더에 담아서 서버에 전달 
+    // const token = localStorage.getItem("ATOKEN")  //문자열
+    const token = JSON.parse(localStorage.getItem("ATOKEN")) //문자열벗긴 토큰
+    //console.log(token) //토큰찾음
+    axios.put("http://localhost/password", 
+    { password: newPwd }, 
+    { headers: {
+      "Content-Type": "application/json",
+      "Authorization": `token ${token}`,
+    },
+     withCredentials: true })
+     .then((res) => {
+      // console.log(res.data)
+      dispatch(changeUserPw(true))
+      history.push("/")
+     })
   }
 
   const cancelButtonHandler = (e) => {

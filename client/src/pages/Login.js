@@ -6,7 +6,7 @@ import axios from "axios"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
-import { changeIsLogin, signInUser } from "../actions/index"
+import { changeIsLogin } from "../actions/index"
 
 /*
   TODO

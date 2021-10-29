@@ -1,4 +1,5 @@
-import { CHANGE_USER_INFO, CHANGE_USER_GENDER, CHANGE_IS_LOGIN, UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, LOGIN_USER, LOGGEDIN_USER, SIGNIN_USER, SIGNUP_USER } from "../actions/index"
+import { faSatelliteDish } from "@fortawesome/free-solid-svg-icons"
+import { CHANGE_USER_INFO, CHANGE_USER_GENDER, CHANGE_IS_LOGIN, UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, CHANGE_USER_PW } from "../actions/index"
 import { initialState } from "./initialState"
 
 const itemReducer = (state = initialState, action) => {
@@ -34,27 +35,17 @@ const itemReducer = (state = initialState, action) => {
             }
 
             break;
-
-        case LOGGEDIN_USER:
-            return {
-                ...state,
-                userLoggedIn: {
-                    isLoggedIn: true,
-                    accessToken: action.accessToken,
-                    path: action.path,
-                },
-            }
-
-            break;
-
         case CHANGE_IS_LOGIN:
             return {
                 ...state,
                 isLogin: action.payload,
             }
-
-            break
-
+            break;
+        case CHANGE_USER_PW:
+            return {
+               ...state,
+               editPassword: action.payload,
+            }
 
         default:
             return state

@@ -44,6 +44,7 @@ export default function App() {
             dispatch(changeIsLogin(res.data))
         })
     }, [])
+    //wiki api 문서 참고!!!
     return (
         <>
             <Header isInput={isInput} />

@@ -8,7 +8,6 @@ module.exports = {
   readpost: require("./get/readpost"),
   login: require("./post/login"),
   signout: require("./post/signout"),
-  signup: require("./post/signup"),
   post: require("./post/post"),
   password: require("./put/password"),
   userinfo: require("./put/userinfo"),
