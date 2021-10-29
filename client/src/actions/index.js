@@ -13,6 +13,10 @@ export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
 export const CHANGE_IS_LOGIN = "CHANGE_IS_LOGIN"
 
 // export const LOGIN_USER = "LOGIN_USER"
+<<<<<<< HEAD
+
+=======
+>>>>>>> b80992d1beeb2faba0efc11115504b420e4286dc
 
 
 // actions creator functions
@@ -89,6 +93,17 @@ export const signUpUser = (data, history) => (dispatch) => {
 }
 
 
+<<<<<<< HEAD
+// export const loginUser = (data) => {
+//   const loginDate = axios.post("http://localhost:3000/login", data)
+//   .then(res => res.data)
+//   return {
+//       type: LOGIN_USER,
+//       payload: loginDate
+//   }
+// }
+=======
+>>>>>>> b80992d1beeb2faba0efc11115504b420e4286dc
 
 export const changeGender = (usergender) => {
     return {
