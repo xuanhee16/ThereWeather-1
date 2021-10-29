@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTshirt, faSun, faWind, faThermometerHalf } from "@fortawesome/free-solid-svg-icons";
@@ -24,6 +24,7 @@ const Outer = styled.div`
   @media screen and (max-width: 1081px){
     /* height: 100vh; */
     /* height: auto; */
+    padding-top: 200px; // Header.js에 가려져서 추가함
     .todayCodi{
       font-size: 15px;
       font-weight: bold;

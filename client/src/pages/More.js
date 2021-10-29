@@ -4,12 +4,12 @@ import styled from "styled-components"
 
 const Outer = styled.div`
     margin: 0 auto;
-    border: 1px solid red;
     background-color: #fef9ef;
     width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
+    padding-top: 150px; // Header.js에 가려져서 추가함
 `
 const InfoBoxes = styled.div`
     margin: 0 auto;
@@ -23,7 +23,7 @@ const InfoBox = styled.div`
     height: 10vh;
     text-align: center;
     p {
-        font-size: 3rem;
+        font-size: 2.5rem;
         margin: 0;
         line-height: 10vh;
     }

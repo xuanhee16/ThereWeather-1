@@ -15,6 +15,10 @@ const Outer = styled.div`
     align-items: center;
     width: 100vw;
     z-index: 100;
+    position: fixed;
+    left:0;
+    right: 0;
+    bottom: 0;
 
     @media screen and (min-width: 1081px) {
         width: 1080px;

@@ -13,6 +13,11 @@ const HeaderOuter = styled.div`
     align-items: center;
     background-color: #a2d2ff;
     padding: 1rem;
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    z-index: 100;
 
     h1 {
         font-weight: bold;

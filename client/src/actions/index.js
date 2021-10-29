@@ -2,11 +2,10 @@
 export const CHANGE_USER_INFO = "CHANGE_USER_INFO"
 export const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE"
 export const UPDATE_START_END_PAGE = "UPDATE_START_END_PAGE"
-
-export const LOGGEDIN_USER = "LOGGEDIN_USER"
 export const CHANGE_USER_GENDER = "CHANGE_USER_GENDER"
 export const CHANGE_IS_LOGIN = "CHANGE_IS_LOGIN"
-// export const LOGIN_USER = "LOGIN_USER"
+export const CHANGE_USER_PW = "CHANGE_USER_PW"
+
 // actions creator functions
 export const changeUser = (userinfo) => {
     return {
@@ -34,7 +33,6 @@ export const updateStartEndPage = (start, end) => {
     }
 }
 
-
 export const changeGender = (usergender) => {
     return {
         type: CHANGE_USER_GENDER,
@@ -45,5 +43,12 @@ export const changeIsLogin = (trueOrFalse) => {
     return {
         type: CHANGE_IS_LOGIN,
         payload: trueOrFalse,
+    }
+}
+
+export const changeUserPw = (pw) => {
+    return {
+        type: CHANGE_USER_PW,
+        payload: pw,
     }
 }

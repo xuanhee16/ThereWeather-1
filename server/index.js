@@ -18,7 +18,7 @@ app.use(
         // origin: [url],
         origin: "http://localhost:3000",
         credentials: true,
-        methods: ["GET", "POST", "DELETE", "OPTIONS"],
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         // exposedHeaders: ["Authorization", "Content-Disposition"],
     })
 )
@@ -54,10 +54,12 @@ app.get("/map", controllers.map) //지도 - Map.js
 app.get("/mypage", controllers.mypage) //마이페이지 - MyPage.js
 app.get("/readpost", controllers.readpost) //예보글보기 - PostRead.js
 
-//post
-app.post("/login", controllers.login) //로그인시 - Login.js
+
+//post 
+app.post("/login", controllers.login) //로그인시 - Login.js 
 app.post("/signout", controllers.signout) //로그아웃시
-app.post("/post", controllers.post) //글쓰는 곳 - Write.js
+app.post("/post", controllers.post) //글쓰는 곳 - Write.js 
+
 
 //put
 app.put("/password", controllers.password) //비밀번호 수정시 - MyPage.js

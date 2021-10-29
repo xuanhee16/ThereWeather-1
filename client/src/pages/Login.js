@@ -9,6 +9,7 @@ import { changeIsLogin } from "../actions/index"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
 
+
 /*
   TODO
   [x] 여러개의 Input 상태 관리
@@ -30,6 +31,7 @@ const LoginOuter = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 200px; // Header.js에 가려져서 추가함
     h2 {
         text-align: center;
         font-size: 2rem;
