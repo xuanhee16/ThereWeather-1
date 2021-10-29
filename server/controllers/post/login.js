@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     
     //비밀번호 복호화 
     const dePw = decrypto(userInfo.password);
-    console.log(dePw)
+    //console.log(dePw)
       if(dePw !== password){
       return res.status(401).send("비밀번호를 확인해주세요.")
       }
@@ -23,25 +23,4 @@ module.exports = async (req, res) => {
       const accessToken = getAccessToken(userInfo.dataValues);
       const refreshToken = getRefreshToken(userInfo.dataValues);
       sendToken(res, accessToken, refreshToken);
-
-    // .then((data) => {
-    //   if(!data){
-    //     return res.status(401).send("로그인 정보를 확인해주세요.")
-    //   }
-    //    //비밀번호 복호화 
-    //   const dePw = decrypto(data.dataValues.password);
-    //   if(dePw !== password){
-    //   return res.status(401).send("비밀번호를 확인해주세요.")
-    //   }
-
-    //   delete data.dataValues.password;
-    //   const accessToken = getAccessToken(data.dataValues);
-    //   const refreshToken = getRefreshToken(data.dataValues);
-    //   sendRefreshToken(res, refreshToken)
-    //   res.cookie("jwt", accessToken, { 
-    //     httpOnly: true, sameSite: "None", secure: true 
-    //   })
-    //   .status(200).send("로그인 성공")
-    // })
-    //res.send()
 }

@@ -19,9 +19,6 @@ const itemReducer = (state = initialState, action) => {
                 genderToggle: action.payload,
             }
             break;
-
-        // case CHANGE_USER_INFO:
-        //     break
         case UPDATE_CURRENT_PAGE:
             return {
                 ...state,
@@ -45,22 +42,22 @@ const itemReducer = (state = initialState, action) => {
                 },
             }
             break;
-        case SIGNIN_USER:
-            return {
-                ...state, 
-                userSignin: {
-                    signIn: false,
-                  }
-            }    
-            break;
-        case SIGNUP_USER:
-            return {
-              ...state, 
-              signUp: {
-                signUpStatus: false
-              }
-            }
-            break;
+        // case SIGNIN_USER:
+        //     return {
+        //         ...state, 
+        //         userSignin: {
+        //             signIn: false,
+        //           }
+        //     }    
+        //     break;
+        // case SIGNUP_USER:
+        //     return {
+        //       ...state, 
+        //       signUp: {
+        //         signUpStatus: false
+        //       }
+        //     }
+        //     break;
         case CHANGE_IS_LOGIN: 
             return { 
                 ...state, 

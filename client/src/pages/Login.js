@@ -167,13 +167,12 @@ export default function Login() {
         { user_id: idInput, password: pwInput },
         { headers: { "Content-Type" : "application/json" }, withCredentials: true })
         .then((res) => 
+            localStorage.setItem("accessToken", res.data.data.accessToken),
             dispatch(changeIsLogin(true))
-            // dispatch(loggedInUser(res.data.data.accessToken))
-            //dispatch(Home(history))  
         )
-      // dispatch(signInUser(idInput, pwInput))
+        history.push("/home") 
     }
-
+    //localStorage.removeItem("key") 로그아웃시 로컬스토리지에서 토큰 삭제 
   
     function googleLoginButtonHandler() {
       console.log("구글 로그인 버튼 동작 확인")
