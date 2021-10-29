@@ -402,7 +402,7 @@ export default function Login() {
         axios
             .post(
                 "http://localhost/login",
-                { user_id: idInput },
+                { user_id: idInput, password: pwInput },
                 {
                     headers: {
                         "Content-Type": "application/json",
