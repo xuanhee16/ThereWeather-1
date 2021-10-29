@@ -34,17 +34,6 @@ export const updateStartEndPage = (start, end) => {
     }
 }
 
-<<<<<<< HEAD
-//로그인된 상태
-export const loggedInUser = (accessToken, path) => {
-    return {
-        type: LOGGEDIN_USER,
-        accessToken,
-        path,
-    }
-}
-=======
->>>>>>> d4aabf949ad3fffd17410081da8224572b1d0187
 
 export const changeGender = (usergender) => {
     return {

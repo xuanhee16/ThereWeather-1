@@ -1,7 +1,13 @@
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHome, faHeart, faMapMarkerAlt, faPencilAlt, faUserAlt } from "@fortawesome/free-solid-svg-icons"
-import PostListContainer from "./PostListView"
+import {
+    faHome,
+    faHeart,
+    faMapMarkerAlt,
+    faPencilAlt,
+    faUserAlt,
+} from "@fortawesome/free-solid-svg-icons"
+// import PostListContainer from "./PostListView"
 import { useHistory } from "react-router-dom"
 const Outer = styled.div`
     display: flex;
@@ -54,19 +60,34 @@ export default function MenuBar() {
                     </Link>
                 */}
                 <Button>
-                    <FontAwesomeIcon onClick={() => history.push("/homeorlogin")} icon={faHome} />
+                    <FontAwesomeIcon
+                        onClick={() => history.push("/homeorlogin")}
+                        icon={faHome}
+                    />
                 </Button>
                 <Button>
-                    <FontAwesomeIcon onClick={() => history.push("/bookmarkorlogin")} icon={faHeart} />
+                    <FontAwesomeIcon
+                        onClick={() => history.push("/bookmarkorlogin")}
+                        icon={faHeart}
+                    />
                 </Button>
                 <Button>
-                    <FontAwesomeIcon onClick={() => history.push("/map")} icon={faMapMarkerAlt} />
+                    <FontAwesomeIcon
+                        onClick={() => history.push("/map")}
+                        icon={faMapMarkerAlt}
+                    />
                 </Button>
                 <Button>
-                    <FontAwesomeIcon onClick={() => history.push("/writeorlogin")} icon={faPencilAlt} />
+                    <FontAwesomeIcon
+                        onClick={() => history.push("/writeorlogin")}
+                        icon={faPencilAlt}
+                    />
                 </Button>
                 <Button>
-                    <FontAwesomeIcon onClick={() => history.push("/moreoruserinfo")} icon={faUserAlt} />
+                    <FontAwesomeIcon
+                        onClick={() => history.push("/moreoruserinfo")}
+                        icon={faUserAlt}
+                    />
                 </Button>
             </Buttons>
         </Outer>

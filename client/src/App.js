@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { Switch, Route, Redirect, useHistory, Router } from "react-router-dom"
+import React, { useEffect } from "react"
+import { Switch, Route, Redirect } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import "./App.css"
@@ -18,9 +18,7 @@ import MyPost from "./pages/MyPost"
 import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
-import styled from "styled-components"
-// import { faRoute } from "@fortawesome/free-solid-svg-icons"
-import { changeIsLogin, signInUser } from "./actions/index"
+import { changeIsLogin } from "./actions/index"
 
 export default function App() {
     const dispatch = useDispatch()
@@ -43,7 +41,7 @@ export default function App() {
             console.log(res.data)
             dispatch(changeIsLogin(res.data))
         })
-    }, [])
+    }, [dispatch])
     return (
         <>
             <Header isInput={isInput} />
@@ -111,11 +109,7 @@ export default function App() {
                     ) : (
                         <Redirect to="/more" />
                     )}
-<<<<<<< HEAD
                 </Route>
-=======
-                </Route>    
->>>>>>> d4aabf949ad3fffd17410081da8224572b1d0187
                 <Route exact path="/editpost">
                     <PostEdit></PostEdit>
                 </Route>
