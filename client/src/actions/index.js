@@ -36,44 +36,6 @@ export const updateStartEndPage = (start, end) => {
     }
 }
 
-
-//로그인된 상태 
-export const loggedInUser = (accessToken, path) => {
-    return {
-        type: LOGGEDIN_USER,
-        accessToken,
-        path
-    };
-};
-
-
-export const signInUser = (userInfoId, userInfoPw, history) => (dispatch) => {
-    dispatch({
-    type: SIGNIN_USER
-    })
-    axios.post("http://localhost/users/login",
-    { user_id: userInfoId.user_id, password: userInfoPw.password },
-    { headers: { "Content-Type" : "application/json" }, withCredentials: true })
-    .then((res) => {
-        dispatch(loggedInUser(res.data.data.accessToken))
-        dispatch(Home(history))  
-    })
-}
-
-//회원가입 
-export const signUpUser = (data, history) => (dispatch) => {
-    axios.post("http://localhost/users/signup", data, {
-    headers: { "Content-Type": "application/json" }, withCredentials: true })
-    .then((res) => {
-    //console.log(res.data)
-    dispatch({ 
-        type: SIGNUP_USER 
-        })
-        dispatch(Login(history))
-    })
-}
-
-
 export const changeGender = (usergender) => {
     return {
         type: CHANGE_USER_GENDER,
