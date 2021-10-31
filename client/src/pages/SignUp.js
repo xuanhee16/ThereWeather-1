@@ -335,7 +335,8 @@ export default function SignUp() {
                 url: url + "/users/signup",
                 method: "post",
                 headers: {
-                    "Content-Type": "application/json",
+                    // "Content-Type": "application/json",
+                    "Content-Type": text / plain,
                 },
                 data: {
                     user_id: inputSignUpData.idInput,
