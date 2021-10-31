@@ -32,7 +32,7 @@ const Outer = styled.section`
     overflow: scroll;
     font-family: "BMDOHYEON";
     padding-top: 200px; // Header.js에 가려져서 추가함
-    padding-bottom: 100px;  // MenuBar.js에 가려져서 임시추가
+    padding-bottom: 100px; // MenuBar.js에 가려져서 임시추가
 
     h2 {
         margin-top: 3rem;
@@ -200,7 +200,7 @@ const PhotoBox2 = styled.img`
 ////////////////////////
 const url =
     process.env.REACT_APP_URL ||
-    "http://ec2-54-180-102-202.ap-northeast-2.compute.amazonaws.com"
+    "http://ec2-3-38-97-57.ap-northeast-2.compute.amazonaws.com"
 
 export default function SignUp() {
     // input 상태 관리, 유효성 검사
