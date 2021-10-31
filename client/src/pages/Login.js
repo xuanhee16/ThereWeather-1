@@ -279,9 +279,7 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////////////////////////////////
-const url =
-    process.env.REACT_APP_URL ||
-    "http://ec2-3-38-97-57.ap-northeast-2.compute.amazonaws.com"
+const url = process.env.REACT_APP_URL || "http://thereweather.space"
 
 export default function Login() {
     const dispatch = useDispatch()
