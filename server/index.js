@@ -17,9 +17,9 @@ app.use(
     cors({
         // origin: [url],
         // origin: "https://there-weather.vercel.app",
-        origin: "*",
-        // credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        origin: true,
+        credentials: true,
+        // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         // exposedHeaders: ["Authorization", "Content-Disposition"],
     })
 )
