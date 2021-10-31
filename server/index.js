@@ -15,8 +15,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(
     cors({
-        origin: [url],
-        // origin: "http://localhost:3000",
+        // origin: [url],
+        origin: "https://there-weather.vercel.app",
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         // exposedHeaders: ["Authorization", "Content-Disposition"],
