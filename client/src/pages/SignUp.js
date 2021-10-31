@@ -198,9 +198,7 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////
-const url =
-    process.env.REACT_APP_URL ||
-    "http://ec2-3-38-97-57.ap-northeast-2.compute.amazonaws.com"
+const url = process.env.REACT_APP_URL || "http://thereweather.space"
 
 export default function SignUp() {
     // input 상태 관리, 유효성 검사
@@ -334,7 +332,7 @@ export default function SignUp() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: "http://localhost/users/signup",
+                url: url + "/users/signup",
                 method: "post",
                 data: {
                     user_id: inputSignUpData.idInput,

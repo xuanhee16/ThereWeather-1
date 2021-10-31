@@ -20,6 +20,8 @@ import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import { changeIsLogin } from "./actions/index"
 
+const url = process.env.REACT_APP_URL || "http://thereweather.space"
+
 export default function App() {
     const dispatch = useDispatch()
 
@@ -29,7 +31,7 @@ export default function App() {
         console.log(JSON.parse(localStorage.getItem("ATOKEN")))
         //auth할차례
         axios({
-            url: "http://localhost/users/auth",
+            url: url + "/users/auth",
             method: "get",
             headers: {
                 authorization: `token ${JSON.parse(

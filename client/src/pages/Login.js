@@ -327,7 +327,9 @@ export default function Login() {
                 if (res.data.verified_email) {
                     //구글측의 정상인증 회원이지만, 우리사이트 간편가입 되어있는지 확인 요청 -hoon
                     axios({
-                        url: `http://localhost/users/socialcheck?user_id=${res.data.email}`,
+                        url:
+                            url +
+                            `/users/socialcheck?user_id=${res.data.email}`,
                         method: "get",
                         headers: {
                             accept: "application/json",
@@ -409,7 +411,7 @@ export default function Login() {
 
         axios
             .post(
-                "http://localhost/login",
+                url + "/login",
                 { user_id: idInput, password: pwInput },
                 {
                     headers: {
@@ -434,7 +436,7 @@ export default function Login() {
         console.log("socialAutoLogin함수")
         console.log(inputSignUpData.idInput)
         axios({
-            url: "http://localhost/sociallogin",
+            url: url + "/sociallogin",
             method: "post",
             data: {
                 user_id: id,
@@ -537,7 +539,7 @@ export default function Login() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: "http://localhost/users/signup",
+                url: url + "/users/signup",
                 method: "post",
                 data: {
                     user_id: inputSignUpData.idInput,
