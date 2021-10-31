@@ -20,7 +20,7 @@ import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import { changeIsLogin } from "./actions/index"
 
-const url = process.env.REACT_APP_URL || "http://thereweather.space"
+const url = process.env.REACT_APP_URL || "https://thereweather.space"
 
 export default function App() {
     const dispatch = useDispatch()

@@ -198,7 +198,7 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////
-const url = process.env.REACT_APP_URL || "http://thereweather.space"
+const url = process.env.REACT_APP_URL || "https://thereweather.space"
 
 export default function SignUp() {
     // input 상태 관리, 유효성 검사
