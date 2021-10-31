@@ -41,7 +41,6 @@ export default function App() {
             console.log(res.data)
             dispatch(changeIsLogin(res.data))
         })
-
     }, [dispatch])
 
     return (
