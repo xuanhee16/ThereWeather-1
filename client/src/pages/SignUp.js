@@ -334,6 +334,9 @@ export default function SignUp() {
             axios({
                 url: url + "/users/signup",
                 method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 data: {
                     user_id: inputSignUpData.idInput,
                     password: inputSignUpData.pwInput,
@@ -342,6 +345,7 @@ export default function SignUp() {
                     location: userRoadAddress,
                     user_photo: uploadedImg.filePath,
                 },
+                withCredentials: true,
             }).then((res) => {
                 console.log(res)
                 if (res.status === 211) {
