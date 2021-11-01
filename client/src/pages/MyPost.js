@@ -10,11 +10,9 @@ const Outer = styled.div`
   width: 100vw;
   /* height: 100vh; */
   min-height: 100vh;
-  padding-top: 200px; // Header.js에 가려져서 추가함
+  padding-top: 100px; // Header.js에 가려져서 추가함
 
   @media screen and (max-width: 1081px) {
-    padding-top: 250px;  // Header.js에 가려져서 추가함
-    padding-bottom: 100px; // MenuBar에 가려져서 추가
   }
 
   button{
@@ -31,7 +29,7 @@ const GridArea = styled.div`
     height: 70vh;
 
     .item {
-        /* border: 1px solid blue; */
+        border: 1px solid blue;
         display: flex;
     }
     .item:nth-child(odd) {
@@ -65,7 +63,7 @@ const GridArea = styled.div`
 `
 // 게시물 사진
 const PostImg = styled.img`
-
+  border: 1px solid red;
   width: 50%;
   height: 100%;
   background-color: #FFFFFF;
@@ -147,39 +145,16 @@ export default function MyPost() {
         <div className="item">
           <PostImg/>
           <PostInfo>
-            <p>{`10/19`}</p>
+            <p>{'서울시 종로구'}</p>
+            <p>{'10/19'}</p>
             <p>날씨 : {'맑음'}</p>
             <p>바람 : {'조금'}</p>
             <p>온도 : {'따뜻함'}</p>
           </PostInfo>
         </div>
-        <div className="item">
-          <PostImg/>
-          <PostInfo>
-            <p>{}</p>
-            <p>날씨 : {}</p>
-            <p>바람 : {}</p>
-            <p>온도 : {}</p>
-          </PostInfo>
-        </div>
-        <div className="item">
-          <PostImg/>
-          <PostInfo>
-            <p>{}</p>
-            <p>날씨 : {}</p>
-            <p>바람 : {}</p>
-            <p>온도 : {}</p>
-          </PostInfo>
-        </div>
-        <div className="item">
-          <PostImg/>
-          <PostInfo>
-            <p>{}</p>
-            <p>날씨 : {}</p>
-            <p>바람 : {}</p>
-            <p>온도 : {}</p>
-          </PostInfo>
-        </div>
+        <div className="item"></div>
+        <div className="item"></div>
+        <div className="item"></div>
       </GridArea>
 
       {/* 페이지네이션이나 무한스크롤 */}

@@ -62,26 +62,32 @@ const BookmarkIcon = styled.div`
     cursor: pointer;
     color: #aaa;
   }
-
 `
 
 // 프로필
 const Profile = styled.div`
+  /* border: 1px solid red; */
   width: 60rem;
   margin: 0 auto;
   margin-top: 2vh;
   align-items: center;
   display: flex; 
+  justify-content: space-between;
+  flex-flow: wrap;
   
   .profileInfo{
-    margin-left: 1vh;
+    display: flex; 
+    align-items: center;
+    /* margin-left: 1vh; */
   }
   span{
     margin-left: 1vh;
   }
 
   @media screen and (max-width: 1081px) {
-    width: 50rem;
+    /* border: 1px solid red; */
+    /* width: 45rem; */
+    width: 70%;
   }
 `
 // 프로필 이미지
@@ -107,6 +113,7 @@ const PostImg = styled.img`
     height: 30rem;
   }
 `
+
 // 날씨,바람세기,온도
 const WeatherInfo = styled.div`
   width: 330px;
@@ -274,11 +281,12 @@ export default function PostRead(){
         </Title>
 
         <Profile>
-          <ProfileImg src="img/blankProfile.png"/>
           <div className="profileInfo">
+            <ProfileImg src="img/blankProfile.png"/>
             <span className="nickName">{'김코딩'}</span>
             <span className="date">{'2021. 10.19. 15:24'}</span>
           </div>
+          <p className="location">{'서울시 종로구 가회동'}</p>
         </Profile>
       </PostHeader>
       <PostImg/>

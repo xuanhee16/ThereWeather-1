@@ -45,6 +45,7 @@ const Container = styled.div`
 `;
   
 const BookMarkContainer = styled.div`
+  border: 1px solid red;
   display: flex;
   gap: 0.1rem;
   justify-content: space-around;
