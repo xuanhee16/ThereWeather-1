@@ -42,7 +42,7 @@ const upload = multer({
 })
 
 app.get("/2", (req, res) => {
-    res.send("Hello World!!222")
+    res.send("Hello World!!22!2")
 })
 
 //겹치는거
