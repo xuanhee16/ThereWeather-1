@@ -25,6 +25,9 @@ const InfoBox = styled.div`
         font-size: 2.5rem;
         margin: 0;
         line-height: 10vh;
+        @media screen and (max-width: 375px) {
+            font-size: 1rem;
+        }
     }
     &:nth-child(2) {
         margin-top: 3vh;
