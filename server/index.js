@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(
     cors({
         // origin: [url],
-        // origin: "https://there-weather.vercel.app",
-        origin: true,
+        origin: "https://there-weather.vercel.app",
+        // origin: true,
         credentials: true,
         // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         // exposedHeaders: ["Authorization", "Content-Disposition"],
