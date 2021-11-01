@@ -13,7 +13,7 @@
 - [ ] 배포관련 코드 업데이트
 
 ### 반영 브랜치
-ex) Feature/login -> dev
+ex) `Feature/login` -> `dev`
 
 ### 변경 사항
 - ex) 소셜 로그인 기능 추가.
