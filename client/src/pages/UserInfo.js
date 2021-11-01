@@ -44,29 +44,36 @@ const InfoBox = styled.div`
         /* border: 1px solid green; */
     }
 `
+let url = process.env.REACT_APP_LOCAL_URL
 
 export default function UserInfo() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { isLogin } = useSelector((state) => state.itemReducer)
+    if (!url) {
+        url = "https://thereweather.space"
+    }
 
     const logoutBtnHandler = (e) => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
-        axios.post("http://localhost/signout", 
-        { data: null },
-        { 
-          headers: {
-          "Content-Type": "application/json",
-          "Authorization": `token ${token}`,
-        },
-         withCredentials: true })
-         .then((res) => { 
-          localStorage.clear();   
-          dispatch(changeIsLogin(false))
-          history.push("/")
-         })
-      } 
-
+        axios
+            .post(
+                url + "/signout",
+                { data: null },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `token ${token}`,
+                    },
+                    withCredentials: true,
+                }
+            )
+            .then((res) => {
+                localStorage.clear()
+                dispatch(changeIsLogin(false))
+                history.push("/")
+            })
+    }
 
     return (
         <Outer>
@@ -75,9 +82,9 @@ export default function UserInfo() {
                     <p>마이페이지</p>
                 </InfoBox>
                 <InfoBox>
-                <button onClick={logoutBtnHandler}>
-                <p>로그아웃</p>
-                </button>
+                    <button onClick={logoutBtnHandler}>
+                        <p>로그아웃</p>
+                    </button>
                 </InfoBox>
             </InfoBoxes>
         </Outer>
