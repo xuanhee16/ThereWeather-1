@@ -31,7 +31,6 @@ const LoginOuter = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 200px; // Header.js에 가려져서 추가함
     h2 {
         text-align: center;
         font-size: 2rem;
@@ -402,7 +401,7 @@ export default function Login() {
         axios
             .post(
                 "http://localhost/login",
-                { user_id: idInput },
+                { user_id: idInput, password: pwInput },
                 {
                     headers: {
                         "Content-Type": "application/json",

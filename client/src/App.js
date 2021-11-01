@@ -19,6 +19,7 @@ import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import { changeIsLogin } from "./actions/index"
+import styled from "styled-components"
 
 export default function App() {
     const dispatch = useDispatch()

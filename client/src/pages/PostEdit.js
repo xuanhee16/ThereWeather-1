@@ -19,8 +19,6 @@ const Outer = styled.div`
     min-height: 100vh;
     padding: 3rem auto;
     background-color: var(--page-bg-color);
-    padding-top: 200px; // Header.js에 가려져서 추가
-    padding-bottom: 50px; // MenuBar.js에 가려져서 추가
 
     @media screen and (min-width: 1081px) {
 
