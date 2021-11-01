@@ -21,12 +21,15 @@ import PostEdit from "./pages/PostEdit"
 import { changeIsLogin } from "./actions/index"
 import styled from "styled-components"
 
-const url = "https://thereweather.space"
+let url = process.env.REACT_APP_LOCAL_URL
 // const url = "https://thereweather.space"
 // const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 
 export default function App() {
     const dispatch = useDispatch()
+    if (!url) {
+        url = "https://thereweather.space"
+    }
 
     const isInput = true
     const { isLogin } = useSelector((state) => state.itemReducer)
