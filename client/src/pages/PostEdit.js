@@ -310,7 +310,7 @@ export default function PostEdit() {
         <Outer className="writePage">
             <PictureSection className="pictureUploadSection writePageLeft">
 								<article className="titleInput" >
-          				<WriteText onChange={titleInputHandler} small>{title}</WriteText>
+          				<WriteText onChange={titleInputHandler} value={title} small></WriteText>
         				</article>
 								<img src={photoSrc} alt="dummy" />
                 <Button
