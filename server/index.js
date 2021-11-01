@@ -70,7 +70,7 @@ app.put("/editpost", controllers.editpost) //예보글 수정시 - PostRead.js
 app.delete("/deletepost", controllers.deletepost) //예보글 삭제 - PostRead.js
 app.delete("/removeuser", controllers.removeuser) //회원탈퇴 - MyPage.js
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 80
+const HTTPS_PORT = process.env.HTTPS_PORT || 4000
 
 let server
 if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
