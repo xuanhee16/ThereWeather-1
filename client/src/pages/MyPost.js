@@ -10,13 +10,14 @@ const Outer = styled.div`
   width: 100vw;
   /* height: 100vh; */
   min-height: 100vh;
-  padding-top: 100px; // Header.js에 가려져서 추가함
-
-  @media screen and (max-width: 1081px) {
-  }
-
+  padding-top: 100px;
   button{
     font-size: 1.5rem;
+  }
+  @media screen and (max-width: 375px) {
+    padding-top: 2vh;
+  }
+  @media screen and (max-width: 1081px) {
   }
 `
 
@@ -40,7 +41,10 @@ const GridArea = styled.div`
     }
     .item:hover {
     }
-
+    
+    @media screen and (max-width: 375px) {
+      height: auto;
+    }
     @media screen and (min-width: 2100px) {
         height: 50vh;
 
@@ -52,13 +56,13 @@ const GridArea = styled.div`
         }
     }
     @media screen and (max-width: 1081px) {
-        grid-template-columns: 1fr;
-        grid-template-rows: 3fr 3fr 3fr 3fr;
+      grid-template-columns: 1fr;
+      grid-template-rows: 3fr 3fr 3fr 3fr;
 
-        .item:nth-child(odd),
-        .item:nth-child(even) {
-            margin: 0 2vw;
-        }
+      .item:nth-child(odd),
+      .item:nth-child(even) {
+        margin: 0 2vw;
+      }
     }
 `
 // 게시물 사진
@@ -99,17 +103,18 @@ const Page = styled.div`
     display: flex;
     justify-content: center;
     li {
-        list-style: none;
+      list-style: none;
     }
     button {
         margin: 0 1vw;
     }
-
-    @media screen and (min-width: 2100px) {
+    @media screen and (max-width: 1081px) {
+      margin-top: 20rem;
+      padding-bottom: 5rem;
     }
 
-    @media screen and (max-width: 1081px) {
-        margin-top: 10rem;
+    @media screen and (max-width: 375px) {
+      margin-top: 5rem;
     }
 `
 
@@ -152,9 +157,39 @@ export default function MyPost() {
             <p>온도 : {'따뜻함'}</p>
           </PostInfo>
         </div>
+        <div className="item">
+          <PostImg/>
+          <PostInfo>
+            <p>{'서울시 종로구'}</p>
+            <p>{'10/19'}</p>
+            <p>날씨 : {'맑음'}</p>
+            <p>바람 : {'조금'}</p>
+            <p>온도 : {'따뜻함'}</p>
+          </PostInfo>
+        </div>
+        <div className="item">
+          <PostImg/>
+          <PostInfo>
+            <p>{'서울시 종로구'}</p>
+            <p>{'10/19'}</p>
+            <p>날씨 : {'맑음'}</p>
+            <p>바람 : {'조금'}</p>
+            <p>온도 : {'따뜻함'}</p>
+          </PostInfo>
+        </div>
+        <div className="item">
+          <PostImg/>
+          <PostInfo>
+            <p>{'서울시 종로구'}</p>
+            <p>{'10/19'}</p>
+            <p>날씨 : {'맑음'}</p>
+            <p>바람 : {'조금'}</p>
+            <p>온도 : {'따뜻함'}</p>
+          </PostInfo>
+        </div>
+        {/* <div className="item"></div>
         <div className="item"></div>
-        <div className="item"></div>
-        <div className="item"></div>
+        <div className="item"></div> */}
       </GridArea>
 
       {/* 페이지네이션이나 무한스크롤 */}
