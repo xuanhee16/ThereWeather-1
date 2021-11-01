@@ -126,6 +126,8 @@ const PageNumber = styled.div`
     }
 `
 
+const NextPage = styled.div``
+
 
 export default function BookMark() { 
   // 페이지네이션
