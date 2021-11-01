@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components"
-import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 import ModalConfirm from "../components/ModalConfirm"
+import { useSelector, useDispatch } from "react-redux"
+import axios from "axios"
+import { changeIsLogin } from "../actions/index"
 
 
 const Outer = styled.div`
@@ -143,19 +145,35 @@ const GridArea = styled.div`
 `
 
 export default function MyPage() {
-  const history = useHistory();
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const { isLogin } = useSelector((state) => state.itemReducer)
+  
   const [isModalOpen, setIsModalOpen] = useState(false)
-  // 회원탈퇴
   const [removeUser, setremoveUser] = useState(false);
 
   const removeUserInfo = () => {
     setIsModalOpen(true)
   }
 
-  const modalYesButtonHandler = () => {
-    console.log('회원탈퇴 완료');
-    setIsModalOpen(false)
+  const modalYesButtonHandlers = () => {
+    //console.log('회원탈퇴 완료');
+    const token = JSON.parse(localStorage.getItem("ATOKEN"))
+      axios.delete("http://localhost/removeuser", 
+      { 
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": `token ${token}`,
+      },
+       withCredentials: true })
+       .then((res) => { 
+        localStorage.clear(token)  
+        dispatch(changeIsLogin(false))
+        history.push("/")
+       })
+    //setIsModalOpen(false)
   }
+
   const modalNoButtonHandler = () => {
     setIsModalOpen(false)
     
@@ -175,13 +193,12 @@ export default function MyPage() {
         <span>나의 위치 : {'서울시 종로구'}</span>
         <button>정보수정</button>
         <ButtonArea>
-        <Link to="/editpassword">비밀번호 수정</Link>
           <button onClick={() => history.push('/editpassword')}>비밀번호 수정</button>
           <button onClick={removeUserInfo}>회원탈퇴</button>
           {
             isModalOpen === false ? null : (
               <ModalConfirm
-                yesHandler={modalYesButtonHandler}
+                yesHandler={modalYesButtonHandlers}
                 noHandler={modalNoButtonHandler}
                 closeHandler={modalCloseButtonHandler}
               >

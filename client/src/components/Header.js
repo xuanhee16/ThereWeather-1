@@ -2,7 +2,9 @@ import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { useHistory } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import axios from "axios"
+import { changeIsLogin } from "../actions/index"
 
 const HeaderOuter = styled.div`
     width: 100vw;
@@ -122,11 +124,29 @@ const Button = styled.button`
 `
 
 export default function Header({ isInput, isMobileLogo }) {
+    const dispatch = useDispatch()
     const history = useHistory()
     const { isLogin } = useSelector((state) => state.itemReducer)
 
     // isInput : Map 페이지 사용시 true
     // isMobileLogo : Map 페이지 사용시 false
+    
+    const logoutBtnHandler = (e) => {
+      const token = JSON.parse(localStorage.getItem("ATOKEN"))
+      axios.post("http://localhost/signout", 
+      { data: null },
+      { 
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": `token ${token}`,
+      },
+       withCredentials: true })
+       .then((res) => { 
+        localStorage.clear();   
+        dispatch(changeIsLogin(false))
+        history.push("/")
+       })
+    } 
 
     return (
         <HeaderOuter className="header">
@@ -167,7 +187,8 @@ export default function Header({ isInput, isMobileLogo }) {
 
             {isLogin ? (
                 <Wing className="loginAndSingupButtons">
-                    <Button className="login" isText>
+                    {/* className="login" isText */}
+                    <Button className="login" onClick={logoutBtnHandler}isText>
                         로그아웃
                     </Button>
                     <Button onClick={() => history.push("/mypage")} className="signup" isText>
