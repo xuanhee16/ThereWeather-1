@@ -32,7 +32,7 @@ const Outer = styled.section`
     overflow: scroll;
     font-family: "BMDOHYEON";
     padding-top: 200px; // Header.js에 가려져서 추가함
-    padding-bottom: 100px;  // MenuBar.js에 가려져서 임시추가
+    padding-bottom: 100px; // MenuBar.js에 가려져서 임시추가
 
     h2 {
         margin-top: 3rem;
@@ -198,9 +198,7 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////
-const url =
-    process.env.REACT_APP_URL ||
-    "http://ec2-54-180-102-202.ap-northeast-2.compute.amazonaws.com"
+const url = process.env.REACT_APP_URL || "https://thereweather.space"
 
 export default function SignUp() {
     // input 상태 관리, 유효성 검사
@@ -334,8 +332,13 @@ export default function SignUp() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: "http://localhost/users/signup",
+                url: url + "/users/signup",
+                // url: url + "/signup",
                 method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                    // "Content-Type": "text/plain",
+                },
                 data: {
                     user_id: inputSignUpData.idInput,
                     password: inputSignUpData.pwInput,
@@ -344,6 +347,7 @@ export default function SignUp() {
                     location: userRoadAddress,
                     user_photo: uploadedImg.filePath,
                 },
+                withCredentials: true,
             }).then((res) => {
                 console.log(res)
                 if (res.status === 211) {
@@ -372,7 +376,7 @@ export default function SignUp() {
             .then((res) => {
                 const { fileName } = res.data
                 setUploadedImg({ fileName, filePath: `${url}/img/${fileName}` })
-                alert("사진을 성공적으로 업로드 하였습니다.")
+                alert("사진을 성공적으로 업로드 하였습니다!")
             })
             .catch((err) => {
                 console.error(err)

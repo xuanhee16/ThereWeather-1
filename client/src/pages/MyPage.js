@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import styled from "styled-components"
 import { useHistory } from "react-router-dom"
 import ModalConfirm from "../components/ModalConfirm"
@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import { changeIsLogin } from "../actions/index"
 
-
 const Outer = styled.div`
+
   background-color: var(--page-bg-color);
   width: 100vw;
   /* height: auto; */
@@ -19,51 +19,52 @@ const Outer = styled.div`
   @media screen and (max-width: 1081px) {
     flex-direction: column;
   }
+
 `
 /* 프로필 정보 */
 const ProfileArea = styled.div`
-  width: 30%;
-  padding: 20vh 1vw 1vh 1vw;
-  text-align: center;
+    width: 30%;
+    padding: 20vh 1vw 1vh 1vw;
+    text-align: center;
 
-  span{
-    display: flex;
-    margin: 2vh;
-    justify-content: center;
-    font-size: 1.5rem;
-  }
-
-  button{
-    color: #336FC9;
-    font-size: 1.5rem;
-    margin-top: 1vh;
-  }
-  
-  @media screen and (max-width: 1081px) {
-    margin: 0 auto;
-    margin-top: 4vh;
-    width: 50%;
-    padding: 0;
-
-    span{
-      display: flex;
-      margin-top: 2vh;
-      justify-content: center;
+    span {
+        display: flex;
+        margin: 2vh;
+        justify-content: center;
+        font-size: 1.5rem;
     }
-  }
 
+    button {
+        color: #336fc9;
+        font-size: 1.5rem;
+        margin-top: 1vh;
+    }
+
+    @media screen and (max-width: 1081px) {
+        margin: 0 auto;
+        margin-top: 4vh;
+        width: 50%;
+        padding: 0;
+
+        span {
+            display: flex;
+            margin-top: 2vh;
+            justify-content: center;
+        }
+    }
 `
 /* 프로필 사진 */
 const ProfileImg = styled.img`
-  width: 200px;
-  height: 200px;
-  padding: 10px 10px;
-  border-radius: 50%;
-  background-color: #FFFFFF;
+    width: 200px;
+    height: 200px;
+    padding: 10px 10px;
+    border-radius: 50%;
+    background-color: #ffffff;
 `
 
 /* 비밀번호수정, 탈퇴 */
 const ButtonArea = styled.div`
+
   height: 10vh;
   display: flex;
   justify-content: space-around;
@@ -81,10 +82,12 @@ const ButtonArea = styled.div`
     position: absolute;
     bottom: 0;
   }
+
 `
 
 // 내가 쓴 예보 (grid)
 const GridArea = styled.div`
+
   width: 100vw;
   padding: 2vh 3vw 2vh 5vw;
   display: grid;
@@ -239,3 +242,4 @@ export default function MyPage() {
     </Outer>
   )
 }
+

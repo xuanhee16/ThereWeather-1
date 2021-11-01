@@ -3,7 +3,7 @@ const { isAuthorized } = require("../tokenFunc/index")
 
 module.exports = {
     get: async (req, res) => {
-        // console.log("여긴 users/auth/")
+        console.log("여긴 users/auth/")
         // console.log(req.headers.authorization)
         // console.log(isAuthorized(req))
 
