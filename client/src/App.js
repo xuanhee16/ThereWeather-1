@@ -21,7 +21,8 @@ import PostEdit from "./pages/PostEdit"
 import { changeIsLogin } from "./actions/index"
 import styled from "styled-components"
 
-const url = process.env.REACT_APP_URL || "https://thereweather.space"
+// const url = process.env.REACT_APP_URL || "https://thereweather.space"
+const url = "https://thereweather.space"
 
 export default function App() {
     const dispatch = useDispatch()
