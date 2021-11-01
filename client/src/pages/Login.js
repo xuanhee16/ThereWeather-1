@@ -278,7 +278,8 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////////////////////////////////
-const url = process.env.REACT_APP_URL || "https://thereweather.space"
+// const url = process.env.REACT_APP_URL || "https://thereweather.space"
+const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -408,7 +409,6 @@ export default function Login() {
 
         axios
             .post(
-
                 url + "/login",
 
                 { user_id: idInput, password: pwInput },
