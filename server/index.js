@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
 })
 
 //겹치는거
-app.use("/users", upload.single("img"), userRouter)
+// app.use("/users", upload.single("img"), userRouter)
 app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
 
 //get
