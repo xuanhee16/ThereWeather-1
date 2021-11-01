@@ -36,20 +36,22 @@ export default function App() {
     useEffect(() => {
         console.log(JSON.parse(localStorage.getItem("ATOKEN")))
         //auth할차례
-        axios({
-            url: url + "/users/auth",
-            method: "get",
-            headers: {
-                authorization: `token ${JSON.parse(
-                    localStorage.getItem("ATOKEN")
-                )}`,
-                accept: "application/json",
-            },
-        }).then((res) => {
-            console.log(res.data)
-            dispatch(changeIsLogin(res.data))
-        })
-    }, [dispatch])
+        if (localStorage.getItem("ATOKEN") && isLogin) {
+            axios({
+                url: url + "/users/auth",
+                method: "get",
+                headers: {
+                    authorization: `token ${JSON.parse(
+                        localStorage.getItem("ATOKEN")
+                    )}`,
+                    // accept: "application/json",
+                },
+            }).then((res) => {
+                console.log(res.data)
+                dispatch(changeIsLogin(res.data))
+            })
+        }
+    }, [])
 
     return (
         <>
