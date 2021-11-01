@@ -19,7 +19,6 @@ import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import { changeIsLogin } from "./actions/index"
-// import Loading from "./pages/Loading" // TODO PR할 때 지워주세요
 import styled from "styled-components"
 
 export default function App() {
@@ -49,9 +48,6 @@ export default function App() {
     return (
         <>
             <Header isInput={isInput} />
-            {/* TODO 로딩 테스트 시작 (PR할 때 지워주세요) */}
-            {/* <Loading /> */}
-            {/* 로딩 테스트 끝 (PR할 때 지워주세요) */}
             <Switch>
                 <Route exact path="/map">
                     <Map></Map>
