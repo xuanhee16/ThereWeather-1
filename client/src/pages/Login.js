@@ -288,7 +288,8 @@ export default function Login() {
     // input 상태 관리, 유효성 검사
     const [idInput, setIdInput] = useState("")
     const [pwInput, setPwInput] = useState("")
-    const [idInputMessage, setIdInputMessage] = useState("아이디를 입력하세요.")
+    const [idInputMessage, setIdInputMessage] =
+        useState("아이디를 입력하세요.!")
     const [pwInputMessage, setPwInputMessage] =
         useState("비밀번호를 입력하세요.")
     const GOOGLE_LOGIN_URL =
