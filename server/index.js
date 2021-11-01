@@ -12,6 +12,7 @@ const logger = require("morgan")
 const userRouter = require("./routes/user")
 const { isAuthorized } = require("./controllers/tokenFunc/index")
 const { user } = require("./models/index")
+const { encrypto } = require("../get/setpw")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -40,8 +41,8 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-app.get("/", (req, res) => {
-    res.send("Hello World!!ThereWeather!!")
+app.get("/2", (req, res) => {
+    res.send("Hello World!!222")
 })
 
 //겹치는거
@@ -49,36 +50,46 @@ app.get("/", (req, res) => {
 app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
 
 //get
-app.get("/auth", (req, res) => {
-    console.log(req)
-    const accessTokenData = isAuthorized(req)
-    if (!accessTokenData) {
-        return res.json({ data: null, message: "유효하지 않은 토큰입니다." })
-    }
-    const { user_id, nickName } = accessTokenData
-    user.findOne({
+app.get("/signup", (req, res) => {
+    console.log("여긴 users/signup/")
+    console.log(req.body)
+    const { user_id, nickName, password } = req.body
+    //id중복검사와 닉네임 중복검사를 서버가 함.
+    //id중복검사
+
+    const user_Id_FindOne = await user.findOne({
         where: {
+            // user_id: req.body.user_id,
             user_id,
+        },
+    })
+    const nickName_FindOne = await user.findOne({
+        where: {
+            // nickName: req.body.nickName,
             nickName,
         },
     })
-        .then((data) => {
-            if (!data) {
-                return res.json({
-                    data: null,
-                    message: "토큰을 재발급 해주세요.",
-                })
-            }
-            delete data.dataValues.password
-            return res.json({
-                data: { userInfo: data.dataValues },
-                message: "ok",
-            })
+    if (user_Id_FindOne) {
+        //id중복
+        res.status(211).send("id중복")
+    } else if (nickName_FindOne) {
+        //id중복
+        res.status(212).send("닉네임중복")
+    } else {
+        //정상의경우
+        const enPw = encrypto(password)
+        console.log("중복이 아닙니다.")
+        await user.create({
+            user_id: req.body.user_id,
+            password: enPw,
+            nickName: req.body.nickName,
+            gender: req.body.gender,
+            location: req.body.location,
+            user_Photo: req.body.user_photo,
         })
-        // res.send()
-        .catch((err) => {
-            console.log(err)
-        })
+
+        res.status(210).send("signup ok")
+    }
 }) //인증 - App.js
 // app.get("/auth", controllers.auth) //인증 - App.js
 
@@ -103,6 +114,9 @@ app.put("/editpost", controllers.editpost) //예보글 수정시 - PostRead.js
 //delete
 app.delete("/deletepost", controllers.deletepost) //예보글 삭제 - PostRead.js
 app.delete("/removeuser", controllers.removeuser) //회원탈퇴 - MyPage.js
+app.get("/", (req, res) => {
+    res.send("Hello World!!ThereWeather!!")
+})
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000
 

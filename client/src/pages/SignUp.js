@@ -332,7 +332,8 @@ export default function SignUp() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: url + "/users/signup",
+                // url: url + "/users/signup",
+                url: url + "/signup",
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
