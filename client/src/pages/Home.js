@@ -1,11 +1,10 @@
 import React from "react"
 import styled from "styled-components"
+// import Loading from "./Loading";
 
 const HomeContainer = styled.div`
-
 display: flex;
 flex-direction: row;
-padding-top: 200px; // Header.js에 가려져서 추가함
 background-color: var(--page-bg-color);
 `;
 
@@ -31,11 +30,12 @@ const LeftNav1 = styled.nav`
     margin: 5px;
     padding: 10px;
 `
+
 const LeftNav2 = styled(LeftNav1)``
+
 const LeftNav3 = styled(LeftNav1)``
 
 const RightContainer = styled.div`
-
   display: grid;
   height:100vh;
   width: 80vw;
@@ -79,6 +79,7 @@ export default function Home() {
 
     return (
         <div className="homecontainer">
+            {/* <Loading /> */}
             <HomeContainer>
                 <LeftContainer1>
                     <LeftNav1>
@@ -97,9 +98,7 @@ export default function Home() {
 
                 <RightContainer>
                     <RightNav1>00구 주민예보글</RightNav1>
-                    {/* <RightNav2>
-            오른쪽2
-            </RightNav2> */}
+                    {/* <RightNav2>오른쪽2</RightNav2> */}
                     <div className="userPost">1</div>
                     <div className="userPost">2</div>
                     <div className="userPost">3</div>

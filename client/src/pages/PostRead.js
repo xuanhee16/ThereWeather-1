@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTshirt, faSun, faWind, faThermometerHalf } from "@fortawesome/free-solid-svg-icons";
-import ModalConfirm from "../components/ModalConfirm"
-import GoBackButton from  "../components/GoBackButton"
-import { useHistory } from "react-router-dom"
+import ModalConfirm from "../components/ModalConfirm";
+import GoBackButton from  "../components/GoBackButton";
+import { useHistory } from "react-router-dom";
 
 const Outer = styled.div`
   width: 100vw;
@@ -24,7 +24,6 @@ const Outer = styled.div`
   @media screen and (max-width: 1081px){
     /* height: 100vh; */
     /* height: auto; */
-    padding-top: 200px; // Header.js에 가려져서 추가함
     .todayCodi{
       font-size: 15px;
       font-weight: bold;
@@ -58,25 +57,37 @@ const Title = styled.div`
 // 북마크 아이콘
 const BookmarkIcon = styled.div`
   float: right;
+
+  .heart{
+    cursor: pointer;
+    color: #aaa;
+  }
 `
 
 // 프로필
 const Profile = styled.div`
+  /* border: 1px solid red; */
   width: 60rem;
   margin: 0 auto;
   margin-top: 2vh;
   align-items: center;
   display: flex; 
+  justify-content: space-between;
+  flex-flow: wrap;
   
   .profileInfo{
-    margin-left: 1vh;
+    display: flex; 
+    align-items: center;
+    /* margin-left: 1vh; */
   }
   span{
     margin-left: 1vh;
   }
 
   @media screen and (max-width: 1081px) {
-    width: 50rem;
+    /* border: 1px solid red; */
+    /* width: 45rem; */
+    width: 70%;
   }
 `
 // 프로필 이미지
@@ -102,6 +113,7 @@ const PostImg = styled.img`
     height: 30rem;
   }
 `
+
 // 날씨,바람세기,온도
 const WeatherInfo = styled.div`
   width: 330px;
@@ -210,7 +222,6 @@ const Buttons = styled.div`
 export default function PostRead(){
   const history = useHistory()
   const [isOpen, setIsOpen] = useState(false)
-
   // 게시물 수정
   const [edit, setEdit] = useState(false)
   // 게시물 삭제
@@ -226,7 +237,6 @@ export default function PostRead(){
     setRemovePost(!isOpen)
     history.push()
   }
-  
   const editModalYes = () => {
     console.log('수정완료');
     setEdit(false)
@@ -235,7 +245,6 @@ export default function PostRead(){
     console.log('삭제완료')
     setRemovePost(false)
   }
-
   const modalNoButtonHandler = () => {
     setRemovePost(false)
     setEdit(false)
@@ -245,23 +254,39 @@ export default function PostRead(){
     setEdit(false)
   }
 
+  
+  // 북마크버튼
+  // const [click, setclick] = useState(false)
+  // useEffect(async() => {
+  //   const fetchData = async() => {
+  //     // axios.get
+
+  //   }
+  // })
+  const bookmarkHandler = (e) => {
+    console.log(e.currentTarget);
+
+  }
+
   return (
     <Outer>
       <GoBackButton/>
       <PostHeader>
         <Title>
           <BookmarkIcon>
-          <FontAwesomeIcon icon={faHeart} size="2x" className="heart"/>
+            <FontAwesomeIcon icon={faHeart} size="2x" className="heart" onClick={bookmarkHandler}/>
+            
           </BookmarkIcon>
           <span>{'오늘 날씨 맑음'}</span>
         </Title>
 
         <Profile>
-          <ProfileImg src="img/blankProfile.png"/>
           <div className="profileInfo">
+            <ProfileImg src="img/blankProfile.png"/>
             <span className="nickName">{'김코딩'}</span>
             <span className="date">{'2021. 10.19. 15:24'}</span>
           </div>
+          <p className="location">{'서울시 종로구 가회동'}</p>
         </Profile>
       </PostHeader>
       <PostImg/>

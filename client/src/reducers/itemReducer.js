@@ -1,4 +1,3 @@
-import { faSatelliteDish } from "@fortawesome/free-solid-svg-icons"
 import { CHANGE_USER_INFO, CHANGE_USER_GENDER, CHANGE_IS_LOGIN, UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, CHANGE_USER_PW } from "../actions/index"
 import { initialState } from "./initialState"
 

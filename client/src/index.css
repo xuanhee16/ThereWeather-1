@@ -48,6 +48,13 @@ button {
     cursor: pointer;
 }
 
+/* animation */
+@keyframes add-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
 /* [start] create-react-app default style */
 body {
     margin: 0;

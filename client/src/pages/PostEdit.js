@@ -3,9 +3,9 @@ import styled from "styled-components"
 import ModalConfirm from "../components/ModalConfirm"
 
 /* TODO
+	[] 원래 썼던 게시물을 Load
   [] 악시오스 요청
   [] redirect
-  [] 원래 썼던 게시물을 Load
 */
 
 const Outer = styled.div`
@@ -15,17 +15,13 @@ const Outer = styled.div`
     justify-content: space-around;
     align-items: center;
     width: 100vw;
-    /* min-height: var(--mobile-page-height); */
-    min-height: 100vh;
+    min-height: var(--mobile-page-height);
     padding: 3rem auto;
     background-color: var(--page-bg-color);
-    padding-top: 200px; // Header.js에 가려져서 추가
-    padding-bottom: 50px; // MenuBar.js에 가려져서 추가
 
     @media screen and (min-width: 1081px) {
-
       flex-direction: row;
-      /* height: var(--desktop-page-height); */
+      min-height: var(--desktop-page-height);
       padding: 2rem;
 
     }
@@ -60,6 +56,7 @@ const PictureSection = styled.section`
     & > img {
         width: 80%;
         height: 80%;
+        margin: 1rem;
     }
 
     @media screen and (min-width: 1081px) {
@@ -150,25 +147,32 @@ const SelectArea = styled.article`
     }
 `
 
-const WriteInput = styled.textarea`
-    width: 80vw;
-    min-width: 250px;
-    height: 20vh;
-    text-align: justify;
-    line-height: 1.2rem;
-    font-size: 1.2rem;
-    margin: 1rem;
-    padding: 1rem;
+const WriteText = styled.textarea`
+	width: 70vw;
+	min-width: 250px;
+	height: ${props => props.small ? '3rem' : '20vh'};
+	text-align: justify;
+	vertical-align: center;
+	line-height: 1.2rem;
+	font-size: 1.2rem;
+	margin: 2rem 1rem 4rem;
+	padding: 1rem;
 
-    @media screen and (min-width: 1081px) {
-        width: 40vw;
-        max-width: 800px;
-    }
+	@media screen and (min-width: 1081px) {
+		width: ${props => props.small ? '35vw' : '40vw'};
+		max-width: ${props => props.small ? '500px' : '800px'};
+	}
 `
 
 export default function PostEdit() {
+		// 제목 handler
+		const [ title, setTitle ] = useState('');
+		const titleInputHandler = (e) => {
+			setTitle(prev => e.target.value);
+		}
+
     // img src 상태
-    // 테스트용 이미지
+    	// 테스트용 이미지
     const imageUrl = {
         normalLarge:
             "https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)",
@@ -186,17 +190,7 @@ export default function PostEdit() {
     const [photoSrc, setPhotoSrc] = useState(imageUrl.realImageNormal)
 
     // 날씨 버튼
-    const weathers = [
-        "sunny",
-        "cloudy",
-        "rainy",
-        "snowy",
-        "breezy",
-        "windy",
-        "strong",
-        "cold",
-        "hot",
-    ]
+    const weathers = ["sunny", "cloudy",  "rainy", "snowy", "breezy", "windy", "strong", "cold", "hot"]
     // 날씨 필터링용 state
     const [clickedWeatherButtons, setClickedWeatherButtons] = useState([])
     // 스타일 적용 state
@@ -315,7 +309,10 @@ export default function PostEdit() {
     return (
         <Outer className="writePage">
             <PictureSection className="pictureUploadSection writePageLeft">
-                <img src={photoSrc} alt="dummy" />
+								<article className="titleInput" >
+          				<WriteText onChange={titleInputHandler} value={title} small></WriteText>
+        				</article>
+								<img src={photoSrc} alt="dummy" />
                 <Button
                     className="uploadButton"
                     onClick={photoUploadButtonHandler}
@@ -389,7 +386,7 @@ export default function PostEdit() {
                 </ButtonsAndSelects>
 
                 <TextSection>
-                    <WriteInput
+                    <WriteText
                         type="text"
                         placeholder="글을 입력하세요."
                         value={postText}
