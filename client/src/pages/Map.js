@@ -8,7 +8,7 @@ const Container = styled.div`
     width: 100%;
 
     @media screen and (min-width: 1081px) {
-        background-color: yellow;
+        // background-color: yellow;
         // max-width: 100%;
         width: 100%;
     }
