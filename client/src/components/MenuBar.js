@@ -15,7 +15,7 @@ const Outer = styled.div`
     align-items: center;
     width: 100vw;
     z-index: 100;
-    position: fixed;
+    position: sticky;
     left:0;
     right: 0;
     bottom: 0;

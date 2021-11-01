@@ -8,20 +8,22 @@ import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
 const Outer = styled.div`
   background-color: var(--page-bg-color);
-  border: 1px solid red;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 
   @media screen and (max-width: 1081px) {
+    padding-top: 3vh;
   }
 `
 
 // 그리드
 const Container = styled.div` 
   display: grid;
-  height: 83vh;
+  /* height: 83vh; */
   gap: 4rem;
-  /* margin: 2rem; */
+  margin-left: 2vh;
+  margin-right: 2vh;
+  
   justify-content: center;
   align-items: center;
   grid-template-rows: 3fr 3fr;
@@ -31,14 +33,10 @@ const Container = styled.div`
   "div div";
   /* overflow: auto; */
   // (max-width: 600px)
-  padding-top: 200px; // Header.js에 가려져서 추가함
-  div{
-    border: 1px solid blue;
-  }
 
   @media (max-width: 1081px) {
     gap: 2rem;
-    grid-template-rows: 1fr 1fr 1fr 1fr 0.2fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 5fr;
     grid-template-areas: 
     "div"
@@ -72,11 +70,12 @@ const BookMarkPhoto = styled.div`
     height: 25vh;
     align-items: center;
   }
-  //사진확인필요 
-  /* .img {
-    width: 2rem;
-    height: 2rem;
-  } */
+
+  @media screen and (max-width: 1081px) {
+    .postPicture{
+      height: 20vh;
+    }
+  }
 `;
 
 const BookMarkList = styled.div`
@@ -85,6 +84,7 @@ const BookMarkList = styled.div`
   flex-direction: column;
   flex-basis: 15rem;
   justify-content: flex-start;
+  
 `;
 
 const BookMarkIcon = styled.div`
@@ -97,15 +97,18 @@ const BookMarkIcon = styled.div`
 
 // 페이지네이션
 const Pagination = styled.div`
-  border: 1px solid purple;
   background-color: var(--page-bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10vh;
   /* margin: 2rem; */
   list-style: none;
   h4 {
     font-size: 1rem;
+  }
+  @media screen and (max-width: 1081px) {
+    margin-top: 2vh;
   }
 `;
 
@@ -123,6 +126,7 @@ const NextPage = styled.div`
 `;
 
 export default function BookMark() { 
+  // 페이지네이션
   const state = useSelector(state => state.itemReducer);
   const { start, end, current } = state; 
   const dispatch = useDispatch();
@@ -145,8 +149,6 @@ export default function BookMark() {
   }
   const target = arr.slice(start, end)
 
-    
-
   return (
     <Outer>
       <Container>
@@ -164,8 +166,6 @@ export default function BookMark() {
             </div>
             {/* <div className="postDate">{}</div> */}
             <div className="postDate">10 / 25</div>
-
-
             {/* <div className="postWeather">{}</div>
             <div className="postWeather">{}</div>
             <div className="postWeather">{}</div> */}
@@ -233,4 +233,3 @@ export default function BookMark() {
     </Outer>
   )
 }
-

@@ -5,7 +5,6 @@ const HomeContainer = styled.div`
 
 display: flex;
 flex-direction: row;
-padding-top: 200px; // Header.js에 가려져서 추가함
 background-color: var(--page-bg-color);
 `;
 

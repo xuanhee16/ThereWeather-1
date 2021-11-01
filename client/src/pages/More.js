@@ -9,7 +9,6 @@ const Outer = styled.div`
     height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: 150px; // Header.js에 가려져서 추가함
 `
 const InfoBoxes = styled.div`
     margin: 0 auto;
