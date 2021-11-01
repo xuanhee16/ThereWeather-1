@@ -231,5 +231,5 @@ export default function BookMark() {
         </NextPage>
       </Pagination>
     </Outer>
-    )
-  }
+  )
+}

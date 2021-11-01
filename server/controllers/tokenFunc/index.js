@@ -5,7 +5,7 @@ module.exports = {
     //액세스 토큰 발급
     getAccessToken: (data) => {
         return sign(data, process.env.ACCESS_SECRET, {
-            expiresIn: "3h",
+            expiresIn: "1h",
         })
     },
 
