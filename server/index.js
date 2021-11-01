@@ -12,7 +12,7 @@ const logger = require("morgan")
 const userRouter = require("./routes/user")
 const { isAuthorized } = require("./controllers/tokenFunc/index")
 const { user } = require("./models/index")
-const { encrypto } = require("../get/setpw")
+const { encrypto } = require("./controllers/get/setpw")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
