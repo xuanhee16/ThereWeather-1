@@ -6,7 +6,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons"
 //import { updateCurrentPage, updateStartEndPage } from "../actions/index"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
-
 const Outer = styled.div`
   background-color: var(--page-bg-color);
   border: 1px solid red;
@@ -14,7 +13,6 @@ const Outer = styled.div`
   height: 100vh;
 
   @media screen and (max-width: 1081px) {
-
   }
 `
 
@@ -137,18 +135,18 @@ export default function BookMark() {
     dispatch({ type: UPDATE_START_END_PAGE, payload: { start, end } })
   }
 
+  const per = 4
+  //테스트중 갯수 20개로 고정
+  const total = Math.ceil(20 / per)
 
-    const per = 4
-    //테스트중 갯수 20개로 고정
-    const total = Math.ceil(20 / per)
-
-    const arr = []
-    for (let i = 0; i < total; i++) {
-        arr.push(i + 1)
-    }
-    const target = arr.slice(start, end)
+  const arr = []
+  for (let i = 0; i < total; i++) {
+      arr.push(i + 1)
+  }
+  const target = arr.slice(start, end)
 
     
+
   return (
     <Outer>
       <Container>
@@ -234,4 +232,5 @@ export default function BookMark() {
       </Pagination>
     </Outer>
   )
-  }
+}
+
