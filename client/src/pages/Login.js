@@ -279,7 +279,8 @@ const PhotoBox2 = styled.img`
 `
 ////////////////////////////////////////////////////
 // const url = "https://thereweather.space"
-const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
+// let url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
+let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Login() {
     const dispatch = useDispatch()
