@@ -9,7 +9,6 @@ import { changeIsLogin } from "../actions/index"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
 
-
 /*
   TODO
   [x] 여러개의 Input 상태 관리
@@ -279,9 +278,7 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////////////////////////////////
-const url =
-    process.env.REACT_APP_URL ||
-    "http://ec2-54-180-102-202.ap-northeast-2.compute.amazonaws.com"
+const url = process.env.REACT_APP_URL || "https://thereweather.space"
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -298,7 +295,11 @@ export default function Login() {
     const { isLogin } = useSelector((state) => state.itemReducer)
 
     const [socialLogined, setSocialLogined] = useState(false)
-
+    const [inputSignUpData, setInputSignUpData] = useState({
+        idInput: "",
+        pwInput: "",
+        nickNameInput: "",
+    })
     useEffect(() => {
         console.log("나는 login.js")
 
@@ -323,7 +324,9 @@ export default function Login() {
                 if (res.data.verified_email) {
                     //구글측의 정상인증 회원이지만, 우리사이트 간편가입 되어있는지 확인 요청 -hoon
                     axios({
-                        url: `http://localhost/users/socialcheck?user_id=${res.data.email}`,
+                        url:
+                            url +
+                            `/users/socialcheck?user_id=${res.data.email}`,
                         method: "get",
                         headers: {
                             accept: "application/json",
@@ -354,12 +357,17 @@ export default function Login() {
                             // dispatch(changeIsLogin(res.data.verified_email))
                             alert("소셜 간편 가입 되어있는 회원")
                             console.log(res.data.email)
-                            console.log(res.data.email)
-                            setInputSignUpData({
-                                ...inputSignUpData,
-                                idInput: res.data.email,
+                            // setInputSignUpData({
+                            //     ...inputSignUpData,
+                            //     idInput: res.data.email,
+                            // })
+                            console.log(inputSignUpData.idInput)
+                            setInputVaildMessage({
+                                ...inputVaildMessage,
+                                idInput: "",
                             })
-                            socialAutoLogin()
+                            console.log(res.data.email)
+                            socialAutoLogin(res.data.email)
                         }
                     })
                 }
@@ -369,7 +377,7 @@ export default function Login() {
                 }
             })
         }
-    }, [dispatch, history])
+    }, [])
     console.log(isLogin)
     const loginidOnChangeHanlder = (e) => {
         setIdInput((prevInput) => e.target.value)
@@ -400,7 +408,9 @@ export default function Login() {
 
         axios
             .post(
-                "http://localhost/login",
+
+                url + "/login",
+
                 { user_id: idInput, password: pwInput },
                 {
                     headers: {
@@ -421,12 +431,14 @@ export default function Login() {
             })
     }
     //간편가입완료했거나, 예전에 간편가입완료했던 소셜로그인사용자는 자동으로 로그인이 진행되게 하는 함수-hoon
-    function socialAutoLogin() {
+    function socialAutoLogin(id) {
+        console.log("socialAutoLogin함수")
+        console.log(inputSignUpData.idInput)
         axios({
-            url: "http://localhost/sociallogin",
+            url: url + "/sociallogin",
             method: "post",
             data: {
-                user_id: inputSignUpData.idInput,
+                user_id: id,
             },
         }).then((res) => {
             console.log(res.data.data)
@@ -449,11 +461,7 @@ export default function Login() {
         }
     }
     //////////////////socialLogined.page코드//////////////
-    const [inputSignUpData, setInputSignUpData] = useState({
-        idInput: "",
-        pwInput: "",
-        nickNameInput: "",
-    })
+
     const [inputVaildMessage, setInputVaildMessage] = useState({
         idInput: "아이디를 입력해주세요.",
         pwInput: "패스워드를 입력해주세요.",
@@ -530,7 +538,7 @@ export default function Login() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: "http://localhost/users/signup",
+                url: url + "/users/signup",
                 method: "post",
                 data: {
                     user_id: inputSignUpData.idInput,
@@ -544,10 +552,10 @@ export default function Login() {
                 if (res.status === 211) {
                     alert("아이디 중복입니다.")
                 } else if (res.status === 212) {
-                    alert("닉네임 중복입니다.")
+                    alert("닉네임 중복입니다.!")
                 } else if (res.status === 210) {
                     alert("회원가입 완료 입니다.")
-                    socialAutoLogin()
+                    socialAutoLogin(inputSignUpData.idInput)
                     // dispatch(changeIsLogin(res.data.verified_email))
                     // alert("소셜 간편가입 및 소셜 로그인 완료")
                     // history.push("/")

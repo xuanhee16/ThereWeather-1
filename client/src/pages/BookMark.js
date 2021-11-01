@@ -7,6 +7,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
 const Outer = styled.div`
+
   background-color: var(--page-bg-color);
   width: 100vw;
   min-height: 100vh;
@@ -45,6 +46,7 @@ const Container = styled.div`
 `;
   
 const BookMarkContainer = styled.div`
+  border: 1px solid red;
   display: flex;
   gap: 0.1rem;
   justify-content: space-around;
@@ -87,16 +89,18 @@ const BookMarkList = styled.div`
   
 `;
 
+
 const BookMarkIcon = styled.div`
-  flex-direction: column;
-  flex-basis: 10.5rem;
-  text-align: end;
-  margin: 1rem;
-  padding: 1rem;
-`;
+    flex-direction: column;
+    flex-basis: 10.5rem;
+    text-align: end;
+    margin: 1rem;
+    padding: 1rem;
+`
 
 // 페이지네이션
 const Pagination = styled.div`
+
   background-color: var(--page-bg-color);
   display: flex;
   justify-content: center;
@@ -112,18 +116,17 @@ const Pagination = styled.div`
   }
 `;
 
-const PrevPage = styled.div`
-`;
+
+const PrevPage = styled.div``
 
 const PageNumber = styled.div`
-  li {
-    float: left;
-    margin: 1.5rem;
-  }
-`;
+    li {
+        float: left;
+        margin: 1.5rem;
+    }
+`
 
-const NextPage = styled.div`
-`;
+const NextPage = styled.div``;
 
 export default function BookMark() { 
   // 페이지네이션
@@ -167,25 +170,27 @@ export default function BookMark() {
             {/* <div className="postDate">{}</div> */}
             <div className="postDate">10 / 25</div>
             {/* <div className="postWeather">{}</div>
+
             <div className="postWeather">{}</div>
             <div className="postWeather">{}</div> */}
-            <div className="postWeather">날씨 이모티콘1</div>
-            <div className="postWeather">날씨 이모티콘2</div>
-            <div className="postWeather">날씨 이모티콘3</div>
-          </BookMarkList>
-          <BookMarkIcon>
-            {/* 북마크 버튼 렌더링 필요  */}
-            <FontAwesomeIcon icon={faHeart} />
-          </BookMarkIcon>
-        </BookMarkContainer>
+                        <div className="postWeather">날씨 이모티콘1</div>
+                        <div className="postWeather">날씨 이모티콘2</div>
+                        <div className="postWeather">날씨 이모티콘3</div>
+                    </BookMarkList>
+                    <BookMarkIcon>
+                        {/* 북마크 버튼 렌더링 필요  */}
+                        <FontAwesomeIcon icon={faHeart} />
+                    </BookMarkIcon>
+                </BookMarkContainer>
 
-        <BookMarkContainer>post</BookMarkContainer>
-        <BookMarkContainer>post</BookMarkContainer>
-        <BookMarkContainer>post</BookMarkContainer>
-        {/* <Pagenation>
+                <BookMarkContainer>post</BookMarkContainer>
+                <BookMarkContainer>post</BookMarkContainer>
+                <BookMarkContainer>post</BookMarkContainer>
+                {/* <Pagenation>
           <PrevPage>이전</PrevPage>
           <NextPage>다음</NextPage>
         </Pagenation> */}
+
       </Container>
 
       <Pagination>
@@ -232,4 +237,5 @@ export default function BookMark() {
       </Pagination>
     </Outer>
   )
+
 }

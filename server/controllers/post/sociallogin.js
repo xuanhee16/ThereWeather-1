@@ -2,7 +2,7 @@ const { getAccessToken, getRefreshToken, sendToken } = require("../tokenFunc")
 const { user } = require("../../models")
 
 module.exports = async (req, res) => {
-    //console.log(req.body)
+    console.log(req.body)
     const { user_id } = req.body
 
     try {
@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
             },
         })
         if (!userInfo) {
-            return res.status(401).send("아이디를 확인해주세요.")
+            return res.status(414).send("아이디를 확인해주세요.")
         } else {
             const accessToken = getAccessToken(userInfo.dataValues)
             sendToken(res, accessToken)
