@@ -50,7 +50,7 @@ app.get("/2", (req, res) => {
 app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
 
 //get
-app.get("/signup", (req, res) => {
+app.get("/signup", async (req, res) => {
     console.log("여긴 users/signup/")
     console.log(req.body)
     const { user_id, nickName, password } = req.body
