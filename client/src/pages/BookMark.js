@@ -135,16 +135,17 @@ export default function BookMark() {
     dispatch({ type: UPDATE_START_END_PAGE, payload: { start, end } })
   }
 
-  const per = 4;
+  const per = 4
   //테스트중 갯수 20개로 고정
-  const total = Math.ceil(20 / per);
+  const total = Math.ceil(20 / per)
 
-  const arr = [];
+  const arr = []
   for (let i = 0; i < total; i++) {
-    arr.push(i + 1);
+      arr.push(i + 1)
   }
-  const target = arr.slice(start, end);
+  const target = arr.slice(start, end)
 
+    
 
   return (
     <Outer>
@@ -165,7 +166,7 @@ export default function BookMark() {
             <div className="postDate">10 / 25</div>
 
 
-                        {/* <div className="postWeather">{}</div>
+            {/* <div className="postWeather">{}</div>
             <div className="postWeather">{}</div>
             <div className="postWeather">{}</div> */}
             <div className="postWeather">날씨 이모티콘1</div>
@@ -232,3 +233,4 @@ export default function BookMark() {
     </Outer>
   )
 }
+
