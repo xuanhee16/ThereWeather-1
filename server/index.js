@@ -39,7 +39,7 @@ const upload = multer({
 })
 
 app.get("/", (req, res) => {
-    res.send("Hello World!!ThereWeather!")
+    res.send("Hello World!!ThereWeather!!")
 })
 
 //겹치는거
