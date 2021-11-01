@@ -6,16 +6,6 @@ import { useState, useEffect } from "react"
 /* TODO
   [] 업로드된 이미지의 크기 정리를 어떻게 할지
     - 가로, 세로 비율 유지 방법
-  [] 날씨 버튼
-    - 버튼 아이콘, 스타일
-      - [x] 아이콘을 png 파일로 대체하기
-      - [x] background-color, padding, height, width
-      - [x] button type
-    - 필터링을 위한 post 요청
-      - [x] 버튼에 name 주기, name을 모으는 state 변수 (배열)
-      - [] 등록버튼 누를 때 post 요청에 실어 보낼 수 있을듯
-      - [x] 선택된 버튼의 스타일 바꾸기
-  [x] 인풋 텍스트 내부의 텍스트 정렬 방법 -> textarea 사용
 */
 
 const Outer = styled.div`
@@ -25,14 +15,13 @@ const Outer = styled.div`
     justify-content: space-around;
     align-items: center;
     width: 100vw;
-    /* min-height: var(--mobile-page-height); */
-    min-height: 100vh;
+    min-height: var(--mobile-page-height);
     padding: 3rem auto;
     background-color: var(--page-bg-color);
 
     @media screen and (min-width: 1081px) {
       flex-direction: row;
-      height: var(--desktop-page-height);
+      min-height: var(--desktop-page-height);
       padding: 2rem;
     }
 `
@@ -60,50 +49,52 @@ const PictureSection = styled.section`
     justify-content: center;
     align-items: center;
     margin: 1rem;
+    height: inherit;
 
     & > img {
       width: 80%;
-      height: 80%;
+      height: auto;
+      margin: 1rem;
     }
 
     @media screen and (min-width: 1081px) {
-        justify-content: space-around;
+        justify-content: center;
         width: 40vw;
     }
 `
 
 const DesktopRight = styled.section`
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    @media screen and (min-width: 1081px) {
-        justify-content: space-around;
-        width: 40vw;
-    }
+  @media screen and (min-width: 1081px) {
+    justify-content: space-around;
+    width: 40vw;
+  }
 `
 
 const ButtonsAndSelects = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
 `
 
 const FlexColumnCenter = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
 
-    & > p {
-        margin: 0.5rem;
-        font-weight: bold;
-    }
+  & > p {
+    margin: 0.5rem;
+    font-weight: bold;
+  }
 `
 
 const FilteringButtons = styled.article`
@@ -137,6 +128,7 @@ const TextSection = styled.section`
     justify-content: space-around;
     align-items: center;
     margin: 2rem auto;
+    height: inherit;
 
     & > .submitButton {
         margin: 2rem auto;
@@ -154,23 +146,30 @@ const SelectArea = styled.article`
     }
 `
 
-const WriteInput = styled.textarea`
-    width: 80vw;
-    min-width: 250px;
-    height: 20vh;
-    text-align: justify;
-    line-height: 1.2rem;
-    font-size: 1.2rem;
-    margin: 1rem;
-    padding: 1rem;
+const WriteText = styled.textarea`
+  width: 70vw;
+  min-width: 250px;
+  height: ${props => props.small ? '3rem' : '20vh'};
+  text-align: justify;
+  vertical-align: center;
+  line-height: 1.2rem;
+  font-size: 1.2rem;
+  margin: 2rem 1rem 4rem;
+  padding: 1rem;
 
-    @media screen and (min-width: 1081px) {
-        width: 40vw;
-        max-width: 800px;
-    }
+  @media screen and (min-width: 1081px) {
+    width: ${props => props.small ? '35vw' : '40vw'};
+    max-width: ${props => props.small ? '500px' : '800px'};
+  }
 `
 
 export default function Write() {
+  // 제목 handler
+  const [ title, setTitle ] = useState('');
+  const titleInputHandler = (e) => {
+    setTitle(prev => e.target.value);
+  }
+
   // img src 상태
     // 테스트용 이미지
   const imageUrl = {
@@ -288,6 +287,9 @@ export default function Write() {
   return (
     <Outer className="writePage">
       <PictureSection className="pictureUploadSection writePageLeft">
+        <article className="titleInput" >
+          <WriteText onChange={titleInputHandler} small>{title}</WriteText>
+        </article>
         <img src={photoSrc} alt="dummy" />
         <Button className="uploadButton" onClick={photoUploadButtonHandler} round>
           <img src={`${process.env.PUBLIC_URL}img/icons-write/upload.png`} />
@@ -337,9 +339,8 @@ export default function Write() {
         </ButtonsAndSelects>
 
         <TextSection>
-          <WriteInput type="text" placeholder="글을 입력하세요." value={postText} onChange={postTextHandler} />
+          <WriteText type="text" placeholder="글을 입력하세요." value={postText} onChange={postTextHandler} />
           <Button className="submitButton" onClick={submitButtonHandler}>등록</Button>
-          {postText}
         </TextSection>
       </DesktopRight>
     </Outer>
