@@ -10,6 +10,8 @@ const controllers = require("./controllers")
 const multer = require("multer")
 const logger = require("morgan")
 const userRouter = require("./routes/user")
+const { isAuthorized } = require("./controllers/tokenFunc/index")
+const { user } = require("./models/index")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -47,7 +49,39 @@ app.use("/users", upload.single("img"), userRouter)
 app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
 
 //get
-app.get("/auth", controllers.auth) //인증 - App.js
+app.get("/auth", (req, res) => {
+    console.log(req)
+    const accessTokenData = isAuthorized(req)
+    if (!accessTokenData) {
+        return res.json({ data: null, message: "유효하지 않은 토큰입니다." })
+    }
+    const { user_id, nickName } = accessTokenData
+    user.findOne({
+        where: {
+            user_id,
+            nickName,
+        },
+    })
+        .then((data) => {
+            if (!data) {
+                return res.json({
+                    data: null,
+                    message: "토큰을 재발급 해주세요.",
+                })
+            }
+            delete data.dataValues.password
+            return res.json({
+                data: { userInfo: data.dataValues },
+                message: "ok",
+            })
+        })
+        // res.send()
+        .catch((err) => {
+            console.log(err)
+        })
+}) //인증 - App.js
+// app.get("/auth", controllers.auth) //인증 - App.js
+
 app.get("/bookmark", controllers.bookmark) //북마크 보는 곳 - BookMark.js
 app.get("/codi", controllers.codi) //북마크에서 코디 누르면 확대해서 보는 곳 - Codi.js
 app.get("/home", controllers.home) //홈 - Home.js
