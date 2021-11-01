@@ -44,6 +44,9 @@ const upload = multer({
 app.get("/2", (req, res) => {
     res.send("Hello World!!22!2")
 })
+app.get("/", (req, res) => {
+    res.send("Hello World!!ThereWeather!!!!")
+})
 
 //겹치는거
 // app.use("/users", upload.single("img"), userRouter)
@@ -114,9 +117,6 @@ app.put("/editpost", controllers.editpost) //예보글 수정시 - PostRead.js
 //delete
 app.delete("/deletepost", controllers.deletepost) //예보글 삭제 - PostRead.js
 app.delete("/removeuser", controllers.removeuser) //회원탈퇴 - MyPage.js
-app.get("/", (req, res) => {
-    res.send("Hello World!!ThereWeather!!!!")
-})
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000
 
