@@ -30,7 +30,8 @@ const HalfPage = styled.article`
   border-bottom: 1px solid red;
 
   & p {
-    margin: 1rem;
+    margin: 1.5rem;
+    font-size: 1.2rem;
     white-space: pre-wrap;
     text-align: center;
   }
@@ -60,6 +61,8 @@ export default function FirstPage() {
             <p className="desc">
               동네 주민이 올린 하늘의 사진을 <br/>
               실시간으로 확인할 수 있어요.<br/>
+            </p>
+            <p className="desc">
               여러분도 하늘사진을 공유하고 <br/>
               동네 날씨예보관이 되어 보세요!
             </p>
@@ -71,9 +74,9 @@ export default function FirstPage() {
       </OnePage>
 
       <OnePage className="page" id="2">
-        <h2>step 1</h2>
         <div className="contents">
           <HalfPage className="half-page">
+            <h2>step 1</h2>
             <p className="desc">
               사는 곳이나 <br/>
               여행지를 검색하세요.
@@ -98,9 +101,9 @@ export default function FirstPage() {
       </OnePage>
 
       <OnePage className="page" id="3">
-        <h2>step 2</h2>
         <div className="contents">
           <HalfPage className="half-page">
+            <h2>step 2</h2>
             <p className="desc">
               자신이 있는 곳의 <br/>
               하늘 사진을 찍어서 <br/>
@@ -126,9 +129,9 @@ export default function FirstPage() {
       </OnePage>
 
       <OnePage className="page" id="last-page">
-        <h2>step 3</h2>
         <div className="contents">
           <HalfPage className="half-page">
+            <h2>step 3</h2>
             <p className="desc">
               날씨에 따라 코디를 <br/>
               추천하거나 <br/>
