@@ -284,6 +284,11 @@ const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
+    if (!url) {
+        console.log(url)
+        url = "https://thereweather.space"
+        console.log(url)
+    }
 
     // input 상태 관리, 유효성 검사
     const [idInput, setIdInput] = useState("")
