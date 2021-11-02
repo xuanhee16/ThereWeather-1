@@ -7,6 +7,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
 const Outer = styled.div`
+
   background-color: var(--page-bg-color);
   width: 100vw;
   min-height: 100vh;
@@ -125,6 +126,7 @@ const BookMarkList = styled.div`
   }
 `;
 
+
 const BookMarkIcon = styled.div`
   flex-direction: column;
   flex-basis: 10.5rem;
@@ -140,6 +142,23 @@ const BookMarkIcon = styled.div`
 
 // 페이지네이션
 const Pagination = styled.div`
+    background-color: var(--page-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh;
+    /* margin: 2rem; */
+    list-style: none;
+    h4 {
+        font-size: 1rem;
+    }
+    @media screen and (max-width: 1081px) {
+        margin-top: 2vh;
+    }
+`
+
+
+
 
   background-color: var(--page-bg-color);
   display: flex;
@@ -162,6 +181,7 @@ const Pagination = styled.div`
 `;
 
 
+
 const PrevPage = styled.div``
 
 const PageNumber = styled.div`
@@ -175,6 +195,7 @@ const PageNumber = styled.div`
     }
   }
 `
+
 
 const NextPage = styled.div``;
 
@@ -361,5 +382,6 @@ export default function BookMark() {
       </Pagination>
     </Outer>
   )
+
 
 }

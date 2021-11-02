@@ -10,7 +10,7 @@ module.exports = {
         if (isAuthorized(req)) {
             res.status(213).send(true)
         } else {
-            res.status(413).send("토큰이 유효하지 않다")
+            res.status(401).send("토큰이 유효하지 않다")
         }
     },
 }
