@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
-const Contents = styled.div`
+export const Contents = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100vw;
 
   @media screen and (min-width: 1081px) {
     flex-direction: row;
-    height: var(--desktop-page-height);
   }
 `;
 
-const HalfPage = styled.article`
+export const HalfPage = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,7 +22,7 @@ const HalfPage = styled.article`
 
   & img {
     margin: 2rem;
-    width: 70vw;
+    width: 50vw;
     height: auto;
   }
 
@@ -37,12 +37,17 @@ const HalfPage = styled.article`
       width: 35vw;
       height: auto;
     }
+    & p {
+      margin: 1rem;
+      font-size: 2rem;
+      line-height: 150%;
+    }
   }
 `;
 
 export default function One() {
   return (
-      <Contents className={["pageOne"]}>
+      <Contents className={["landingPagePart", "one"]}>
         <HalfPage className="half-page">
           <p className="desc">
             일기 예보가 <br/>
