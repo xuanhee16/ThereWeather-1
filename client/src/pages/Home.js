@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState, useEffect } from "react";
 import styled from "styled-components"
+import axios from "axios";
 // import Loading from "./Loading";
 
 const HomeContainer = styled.div`
@@ -72,10 +73,24 @@ const RightNav1 = styled.nav`
 `
 // const RightNav2 = styled(RightNav1)``;
 
+const url = process.env.REACT_APP_LOCAL_URL;
+
 export default function Home() {
     // const dispatch = useDispatch()
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
+    
+    const [weatherData, setWeatherData] = useState([])
+    useEffect(() => {
+        axios.get(url)
+        .then((res) =>  
+        console.log(res)
+        //   {
+        //     const { xLocation, yLocation, date, weatherType, weatherValue } = res.data.weatherInfo
+        //     setWeatherData({ xLocation, yLocation, date, weatherType, weatherValue })
+        //   }
+        )
+      }, [])
 
     return (
         <div className="homecontainer">
@@ -88,7 +103,15 @@ export default function Home() {
                     </LeftNav1>
                     <LeftNav2>
                         기상청 일기예보
-                        <div className="weatherInfo"></div>
+                        <div className="weatherInfo">
+                        <ul>
+                          <li>x위치:{weatherData.xLocation}</li>
+                          <li>y위치:{weatherData.yLocation}</li>
+                          <li>날짜:{weatherData.date}</li>
+                          <li>날씨타입:{weatherData.weatherType}</li>
+                          <li>날씨:{weatherData.weatherValue}</li>
+                        </ul> 
+                        </div>
                     </LeftNav2>
                     <LeftNav3>
                         00구 날씨 기반 추천 코디
