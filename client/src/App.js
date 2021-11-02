@@ -18,6 +18,7 @@ import MyPost from "./pages/MyPost"
 import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
+import FirstPage from "./pages/FirstPage"
 import { changeIsLogin } from "./actions/index"
 import styled from "styled-components"
 
@@ -92,6 +93,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/postread">
                     <PostRead></PostRead>
+                </Route>
+                <Route exact path="/first">
+                    <FirstPage/>
                 </Route>
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
