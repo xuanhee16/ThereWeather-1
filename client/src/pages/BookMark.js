@@ -7,10 +7,10 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
 const Outer = styled.div`
-
   background-color: var(--page-bg-color);
   width: 100vw;
   min-height: 100vh;
+  padding-top: 100px;
 
   @media screen and (max-width: 1081px) {
     padding-top: 3vh;
@@ -44,13 +44,48 @@ const Container = styled.div`
     ;
   }
 `;
-  
+
 const BookMarkContainer = styled.div`
-  border: 1px solid red;
+  background-color: rgba(255, 255, 255, 0.6);
   display: flex;
   gap: 0.1rem;
   justify-content: space-around;
-  
+`;
+// 게시물 사진
+const BookMarkPhoto = styled.div`
+  flex-basis: 30rem;
+  .postPicture{
+    margin: 1rem 2rem;
+    padding: 0;
+    border: solid 1px black;
+    height: 25vh;
+    align-items: center;
+  }
+  .postImg {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen and (max-width: 1081px) {
+    .postPicture{
+      height: 20vh;
+
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .postPicture{
+      margin: 0;
+    }
+  }
+`;
+// 00구,날짜,날씨이모티콘
+const BookMarkList = styled.div`
+  margin: 1rem;    
+  line-height: 2.5rem;
+  flex-direction: column;
+  flex-basis: 15rem;
+  justify-content: flex-start;
+
   .postTitle {
     font-weight: bold;
     font-size: 2.5rem;
@@ -59,43 +94,48 @@ const BookMarkContainer = styled.div`
     font-size: 1.5rem;
   }
   .postWeather {
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
+    width: 5vw;
+    height: 5vh;
   }
-`;
-
-const BookMarkPhoto = styled.div`
-  flex-basis: 30rem;
-  .postPicture{
-    margin: 1rem 2rem;
-    padding: 1rem;
-    border: solid 1px black;
-    height: 25vh;
-    align-items: center;
+  img{
+    width: 100%;
+    height: 100%;
   }
 
-  @media screen and (max-width: 1081px) {
-    .postPicture{
-      height: 20vh;
+  @media (max-width: 1081px) {
+
+  }
+  @media screen and (max-width: 375px) {
+    margin: 0.1rem 0 0 0.5rem;
+    line-height: 1.5rem;
+    .postTitle {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .postDate {
+      font-size: 1rem;
+    }
+    .postWeather {
+      font-size: 0.5rem;
+      width: 30px;
+      height: 30px;
+      
     }
   }
 `;
 
-const BookMarkList = styled.div`
-  margin: 1rem;    
-  line-height: 2.5rem;
-  flex-direction: column;
-  flex-basis: 15rem;
-  justify-content: flex-start;
-  
-`;
-
-
 const BookMarkIcon = styled.div`
-    flex-direction: column;
-    flex-basis: 10.5rem;
-    text-align: end;
-    margin: 1rem;
-    padding: 1rem;
+  flex-direction: column;
+  flex-basis: 10.5rem;
+  text-align: end;
+  margin: 1rem;
+  /* padding: 1rem; */
+
+  @media screen and (max-width: 375px) {
+    margin: 0;
+    padding: 0 0.3rem 0 0;    
+  }
 `
 
 // 페이지네이션
@@ -114,16 +154,26 @@ const Pagination = styled.div`
   @media screen and (max-width: 1081px) {
     margin-top: 2vh;
   }
+  @media screen and (max-width: 375px) {
+    button{
+      font-size: 1rem;
+    }
+  }
 `;
 
 
 const PrevPage = styled.div``
 
 const PageNumber = styled.div`
-    li {
-        float: left;
-        margin: 1.5rem;
+  li {
+    float: left;
+    margin: 1.5rem;
+  }
+  @media screen and (max-width: 375px) {
+    li{
+      margin: 1rem;
     }
+  }
 `
 
 const NextPage = styled.div``;
@@ -158,39 +208,113 @@ export default function BookMark() {
         <BookMarkContainer>
           <BookMarkPhoto>
             <div className="postPicture">
-              {/* <img className="postImg" src={} alt="weather" /> */}
-              게시물 날씨 사진
+              <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" />
             </div>
           </BookMarkPhoto>
           <BookMarkList>
             <div className="postTitle">
-              {/* <div className="title">{}</div> */}
               00구
             </div>
-            {/* <div className="postDate">{}</div> */}
             <div className="postDate">10 / 25</div>
-            {/* <div className="postWeather">{}</div>
+            <div className="postWeather sky">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img>
+            </div>
+            <div className="postWeather wind">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img>
+            </div>
+            <div className="postWeather temp">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img>
+            </div>
+          </BookMarkList>
+          <BookMarkIcon>
+            {/* 북마크 버튼 렌더링 필요  */}
+            <FontAwesomeIcon icon={faHeart} size="2x"/>
+          </BookMarkIcon>
+        </BookMarkContainer>
+        <BookMarkContainer>
+          <BookMarkPhoto>
+            <div className="postPicture">
+              <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" />
+            </div>
+          </BookMarkPhoto>
+          <BookMarkList>
+            <div className="postTitle">
+              00구
+            </div>
+            <div className="postDate">10 / 25</div>
+            <div className="postWeather sky">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img>
+            </div>
+            <div className="postWeather wind">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img>
+            </div>
+            <div className="postWeather temp">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img>
+            </div>
+          </BookMarkList>
+          <BookMarkIcon>
+            {/* 북마크 버튼 렌더링 필요  */}
+            <FontAwesomeIcon icon={faHeart} size="2x"/>
+          </BookMarkIcon>
+        </BookMarkContainer>
+        <BookMarkContainer>
+          <BookMarkPhoto>
+            <div className="postPicture">
+              <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" />
+            </div>
+          </BookMarkPhoto>
+          <BookMarkList>
+            <div className="postTitle">
+              00구
+            </div>
+            <div className="postDate">10 / 25</div>
+            <div className="postWeather sky">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img>
+            </div>
+            <div className="postWeather wind">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img>
+            </div>
+            <div className="postWeather temp">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img>
+            </div>
+          </BookMarkList>
+          <BookMarkIcon>
+            {/* 북마크 버튼 렌더링 필요  */}
+            <FontAwesomeIcon icon={faHeart} size="2x"/>
+          </BookMarkIcon>
+        </BookMarkContainer>
+        <BookMarkContainer>
+          <BookMarkPhoto>
+            <div className="postPicture">
+              <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" />
+            </div>
+          </BookMarkPhoto>
+          <BookMarkList>
+            <div className="postTitle">
+              00구
+            </div>
+            <div className="postDate">10 / 25</div>
+            <div className="postWeather sky">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img>
+            </div>
+            <div className="postWeather wind">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img>
+            </div>
+            <div className="postWeather temp">
+              <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img>
+            </div>
+          </BookMarkList>
+          <BookMarkIcon>
+            {/* 북마크 버튼 렌더링 필요  */}
+            <FontAwesomeIcon icon={faHeart} size="2x"/>
+          </BookMarkIcon>
+        </BookMarkContainer>
 
-            <div className="postWeather">{}</div>
-            <div className="postWeather">{}</div> */}
-                        <div className="postWeather">날씨 이모티콘1</div>
-                        <div className="postWeather">날씨 이모티콘2</div>
-                        <div className="postWeather">날씨 이모티콘3</div>
-                    </BookMarkList>
-                    <BookMarkIcon>
-                        {/* 북마크 버튼 렌더링 필요  */}
-                        <FontAwesomeIcon icon={faHeart} />
-                    </BookMarkIcon>
-                </BookMarkContainer>
 
-                <BookMarkContainer>post</BookMarkContainer>
-                <BookMarkContainer>post</BookMarkContainer>
-                <BookMarkContainer>post</BookMarkContainer>
-                {/* <Pagenation>
+        {/* <Pagenation>
           <PrevPage>이전</PrevPage>
           <NextPage>다음</NextPage>
         </Pagenation> */}
-
       </Container>
 
       <Pagination>
