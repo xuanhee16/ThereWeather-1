@@ -228,6 +228,9 @@ export default function Write() {
         fileName: "blankPost.png",
         filePath: `${url}/img/blankPost.png`,
     })
+    if (!url) {
+        url = "https://thereweather.space"
+    }
     console.log(userInfo)
     // 제목 handler
     const [title, setTitle] = useState("")
