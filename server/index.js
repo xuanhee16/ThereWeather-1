@@ -10,6 +10,7 @@ const controllers = require("./controllers")
 const multer = require("multer")
 const logger = require("morgan")
 const userRouter = require("./routes/user")
+const postRouter = require("./routes/post")
 const { isAuthorized } = require("./controllers/tokenFunc/index")
 const { user } = require("./models/index")
 const { encrypto } = require("./controllers/get/setpw")
@@ -51,6 +52,7 @@ app.get("/", (req, res) => {
 
 //겹치는거
 app.use("/users", upload.single("img"), userRouter)
+app.use("/post", upload.single("img"), postRouter) //글쓰는 곳 - Write.js
 app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
 
 //get
@@ -67,7 +69,6 @@ app.get("/readpost", controllers.readpost) //예보글보기 - PostRead.js
 //post
 app.post("/login", controllers.login) //로그인시 - Login.js
 app.post("/signout", controllers.signout) //로그아웃시
-app.post("/post", controllers.post) //글쓰는 곳 - Write.js
 
 //put
 app.put("/password", controllers.password) //비밀번호 수정시 - MyPage.js

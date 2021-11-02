@@ -226,8 +226,6 @@ export default function SignUp() {
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankProfile.png",
         filePath: `${url}/img/blankProfile.png`,
-        // fileName: null,
-        // filePath: null,
     })
     const history = useHistory()
 
