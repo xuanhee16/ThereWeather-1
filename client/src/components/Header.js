@@ -1,6 +1,13 @@
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSun, faCloud, faCloudRain, faPooStorm, faSnowflake, faSearch } from "@fortawesome/free-solid-svg-icons"
+import {
+    faSun,
+    faCloud,
+    faCloudRain,
+    faPooStorm,
+    faSnowflake,
+    faSearch,
+} from "@fortawesome/free-solid-svg-icons"
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
@@ -16,8 +23,8 @@ const HeaderOuter = styled.div`
     background-color: #a2d2ff;
     padding: 1rem;
     position: sticky;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     z-index: 100;
 
     h1 {
@@ -121,36 +128,49 @@ const Button = styled.button`
     margin: 0.5rem;
     border-radius: 10%;
 `
+let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Header({ isInput, isMobileLogo }) {
     const dispatch = useDispatch()
     const history = useHistory()
     const { isLogin } = useSelector((state) => state.itemReducer)
 
+    if (!url) {
+        url = "https://thereweather.space"
+    }
+
     // isInput : Map 페이지 사용시 true
     // isMobileLogo : Map 페이지 사용시 false
-    
+
     const logoutBtnHandler = (e) => {
-      const token = JSON.parse(localStorage.getItem("ATOKEN"))
-      axios.post("http://localhost/signout", 
-      { data: null },
-      { 
-        headers: {
-        "Content-Type": "application/json",
-        "Authorization": `token ${token}`,
-      },
-       withCredentials: true })
-       .then((res) => { 
-        localStorage.clear();   
-        dispatch(changeIsLogin(false))
-        history.push("/")
-       })
-    } 
+        const token = JSON.parse(localStorage.getItem("ATOKEN"))
+        axios
+            .post(
+                url + "/signout",
+                { data: null },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `token ${token}`,
+                    },
+                    withCredentials: true,
+                }
+            )
+            .then((res) => {
+                localStorage.clear()
+                dispatch(changeIsLogin(false))
+                history.push("/")
+            })
+    }
 
     return (
         <HeaderOuter className="header">
             <TitleAndLogo className="titleAndLogo" isMobileLogo={isMobileLogo}>
-                <img onClick={() => history.push("/")} src="img/img4.png" alt="logo" />
+                <img
+                    onClick={() => history.push("/")}
+                    src="img/img4.png"
+                    alt="logo"
+                />
                 <h1 onClick={() => history.push("/")}>거기날씨</h1>
             </TitleAndLogo>
 
@@ -187,19 +207,31 @@ export default function Header({ isInput, isMobileLogo }) {
             {isLogin ? (
                 <Wing className="loginAndSingupButtons">
                     {/* className="login" isText */}
-                    <Button className="login" onClick={logoutBtnHandler}isText>
+                    <Button className="login" onClick={logoutBtnHandler} isText>
                         로그아웃
                     </Button>
-                    <Button onClick={() => history.push("/mypage")} className="signup" isText>
+                    <Button
+                        onClick={() => history.push("/mypage")}
+                        className="signup"
+                        isText
+                    >
                         마이페이지
                     </Button>
                 </Wing>
             ) : (
                 <Wing className="loginAndSingupButtons">
-                    <Button onClick={() => history.push("/login")} className="login" isText>
+                    <Button
+                        onClick={() => history.push("/login")}
+                        className="login"
+                        isText
+                    >
                         로그인
                     </Button>
-                    <Button onClick={() => history.push("/signup")} className="signup" isText>
+                    <Button
+                        onClick={() => history.push("/signup")}
+                        className="signup"
+                        isText
+                    >
                         회원가입
                     </Button>
                 </Wing>

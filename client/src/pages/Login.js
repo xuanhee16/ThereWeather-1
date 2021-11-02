@@ -278,20 +278,27 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////////////////////////////////
-const url = process.env.REACT_APP_URL || "https://thereweather.space"
+// const url = "https://thereweather.space"
+// let url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
+let url = process.env.REACT_APP_LOCAL_URL
+let clientUrl = "http://localhost:3000"
 
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
+    if (!url) {
+        url = "https://thereweather.space"
+        clientUrl = "https://there-weather.vercel.app"
+    }
 
     // input 상태 관리, 유효성 검사
     const [idInput, setIdInput] = useState("")
     const [pwInput, setPwInput] = useState("")
-    const [idInputMessage, setIdInputMessage] = useState("아이디를 입력하세요.")
+    const [idInputMessage, setIdInputMessage] =
+        useState("아이디를 입력하세요.!")
     const [pwInputMessage, setPwInputMessage] =
         useState("비밀번호를 입력하세요.")
-    const GOOGLE_LOGIN_URL =
-        "https://accounts.google.com/o/oauth2/v2/auth?client_id=1079927639813-87e5g0991msheh50mt77eclt2vij4kks.apps.googleusercontent.com&response_type=token&redirect_uri=http://localhost:3000/login&scope=https://www.googleapis.com/auth/userinfo.email"
+    const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=1079927639813-87e5g0991msheh50mt77eclt2vij4kks.apps.googleusercontent.com&response_type=token&redirect_uri=${clientUrl}/login&scope=https://www.googleapis.com/auth/userinfo.email`
     const { isLogin } = useSelector((state) => state.itemReducer)
 
     const [socialLogined, setSocialLogined] = useState(false)
@@ -303,8 +310,8 @@ export default function Login() {
     useEffect(() => {
         console.log("나는 login.js")
 
-        const url = new URL(window.location.href)
-        const hash = url.hash
+        const urlinfo = new URL(window.location.href)
+        const hash = urlinfo.hash
         if (hash) {
             const accessToken = hash.split("=")[1].split("&")[0]
             axios({
@@ -408,7 +415,6 @@ export default function Login() {
 
         axios
             .post(
-
                 url + "/login",
 
                 { user_id: idInput, password: pwInput },

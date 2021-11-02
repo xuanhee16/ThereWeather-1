@@ -23,7 +23,6 @@ const Outer = styled.div`
       flex-direction: row;
       min-height: var(--desktop-page-height);
       padding: 2rem;
-
     }
 `
 

@@ -112,7 +112,6 @@ const Page = styled.div`
       margin-top: 20rem;
       padding-bottom: 5rem;
     }
-
     @media screen and (max-width: 375px) {
       margin-top: 5rem;
     }

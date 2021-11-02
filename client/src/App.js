@@ -18,33 +18,41 @@ import MyPost from "./pages/MyPost"
 import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
+import FirstPage from "./pages/FirstPage"
 import { changeIsLogin } from "./actions/index"
 import styled from "styled-components"
 
-const url = process.env.REACT_APP_URL || "https://thereweather.space"
+let url = process.env.REACT_APP_LOCAL_URL
+// const url = "https://thereweather.space"
+// const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 
 export default function App() {
     const dispatch = useDispatch()
+    if (!url) {
+        url = "https://thereweather.space"
+    }
 
     const isInput = true
     const { isLogin } = useSelector((state) => state.itemReducer)
     useEffect(() => {
         console.log(JSON.parse(localStorage.getItem("ATOKEN")))
         //auth할차례
-        axios({
-            url: url + "/users/auth",
-            method: "get",
-            headers: {
-                authorization: `token ${JSON.parse(
-                    localStorage.getItem("ATOKEN")
-                )}`,
-                accept: "application/json",
-            },
-        }).then((res) => {
-            console.log(res.data)
-            dispatch(changeIsLogin(res.data))
-        })
-    }, [dispatch])
+        if (localStorage.getItem("ATOKEN") && isLogin) {
+            axios({
+                url: url + "/users/auth",
+                method: "get",
+                headers: {
+                    authorization: `token ${JSON.parse(
+                        localStorage.getItem("ATOKEN")
+                    )}`,
+                    // accept: "application/json",
+                },
+            }).then((res) => {
+                console.log(res.data)
+                dispatch(changeIsLogin(res.data))
+            })
+        }
+    }, [])
 
     return (
         <>
@@ -85,6 +93,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/postread">
                     <PostRead></PostRead>
+                </Route>
+                <Route exact path="/first">
+                    <FirstPage/>
                 </Route>
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
