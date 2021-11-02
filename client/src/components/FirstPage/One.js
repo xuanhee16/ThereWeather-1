@@ -27,7 +27,9 @@ export const HalfPage = styled.article`
   }
 
   & p {
+    font-size: 1.5rem;
     margin: 1rem;
+    line-height: 150%;
   }
 
   @media screen and (min-width: 1081px) {
@@ -36,11 +38,6 @@ export const HalfPage = styled.article`
       margin: 2rem;
       width: 35vw;
       height: auto;
-    }
-    & p {
-      margin: 1rem;
-      font-size: 2rem;
-      line-height: 150%;
     }
   }
 `;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import One from "../components/FirstPage/One";
 import Two from "../components/FirstPage/Two";
+import Three from "../components/FirstPage/Three";
 
 const FirstPageContainer = styled.div`
   position: relative;
@@ -115,70 +116,15 @@ export default function FirstPage() {
     <div className="firstPage">
       <One />
       <Two />
+      <Three />
     </div>
   );
 }
 
 {/* 
 
-      <OnePage className="page" id="2">
-        <TitleAndContents>
-          <h2>step 1</h2>
-          <Contents className="contents">
-            <HalfPage className="half-page">
-              <p className="desc">
-                사는 곳이나 <br/>
-                여행지를 검색하세요.
-              </p>
-              <div className="picture-png left">
-                <img src="img/firstpage/web_search.png"  alt="web surfing" />
-              </div>
-            </HalfPage>
 
-            <HalfPage className="half-page">
-              <div className="picture-png right">
-                <img src="img/firstpage/adventure_map.png" alt="walking" />
-              </div>
-              <p className="desc">
-                여행을 준비중이시라면 <br/>
-                여행지에 사는 사람이 올린 <br/>
-                사실적인 예보글을 토대로 <br/>
-                계획해보세요.
-            </p>
-            </HalfPage>
-          </Contents>
-        </TitleAndContents>
-      </OnePage>
-
-      <OnePage className="page" id="3">
-        <TitleAndContents>
-          <h2>step 2</h2>
-          <Contents className="contents">
-            <HalfPage className="half-page">
-              <p className="desc">
-                자신이 있는 곳의 <br/>
-                하늘 사진을 찍어서 <br/>
-                예보글을 작성하세요.
-              </p>
-              <div className="picture-png left">
-                <img src="img/firstpage/photos.png" alt="photos" />
-              </div>
-            </HalfPage>
-
-            <HalfPage className="half-page">
-              <p className="desc">
-                하늘 사진을 공유하여 <br/>
-                다른사람에게 <br/>
-                도움을 줄 수도 있어요.
-              </p>
-              <TwoPictures className="picture-png right">
-                <img src="img/firstpage/mobile.png" alt="touching mobile phone" id="step2-number2" />
-                <img src="img/firstpage/after_the_rain.png" alt="holding umbrella" id="step2-number3" />
-              </TwoPictures>
-            </HalfPage>
-          </Contents>
-        </TitleAndContents>
-      </OnePage>
+      
 
       <OnePage className="page" id="last-page">
         <TitleAndContents>

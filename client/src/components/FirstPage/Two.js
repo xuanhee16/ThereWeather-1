@@ -1,32 +1,37 @@
 import styled from "styled-components";
 import { Contents, HalfPage } from "./One";
 
-const TitleAndContents = styled(Contents)`
+export const TitleAndContents = styled(Contents)`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px solid red;
 
+  & > h2 {
+    padding: 3rem;
+    font-size: 3rem;
+    text-align: center;
+  }
+
   @media screen and (min-width: 1081px) {
     height: var(--desktop-page-height);
     & >h2 {
       height: 12rem;
       padding: 5rem;
-      font-size: 3rem;
-      text-align: center;
     }
   }
 `;
 
-const ContentsUnderTitle = styled.div`
+export const ContentsUnderTitle = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100vw;
   justify-content: center;
   align-items: center;
 
   @media screen and (min-width: 1081px) {
-
+    flex-direction: row;
     height: calc(var(--desktop-page-height) - 12rem);
   }
 `;
