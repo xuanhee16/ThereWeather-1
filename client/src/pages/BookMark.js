@@ -142,24 +142,6 @@ const BookMarkIcon = styled.div`
 
 // 페이지네이션
 const Pagination = styled.div`
-    background-color: var(--page-bg-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10vh;
-    /* margin: 2rem; */
-    list-style: none;
-    h4 {
-        font-size: 1rem;
-    }
-    @media screen and (max-width: 1081px) {
-        margin-top: 2vh;
-    }
-`
-
-
-
-
   background-color: var(--page-bg-color);
   display: flex;
   justify-content: center;
@@ -167,12 +149,15 @@ const Pagination = styled.div`
   margin-top: 10vh;
   /* margin: 2rem; */
   list-style: none;
+
   h4 {
     font-size: 1rem;
   }
+
   @media screen and (max-width: 1081px) {
     margin-top: 2vh;
   }
+
   @media screen and (max-width: 375px) {
     button{
       font-size: 1rem;
