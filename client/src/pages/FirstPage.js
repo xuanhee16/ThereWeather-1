@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import One from "../components/FirstPage/One";
 
 const FirstPageContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +16,8 @@ const OnePage = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid read;
+  height: auto;
+  // border: 1px solid red;
 
   & h2 {
     font-size: 3rem;
@@ -108,7 +111,13 @@ const TwoPictures = styled.div`
 
 export default function FirstPage() {
   return (
-    <FirstPageContainer className="firstPageContainer">
+    <div className="firstPage">
+      <One />
+    </div>
+  );
+}
+
+{/* <FirstPageContainer className="firstPageContainer">
       <OnePage className="page" id="1">
         <TitleAndContents>
           <Contents className="contents">
@@ -226,6 +235,5 @@ export default function FirstPage() {
           </Contents>
         </TitleAndContents>
       </OnePage>
-    </FirstPageContainer>
-  );
-}
+    </FirstPageContainer> 
+  */}
