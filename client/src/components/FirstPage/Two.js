@@ -36,12 +36,14 @@ export const ContentsUnderTitle = styled.div`
   }
 `;
 
-export default function Two({ opacityOffset }) {
+export default function Two({ opacityOffsetTitle, opacityOffsetOne, opacityOffsetTwo }) {
   return (
     <TitleAndContents className={["landingPagePart", "two"]}>
-      <h2 style={opacityOffset}>step 1</h2>
+      <h2 style={{ opacity: `${opacityOffsetTitle}`}}>
+        step 1
+      </h2>
       <ContentsUnderTitle className="contents">
-        <HalfPage className="half-page"  style={opacityOffset}>
+        <HalfPage className="half-page" style={{ opacity: `${opacityOffsetOne}`}}>
           <p className="desc">
             사는 곳이나 <br/>
             여행지를 검색하세요.
@@ -51,7 +53,7 @@ export default function Two({ opacityOffset }) {
           </div>
         </HalfPage>
 
-        <HalfPage className="half-page"  style={opacityOffset}>
+        <HalfPage className="half-page" style={{ opacity: `${opacityOffsetTwo}`}}>
           <div className="picture-png right">
             <img src="img/firstpage/adventure_map.png" alt="walking" />
           </div>
@@ -66,3 +68,5 @@ export default function Two({ opacityOffset }) {
     </TitleAndContents>
   );
 }
+
+// style={{ opacity: `${opacityOffset}`}}

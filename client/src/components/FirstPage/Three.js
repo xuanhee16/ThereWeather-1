@@ -18,12 +18,14 @@ export const TwoPictures = styled.div`
   }
 `;
 
-export default function Three() {
+export default function Three({ opacityOffsetTitle, opacityOffsetOne, opacityOffsetTwo }) {
   return (
     <TitleAndContents className={["landingPagePart", "three"]}>
-      <h2>step 2</h2>
+      <h2 style={{ opacity: `${opacityOffsetTitle}`}}>
+        step 2
+      </h2>
       <ContentsUnderTitle className="contents">
-        <HalfPage className="half-page">
+        <HalfPage className="half-page" style={{ opacity: `${opacityOffsetOne}`}}>
           <p className="desc">
             자신이 있는 곳의 <br/>
             하늘 사진을 찍어서 <br/>
@@ -34,7 +36,7 @@ export default function Three() {
           </div>
         </HalfPage>
 
-        <HalfPage className="half-page">
+        <HalfPage className="half-page" style={{ opacity: `${opacityOffsetTwo}`}}>
           <p className="desc">
             하늘 사진을 공유하여 <br/>
             다른사람에게 <br/>
