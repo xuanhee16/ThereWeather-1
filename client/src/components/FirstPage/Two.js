@@ -6,7 +6,7 @@ export const TitleAndContents = styled(Contents)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
+  // border: 1px solid red;
 
   & > h2 {
     padding: 3rem;
@@ -15,7 +15,7 @@ export const TitleAndContents = styled(Contents)`
   }
 
   @media screen and (min-width: 1081px) {
-    height: var(--desktop-page-height);
+    height: 110vh;
     & >h2 {
       height: 12rem;
       padding: 5rem;

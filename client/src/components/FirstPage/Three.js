@@ -12,7 +12,6 @@ export const TwoPictures = styled.div`
   }
 
   @media screen and (min-width: 1081px) {
-    // flex-direction: row;
     & > img {
       width: 20vw;
     }
