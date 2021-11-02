@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { HalfPage, Contents } from "./One";
+import { HalfPage } from "./One";
 import { TitleAndContents, ContentsUnderTitle } from "./Two";
 
 export const TwoPictures = styled.div`

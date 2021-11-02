@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { HalfPage, Contents } from "./One";
+// import styled from "styled-components";
+import { HalfPage } from "./One";
 import { TitleAndContents, ContentsUnderTitle } from "./Two";
 import { TwoPictures } from "./Three";
 
