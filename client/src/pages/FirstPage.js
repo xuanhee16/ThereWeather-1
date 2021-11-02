@@ -14,9 +14,47 @@ const OnePage = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 1px solid read;
 
-  & > h2 {
-    margin: 1rem;
+  & h2 {
+    font-size: 3rem;
+    margin: 1.5rem;
+  }
+
+  @media screen and (min-width: 1081px) {
+    // height: var(--desktop-page-height);
+
+    & h2 {
+      font-size: 5rem;
+      margin: 3rem;
+    }
+  }
+`;
+
+const TitleAndContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(var(--mobile-page-height) - var(--mobile-menubar-height));
+  border: 1px solid blue;
+
+  @media screen and (min-width: 1081px) {
+    height: var(--desktop-page-height);
+  }
+`;
+
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (min-width: 1081px) {
+    flex-direction: row;
+    width: 80vw;
+    height: 60vh;
+    // border: 1px solid green;
   }
 `;
 
@@ -26,133 +64,167 @@ const HalfPage = styled.article`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: calc(var(--mobile-page-height) - 70px);
-  border-bottom: 1px solid red;
+  height: calc(var(--mobile-page-height) - var(--mobile-menubar-height));
 
   & p {
-    margin: 1.5rem;
-    font-size: 1.2rem;
     white-space: pre-wrap;
     text-align: center;
+    border: 1px solid pink;
   }
 
   & img {
-    width: 150px;
+    width: 40vw;
     height: auto;
   }
+
+  @media screen and (min-width: 1081px) {
+    width: 50vw;
+    height: auto;
+
+    & img {
+      width: 20vw;
+      height: auto;
+    }
+
+    & p {
+      margin: 2rem auto;
+      font-size: 2.5rem;
+      line-height: 150%;
+    }
+  }
 `;
+
+const TwoPictures = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (min-width: 1081px) {
+    flex-direction: row;
+  }
+`;
+
 
 export default function FirstPage() {
   return (
     <FirstPageContainer className="firstPageContainer">
       <OnePage className="page" id="1">
-        <div className="contents">
-          <HalfPage className="half-page">
-            <p className="desc">
-              일기 예보가 <br/>
-              믿음직스럽지 못하시다구요?<br/>
-            </p>
-            <div className="picture-png left">
-              <img src="img/firstpage/phone-and-human.png" alt="human with phone" />
-            </div>
-          </HalfPage>
+        <TitleAndContents>
+          <Contents className="contents">
+            <HalfPage className="half-page">
+              <p className="desc">
+                일기 예보가 <br/>
+                믿음직스럽지 못하시다구요?<br/>
+              </p>
+              <div className="picture-png left">
+                <img src="img/firstpage/phone-and-human.png" alt="human with phone" />
+              </div>
+            </HalfPage>
 
-          <HalfPage className="half-page">
-            <p className="desc">
-              동네 주민이 올린 하늘의 사진을 <br/>
-              실시간으로 확인할 수 있어요.<br/>
-            </p>
-            <p className="desc">
-              여러분도 하늘사진을 공유하고 <br/>
-              동네 날씨예보관이 되어 보세요!
-            </p>
-            <div className="picture-png right">
-              <img src="img/firstpage/town.png" alt="street" />
-            </div>
-          </HalfPage>
-        </div>
+            <HalfPage className="half-page">
+              <p className="desc">
+                동네 주민이 올린 하늘의 사진을 <br/>
+                실시간으로 확인할 수 있어요.<br/>
+              </p>
+              <p className="desc">
+                여러분도 하늘사진을 공유하고 <br/>
+                동네 날씨예보관이 되어 보세요!
+              </p>
+              <div className="picture-png right">
+                <img src="img/firstpage/town.png" alt="street" />
+              </div>
+            </HalfPage>
+          </Contents>
+        </TitleAndContents>
       </OnePage>
 
       <OnePage className="page" id="2">
-        <div className="contents">
-          <HalfPage className="half-page">
-            <h2>step 1</h2>
-            <p className="desc">
-              사는 곳이나 <br/>
-              여행지를 검색하세요.
-            </p>
-            <div className="picture-png left">
-              <img src="img/firstpage/web_search.png"  alt="web surfing" />
-            </div>
-          </HalfPage>
+        <TitleAndContents>
+          <h2>step 1</h2>
+          <Contents className="contents">
+            <HalfPage className="half-page">
+              <p className="desc">
+                사는 곳이나 <br/>
+                여행지를 검색하세요.
+              </p>
+              <div className="picture-png left">
+                <img src="img/firstpage/web_search.png"  alt="web surfing" />
+              </div>
+            </HalfPage>
 
-          <HalfPage className="half-page">
-            <div className="picture-png right">
-              <img src="img/firstpage/adventure_map.png" alt="walking" />
-            </div>
-            <p className="desc">
-              여행을 준비중이시라면 <br/>
-              여행지에 사는 사람이 올린 <br/>
-              사실적인 예보글을 토대로 <br/>
-              계획해보세요.
+            <HalfPage className="half-page">
+              <div className="picture-png right">
+                <img src="img/firstpage/adventure_map.png" alt="walking" />
+              </div>
+              <p className="desc">
+                여행을 준비중이시라면 <br/>
+                여행지에 사는 사람이 올린 <br/>
+                사실적인 예보글을 토대로 <br/>
+                계획해보세요.
             </p>
-          </HalfPage>
-        </div>
+            </HalfPage>
+          </Contents>
+        </TitleAndContents>
       </OnePage>
 
       <OnePage className="page" id="3">
-        <div className="contents">
-          <HalfPage className="half-page">
-            <h2>step 2</h2>
-            <p className="desc">
-              자신이 있는 곳의 <br/>
-              하늘 사진을 찍어서 <br/>
-              예보글을 작성하세요.
-            </p>
-            <div className="picture-png left">
-              <img src="img/firstpage/photos.png" alt="photos" />
-            </div>
-          </HalfPage>
+        <TitleAndContents>
+          <h2>step 2</h2>
+          <Contents className="contents">
+            <HalfPage className="half-page">
+              <p className="desc">
+                자신이 있는 곳의 <br/>
+                하늘 사진을 찍어서 <br/>
+                예보글을 작성하세요.
+              </p>
+              <div className="picture-png left">
+                <img src="img/firstpage/photos.png" alt="photos" />
+              </div>
+            </HalfPage>
 
-          <HalfPage className="half-page">
-            <p className="desc">
-              하늘 사진을 공유하여 <br/>
-              다른사람에게 <br/>
-              도움을 줄 수도 있어요.
-            </p>
-            <div className="picture-png right">
-              <img src="img/firstpage/mobile.png" alt="touching mobile phone" id="step2-number2" />
-              <img src="img/firstpage/after_the_rain.png" alt="holding umbrella" id="step2-number3" />
-            </div>
-          </HalfPage>
-        </div>
+            <HalfPage className="half-page">
+              <p className="desc">
+                하늘 사진을 공유하여 <br/>
+                다른사람에게 <br/>
+                도움을 줄 수도 있어요.
+              </p>
+              <TwoPictures className="picture-png right">
+                <img src="img/firstpage/mobile.png" alt="touching mobile phone" id="step2-number2" />
+                <img src="img/firstpage/after_the_rain.png" alt="holding umbrella" id="step2-number3" />
+              </TwoPictures>
+            </HalfPage>
+          </Contents>
+        </TitleAndContents>
       </OnePage>
 
       <OnePage className="page" id="last-page">
-        <div className="contents">
-          <HalfPage className="half-page">
-            <h2>step 3</h2>
-            <p className="desc">
-              날씨에 따라 코디를 <br/>
-              추천하거나 <br/>
-              코디를 추천 받으세요.
-            </p>
-            <div className="picture-png left">
-              <img src="img/firstpage/destination.png" alt="reading mobile phone map" />
-            </div>
-          </HalfPage>
-          <HalfPage className="half-page">
-            <div className="picture-png right">
-              <img src="img/firstpage/publish_post.png" alt="publishing post" id="step3-number2" />
-              <img src="img/firstpage/among_nature.png" alt="watching tree" id="step3-number3" />
-            </div>
-            <p className="desc">
-              날씨에 따라 코디를 추천받거나, <br/>
-              예보글을 작성하여 <br/>
-              적절한 코디를 추천할 수 있어요.
-            </p>
-          </HalfPage>
-        </div>
+        <TitleAndContents>
+          <h2>step 3</h2>
+          <Contents className="contents">
+            <HalfPage className="half-page">
+              <p className="desc">
+                날씨에 따라 코디를 <br/>
+                추천하거나 <br/>
+                코디를 추천 받으세요.
+              </p>
+              <div className="picture-png left">
+                <img src="img/firstpage/destination.png" alt="reading mobile phone map" />
+              </div>
+            </HalfPage>
+            <HalfPage className="half-page">
+              <TwoPictures className="picture-png right">
+                <img src="img/firstpage/publish_post.png" alt="publishing post" id="step3-number2" />
+                <img src="img/firstpage/among_nature.png" alt="watching tree" id="step3-number3" />
+              </TwoPictures>
+              <p className="desc">
+                날씨에 따라 코디를 추천받거나, <br/>
+                예보글을 작성하여 <br/>
+                적절한 코디를 추천할 수 있어요.
+              </p>
+            </HalfPage>
+          </Contents>
+        </TitleAndContents>
       </OnePage>
     </FirstPageContainer>
   );

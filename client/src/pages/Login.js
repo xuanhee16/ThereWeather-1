@@ -11,7 +11,6 @@ import DaumPostcode from "react-daum-postcode"
 
 /*
   TODO
-  [x] 여러개의 Input 상태 관리
   [] 유효성 검사
     - [x] ul, li 추가
     - [] 함수로 구현
