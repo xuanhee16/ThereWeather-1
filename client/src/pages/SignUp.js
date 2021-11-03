@@ -336,7 +336,7 @@ export default function SignUp() {
                 // url: url + "/signup",
                 method: "post",
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/json",
                     // "Content-Type": "text/plain",
                 },
                 data: {

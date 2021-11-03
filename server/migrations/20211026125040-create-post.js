@@ -36,10 +36,10 @@ module.exports = {
                 type: Sequelize.STRING,
             },
             xLocation: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.NUMERIC(20, 15),
             },
             yLocation: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.NUMERIC(20, 15),
             },
             createdAt: {
                 allowNull: false,

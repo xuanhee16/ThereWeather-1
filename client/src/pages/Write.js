@@ -231,13 +231,15 @@ export default function Write() {
     if (!url) {
         url = "https://thereweather.space"
     }
-    console.log(userInfo)
     // 제목 handler
     const [title, setTitle] = useState("")
 
     const titleInputHandler = (e) => {
         setTitle((prev) => e.target.value)
     }
+    useEffect(() => {
+        console.log(userInfo.user_id)
+    }, [])
 
     // img src 상태
     // 테스트용 이미지
