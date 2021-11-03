@@ -13,6 +13,7 @@ const userRouter = require("./routes/user")
 const { isAuthorized } = require("./controllers/tokenFunc/index")
 const { user } = require("./models/index")
 const { encrypto } = require("./controllers/get/setpw")
+
 const weather = require("./controllers/get/weather.js")
 
 app.use(express.json())
@@ -50,16 +51,20 @@ const upload = multer({
 //     res.send("Hello World!!ThereWeather!!!!")
 // })
 
-//기상청 날씨 api 
+// //기상청 날씨 api 
 app.get("/", async(req, res) => {
     //서울시 중구 
     await weather('60', '127', (error, {weathers}={}) => {
         if(error){
             res.send(error)
         }
-        res.send(weathers)
+        else{
+            res.send(weathers)
+        }
     })
 })
+
+
 
 //겹치는거
 app.use("/users", upload.single("img"), userRouter)

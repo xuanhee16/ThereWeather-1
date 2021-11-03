@@ -79,18 +79,48 @@ export default function Home() {
     // const dispatch = useDispatch()
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
-    
     const [weatherData, setWeatherData] = useState([])
-    useEffect(() => {
-        axios.get(url)
-        .then((res) =>  
-        console.log(res)
-        //   {
-        //     const { xLocation, yLocation, date, weatherType, weatherValue } = res.data.weatherInfo
-        //     setWeatherData({ xLocation, yLocation, date, weatherType, weatherValue })
-        //   }
-        )
-      }, [])
+  useEffect(() => {
+    axios.get(url)
+    .then((res) =>  
+     //console.log(res)
+      {
+        const { xLocation, yLocation, date, weatherType, weatherValue } = res.data.weatherInfo
+        setWeatherData({ xLocation, yLocation, date, weatherType, weatherValue })
+      }
+    )
+  }, [])
+   
+    // axios.get(`http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${process.env.REACT_APP_WH_KEY}&numOfRows=10&pageNo=1&base_date=20211102&base_time=1400&nx=55&ny=127`)
+    // .then(res => console.log(res))
+
+   
+      // axios.get(url)
+      // .then((response) => {
+      //   console.log(response)
+      // })
+  
+
+
+    function getCurrentDate(){ //'20211102' 형식 
+      let date = new Date();
+      let year = date.getFullYear().toString();
+      let month = date.getMonth() + 1;
+      month = month < 10 ? '0' + month.toString() : month.toString();
+      let day = date.getDate();
+      day = day < 10 ? '0' + day.toString() : day.toString();
+      return year + month + day ;
+    }
+    
+    function getFormatTime(){ //'1640' 형식
+      let date = new Date();
+      let hour = date.getHours();
+      let minutes = date.getMinutes();
+      hour = hour >= 10 ? hour : '0' + hour;
+      minutes = minutes >= 10 ? minutes : '0' + minutes; 
+      return hour + '' + minutes;
+    }
+
 
     return (
         <div className="homecontainer">
