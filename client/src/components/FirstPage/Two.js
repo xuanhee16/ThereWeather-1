@@ -6,7 +6,6 @@ export const TitleAndContents = styled(Contents)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // border: 1px solid red;
 
   & > h2 {
     padding: 3rem;

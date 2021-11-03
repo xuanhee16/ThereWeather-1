@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+// const InputCheckbox = styled.input.attrs({
+//   type: 'checkbox',
+//   checked: true,
+//  })`
+//   border-radius: 5px;
+//   color: red;
+//  `;
+
 export const Contents = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,6 +42,11 @@ export const HalfPage = styled.article`
 
   @media screen and (min-width: 1081px) {
     height: var(--desktop-page-height);
+    & img {
+      margin: 2rem;
+      width: 95%;
+      height: auto;
+    }
 
     & p {
       margin: 2rem;

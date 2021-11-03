@@ -15,10 +15,9 @@ const FirstPageContainer = styled.div`
 `;
 
 export default function FirstPage() {
-  const assignedHeight = window.innerHeight * 0.9;
-  console.log(assignedHeight);
+  let assignedHeight = window.innerHeight * 0.95;
   const [ locationY, setLocationY ] = useState(0);
-  console.log(locationY);
+  console.log('[스크롤 위치]', Math.floor(locationY));
   const scrollHandler = () => {
     setLocationY(window.pageYOffset);
   }
@@ -34,16 +33,20 @@ export default function FirstPage() {
     <FirstPageContainer className="firstPageWhole">
       <One opacityOffset={`${ locationY / assignedHeight}`} />
       <Two
-        opacityOffsetTitle={`${ locationY / (assignedHeight * 2)}`}
+        opacityOffsetTitle={`${ locationY / (assignedHeight * 2.0)}`}
         opacityOffsetOne={`${ locationY / (assignedHeight * 2.2)}`}
         opacityOffsetTwo={`${ locationY / (assignedHeight * 3.5)}`}
       />
-      <Three 
+      <Three
         opacityOffsetTitle={`${ locationY / (assignedHeight * 4.2)}`}
         opacityOffsetOne={`${ locationY / (assignedHeight * 4.7)}`}
         opacityOffsetTwo={`${ locationY / (assignedHeight * 5.7)}`}
       />
-      <Four />
+      <Four
+        opacityOffsetTitle={`${ locationY / (assignedHeight * 6.7)}`}
+        opacityOffsetOne={`${ locationY / (assignedHeight * 7.2)}`}
+        opacityOffsetTwo={`${ locationY / (assignedHeight * 8.0)}`}
+      />
     </FirstPageContainer>
   );
 }

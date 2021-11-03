@@ -13,7 +13,7 @@ export const TwoPictures = styled.div`
 
   @media screen and (min-width: 1081px) {
     & > img {
-      width: 20vw;
+      width: 40%;
     }
   }
 `;
