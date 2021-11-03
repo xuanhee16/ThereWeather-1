@@ -224,8 +224,6 @@ export default function SignUp() {
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankProfile.png",
         filePath: `${url}/img/blankProfile.png`,
-        // fileName: null,
-        // filePath: null,
     })
     const history = useHistory()
 
@@ -338,7 +336,7 @@ export default function SignUp() {
                 // url: url + "/signup",
                 method: "post",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                     // "Content-Type": "text/plain",
                 },
                 data: {
@@ -372,7 +370,7 @@ export default function SignUp() {
         console.log(formData)
         axios
             .post(url + "/users/photo", formData, {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 withCredentials: true,
             })
             .then((res) => {
