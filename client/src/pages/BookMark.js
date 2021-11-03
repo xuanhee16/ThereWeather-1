@@ -158,14 +158,16 @@ const Pagination = styled.div`
   margin-top: 10vh;
   /* margin: 2rem; */
   list-style: none;
-
+  
   button{
     font-size: 1.5rem;
     margin: 0 1vw;;
   }
+
   @media screen and (max-width: 1081px) {
     margin-top: 2vh;
   }
+
   @media screen and (max-width: 375px) {
     margin-top: 5vh;
     padding-bottom: 3vh;
