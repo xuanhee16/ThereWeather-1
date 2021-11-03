@@ -5,6 +5,7 @@ import ModalConfirm from "../components/ModalConfirm"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import { changeIsLogin } from "../actions/index"
+import GoBackButton from  "../components/GoBackButton";
 
 const Outer = styled.div`
     background-color: var(--page-bg-color);
@@ -27,7 +28,7 @@ const ProfileArea = styled.div`
 
     span {
         display: flex;
-        margin: 2vh;
+        margin: 2vh 2vw;
         justify-content: center;
         font-size: 1.5rem;
     }
@@ -39,10 +40,11 @@ const ProfileArea = styled.div`
     }
 
     @media screen and (max-width: 1081px) {
+        border-bottom: 1px solid #aaa;  // 구분선 추가
         margin: 0 auto;
         margin-top: 4vh;
         width: 50%;
-        padding: 0;
+        padding: 0 0 3vh 0;
 
         span {
             display: flex;
@@ -50,6 +52,17 @@ const ProfileArea = styled.div`
             justify-content: center;
         }
     }
+
+    @media screen and (max-width: 375px) {
+        padding-bottom: 4vh;
+        span{
+            font-size: 1rem;
+            margin: 1vh 1vw;
+        }
+        button{
+            font-size: 1rem;
+        }
+    }    
 `
 /* 프로필 사진 */
 const ProfileImg = styled.img`
@@ -58,6 +71,11 @@ const ProfileImg = styled.img`
     padding: 10px 10px;
     border-radius: 50%;
     background-color: #ffffff;
+
+    @media screen and (max-width: 375px) {
+        width: 7rem;
+        height: 7rem;
+    }
 `
 
 /* 비밀번호수정, 탈퇴 */
@@ -79,6 +97,13 @@ const ButtonArea = styled.div`
         position: absolute;
         bottom: 0;
     }
+    @media screen and (max-width: 375px) {
+        height: 20vh;
+        justify-content: space-between;
+        button{
+            font-size: 1rem;
+        }
+    }
 `
 
 // 내가 쓴 예보 (grid)
@@ -86,7 +111,6 @@ const GridArea = styled.div`
     width: 100vw;
     padding: 2vh 3vw 2vh 5vw;
     display: grid;
-    /* grid-template-columns: 400px 400px 400px; */
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 200px 1fr 1fr;
 
@@ -101,12 +125,15 @@ const GridArea = styled.div`
     }
 
     div {
-        border: 1px solid black;
+        background-color: rgba(255, 255, 255, 0.5); // 추가
     }
     div:hover {
         border: 1px solid #a2d2ff;
     }
-
+    img{
+        width: 100%;
+        height: 100%;
+    }
     .more {
         display: flex;
         justify-content: space-between;
@@ -136,6 +163,9 @@ const GridArea = styled.div`
         padding: 0;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 150px 300px 300px;
+        row-gap: 5px;
+        column-gap: 3px;
+
         p {
             font-size: 3rem;
         }
@@ -143,8 +173,28 @@ const GridArea = styled.div`
             margin: 0.5vh;
         }
         .moreView {
-            margin-left: 1vw;
-            width: 10vw;
+            width: 7vw;
+        }
+    }
+
+    @media screen and (max-width: 375px) {
+        padding-left: 2vw;
+        padding-right: 2vw;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 80px 150px 150px 150px;
+        .item:nth-child(1) {
+            background-color: #fef9ef;
+            border: none;
+            grid-column: 1 / 3;
+            grid-row: 1 / 2;
+        }
+        p {
+            font-size: 1.8rem;
+        }
+        .moreView {
+            font-size: 1rem;
+            width: 15vw;
+            height: 3rem;
         }
     }
 `
@@ -191,8 +241,16 @@ export default function MyPage() {
         setIsModalOpen(false)
     }
 
+    // 게시물사진 클릭했을 때
+    const postClickHandler = () => {
+        //test
+        history.push("/postread")
+        // 해당 게시물의 id, user_id
+    }
+
     return (
         <Outer>
+            <GoBackButton/>
             <ProfileArea>
                 <ProfileImg src="img/default-user.png" />
                 <span>{"김코딩"}</span>
@@ -234,7 +292,9 @@ export default function MyPage() {
                 <div className="item more">
                     <p>내가 쓴 예보</p>
                 </div>
-                <div className="item"></div>
+                <div className="item" onClick={postClickHandler}>
+                    <img src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
+                </div>
                 <div className="item"></div>
                 <div className="item"></div>
                 <div className="item"></div>
