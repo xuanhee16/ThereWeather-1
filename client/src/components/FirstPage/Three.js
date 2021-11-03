@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { HalfPage } from "./One";
-import { TitleAndContents, ContentsUnderTitle } from "./Two";
+import { HalfPage, AnimatedP, AnimatedImg } from "./One";
+import { TitleAndContents, ContentsUnderTitle, AnimatedTitle } from "./Two";
 
 export const TwoPictures = styled.div`
   display: flex;
@@ -18,33 +18,47 @@ export const TwoPictures = styled.div`
   }
 `;
 
-export default function Three({ opacityOffsetTitle, opacityOffsetOne, opacityOffsetTwo }) {
+export default function Three({
+  delayOne, delayTwo, delayThree, delayFour, delayFive
+}) {
   return (
     <TitleAndContents className={["landingPagePart", "three"]}>
-      <h2 style={{ opacity: `${opacityOffsetTitle}`}}>
+      <AnimatedTitle delay={delayOne}>
         step 2
-      </h2>
+      </AnimatedTitle>
       <ContentsUnderTitle className="contents">
-        <HalfPage className="half-page" style={{ opacity: `${opacityOffsetOne}`}}>
-          <p className="desc">
+        <HalfPage className="half-page">
+          <AnimatedP className="desc" delay={delayTwo}>
             자신이 있는 곳의 <br/>
             하늘 사진을 찍어서 <br/>
             예보글을 작성하세요.
-          </p>
+          </AnimatedP>
           <div className="picture-png left">
-            <img src="img/firstpage/photos.png" alt="photos" />
+            <AnimatedImg
+              src="img/firstpage/photos.png"
+              alt="photos"
+              delay={delayThree}
+            />
           </div>
         </HalfPage>
 
-        <HalfPage className="half-page" style={{ opacity: `${opacityOffsetTwo}`}}>
-          <p className="desc">
+        <HalfPage className="half-page">
+          <AnimatedP className="desc" delay={delayFour}>
             하늘 사진을 공유하여 <br/>
             다른사람에게 <br/>
             도움을 줄 수도 있어요.
-          </p>
+          </AnimatedP>
           <TwoPictures className="picture-png right">
-            <img src="img/firstpage/mobile.png" alt="touching mobile phone" id="step2-number2" />
-            <img src="img/firstpage/after_the_rain.png" alt="holding umbrella" id="step2-number3" />
+            <AnimatedImg
+              src="img/firstpage/mobile.png"
+              alt="touching mobile phone"
+              delay={delayFive}
+            />
+            <AnimatedImg
+              src="img/firstpage/after_the_rain.png"
+              alt="holding umbrella"
+              delay={delayFive}
+            />
           </TwoPictures>
         </HalfPage>
       </ContentsUnderTitle>

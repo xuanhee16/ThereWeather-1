@@ -56,15 +56,19 @@ export const HalfPage = styled.article`
   }
 `;
 
-const AnimatedP = styled.p`
-  animation: fade-in 1.5s ease-in 1;
+export const AnimatedP = styled.p`
+  animation: fade-in ease-in 1 backwards;
+  animation-duration: ${props => props.duration || '1.5s'};
+  animation-delay: ${props => props.delay || null};
 `;
 
-const AnimatedImg = styled.img`
-  animation: fade-in .5s ease-in 1;
+export const AnimatedImg = styled.img`
+  animation: fade-in ease-in 1 backwards;
+  animation-duration: ${props => props.duration || '.5s'};
+  animation-delay: ${props => props.delay || null};
 `;
 
-export default function One({ opacityOffset }) {
+export default function One({ delayOne, delayTwo }) {
   return (
     <Contents className={["landingPagePart", "one"]}>
       <HalfPage className="half-page">
@@ -81,19 +85,19 @@ export default function One({ opacityOffset }) {
       </HalfPage>
 
       <HalfPage className="half-page">
-        <p className="desc" style={{ opacity: `${opacityOffset}`}}>
+        <AnimatedP className="desc" delay={delayOne}>
           동네 주민이 올린 하늘의 사진을 <br/>
           실시간으로 확인할 수 있어요.<br/>
-        </p>
-        <p className="desc" style={{ opacity: `${opacityOffset}`}}>
+        </AnimatedP>
+        <AnimatedP className="desc" delay={delayOne}>
           여러분도 하늘사진을 공유하고 <br/>
           동네 날씨예보관이 되어 보세요!
-        </p>
+        </AnimatedP>
         <div className="picture-png right">
-          <img
+          <AnimatedImg
             src="img/firstpage/town.png"
             alt="street"
-            style={{ opacity: `${opacityOffset}`}}
+            delay={delayTwo}
           />
         </div>
       </HalfPage>
