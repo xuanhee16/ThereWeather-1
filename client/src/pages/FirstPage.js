@@ -38,7 +38,11 @@ export default function FirstPage() {
         opacityOffsetOne={`${ locationY / (assignedHeight * 2.2)}`}
         opacityOffsetTwo={`${ locationY / (assignedHeight * 3.5)}`}
       />
-      <Three />
+      <Three 
+        opacityOffsetTitle={`${ locationY / (assignedHeight * 4.2)}`}
+        opacityOffsetOne={`${ locationY / (assignedHeight * 4.7)}`}
+        opacityOffsetTwo={`${ locationY / (assignedHeight * 5.7)}`}
+      />
       <Four />
     </FirstPageContainer>
   );
