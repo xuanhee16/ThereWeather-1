@@ -375,7 +375,7 @@ export default function Write() {
             url: url + "/post/write",
             method: "post",
             headers: {
-                accept: "application/json",
+                // accept: "application/json",
             },
             data: {
                 user_id: userInfo.user_id,

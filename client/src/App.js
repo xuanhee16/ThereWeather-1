@@ -51,11 +51,6 @@ export default function App() {
                 console.log(res.data.data)
                 dispatch(changeUser(res.data.data))
                 dispatch(changeIsLogin(res.data.login))
-                // history.push("/")
-                // history.go(0)
-                // history.go()
-                // history.go(-1)
-                // history.go(1)
             })
         }
     }, [isLogin])
