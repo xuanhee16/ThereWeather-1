@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTshirt, faSun, faWind, faThermometerHalf } from "@fortawesome/free-solid-svg-icons";
@@ -8,25 +8,29 @@ import { useHistory } from "react-router-dom";
 
 const Outer = styled.div`
   width: 100vw;
-  /* height: 100vh; */
-  /* height: auto; */
   background-color: #FEF9EF;
 
   // 오늘의 코디
   .todayCodi{
     margin: 0 auto;
-    width: 150px;
+    width: 60%;
     text-align: center;
     font-size: 25px;
     font-weight: bold;
     color: #2E2E2E;
+    padding-top: 2vh;
+    border-top: 1px solid #aaa;
   }
   @media screen and (max-width: 1081px){
-    /* height: 100vh; */
-    /* height: auto; */
     .todayCodi{
-      font-size: 15px;
+      margin-top: 2vh;
+      font-size: 2rem;
       font-weight: bold;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .todayCodi{
+      font-size: 1.5rem;
     }
   }
 `
@@ -47,11 +51,16 @@ const Title = styled.div`
 
   // 제목글자수 제한 필요?
   span{
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   @media screen and (max-width: 1081px) {
     width: 80%;
+  }
+  @media screen and (max-width: 375px) {
+    span{
+      font-size: 1.2rem;
+    }
   }
 `
 // 북마크 아이콘
@@ -66,10 +75,11 @@ const BookmarkIcon = styled.div`
 
 // 프로필
 const Profile = styled.div`
-  /* border: 1px solid red; */
   width: 60rem;
   margin: 0 auto;
   margin-top: 2vh;
+  padding-bottom: 3vh;
+  border-bottom: 1px solid #aaa;
   align-items: center;
   display: flex; 
   justify-content: space-between;
@@ -80,27 +90,47 @@ const Profile = styled.div`
     align-items: center;
     /* margin-left: 1vh; */
   }
+  .location{
+    font-size: 1.2rem;
+  }
   span{
     margin-left: 1vh;
   }
 
   @media screen and (max-width: 1081px) {
-    /* border: 1px solid red; */
-    /* width: 45rem; */
     width: 70%;
+  }
+  @media screen and (max-width: 594px) {
+    .location{
+      margin-top: 1.2vh;
+      font-size: 1.2rem;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    width: 80%;
+    margin-top: 4vh;
+    span{
+      font-size: 0.5rem;
+    }
+    .location{
+      font-size: 0.5rem;
+    }
   }
 `
 // 프로필 이미지
 const ProfileImg = styled.img`
-  border: 1px solid grey;
+  border: 1px solid #aaa;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
+  @media screen and (max-width: 375px) {
+    width: 2rem;
+    height: 2rem;
+  }
 `
 
 // 게시물 사진 (있을 때, 없을때)
 const PostImg = styled.img`
-  border: 1px solid grey;
   // 이미지 사이즈(1000*750) 
   // 다시 확인필요
   width: 60rem;
@@ -112,9 +142,13 @@ const PostImg = styled.img`
     width: 70%;
     height: 30rem;
   }
+  @media screen and (max-width: 375px) {
+    width: 80%;
+    height: 18rem;
+  }
 `
 
-// 날씨,바람세기,온도
+// 날씨,바람세기,온도 이모티콘 부분
 const WeatherInfo = styled.div`
   width: 330px;
   margin-top: 4vh;
@@ -123,65 +157,65 @@ const WeatherInfo = styled.div`
   margin-bottom: 2vh;
   justify-content: space-between;
 
-  div{
-    /* border: 1px solid grey; */
-    width: 100px;
-    height: 100px;
-    text-align: center;
-  }
-
   @media screen and (max-width: 1081px) {
-    /* width: 20%; */
     margin-top: 1vh;
     margin-bottom: 1vw;
+  }
+  @media screen and (max-width: 375px) {
+    width: 50%;
+    margin-bottom: 3vh;
+  }
+`
 
-    div{
-      /* width: 80px;
-      height: 80px; */
-      text-align: center;
-    }
+const WeatherIcon = styled.img`
+  @media screen and (max-width: 375px) {
+    width: 3rem;
   }
 `
 
 // 오늘의 코디 (있을 때, 없을 때)
 const TodayCodi = styled.div`
-  width: 210px;
+  width: 20%;
   text-align: center;
   display: flex;
+  justify-content: space-between;
   margin: auto;
-  margin-top: 2vh;
+  margin-top: 3vh;
   margin-bottom: 3vh;
-
-  .codi{
-    width: 100px;
-    height: 100px;
-  }
-  .codi:nth-child(2){
-    margin-left: 2vh;
-  }
+  font-size: 8rem;
 
   @media screen and (max-width: 1081px) {
-    width: 160px;
-    height: 80px;
-    margin-top: 1vh;
-    margin-bottom: 3vh;
-    .codi{
-      width: 80px;
-      height: 80px;
-    }
+    width: 40%;
+  }
+  @media screen and (max-width: 375px) {
+    width: 50%;
+    font-size: 70px;
   }
 `
 
 // 게시물 내용 scroll
 const Post = styled.div`
+  background-color: rgba(255, 255, 255, 0.5);
   margin: 0 auto;
   margin-bottom: 5vh;
+  padding: 1rem;
   width: 60rem;
+  
+  p{
+    line-height: 2.5rem;
+    font-size: 1.5rem;
+  }
 
   @media screen and (max-width: 1081px) {
     width: 70%;
-    /* height: 300px;
-    overflow: scroll; */
+  }
+  @media screen and (max-width: 375px) {
+    width: 85%;
+    margin-top: 4vh;
+    p{
+      line-height: 1.5rem;
+      font-size: 1rem;
+    }
   }
 `
 
@@ -215,6 +249,54 @@ const Buttons = styled.div`
   @media screen and (max-width: 1081px) {
     .button2{
       margin-left: 80px;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    .button{
+      width: 3rem;
+      height: 2rem;
+      font-size: 1rem;
+    }
+    .button2{
+      margin-left: 0;
+    }
+  }
+`
+// 스크롤 top 버튼 (필요한 페이지 추가적으로 나오면 컴포넌트로 만들기)
+const TopButton = styled.div`
+  width: 100%;
+  height: 200px;
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  bottom: 0px;
+  transition: all 0.3s;
+  
+  img{
+    width: 6rem;
+    height: 6rem;
+    margin-right: 2vh;
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 1081px) {
+    height: 200px;
+    img{
+      width: 6rem;
+      height: 6rem;
+      margin-right: 3vh;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    height: 130px;
+    img{
+      width: 3rem;
+      height: 3rem;
+      margin-right: 2vh;
     }
   }
 `
@@ -254,22 +336,53 @@ export default function PostRead(){
     setEdit(false)
   }
 
-  
-  // 북마크버튼
-  // const [click, setclick] = useState(false)
-  // useEffect(async() => {
-  //   const fetchData = async() => {
-  //     // axios.get
-
-  //   }
-  // })
   const bookmarkHandler = (e) => {
     console.log(e.currentTarget);
 
   }
 
+  // top button
+  const [ScrollY, setScrollY] = useState(0);
+  const [btnStatus, setBtnStatus] = useState(false);  // 버튼 상태
+
+  // console.log(window.pageYOffset)
+  // console.log(btnStatus)
+
+  const handleFollow = () => {
+    setScrollY(window.scrollY)
+    if(ScrollY > 200){  // 200 이상이면 버튼이 보임
+      setBtnStatus(true)
+    }else{  // 200 이하일때 버튼이 사라짐
+      setBtnStatus(false)
+    }
+  }
+
+  // 클릭시 위로 올라감
+  const scrollToTop = () => {
+    // e.preventDefault() // 새로고침 방지
+    window.scrollTo({top: 0, behavior: 'smooth'}) // 위로 올라감
+    setScrollY(0);  // 올라가면 다시 0으로 초기화
+    setBtnStatus(false); // 버튼 다시 사라짐
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleFollow)
+    return () => {
+      window.removeEventListener('scroll', handleFollow)
+    }
+  })
+
   return (
     <Outer>
+      <TopButton>
+        {
+          btnStatus?
+          <img 
+            src={`${process.env.PUBLIC_URL}img/scroll-up.png`} alt="top"
+            onClick={scrollToTop}
+          /> : null
+        }
+      </TopButton>
       <GoBackButton/>
       <PostHeader>
         <Title>
@@ -277,7 +390,7 @@ export default function PostRead(){
             <FontAwesomeIcon icon={faHeart} size="2x" className="heart" onClick={bookmarkHandler}/>
             
           </BookmarkIcon>
-          <span>{'오늘 날씨 맑음'}</span>
+          <span>{'오늘 날씨 맑음, 제목을 길~게~~~길~~~게~~ 씀'}</span>
         </Title>
 
         <Profile>
@@ -289,30 +402,19 @@ export default function PostRead(){
           <p className="location">{'서울시 종로구 가회동'}</p>
         </Profile>
       </PostHeader>
-      <PostImg/>
+      <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
 
       <WeatherInfo>
-        <div>
-          <FontAwesomeIcon icon={faSun} size="4x"/>
-        </div>
-        <div>
-          <FontAwesomeIcon icon={faWind} size="4x"/>
-        </div>
-        <div>
-          <FontAwesomeIcon icon={faThermometerHalf} size="4x"/>
-        </div>
+          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`} alt="날씨아이콘"/>
+          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/breezy.png`} alt="날씨아이콘"/>
+          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`} alt="날씨아이콘"/>
       </WeatherInfo>
       
       {/* 코디가 있을 때, 없을 때 */}
-      {}
       <p className="todayCodi">오늘의 코디</p>
       <TodayCodi>
-        <div className="codi">
-          <FontAwesomeIcon icon={faTshirt} size="5x" color="purple"/>
-        </div>
-        <div className="codi">
-          <FontAwesomeIcon icon={faTshirt} size="5x" color="pink"/>
-        </div>
+          <FontAwesomeIcon icon={faTshirt} color="purple"/>
+          <FontAwesomeIcon icon={faTshirt} color="pink"/>
       </TodayCodi>
 
       <Post>
@@ -387,6 +489,10 @@ export default function PostRead(){
           >수정하시겠습니까</ModalConfirm>
         )}
       </Buttons>
+
+      {/* <TopButton>
+          <img src={`${process.env.PUBLIC_URL}img/scroll-up-2.png`} alt="top"></img>
+      </TopButton> */}
 
     </Outer>
   )

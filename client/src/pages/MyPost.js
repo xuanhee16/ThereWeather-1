@@ -30,8 +30,8 @@ const GridArea = styled.div`
     height: 70vh;
 
     .item {
-        border: 1px solid blue;
-        display: flex;
+      background-color: rgba(255, 255, 255, 0.6);
+      display: flex;
     }
     .item:nth-child(odd) {
         margin-left: 5vw;
@@ -67,7 +67,6 @@ const GridArea = styled.div`
 `
 // 게시물 사진
 const PostImg = styled.img`
-  border: 1px solid red;
   width: 50%;
   height: 100%;
   background-color: #FFFFFF;
@@ -95,6 +94,10 @@ const PostInfo = styled.div`
     padding: 1vh 2vw 2vh 2vw;
     font-size: 1.5rem;
   }
+  @media screen and (max-width: 375px) {
+    font-size: 1rem;
+    padding-left: 3vw;
+  }
 
 `
 
@@ -106,14 +109,23 @@ const Page = styled.div`
       list-style: none;
     }
     button {
-        margin: 0 1vw;
+      margin: 0 1vw;
     }
     @media screen and (max-width: 1081px) {
       margin-top: 20rem;
       padding-bottom: 5rem;
     }
+
     @media screen and (max-width: 375px) {
-      margin-top: 5rem;
+      margin-top: 3rem;
+      padding-bottom: 3rem;
+      li {
+        margin: 0 1vw;
+      }
+      button {
+        margin: 0 1.5vw;
+        font-size: 1rem;
+      }
     }
 `
 
@@ -147,7 +159,7 @@ export default function MyPost() {
       <GoBackButton/>
       <GridArea>
         <div className="item">
-          <PostImg/>
+          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
           <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -157,7 +169,7 @@ export default function MyPost() {
           </PostInfo>
         </div>
         <div className="item">
-          <PostImg/>
+          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
           <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -167,7 +179,7 @@ export default function MyPost() {
           </PostInfo>
         </div>
         <div className="item">
-          <PostImg/>
+          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
           <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -177,7 +189,7 @@ export default function MyPost() {
           </PostInfo>
         </div>
         <div className="item">
-          <PostImg/>
+          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
           <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
