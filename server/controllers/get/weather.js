@@ -3,7 +3,6 @@ const axios = require("axios")
 const serviceKey = require('../../config/key')
 const aqiUrl = require('../../config/url')
 const moment = require("moment");
-const { rawListeners } = require("npm");
 
 //예보날짜 
 function getCurrentDate(){ //'20211102' 형식 
