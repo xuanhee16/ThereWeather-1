@@ -22,9 +22,9 @@ const Outer = styled.div`
 const Container = styled.div` 
   display: grid;
   /* height: 83vh; */
-  gap: 4rem;
-  margin-left: 2vh;
-  margin-right: 2vh;
+  gap: 3rem;
+  margin-left: 3vw;
+  margin-right: 3vw;
   
   justify-content: center;
   align-items: center;
@@ -58,7 +58,7 @@ const BookMarkPhoto = styled.div`
   .postPicture{
     margin: 1rem 2rem;
     padding: 0;
-    border: solid 1px black;
+    /* border: solid 1px black; */
     height: 25vh;
     align-items: center;
   }
@@ -70,7 +70,6 @@ const BookMarkPhoto = styled.div`
   @media screen and (max-width: 1081px) {
     .postPicture{
       height: 20vh;
-
     }
   }
   @media screen and (max-width: 375px) {
@@ -82,7 +81,7 @@ const BookMarkPhoto = styled.div`
 // 00구,날짜,날씨이모티콘
 const BookMarkList = styled.div`
   margin: 1rem;    
-  line-height: 2.5rem;
+  line-height: 3rem;
   flex-direction: column;
   flex-basis: 15rem;
   justify-content: flex-start;
@@ -92,12 +91,12 @@ const BookMarkList = styled.div`
     font-size: 2.5rem;
   }
   .postDate {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   .postWeather {
     /* font-size: 1.5rem; */
-    width: 5vw;
-    height: 5vh;
+    width: 4rem;
+    height: 4rem;
   }
   img{
     width: 100%;
@@ -105,11 +104,7 @@ const BookMarkList = styled.div`
   }
 
   @media (max-width: 1081px) {
-
-  }
-  @media screen and (max-width: 375px) {
-    margin: 0.1rem 0 0 0.5rem;
-    line-height: 1.5rem;
+    line-height: 2rem;
     .postTitle {
       font-weight: bold;
       font-size: 1.5rem;
@@ -121,11 +116,25 @@ const BookMarkList = styled.div`
       font-size: 0.5rem;
       width: 30px;
       height: 30px;
-      
+    }
+  }
+  @media screen and (max-width: 375px) {
+    margin: 0.1rem 0 0 0.5rem;
+    line-height: 1.4rem;
+    .postTitle {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .postDate {
+      font-size: 1rem;
+    }
+    .postWeather {
+      font-size: 0.5rem;
+      width: 30px;
+      height: 30px;
     }
   }
 `;
-
 
 const BookMarkIcon = styled.div`
   flex-direction: column;
@@ -142,20 +151,26 @@ const BookMarkIcon = styled.div`
 
 // 페이지네이션
 const Pagination = styled.div`
- background-color: var(--page-bg-color);
+  background-color: var(--page-bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 10vh;
   /* margin: 2rem; */
   list-style: none;
-  h4 {
-    font-size: 1rem;
+  
+  button{
+    font-size: 1.5rem;
+    margin: 0 1vw;;
   }
+
   @media screen and (max-width: 1081px) {
     margin-top: 2vh;
   }
+
   @media screen and (max-width: 375px) {
+    margin-top: 5vh;
+    padding-bottom: 3vh;
     button{
       font-size: 1rem;
     }
@@ -168,19 +183,26 @@ const PrevPage = styled.div``
 const PageNumber = styled.div`
   li {
     float: left;
-    margin: 1.5rem;
+    margin: 1rem;
+  }
+  button{
+    font-size: 1.5rem;
   }
   @media screen and (max-width: 375px) {
     li{
-      margin: 1rem;
+      margin: 0;
+    }
+    button{
+      margin: 0 2vw;
+      font-size: 1rem;
     }
   }
 `
 
-const NextPage = styled.div``
-
+const NextPage = styled.div``;
 
 export default function BookMark() { 
+  
   // 페이지네이션
   const state = useSelector(state => state.itemReducer);
   const { start, end, current } = state; 
@@ -331,7 +353,7 @@ export default function BookMark() {
               }
               updateCurrentPages(current - 1);
             }}>
-              <h4>이전</h4>
+              이전
             </button>
           </li>
         </PrevPage>
@@ -356,7 +378,7 @@ export default function BookMark() {
               }
               updateCurrentPages(current + 1);
             }}>
-              <h4>다음</h4>
+              다음
             </button>
           </li>
         </NextPage>

@@ -11,7 +11,6 @@ import DaumPostcode from "react-daum-postcode"
 
 /*
   TODO
-  [x] 여러개의 Input 상태 관리
   [] 유효성 검사
     - [x] ul, li 추가
     - [] 함수로 구현
@@ -94,7 +93,7 @@ const LoginButton = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "#419300")};
+    background-color: #256ad7;
     border-radius: 1rem;
     > span {
         margin: 0.25rem;

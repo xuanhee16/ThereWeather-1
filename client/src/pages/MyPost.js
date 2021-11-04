@@ -18,6 +18,7 @@ const Outer = styled.div`
     padding-top: 2vh;
   }
   @media screen and (max-width: 1081px) {
+    /* height: auto; */
   }
 `
 
@@ -30,8 +31,8 @@ const GridArea = styled.div`
     height: 70vh;
 
     .item {
-        border: 1px solid blue;
-        display: flex;
+      background-color: rgba(255, 255, 255, 0.6);
+      display: flex;
     }
     .item:nth-child(odd) {
         margin-left: 5vw;
@@ -42,9 +43,6 @@ const GridArea = styled.div`
     .item:hover {
     }
     
-    @media screen and (max-width: 375px) {
-      height: auto;
-    }
     @media screen and (min-width: 2100px) {
         height: 50vh;
 
@@ -56,6 +54,7 @@ const GridArea = styled.div`
         }
     }
     @media screen and (max-width: 1081px) {
+      height: 100vh;
       grid-template-columns: 1fr;
       grid-template-rows: 3fr 3fr 3fr 3fr;
 
@@ -64,10 +63,12 @@ const GridArea = styled.div`
         margin: 0 2vw;
       }
     }
+    @media screen and (max-width: 375px) {
+      height: auto;
+    }
 `
 // 게시물 사진
 const PostImg = styled.img`
-  border: 1px solid red;
   width: 50%;
   height: 100%;
   background-color: #FFFFFF;
@@ -95,6 +96,10 @@ const PostInfo = styled.div`
     padding: 1vh 2vw 2vh 2vw;
     font-size: 1.5rem;
   }
+  @media screen and (max-width: 375px) {
+    font-size: 1rem;
+    padding-left: 3vw;
+  }
 
 `
 
@@ -103,17 +108,44 @@ const Page = styled.div`
     display: flex;
     justify-content: center;
     li {
+      /* margin: 3px; */
       list-style: none;
+      padding: 3px;
+      /* border: 1px solid red; */
     }
     button {
-        margin: 0 1vw;
+      margin: 0 1vw;
+      padding: 1rem 1.5rem;
+      border-radius: 50%;
+    }
+    button:focus{
+      background-color: var(--modal-bg-color);
+    }
+    #prev,
+    #next{
+      background: none;
     }
     @media screen and (max-width: 1081px) {
-      margin-top: 20rem;
+      margin-top: 30rem;
       padding-bottom: 5rem;
+
     }
+
     @media screen and (max-width: 375px) {
-      margin-top: 5rem;
+      margin-top: 3rem;
+      padding-bottom: 3rem;
+      li {
+        /* margin: 0 1vw; */
+        /* margin: 1vh; */
+        padding: 0;
+
+      }
+      button {
+        /* margin: 0 1.5vw; */
+        font-size: 1.5rem;
+        margin: 0;
+        padding: 1px 7px;
+      }
     }
 `
 
@@ -147,7 +179,7 @@ export default function MyPost() {
       <GoBackButton/>
       <GridArea>
         <div className="item">
-          <PostImg/>
+          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
           <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -157,7 +189,7 @@ export default function MyPost() {
           </PostInfo>
         </div>
         <div className="item">
-          <PostImg/>
+          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
           <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -167,7 +199,7 @@ export default function MyPost() {
           </PostInfo>
         </div>
         <div className="item">
-          <PostImg/>
+          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
           <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -177,7 +209,7 @@ export default function MyPost() {
           </PostInfo>
         </div>
         <div className="item">
-          <PostImg/>
+          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
           <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -193,8 +225,9 @@ export default function MyPost() {
 
       {/* 페이지네이션이나 무한스크롤 */}
       <Page>
-        <li id="prev" className="page-item">
+        <li className="page-item">
           <button
+            id="prev"
             className="item page-link"
             onClick={() => {
               if(current === 1) return alert('첫번째 페이지 입니다.')
@@ -226,6 +259,7 @@ export default function MyPost() {
         
         <li className="page-item">
           <button
+            id="next"
             className="item page-link"
             onClick={() => {
               if(current % 10 === 1){

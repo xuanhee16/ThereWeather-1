@@ -6,11 +6,13 @@ module.exports = {
         console.log("여긴 users/auth/")
         // console.log(req.headers.authorization)
         // console.log(isAuthorized(req))
+        const data = isAuthorized(req)
+        console.log(data)
 
-        if (isAuthorized(req)) {
-            res.status(213).send(true)
+        if (data) {
+            res.status(213).send({ login: true, data: data })
         } else {
-            res.status(401).send("토큰이 유효하지 않다")
+            res.status(420).send("토큰이 유효하지 않다")
         }
     },
 }

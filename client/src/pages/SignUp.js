@@ -31,8 +31,6 @@ const Outer = styled.section`
     align-items: center;
     overflow: scroll;
     font-family: "BMDOHYEON";
-    padding-top: 200px; // Header.js에 가려져서 추가함
-    padding-bottom: 100px; // MenuBar.js에 가려져서 임시추가
 
     h2 {
         margin-top: 3rem;
@@ -226,8 +224,6 @@ export default function SignUp() {
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankProfile.png",
         filePath: `${url}/img/blankProfile.png`,
-        // fileName: null,
-        // filePath: null,
     })
     const history = useHistory()
 
@@ -374,7 +370,7 @@ export default function SignUp() {
         console.log(formData)
         axios
             .post(url + "/users/photo", formData, {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 withCredentials: true,
             })
             .then((res) => {

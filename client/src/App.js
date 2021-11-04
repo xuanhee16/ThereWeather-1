@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Switch, Route, Redirect } from "react-router-dom"
+import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import "./App.css"
@@ -19,7 +19,7 @@ import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import FirstPage from "./pages/FirstPage"
-import { changeIsLogin } from "./actions/index"
+import { changeIsLogin, changeUser } from "./actions/index"
 import styled from "styled-components"
 
 let url = process.env.REACT_APP_LOCAL_URL 
@@ -27,6 +27,7 @@ let url = process.env.REACT_APP_LOCAL_URL
 
 export default function App() {
     const dispatch = useDispatch()
+    const history = useHistory()
     if (!url) {
         url = "https://thereweather.space"
     }
@@ -36,7 +37,7 @@ export default function App() {
     useEffect(() => {
         console.log(JSON.parse(localStorage.getItem("ATOKEN")))
         //auth할차례
-        if (localStorage.getItem("ATOKEN") && isLogin) {
+        if (localStorage.getItem("ATOKEN")) {
             axios({
                 url: url + "/users/auth",
                 method: "get",
@@ -44,14 +45,14 @@ export default function App() {
                     authorization: `token ${JSON.parse(
                         localStorage.getItem("ATOKEN")
                     )}`,
-                    // accept: "application/json",
                 },
             }).then((res) => {
-                console.log(res.data)
-                dispatch(changeIsLogin(res.data))
+                console.log(res.data.data)
+                dispatch(changeUser(res.data.data))
+                dispatch(changeIsLogin(res.data.login))
             })
         }
-    }, [])
+    }, [isLogin])
 
     return (
         <>
@@ -94,7 +95,7 @@ export default function App() {
                     <PostRead></PostRead>
                 </Route>
                 <Route exact path="/first">
-                    <FirstPage/>
+                    <FirstPage />
                 </Route>
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
@@ -128,7 +129,7 @@ export default function App() {
                     <PostEdit></PostEdit>
                 </Route>
                 <Route exact path="/">
-                    {isLogin ? <Redirect to="/home" /> : <Redirect to="/map" />}
+                    <Redirect to="/map" />
                 </Route>
             </Switch>
             <MenuBar></MenuBar>

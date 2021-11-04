@@ -11,7 +11,9 @@ import {
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { changeIsLogin } from "../actions/index"
+import { changeIsLogin, changeSearchword } from "../actions/index"
+import React, { useState, useEffect } from "react"
+import DaumPostcode from "react-daum-postcode"
 
 const HeaderOuter = styled.div`
     width: 100vw;
@@ -20,7 +22,7 @@ const HeaderOuter = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #a2d2ff;
+    background-color: WHTIE;
     padding: 1rem;
     position: sticky;
     top: 0;
@@ -41,6 +43,9 @@ const HeaderOuter = styled.div`
         border-bottom: 1px solid #757575;
         flex-direction: row;
         justify-content: space-around;
+    }
+    @media screen and (max-width: 375px) {
+        height: 30%;
     }
 `
 
@@ -90,12 +95,18 @@ const Center = styled.div`
 `
 
 const InputAndSubmit = styled.div`
-    flex-growth: 1;
+    /* flex-growth: 1; */
     display: flex;
+    justify-content: space-between;
     align-items: center;
 
     div {
         margin: auto 1rem;
+    }
+    @media screen and (max-width: 1081px) {
+        div{
+            margin: 0;
+        }
     }
 `
 
@@ -108,6 +119,9 @@ const Input = styled.input`
     @media screen and (min-width: 1081px) {
         width: 300px;
     }
+    @media screen and (max-width: 375px) {
+        width: 220px;
+    }
 `
 
 const Buttons = styled.div`
@@ -117,6 +131,15 @@ const Buttons = styled.div`
 
     svg:hover {
         color: black;
+    }
+
+    @media screen and (max-width: 375px) {
+
+        button{
+            width: 35px;
+            height: 35px;
+            font-size: 20px;
+        }
     }
 `
 
@@ -128,12 +151,43 @@ const Button = styled.button`
     margin: 0.5rem;
     border-radius: 10%;
 `
+const SearchBarAndDaumPost = styled.div`
+    // display: flex;
+    // flex-direction: row;
+    position: relative;
+    margin: "100px solid green";
+`
+const DaumPostcodeWrap = styled.div`
+    height: 3.5rem;
+    width: 100%;
+    // padding-right: 2.5rem;
+`
+const Cancel = styled.button`
+    // height: 3.5rem;
+    // width: 100%;
+    // padding-right: 2.5rem;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+`
+const Buttons2 = styled.div`
+    background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
+    color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
+    font-size: ${(props) => (props.isText ? "1.2rem" : "1.6rem")};
+    padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
+    margin: 0.5rem;
+    border-radius: 10%;
+`
+
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Header({ isInput, isMobileLogo }) {
     const dispatch = useDispatch()
     const history = useHistory()
     const { isLogin } = useSelector((state) => state.itemReducer)
+    const [searchEvent, setSearchEvent] = useState("")
+    const [onFocus, setOnFocus] = useState(false)
+
+    // const [postOnFocus, setOnFocus] = useState(false)
 
     if (!url) {
         url = "https://thereweather.space"
@@ -141,6 +195,11 @@ export default function Header({ isInput, isMobileLogo }) {
 
     // isInput : Map 페이지 사용시 true
     // isMobileLogo : Map 페이지 사용시 false
+    function handleComplete(e) {
+        console.log(e)
+        setSearchEvent(e.roadAddress)
+        setOnFocus(false)
+    }
 
     const logoutBtnHandler = (e) => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
@@ -177,10 +236,51 @@ export default function Header({ isInput, isMobileLogo }) {
             {isInput ? (
                 <Center className="headerCenter">
                     <InputAndSubmit className="inputAndSubmit">
-                        <Input type="text" placeholder="위치 검색" />
-                        <Button bgGrey>
-                            <FontAwesomeIcon icon={faSearch} />
-                        </Button>
+                        <Input
+                            // onClick={(e) => console.log(e)}
+                            onChange={(e) => setSearchEvent(e.target.value)}
+                            type="text"
+                            placeholder="위치 검색"
+                            value={searchEvent}
+                            // ref={inputRef}
+                            // onClick={onRest}
+                            onFocus={(e) => setOnFocus(true)}
+                        />
+                        {/* <SearchBarAndDaumPost> */}
+                            {/* <DaumPostcodeWrap> */}
+                                {onFocus ? (
+                                    <DaumPostcode
+                                        onComplete={handleComplete}
+                                        style={{
+                                            position: "absolute",
+                                            left: "-332px",
+                                            top: "5px",
+                                            border: "1px solid pink",
+                                            // display: onFocus ? "none" : "true",
+                                            // left: "0",
+                                            // height: "80%",
+                                            // width: "100%",
+                                        }}
+                                    />
+                                ) : (
+                                    <></>
+                                )}
+                            {/* </DaumPostcodeWrap> */}
+                        {/* </SearchBarAndDaumPost> */}
+                        <Buttons2 bgGrey>
+                            {onFocus ? (
+                                <Cancel onClick={() => setOnFocus(false)}>
+                                    Cancel
+                                </Cancel>
+                            ) : (
+                                <FontAwesomeIcon
+                                    onClick={() =>
+                                        dispatch(changeSearchword(searchEvent))
+                                    }
+                                    icon={faSearch}
+                                />
+                            )}
+                        </Buttons2>
                     </InputAndSubmit>
                     <Buttons className="headerButtons">
                         <Button>
