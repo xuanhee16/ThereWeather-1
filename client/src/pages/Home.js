@@ -7,6 +7,9 @@ const HomeContainer = styled.div`
 display: flex;
 flex-direction: row;
 background-color: var(--page-bg-color);
+ul {
+  list-style: none;
+}
 `;
 
 const LeftContainer1 = styled.div`
@@ -84,43 +87,16 @@ export default function Home() {
     axios.get(url)
     .then((res) =>  
      //console.log(res)
+     //강수형태(날씨) - 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+     //하늘상태 - 맑음(1), 구름많음(3), 흐림(4)
       {
-        const { xLocation, yLocation, date, weatherType, weatherValue } = res.data.weatherInfo
-        setWeatherData({ xLocation, yLocation, date, weatherType, weatherValue })
+        const { xLocation, yLocation, date, time, cloudy, temp, weatherType } = res.data.weatherInfo
+        setWeatherData({ xLocation, yLocation, date, time, cloudy, temp, weatherType })
+        //weatherType === 0 맑음 (강수량0)
       }
     )
   }, [])
    
-    // axios.get(`http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${process.env.REACT_APP_WH_KEY}&numOfRows=10&pageNo=1&base_date=20211102&base_time=1400&nx=55&ny=127`)
-    // .then(res => console.log(res))
-
-   
-      // axios.get(url)
-      // .then((response) => {
-      //   console.log(response)
-      // })
-  
-
-
-    function getCurrentDate(){ //'20211102' 형식 
-      let date = new Date();
-      let year = date.getFullYear().toString();
-      let month = date.getMonth() + 1;
-      month = month < 10 ? '0' + month.toString() : month.toString();
-      let day = date.getDate();
-      day = day < 10 ? '0' + day.toString() : day.toString();
-      return year + month + day ;
-    }
-    
-    function getFormatTime(){ //'1640' 형식
-      let date = new Date();
-      let hour = date.getHours();
-      let minutes = date.getMinutes();
-      hour = hour >= 10 ? hour : '0' + hour;
-      minutes = minutes >= 10 ? minutes : '0' + minutes; 
-      return hour + '' + minutes;
-    }
-
 
     return (
         <div className="homecontainer">
@@ -137,9 +113,11 @@ export default function Home() {
                         <ul>
                           <li>x위치:{weatherData.xLocation}</li>
                           <li>y위치:{weatherData.yLocation}</li>
+                          <li>기준 예보시각:{weatherData.time}</li>
                           <li>날짜:{weatherData.date}</li>
-                          <li>날씨타입:{weatherData.weatherType}</li>
-                          <li>날씨:{weatherData.weatherValue}</li>
+                          <li>하늘상태:{weatherData.cloudy === 0 ? null : "맑음"}</li>
+                          <li>현재기온:{weatherData.temp}</li>
+                          <li>날씨:{weatherData.weatherType === 0 ? null : "해"}</li>
                         </ul> 
                         </div>
                     </LeftNav2>
