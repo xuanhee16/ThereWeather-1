@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { useHistory } from "react-router-dom"
 import ModalConfirm from "../components/ModalConfirm"
@@ -211,6 +211,19 @@ export default function MyPage() {
         url = "https://thereweather.space"
     }
 
+    const [currentPosts, setcurrentPosts] = useState([])
+    // 게시물 데이터 조회
+    useEffect(() => {
+        axios({
+            url: url + "/mypage",
+            method: "get",
+            withCredentials: true,
+        }).then((res) => {
+            setcurrentPosts(res.data)
+            console.log(currentPosts);
+        }) 
+    }, [])
+
     const removeUserInfo = () => {
         setIsModalOpen(true)
     }
@@ -246,6 +259,12 @@ export default function MyPage() {
         //test
         history.push("/postread")
         // 해당 게시물의 id, user_id
+    }
+
+    // 더보기
+    const moreViewHandler = () => {
+        history.push("/mypost")
+
     }
 
     return (
@@ -300,9 +319,10 @@ export default function MyPage() {
                 <div className="item"></div>
                 <div className="item"></div>
                 <div className="item"></div>
+                {}
                 <button
                     className="moreView"
-                    onClick={() => history.push("/mypost")}
+                    onClick={moreViewHandler}
                 >
                     더 보기
                 </button>

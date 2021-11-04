@@ -278,7 +278,6 @@ const PhotoBox2 = styled.img`
 `
 ////////////////////////////////////////////////////
 // const url = "https://thereweather.space"
-// let url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 let url = process.env.REACT_APP_LOCAL_URL
 let clientUrl = "http://localhost:3000"
 

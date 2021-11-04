@@ -174,8 +174,9 @@ const Pagination = styled.div`
     button{
       font-size: 1rem;
     }
-  }
-`;
+  } 
+`
+
 
 const PrevPage = styled.div``
 
@@ -201,6 +202,7 @@ const PageNumber = styled.div`
 const NextPage = styled.div``;
 
 export default function BookMark() { 
+  
   // 페이지네이션
   const state = useSelector(state => state.itemReducer);
   const { start, end, current } = state; 

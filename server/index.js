@@ -15,6 +15,8 @@ const { isAuthorized } = require("./controllers/tokenFunc/index")
 const { user } = require("./models/index")
 const { encrypto } = require("./controllers/get/setpw")
 
+const weather = require("./controllers/get/weather.js")
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(
@@ -43,12 +45,27 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-app.get("/2", (req, res) => {
-    res.send("Hello World!!22!2")
+// app.get("/2", (req, res) => {
+//     res.send("Hello World!!22!2")
+// })
+// app.get("/", (req, res) => {
+//     res.send("Hello World!!ThereWeather!!!!")
+// })
+
+// //기상청 날씨 api 
+app.get("/", async(req, res) => {
+    //서울시 중구 
+    await weather('60', '127', (error, {weathers}={}) => {
+        if(error){
+            res.send(error)
+        }
+        else{
+            res.send(weathers)
+        }
+    })
 })
-app.get("/", (req, res) => {
-    res.send("Hello World!!ThereWeather!!!!")
-})
+
+
 
 //겹치는거
 app.use("/users", upload.single("img"), userRouter)

@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { Contents, HalfPage } from "./One";
+import { Contents, HalfPage, AnimatedP, AnimatedImg } from "./One";
 
 export const TitleAndContents = styled(Contents)`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // border: 1px solid red;
 
   & > h2 {
     padding: 3rem;
@@ -36,33 +35,49 @@ export const ContentsUnderTitle = styled.div`
   }
 `;
 
-export default function Two({ opacityOffsetTitle, opacityOffsetOne, opacityOffsetTwo }) {
+export const AnimatedTitle = styled.h2`
+  animation: fade-in ease-in 1 backwards;
+  animation-duration: ${props => props.duration || '.3s'};
+  animation-delay: ${props => props.delay || null};
+`;
+
+export default function Two({
+  delayOne, delayTwo, delayThree, delayFour, delayFive
+}) {
   return (
     <TitleAndContents className={["landingPagePart", "two"]}>
-      <h2 style={{ opacity: `${opacityOffsetTitle}`}}>
+      <AnimatedTitle delay={delayOne}>
         step 1
-      </h2>
+      </AnimatedTitle>
       <ContentsUnderTitle className="contents">
-        <HalfPage className="half-page" style={{ opacity: `${opacityOffsetOne}`}}>
-          <p className="desc">
+        <HalfPage className="half-page" delay={delayTwo}>
+          <AnimatedP className="desc">
             사는 곳이나 <br/>
             여행지를 검색하세요.
-          </p>
+          </AnimatedP>
           <div className="picture-png left">
-            <img src="img/firstpage/web_search.png"  alt="web surfing" />
+            <AnimatedImg
+              src="img/firstpage/web_search.png"
+              alt="web surfing"
+              delay={delayThree}
+            />
           </div>
         </HalfPage>
 
-        <HalfPage className="half-page" style={{ opacity: `${opacityOffsetTwo}`}}>
+        <HalfPage className="half-page">
           <div className="picture-png right">
-            <img src="img/firstpage/adventure_map.png" alt="walking" />
+            <AnimatedImg
+              src="img/firstpage/adventure_map.png"
+              alt="walking"
+              delay={delayFour}
+            />
           </div>
-          <p className="desc">
+          <AnimatedP className="desc" delay={delayFive}>
             여행을 준비중이시라면 <br/>
             여행지에 사는 사람이 올린 <br/>
             사실적인 예보글을 토대로 <br/>
             계획해보세요.
-        </p>
+        </AnimatedP>
         </HalfPage>
       </ContentsUnderTitle>
     </TitleAndContents>
