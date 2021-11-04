@@ -3,17 +3,10 @@ import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { changeSearchword, changeCurLocation } from "../actions/index"
 import $ from "jquery"
+// import moduleName from "../../img/icons-write/sunny"
+// import moduleName from "../../public/img/icons-write/sunny.png"
 
 const ImgContainer = styled.div`
-    position: relative;
-    width: 100%;
-    height: var(--mobile-page-height);
-
-    @media screen and (min-width: 1081px) {
-        height: var(--desktop-page-height);
-    }
-`
-const ImgContainer2 = styled.img`
     position: relative;
     width: 100%;
     height: var(--mobile-page-height);
@@ -119,6 +112,18 @@ export default function Location(props) {
                 map.setCenter(coords)
             }
         })
+
+        //클릭이벤트 함수
+        kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+            // 클릭한 위도, 경도 정보를 가져옵니다
+            var latlng = mouseEvent.latLng
+            // 마커 위치를 클릭한 위치로 옮깁니다
+            // marker.setPosition(latlng)
+            //클릭한 곳의 위치 경도를 콘솔로그 찍는 변수
+            var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, "
+            message += "경도는 " + latlng.getLng() + " 입니다"
+            console.log(message)
+        })
         //////////////////////////////////////////고정-hoon/////////////////////////////////////////
 
         var clusterer = new kakao.maps.MarkerClusterer({
@@ -135,16 +140,73 @@ export default function Location(props) {
             console.log($(data.positions))
             var markers = $(data.positions).map(function (i, position) {
                 return new kakao.maps.Marker({
-                    position: new kakao.maps.LatLng(position.lat, position.lng),
+                    position: new kakao.maps.LatLng(
+                        position.xLocation,
+                        position.yLocation
+                    ),
                 })
             })
             console.log(markers)
-            console.log($(data.positions)[0].content)
+            console.log($(data.positions)[0])
             $(data.positions).map((n, idx) => {
                 console.log(n)
-                var iwContent = `<img src="https://www.water.or.kr/images/egovframework/life/weast/weast044_01.jpg" style="padding:25px; width:200px;">${
-                        $(data.positions)[n].content
-                    }</img>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                var iwContent = `
+                <container style="border:3px solid pink; padding:5px; height:20rem; width:15rem; display:flex; flex-direction: row;">
+                    <box style="">
+                        <h3>${$(data.positions)[n].post_title}</h3>
+                            <box style="display:flex; flex-direction: row;">
+        
+                        ${
+                            $(data.positions)[n].weather === "sunny"
+                                ? "<img src='img/icons-write/sunny.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].weather === "cloudy"
+                                ? "<img src='img/icons-write/cloudy.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].weather === "rainy"
+                                ? "<img src='img/icons-write/rainy.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].weather === "snowy"
+                                ? "<img src='img/icons-write/snowy.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].wind === "breezy"
+                                ? "<img src='img/icons-write/breezy.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].wind === "windy"
+                                ? "<img src='img/icons-write/windy.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].wind === "strong"
+                                ? "<img src='img/icons-write/strong.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].temp === "cold"
+                                ? "<img src='img/icons-write/cold.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].temp === "hot"
+                                ? "<img src='img/icons-write/hot.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].top_id === "tshirts"
+                                ? "<img src='img/icons-write/tshirts.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].top_id === "shirts"
+                                ? "<img src='img/icons-write/shirts.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].bottom_id === "shorts"
+                                ? "<img src='img/icons-write/shorts.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].bottom_id === "pants"
+                                ? "<img src='img/icons-write/pants.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        </box>
+                        <img src=${
+                            $(data.positions)[n].post_photo
+                        } style="padding:5px; width:80%;"></img>
+                        <div>${$(data.positions)[n].post_content}</div>
+                    </box>
+                </container>
+
+
+                             `, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                     iwRemoveable = true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
                 // 인포윈도우를 생성합니다
