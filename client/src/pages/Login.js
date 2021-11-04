@@ -93,7 +93,7 @@ const LoginButton = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "#419300")};
+    background-color: #256ad7;
     border-radius: 1rem;
     > span {
         margin: 0.25rem;

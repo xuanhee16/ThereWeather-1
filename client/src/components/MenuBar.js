@@ -16,7 +16,7 @@ const Outer = styled.div`
     width: 100vw;
     z-index: 100;
     position: sticky;
-    left:0;
+    left: 0;
     right: 0;
     bottom: 0;
 
@@ -26,7 +26,7 @@ const Outer = styled.div`
 `
 
 const Buttons = styled.div`
-    background-color: #a2d2ff;
+    background-color: WHITE;
     height: 70px;
     right: 0;
     bottom: 0;

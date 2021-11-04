@@ -374,9 +374,9 @@ export default function Write() {
         axios({
             url: url + "/post/write",
             method: "post",
-            headers: {
-                // accept: "application/json",
-            },
+            // headers: {
+            //     // accept: "application/json",
+            // },
             data: {
                 user_id: userInfo.user_id,
                 post_photo: uploadedImg.filePath,
