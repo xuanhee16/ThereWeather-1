@@ -2,8 +2,7 @@ const axios = require("axios")
 // require("dotenv").config();
 const serviceKey = require('../../config/key')
 const aqiUrl = require('../../config/url')
-const moment = require("moment");
-const { rawListeners } = require("npm");
+const moment = require("moment")
 
 //예보날짜 
 function getCurrentDate(){ //'20211102' 형식 
