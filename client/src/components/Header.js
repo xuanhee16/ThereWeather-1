@@ -44,6 +44,9 @@ const HeaderOuter = styled.div`
         flex-direction: row;
         justify-content: space-around;
     }
+    @media screen and (max-width: 375px) {
+        height: 30%;
+    }
 `
 
 const Wing = styled.div`
@@ -92,12 +95,18 @@ const Center = styled.div`
 `
 
 const InputAndSubmit = styled.div`
-    flex-growth: 1;
+    /* flex-growth: 1; */
     display: flex;
+    justify-content: space-between;
     align-items: center;
 
     div {
         margin: auto 1rem;
+    }
+    @media screen and (max-width: 1081px) {
+        div{
+            margin: 0;
+        }
     }
 `
 
@@ -110,6 +119,9 @@ const Input = styled.input`
     @media screen and (min-width: 1081px) {
         width: 300px;
     }
+    @media screen and (max-width: 375px) {
+        width: 220px;
+    }
 `
 
 const Buttons = styled.div`
@@ -119,6 +131,15 @@ const Buttons = styled.div`
 
     svg:hover {
         color: black;
+    }
+
+    @media screen and (max-width: 375px) {
+
+        button{
+            width: 35px;
+            height: 35px;
+            font-size: 20px;
+        }
     }
 `
 
@@ -225,8 +246,8 @@ export default function Header({ isInput, isMobileLogo }) {
                             // onClick={onRest}
                             onFocus={(e) => setOnFocus(true)}
                         />
-                        <SearchBarAndDaumPost>
-                            <DaumPostcodeWrap>
+                        {/* <SearchBarAndDaumPost> */}
+                            {/* <DaumPostcodeWrap> */}
                                 {onFocus ? (
                                     <DaumPostcode
                                         onComplete={handleComplete}
@@ -244,8 +265,8 @@ export default function Header({ isInput, isMobileLogo }) {
                                 ) : (
                                     <></>
                                 )}
-                            </DaumPostcodeWrap>
-                        </SearchBarAndDaumPost>
+                            {/* </DaumPostcodeWrap> */}
+                        {/* </SearchBarAndDaumPost> */}
                         <Buttons2 bgGrey>
                             {onFocus ? (
                                 <Cancel onClick={() => setOnFocus(false)}>
