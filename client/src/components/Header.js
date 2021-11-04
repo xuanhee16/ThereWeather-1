@@ -104,7 +104,7 @@ const InputAndSubmit = styled.div`
         margin: auto 1rem;
     }
     @media screen and (max-width: 1081px) {
-        div{
+        div {
             margin: 0;
         }
     }
@@ -134,8 +134,7 @@ const Buttons = styled.div`
     }
 
     @media screen and (max-width: 375px) {
-
-        button{
+        button {
             width: 35px;
             height: 35px;
             font-size: 20px;
@@ -247,25 +246,25 @@ export default function Header({ isInput, isMobileLogo }) {
                             onFocus={(e) => setOnFocus(true)}
                         />
                         {/* <SearchBarAndDaumPost> */}
-                            {/* <DaumPostcodeWrap> */}
-                                {onFocus ? (
-                                    <DaumPostcode
-                                        onComplete={handleComplete}
-                                        style={{
-                                            position: "absolute",
-                                            left: "-332px",
-                                            top: "5px",
-                                            border: "1px solid pink",
-                                            // display: onFocus ? "none" : "true",
-                                            // left: "0",
-                                            // height: "80%",
-                                            // width: "100%",
-                                        }}
-                                    />
-                                ) : (
-                                    <></>
-                                )}
-                            {/* </DaumPostcodeWrap> */}
+                        {/* <DaumPostcodeWrap> */}
+                        {onFocus ? (
+                            <DaumPostcode
+                                onComplete={handleComplete}
+                                style={{
+                                    position: "absolute",
+                                    left: "332px",
+                                    top: "5px",
+                                    border: "1px solid pink",
+                                    // display: onFocus ? "none" : "true",
+                                    // left: "0",
+                                    // height: "80%",
+                                    // width: "100%",
+                                }}
+                            />
+                        ) : (
+                            <></>
+                        )}
+                        {/* </DaumPostcodeWrap> */}
                         {/* </SearchBarAndDaumPost> */}
                         <Buttons2 bgGrey>
                             {onFocus ? (
