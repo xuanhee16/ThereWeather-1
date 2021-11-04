@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Switch, Route, Redirect } from "react-router-dom"
+import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import "./App.css"
@@ -28,6 +28,7 @@ let url = process.env.REACT_APP_LOCAL_URL
 
 export default function App() {
     const dispatch = useDispatch()
+    const history = useHistory()
     if (!url) {
         url = "https://thereweather.space"
     }
@@ -52,7 +53,7 @@ export default function App() {
                 dispatch(changeIsLogin(res.data.login))
             })
         }
-    }, [])
+    }, [isLogin])
 
     return (
         <>
