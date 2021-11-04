@@ -64,24 +64,6 @@ button {
 	}
 }
 
-@keyframes from-left-to-center {
-	from {
-		transform: translate(-100%);
-	}
-	to {
-		transform: translate(0%);
-	}
-}
-
-@keyframes from-right-to-center {
-	from {
-		transform: translate(100%);
-	}
-	to {
-		transform: translate(0%);
-	}
-}
-
 /* [start] create-react-app default style */
 body {
     margin: 0;
