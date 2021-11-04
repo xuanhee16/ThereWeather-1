@@ -174,8 +174,9 @@ const Pagination = styled.div`
     button{
       font-size: 1rem;
     }
-  }
-`;
+  } 
+`
+
 
 const PrevPage = styled.div``
 

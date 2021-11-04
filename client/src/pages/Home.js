@@ -1,11 +1,15 @@
-import React from "react"
+import React, { useState, useEffect } from "react";
 import styled from "styled-components"
+import axios from "axios";
 // import Loading from "./Loading";
 
 const HomeContainer = styled.div`
 display: flex;
 flex-direction: row;
 background-color: var(--page-bg-color);
+ul {
+  list-style: none;
+}
 `;
 
 const LeftContainer1 = styled.div`
@@ -72,10 +76,27 @@ const RightNav1 = styled.nav`
 `
 // const RightNav2 = styled(RightNav1)``;
 
+const url = process.env.REACT_APP_LOCAL_URL;
+
 export default function Home() {
     // const dispatch = useDispatch()
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
+    const [weatherData, setWeatherData] = useState([])
+  useEffect(() => {
+    axios.get(url)
+    .then((res) =>  
+     //console.log(res)
+     //강수형태(날씨) - 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+     //하늘상태 - 맑음(1), 구름많음(3), 흐림(4)
+      {
+        const { xLocation, yLocation, date, time, cloudy, temp, weatherType } = res.data.weatherInfo
+        setWeatherData({ xLocation, yLocation, date, time, cloudy, temp, weatherType })
+        //weatherType === 0 맑음 (강수량0)
+      }
+    )
+  }, [])
+   
 
     return (
         <div className="homecontainer">
@@ -88,7 +109,17 @@ export default function Home() {
                     </LeftNav1>
                     <LeftNav2>
                         기상청 일기예보
-                        <div className="weatherInfo"></div>
+                        <div className="weatherInfo">
+                        <ul>
+                          <li>x위치:{weatherData.xLocation}</li>
+                          <li>y위치:{weatherData.yLocation}</li>
+                          <li>기준 예보시각:{weatherData.time}</li>
+                          <li>날짜:{weatherData.date}</li>
+                          <li>하늘상태:{weatherData.cloudy === 0 ? null : "맑음"}</li>
+                          <li>현재기온:{weatherData.temp}</li>
+                          <li>날씨:{weatherData.weatherType === 0 ? null : "해"}</li>
+                        </ul> 
+                        </div>
                     </LeftNav2>
                     <LeftNav3>
                         00구 날씨 기반 추천 코디
