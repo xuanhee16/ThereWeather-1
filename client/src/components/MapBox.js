@@ -3,6 +3,7 @@ import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { changeSearchword, changeCurLocation } from "../actions/index"
 import $ from "jquery"
+import axios from "axios"
 
 const ImgContainer = styled.div`
     position: relative;
@@ -33,6 +34,28 @@ export default function Location(props) {
 
     console.log(searchWord)
     console.log(props)
+
+    //현재 위치 test 
+     useEffect(() => {
+            if (navigator.geolocation) {
+                // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    let lat = position.coords.latitude, // 위도
+                        lon = position.coords.longitude // 경도
+                    console.log(lat, lon) //브라우저에 찍힘        
+                    axios({
+                        url: url + "/map",
+                        method: "post",
+                        data: { lat: lat, lon: lon },
+                        withCredentials: true
+                    })
+                })
+            };
+        })
+
+
+
+    //-----------------------------------------------------------------
 
     useEffect(() => {
         var container = document.getElementById("map")

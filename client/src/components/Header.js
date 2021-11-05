@@ -22,7 +22,7 @@ const HeaderOuter = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: WHTIE;
+    background-color: white;
     padding: 1rem;
     position: sticky;
     top: 0;

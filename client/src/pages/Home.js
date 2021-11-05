@@ -36,7 +36,6 @@ const LeftNav1 = styled.nav`
 `
 
 const LeftNav2 = styled(LeftNav1)``
-
 const LeftNav3 = styled(LeftNav1)``
 
 const RightContainer = styled.div`
