@@ -23,7 +23,7 @@ import DaumPostcode from "react-daum-postcode"
 const LoginOuter = styled.section`
     position: relative;
     width: 100vw;
-    min-height: var(--mobile-page-height);
+    min-height: calc(var(--mobile-page-height) - 70px);
     background-color: var(--page-bg-color);
     display: flex;
     flex-direction: column;
