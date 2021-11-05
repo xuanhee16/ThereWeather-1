@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 
 const Outer = styled.div`
   width: 100vw;
-  background-color: #FEF9EF;
+  background-color: var(--page-bg-color);
 
   // 오늘의 코디
   .todayCodi{

@@ -28,7 +28,7 @@ const HeaderOuter = styled.div`
     top: 0;
     left: 0;
     z-index: 100;
-    border: 0.5px solid #dbdbdb;
+    border-bottom: 0.5px solid #dbdbdb;
 
     h1 {
         font-weight: bold;
@@ -80,12 +80,12 @@ const TitleAndLogo = styled.div`
 `
 
 const Center = styled.div`
-		position: relative;
+    position: relative;
     display: flex;
     flex-direction: column;
-		justify-content: center;
+    justify-content: center;
     align-items: center;
-		min-width: 350px;
+    min-width: 350px;
     justify-content: space-around;
 
     @media screen and (min-width: 1081px) {
