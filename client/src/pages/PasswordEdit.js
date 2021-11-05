@@ -52,7 +52,7 @@ const InputAndTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  margin: .5rem;
 
   h3 {
     font-size: 1.3rem;
@@ -253,7 +253,7 @@ export default function PasswordEdit() {
 
       <div className="Login--center">
         <StyledArticle className="id">
-          <InputAndTitle className="inputIdSection">
+          <InputAndTitle className="inputCurPwdSection">
             <h3>현재 비밀번호</h3>
             <InputText
               type="password"
@@ -269,7 +269,7 @@ export default function PasswordEdit() {
         </StyledArticle>
 
         <StyledArticle className="password">
-          <InputAndTitle className="inputPwSection">
+          <InputAndTitle className="inputNewPwSection">
             <h3>새 비밀번호</h3>
             <InputText
               type="password"
