@@ -36,7 +36,6 @@ const LeftNav1 = styled.nav`
 `
 
 const LeftNav2 = styled(LeftNav1)``
-
 const LeftNav3 = styled(LeftNav1)``
 
 const RightContainer = styled.div`
@@ -86,7 +85,7 @@ export default function Home() {
   useEffect(() => {
     axios.get(url)
     .then((res) =>  
-     //console.log(res)
+    //  console.log(res)
      //강수형태(날씨) - 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
      //하늘상태 - 맑음(1), 구름많음(3), 흐림(4)
       {
