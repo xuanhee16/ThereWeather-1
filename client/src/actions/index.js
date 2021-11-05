@@ -9,11 +9,13 @@ export const CHANGE_SEARCH_WORD = "CHANGE_SEARCH_WORD"
 export const CHANGE_SELECT_WORD = "CHANGE_SELECT_WORD"
 export const CHANGE_CUR_LOCATION = "CHANGE_CUR_LOCATION"
 
+export const UPDATE_WEATHERINFO = "UPDATE_WEATHERINFO"
+
 // actions creator functions
 export const changeUser = (userinfo) => {
     return {
         type: CHANGE_USER_INFO,
-        payload: {
+        payload: { 
             ...userinfo,
         },
     }
@@ -72,5 +74,15 @@ export const changeCurLocation = (lat, lon) => {
     return {
         type: CHANGE_CUR_LOCATION,
         payload: { lat: lat, lon: lon },
+    }
+}
+
+//test 
+export const updateWeatherInfo = (data) => {
+    return {
+        type: UPDATE_WEATHERINFO,
+        payload: {
+           data: data
+        }
     }
 }

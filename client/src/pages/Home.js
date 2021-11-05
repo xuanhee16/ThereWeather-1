@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components"
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux"
+import { updateWeatherInfo } from "../actions/index"
 // import Loading from "./Loading";
+
 
 const HomeContainer = styled.div`
 display: flex;
@@ -78,22 +81,49 @@ const RightNav1 = styled.nav`
 const url = process.env.REACT_APP_LOCAL_URL;
 
 export default function Home() {
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
+    const { item } = useSelector((state) => state.itemReducer)
+    console.log(item)
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
+  
     const [weatherData, setWeatherData] = useState([])
-  useEffect(() => {
-    axios.get(url)
-    .then((res) =>  
-    //  console.log(res)
-     //강수형태(날씨) - 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
-     //하늘상태 - 맑음(1), 구름많음(3), 흐림(4)
-      {
-        const { xLocation, yLocation, date, time, cloudy, temp, weatherType } = res.data.weatherInfo
-        setWeatherData({ xLocation, yLocation, date, time, cloudy, temp, weatherType })
-        //weatherType === 0 맑음 (강수량0)
-      }
-    )
+    useEffect(() => {
+
+    if (navigator.geolocation) {
+      // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+      navigator.geolocation.getCurrentPosition(function (position) {
+          let lat = position.coords.latitude, // 위도
+              lon = position.coords.longitude // 경도
+          console.log(lat, lon) //브라우저에 찍힘        
+          axios({
+              url: url + "/map",
+              method: "post",   
+              data: { lat: lat, lon: lon },
+              withCredentials: true
+          })
+          .then((res) => {
+            console.log(res.data)
+            const { fcstDate, fcstTime, fcstValue, category } = res.data
+            setWeatherData({ fcstDate, fcstTime, fcstValue, category })
+            dispatch(updateWeatherInfo(res.data))    
+            
+            
+            .then((res) => console.log(res.data.item.filter((obj) => {
+              return obj['category'] === "SKY"
+            })[0].fcstValue)) //1
+        
+            // console.log(res.data.item.filter((obj) => {
+            //   return obj['category'] === "T1H" || obj['category'] === "SKY" || obj['category'] === "PTY" 
+            // }))
+          }) 
+
+          // .then((res) => console.log(res.data.item.filter((obj) => {
+          //     return obj['category'] === "SKY"
+          // })))
+         
+      })
+  };
   }, [])
    
 
@@ -113,7 +143,7 @@ export default function Home() {
                           <li>x위치:{weatherData.xLocation}</li>
                           <li>y위치:{weatherData.yLocation}</li>
                           <li>기준 예보시각:{weatherData.time}</li>
-                          <li>날짜:{weatherData.date}</li>
+                          <li>날짜:{weatherData.fcstDate}</li>
                           <li>하늘상태:{weatherData.cloudy === 0 ? null : "맑음"}</li>
                           <li>현재기온:{weatherData.temp}</li>
                           <li>날씨:{weatherData.weatherType === 0 ? null : "해"}</li>

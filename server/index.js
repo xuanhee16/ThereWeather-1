@@ -15,7 +15,7 @@ const { isAuthorized } = require("./controllers/tokenFunc/index")
 const { user } = require("./models/index")
 const { encrypto } = require("./controllers/get/setpw")
 
-// const weather = require("./controllers/post/weather.js")
+const map = require("./controllers/post/map.js")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -45,27 +45,14 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-// app.get("/2", (req, res) => {
-//     res.send("Hello World!!22!2")
-// })
-// app.get("/", (req, res) => {
-//     res.send("Hello World!!ThereWeather!!!!")
-// })
-app.get("/map2", controllers.map)
-//기상청 날씨 api 
-// app.get("/", async(req, res) => {
-//     //서울시 중구 
-//     await weather('x', 'y', (error, {weathers}={}) => {
-//         if(error){
-//             console.log("index:",error)
-//             res.send(error)
-//         }
-//         else{
-//             console.log("index:",weathers)
-//             res.send(weathers)
-//         }
-//     })
-// })
+//아래 내용 지우지말것 
+app.get("/2", (req, res) => {
+    res.send("Hello World!!22!2")
+})
+app.get("/", (req, res) => {
+    res.send("Hello World!!ThereWeather!!!!")
+}) 
+
 
 
 

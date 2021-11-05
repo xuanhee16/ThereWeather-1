@@ -11,4 +11,6 @@ export const initialState = {
     start: 0,
     end: 10,
     current: 1,
+
+    item: []
 }
