@@ -45,6 +45,7 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
+
 // app.get("/2", (req, res) => {
 //     res.send("Hello World!!22!2")
 // })
@@ -66,7 +67,6 @@ app.get("/map2", controllers.map)
 //         }
 //     })
 // })
-
 
 
 

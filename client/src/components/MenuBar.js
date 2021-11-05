@@ -20,6 +20,7 @@ const Outer = styled.div`
     right: 0;
     bottom: 0;
 
+
     @media screen and (min-width: 1081px) {
         width: 1080px;
     }

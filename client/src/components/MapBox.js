@@ -5,6 +5,7 @@ import { changeSearchword, changeCurLocation } from "../actions/index"
 import $ from "jquery"
 import axios from "axios"
 
+
 const ImgContainer = styled.div`
     position: relative;
     width: 100%;
@@ -14,13 +15,24 @@ const ImgContainer = styled.div`
         height: var(--desktop-page-height);
     }
 `
-const ImgContainer2 = styled.img`
-    position: relative;
-    width: 100%;
-    height: var(--mobile-page-height);
-
+const PostListModal = styled.div`
+    border: 1px solid black;
+    background-color: white;
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    bottom: 70px;
+    width: 50%;
+    height: 70%;
     @media screen and (min-width: 1081px) {
-        height: var(--desktop-page-height);
+        border: 1px solid pink;
+        background-color: white;
+        z-index: 999;
+        position: absolute;
+        right: 0;
+        bottom: 70px;
+        width: 35.3%;
+        height: 75%;
     }
 `
 
@@ -131,7 +143,7 @@ export default function Location(props) {
                 //     map: map,
                 //     position: coords,
                 // })
-                console.log(arguments)
+                // console.log(arguments)
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 // var infowindow = new kakao.maps.InfoWindow({
                 //     content: `<div style="width:150px;text-align:center;padding:6px 0;">${arguments[0][0].road_address.address_name} 지역</div>`,
@@ -142,6 +154,18 @@ export default function Location(props) {
                 dispatch(changeSearchword(searchWord))
                 map.setCenter(coords)
             }
+        })
+
+        //클릭이벤트 함수
+        kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+            // 클릭한 위도, 경도 정보를 가져옵니다
+            var latlng = mouseEvent.latLng
+            // 마커 위치를 클릭한 위치로 옮깁니다
+            // marker.setPosition(latlng)
+            //클릭한 곳의 위치 경도를 콘솔로그 찍는 변수
+            var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, "
+            message += "경도는 " + latlng.getLng() + " 입니다"
+            console.log(message)
         })
         //////////////////////////////////////////고정-hoon/////////////////////////////////////////
 
@@ -159,16 +183,73 @@ export default function Location(props) {
             console.log($(data.positions))
             var markers = $(data.positions).map(function (i, position) {
                 return new kakao.maps.Marker({
-                    position: new kakao.maps.LatLng(position.lat, position.lng),
+                    position: new kakao.maps.LatLng(
+                        position.xLocation,
+                        position.yLocation
+                    ),
                 })
             })
             console.log(markers)
-            console.log($(data.positions)[0].content)
+            console.log($(data.positions)[0])
             $(data.positions).map((n, idx) => {
                 console.log(n)
-                var iwContent = `<img src="https://www.water.or.kr/images/egovframework/life/weast/weast044_01.jpg" style="padding:25px; width:200px;">${
-                        $(data.positions)[n].content
-                    }</img>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                var iwContent = `
+                <container style="border:3px solid pink; padding:5px; height:20rem; width:15rem; display:flex; flex-direction: row;">
+                    <box style="">
+                        <h3>${$(data.positions)[n].post_title}</h3>
+                            <box style="display:flex; flex-direction: row;">
+                            
+                        ${
+                            $(data.positions)[n].weather === "sunny"
+                                ? "<img src='img/icons-write/sunny.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].weather === "cloudy"
+                                ? "<img src='img/icons-write/cloudy.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].weather === "rainy"
+                                ? "<img src='img/icons-write/rainy.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].weather === "snowy"
+                                ? "<img src='img/icons-write/snowy.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].wind === "breezy"
+                                ? "<img src='img/icons-write/breezy.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].wind === "windy"
+                                ? "<img src='img/icons-write/windy.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].wind === "strong"
+                                ? "<img src='img/icons-write/strong.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].temp === "cold"
+                                ? "<img src='img/icons-write/cold.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].temp === "hot"
+                                ? "<img src='img/icons-write/hot.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].top_id === "tshirts"
+                                ? "<img src='img/icons-write/tshirts.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].top_id === "shirts"
+                                ? "<img src='img/icons-write/shirts.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].bottom_id === "shorts"
+                                ? "<img src='img/icons-write/shorts.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].bottom_id === "pants"
+                                ? "<img src='img/icons-write/pants.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        </box>
+                        <img src=${
+                            $(data.positions)[n].post_photo
+                        } style="padding:5px; width:80%;"></img>
+                        <div>${$(data.positions)[n].post_content}</div>
+                    </box>
+                </container>
+
+
+                             `, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                     iwRemoveable = true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
                 // 인포윈도우를 생성합니다
@@ -184,6 +265,37 @@ export default function Location(props) {
 
             clusterer.addMarkers(markers)
         })
+        // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+        kakao.maps.event.addListener(map, "bounds_changed", function () {
+            // 지도 영역정보를 얻어옵니다
+            var bounds = map.getBounds()
+
+            // 영역정보의 남서쪽 정보를 얻어옵니다
+            var swLatlng = bounds.getSouthWest()
+
+            // 영역정보의 북동쪽 정보를 얻어옵니다
+            var neLatlng = bounds.getNorthEast()
+
+            var message =
+                "영역좌표는 남서쪽 위도, 경도는  " +
+                swLatlng.toString() +
+                "이고 <br>"
+            message += "북동쪽 위도, 경도는  " + neLatlng.toString() + "입니다 "
+
+            setTimeout(() => {
+                console.log(message)
+                axios({
+                    url: url + `/post/list?leftBottom=${swLatlng}&rightTop=${neLatlng}`,
+                    // url: url + "/signup",
+                    method: "get",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // "Content-Type": "text/plain",
+                    },
+                    withCredentials: true,
+                })
+            }, 1000)
+        })
     }, [
         kakao.maps.LatLng,
         kakao.maps.Marker,
@@ -192,7 +304,92 @@ export default function Location(props) {
         searchWord,
     ])
 
-    return <ImgContainer id="map"></ImgContainer>
+    const Box = styled.div`
+        // display: flex;
+        // flex-direction: row;
+        width: 50%;
+        // height: 50%;
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const Box2 = styled.div`
+        // display: flex;
+        // flex-direction: row;
+        // width: 10000px;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const EmoticonBox = styled.div`
+        display: flex;
+        flex-direction: row;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const PostTitle = styled.div`
+        // display: flex;
+        // flex-direction: row;
+        width: 50%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const PostContent = styled.div`
+        // display: flex;
+        // flex-direction: row;
+        width: 50%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const PostBox = styled.div`
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const PostImg = styled.img`
+        width: 100%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const IconImg = styled.img`
+        width: 20%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+
+    return (
+        <>
+            <ImgContainer id="map"></ImgContainer>
+
+            <PostListModal className={"1"}>
+                <PostBox className={"2"}>
+                    <Box className={"3"}>
+                        <PostImg src="img/sky.png" />
+                        <EmoticonBox>
+                            <IconImg src="img/sky.png" />
+                            <IconImg src="img/sky.png" />
+                            <IconImg src="img/sky.png" />
+                            <IconImg src="img/sky.png" />
+                            <IconImg src="img/sky.png" />
+                        </EmoticonBox>
+                    </Box>
+                    <Box2 className={"4"}>
+                        <PostTitle>나는 제목</PostTitle>
+                        <PostContent>
+                            나는 내용입니다. 주저리 주주러지 주저맂저주저리
+                        </PostContent>
+                    </Box2>
+                </PostBox>
+            </PostListModal>
+        </>
+    )
 }
 
 // useEffect(() => {
