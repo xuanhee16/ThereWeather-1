@@ -7,7 +7,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 
 const Outer = styled.div`
-
   background-color: var(--page-bg-color);
   width: 100vw;
   min-height: 100vh;
@@ -51,6 +50,8 @@ const BookMarkContainer = styled.div`
   display: flex;
   gap: 0.1rem;
   justify-content: space-around;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
 `;
 // 게시물 사진
 const BookMarkPhoto = styled.div`
@@ -135,23 +136,24 @@ const BookMarkList = styled.div`
     }
   }
 `;
-
+// 북마크 아이콘
 const BookMarkIcon = styled.div`
   flex-direction: column;
   flex-basis: 10.5rem;
   text-align: end;
   margin: 1rem;
-  /* padding: 1rem; */
+  color: #ED4956;
 
   @media screen and (max-width: 375px) {
     margin: 0;
-    padding: 0 0.3rem 0 0;    
+    padding: 0 0.3rem 0 0;
+    font-size: 10px;
   }
 `
 
 // 페이지네이션
 const Pagination = styled.div`
-  background-color: var(--page-bg-color);
+  background-color: #FAFAFA;
   display: flex;
   justify-content: center;
   align-items: center;

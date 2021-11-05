@@ -28,6 +28,7 @@ const HeaderOuter = styled.div`
     top: 0;
     left: 0;
     z-index: 100;
+    border: 0.5px solid #dbdbdb;
 
     h1 {
         font-weight: bold;
@@ -40,12 +41,12 @@ const HeaderOuter = styled.div`
         width: 100vw;
         height: 125px;
         background-color: white;
-        border-bottom: 1px solid #757575;
         flex-direction: row;
         justify-content: space-around;
     }
     @media screen and (max-width: 375px) {
-        height: 30%;
+        height: 100px;
+        /* border: 1px solid red;  // 확인용 */
     }
 `
 
@@ -116,12 +117,17 @@ const Input = styled.input`
     font-size: 1.2rem;
     text-align: center;
     font-family: "BMDOHYEON";
-
+    background-color: var(--page-bg-color);
+    border: 0.5px solid #dbdbdb;
+    border-radius: 3px;
+    
     @media screen and (min-width: 1081px) {
         width: 300px;
     }
     @media screen and (max-width: 375px) {
         width: 220px;
+        height: 30px;
+        font-size: 1rem;
     }
 `
 
@@ -167,7 +173,8 @@ const Cancel = styled.button`
     // width: 100%;
     // padding-right: 2.5rem;
     margin-bottom: 0.4rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
+    /* border: 1px solid red;  // 확인용 */
 `
 const Buttons2 = styled.div`
     background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
@@ -176,6 +183,12 @@ const Buttons2 = styled.div`
     padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
     margin: 0.5rem;
     border-radius: 10%;
+    /* border: 1px solid red; // 확인용 */
+    @media screen and (max-width: 375px) {
+        font-size: ${(props) => (props.isText ? "1.2rem" : "1.2rem")};
+        padding: ${(props) => (props.isText ? ".6rem" : ".2rem")};
+        height: 2rem;
+    }
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
