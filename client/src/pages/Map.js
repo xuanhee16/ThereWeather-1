@@ -6,11 +6,14 @@ import MapBox from "../components/MapBox"
 const Container = styled.div`
     // background-color: #f1319e;
     width: 100%;
+    border: 1px solid pink;
+    position: relative;
 
     @media screen and (min-width: 1081px) {
         // background-color: yellow;
         // max-width: 100%;
         width: 100%;
+        position: relative;
     }
 `
 

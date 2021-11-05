@@ -2,7 +2,8 @@ import styled from "styled-components"
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { changeSearchword, changeCurLocation } from "../actions/index"
-import $ from "jquery"
+import $, { map } from "jquery"
+import axios from "axios"
 // import moduleName from "../../img/icons-write/sunny"
 // import moduleName from "../../public/img/icons-write/sunny.png"
 
@@ -13,6 +14,26 @@ const ImgContainer = styled.div`
 
     @media screen and (min-width: 1081px) {
         height: var(--desktop-page-height);
+    }
+`
+const PostListModal = styled.div`
+    border: 1px solid black;
+    background-color: white;
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    bottom: 70px;
+    width: 50%;
+    height: 70%;
+    @media screen and (min-width: 1081px) {
+        border: 1px solid pink;
+        background-color: white;
+        z-index: 999;
+        position: absolute;
+        right: 0;
+        bottom: 70px;
+        width: 35.3%;
+        height: 75%;
     }
 `
 
@@ -100,7 +121,7 @@ export default function Location(props) {
                 //     map: map,
                 //     position: coords,
                 // })
-                console.log(arguments)
+                // console.log(arguments)
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 // var infowindow = new kakao.maps.InfoWindow({
                 //     content: `<div style="width:150px;text-align:center;padding:6px 0;">${arguments[0][0].road_address.address_name} 지역</div>`,
@@ -155,7 +176,7 @@ export default function Location(props) {
                     <box style="">
                         <h3>${$(data.positions)[n].post_title}</h3>
                             <box style="display:flex; flex-direction: row;">
-        
+                            
                         ${
                             $(data.positions)[n].weather === "sunny"
                                 ? "<img src='img/icons-write/sunny.png' style='width:2rem;'/>"
@@ -222,6 +243,37 @@ export default function Location(props) {
 
             clusterer.addMarkers(markers)
         })
+        // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+        kakao.maps.event.addListener(map, "bounds_changed", function () {
+            // 지도 영역정보를 얻어옵니다
+            var bounds = map.getBounds()
+
+            // 영역정보의 남서쪽 정보를 얻어옵니다
+            var swLatlng = bounds.getSouthWest()
+
+            // 영역정보의 북동쪽 정보를 얻어옵니다
+            var neLatlng = bounds.getNorthEast()
+
+            var message =
+                "영역좌표는 남서쪽 위도, 경도는  " +
+                swLatlng.toString() +
+                "이고 <br>"
+            message += "북동쪽 위도, 경도는  " + neLatlng.toString() + "입니다 "
+
+            setTimeout(() => {
+                console.log(message)
+                axios({
+                    url: url + `/post/list?leftBottom=${swLatlng}&rightTop=${neLatlng}`,
+                    // url: url + "/signup",
+                    method: "get",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // "Content-Type": "text/plain",
+                    },
+                    withCredentials: true,
+                })
+            }, 1000)
+        })
     }, [
         kakao.maps.LatLng,
         kakao.maps.Marker,
@@ -230,7 +282,92 @@ export default function Location(props) {
         searchWord,
     ])
 
-    return <ImgContainer id="map"></ImgContainer>
+    const Box = styled.div`
+        // display: flex;
+        // flex-direction: row;
+        width: 50%;
+        // height: 50%;
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const Box2 = styled.div`
+        // display: flex;
+        // flex-direction: row;
+        // width: 10000px;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const EmoticonBox = styled.div`
+        display: flex;
+        flex-direction: row;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const PostTitle = styled.div`
+        // display: flex;
+        // flex-direction: row;
+        width: 50%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const PostContent = styled.div`
+        // display: flex;
+        // flex-direction: row;
+        width: 50%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const PostBox = styled.div`
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const PostImg = styled.img`
+        width: 100%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+    const IconImg = styled.img`
+        width: 20%;
+
+        @media screen and (min-width: 1081px) {
+        }
+    `
+
+    return (
+        <>
+            <ImgContainer id="map"></ImgContainer>
+
+            <PostListModal className={"1"}>
+                <PostBox className={"2"}>
+                    <Box className={"3"}>
+                        <PostImg src="img/sky.png" />
+                        <EmoticonBox>
+                            <IconImg src="img/sky.png" />
+                            <IconImg src="img/sky.png" />
+                            <IconImg src="img/sky.png" />
+                            <IconImg src="img/sky.png" />
+                            <IconImg src="img/sky.png" />
+                        </EmoticonBox>
+                    </Box>
+                    <Box2 className={"4"}>
+                        <PostTitle>나는 제목</PostTitle>
+                        <PostContent>
+                            나는 내용입니다. 주저리 주주러지 주저맂저주저리
+                        </PostContent>
+                    </Box2>
+                </PostBox>
+            </PostListModal>
+        </>
+    )
 }
 
 // useEffect(() => {

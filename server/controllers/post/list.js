@@ -3,17 +3,18 @@ const { user } = require("../../models")
 
 module.exports = {
     get: async (req, res) => {
-        console.log("여긴 /post/location")
-        // console.log(req.body)
+        console.log(req.query)
+        console.log("여긴 /post/list")
+        res.send()
 
         //포스트의 모든 정보를 긁어옵니다 - hoon
-        const postAll = await post.findAll()
+        // const postAll = await post.findAll()
         //긁어온정보에서 dataValues의 값만 추출합니다.-hoon
-        const positions = postAll.map((el) => el.dataValues)
+        // const positions = postAll.map((el) => el.dataValues)
 
-        res.status(210).send({
-            positions: positions,
-        })
+        // res.status(210).send({
+        //     positions: positions,
+        // })
 
         // console.log("여긴 post/location/")
         // res.status(210).send({
