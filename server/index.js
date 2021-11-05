@@ -45,27 +45,24 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-// app.get("/2", (req, res) => {
-//     res.send("Hello World!!22!2")
-// })
-// app.get("/", (req, res) => {
-//     res.send("Hello World!!ThereWeather!!!!")
-// })
+app.get("/2", (req, res) => {
+    res.send("Hello World!!22!2")
+})
+app.get("/", (req, res) => {
+    res.send("Hello World!!ThereWeather!!!!")
+})
 
-// //기상청 날씨 api 
-app.get("/", async(req, res) => {
-    //서울시 중구 
-    await weather('60', '127', (error, {weathers}={}) => {
-        if(error){
+// //기상청 날씨 api
+app.get("/", async (req, res) => {
+    //서울시 중구
+    await weather("60", "127", (error, { weathers } = {}) => {
+        if (error) {
             res.send(error)
-        }
-        else{
+        } else {
             res.send(weathers)
         }
     })
 })
-
-
 
 //겹치는거
 app.use("/users", upload.single("img"), userRouter)

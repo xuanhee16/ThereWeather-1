@@ -92,8 +92,8 @@ const LoginButton = styled.button`
     padding: 0.8rem;
     font-size: 1.2rem;
     font-weight: bold;
-    color: white;
-    background-color: #256ad7;
+    color: black;
+    background-color: pink;
     border-radius: 1rem;
     > span {
         margin: 0.25rem;
