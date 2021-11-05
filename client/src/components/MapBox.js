@@ -542,7 +542,7 @@ export default function Location(props) {
                             weatherCount.rainy +
                             weatherCount.snowy)) *
                         100,
-                    43,
+                    10,
                 ],
             },
         ],
