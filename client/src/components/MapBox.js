@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { changeSearchword, changeCurLocation } from "../actions/index"
 import $, { map } from "jquery"
@@ -25,6 +25,7 @@ const PostListModal = styled.div`
     bottom: 70px;
     width: 50%;
     height: 70%;
+    overflow: auto;
     @media screen and (min-width: 1081px) {
         border: 1px solid pink;
         background-color: white;
@@ -34,6 +35,7 @@ const PostListModal = styled.div`
         bottom: 70px;
         width: 35.3%;
         height: 75%;
+        overflow: auto;
     }
 `
 
@@ -44,6 +46,25 @@ export default function Location(props) {
     const dispatch = useDispatch()
     const { searchWord } = useSelector((state) => state.itemReducer)
     const { kakao } = window
+
+    const [postList, setPostList] = useState([
+        {
+            bottom_id: "",
+            createdAt: "Z",
+            id: null,
+            post_content: "",
+            post_photo: "",
+            post_title: "예보가 없는 지역 입니다.",
+            temp: "",
+            top_id: "",
+            updatedAt: "",
+            user_id: "",
+            weather: "",
+            wind: "",
+            xLocation: null,
+            yLocation: null,
+        },
+    ])
 
     console.log(searchWord)
     console.log(props)
@@ -56,7 +77,7 @@ export default function Location(props) {
         }
         var map = new kakao.maps.Map(container, options) //지도를 생성
         var zoomControl = new kakao.maps.ZoomControl() //줌컨트롤 생성
-        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT) //줌컨트롤 위치 조정
+        map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT) //줌컨트롤 위치 조정
         // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
         if (navigator.geolocation) {
             // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -243,27 +264,40 @@ export default function Location(props) {
 
             clusterer.addMarkers(markers)
         })
+
+        let timer
         // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-        kakao.maps.event.addListener(map, "bounds_changed", function () {
-            // 지도 영역정보를 얻어옵니다
-            var bounds = map.getBounds()
+        kakao.maps.event.addListener(map, "idle", function () {
+            if (timer) {
+                clearTimeout(timer)
+            }
+            timer = setTimeout(function () {
+                console.log("지도 위치가 변경 될 때마다 API요청")
 
-            // 영역정보의 남서쪽 정보를 얻어옵니다
-            var swLatlng = bounds.getSouthWest()
+                // 지도 영역정보를 얻어옵니다
+                var bounds = map.getBounds()
 
-            // 영역정보의 북동쪽 정보를 얻어옵니다
-            var neLatlng = bounds.getNorthEast()
+                // 영역정보의 남서쪽 정보를 얻어옵니다
+                var swLatlng = bounds.getSouthWest()
 
-            var message =
-                "영역좌표는 남서쪽 위도, 경도는  " +
-                swLatlng.toString() +
-                "이고 <br>"
-            message += "북동쪽 위도, 경도는  " + neLatlng.toString() + "입니다 "
+                // 영역정보의 북동쪽 정보를 얻어옵니다
+                var neLatlng = bounds.getNorthEast()
 
-            setTimeout(() => {
+                var message =
+                    "영역좌표는 남서쪽 위도, 경도는  " +
+                    swLatlng.toString() +
+                    "이고 <br>"
+                message +=
+                    "북동쪽 위도, 경도는  " + neLatlng.toString() + "입니다 "
+
+                // setTimeout(() => {
                 console.log(message)
+                console.log(swLatlng)
+                console.log(neLatlng)
                 axios({
-                    url: url + `/post/list?leftBottom=${swLatlng}&rightTop=${neLatlng}`,
+                    url:
+                        url +
+                        `/post/list?top=${neLatlng.La}&bottom=${swLatlng.La}&left=${swLatlng.Ma}&right=${neLatlng.Ma}`,
                     // url: url + "/signup",
                     method: "get",
                     headers: {
@@ -271,6 +305,10 @@ export default function Location(props) {
                         // "Content-Type": "text/plain",
                     },
                     withCredentials: true,
+                }).then((res) => {
+                    console.log(res)
+                    setPostList(res.data)
+                    console.log(postList)
                 })
             }, 1000)
         })
@@ -345,26 +383,37 @@ export default function Location(props) {
     return (
         <>
             <ImgContainer id="map"></ImgContainer>
-
-            <PostListModal className={"1"}>
-                <PostBox className={"2"}>
-                    <Box className={"3"}>
-                        <PostImg src="img/sky.png" />
-                        <EmoticonBox>
-                            <IconImg src="img/sky.png" />
-                            <IconImg src="img/sky.png" />
-                            <IconImg src="img/sky.png" />
-                            <IconImg src="img/sky.png" />
-                            <IconImg src="img/sky.png" />
-                        </EmoticonBox>
-                    </Box>
-                    <Box2 className={"4"}>
-                        <PostTitle>나는 제목</PostTitle>
-                        <PostContent>
-                            나는 내용입니다. 주저리 주주러지 주저맂저주저리
-                        </PostContent>
-                    </Box2>
-                </PostBox>
+            <PostListModal>
+                {postList.map((post) => {
+                    return (
+                        <PostBox>
+                            <Box>
+                                <PostImg src={`${post.post_photo}`} />
+                                <EmoticonBox>
+                                    <IconImg
+                                        src={`/img/icons-write/${post.weather}.png`}
+                                    />
+                                    <IconImg
+                                        src={`/img/icons-write/${post.wind}.png`}
+                                    />
+                                    <IconImg
+                                        src={`/img/icons-write/${post.temp}.png`}
+                                    />
+                                    <IconImg
+                                        src={`/img/icons-write/${post.top_id}.png`}
+                                    />
+                                    <IconImg
+                                        src={`/img/icons-write/${post.bottom_id}.png`}
+                                    />
+                                </EmoticonBox>
+                            </Box>
+                            <Box2>
+                                <PostTitle>{`${post.post_title}`}</PostTitle>
+                                <PostContent>{`${post.post_content}`}</PostContent>
+                            </Box2>
+                        </PostBox>
+                    )
+                })}
             </PostListModal>
         </>
     )
