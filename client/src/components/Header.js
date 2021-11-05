@@ -17,7 +17,7 @@ import DaumPostcode from "react-daum-postcode"
 
 const HeaderOuter = styled.div`
     width: 100vw;
-    height: 200px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,7 +45,7 @@ const HeaderOuter = styled.div`
         justify-content: space-around;
     }
     @media screen and (max-width: 375px) {
-        height: 100px;
+        height: 110px;
         /* border: 1px solid red;  // 확인용 */
     }
 `
@@ -66,10 +66,11 @@ const TitleAndLogo = styled.div`
     display: ${(props) => (props.isMobileLogo ? "flex" : "none")};
     justify-content: center;
     align-items: center;
-
+    color: #231F20;
+    font-family: cursive;
     & img {
         width: 20%;
-        margin-right: 1rem;
+        margin-right: 0.5rem;
     }
 
     @media screen and (min-width: 1081px) {
@@ -82,11 +83,14 @@ const TitleAndLogo = styled.div`
 `
 
 const Center = styled.div`
+	position: relative;
     display: flex;
-
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+	min-width: 350px;
+    max-width: 800px;
+    /* justify-content: flex-start; */
+    justify-content: space-between;
 
     @media screen and (min-width: 1081px) {
         flex-direction: row;
@@ -96,11 +100,10 @@ const Center = styled.div`
 `
 
 const InputAndSubmit = styled.div`
-    /* flex-growth: 1; */
     display: flex;
-    justify-content: space-between;
+		// flex-direction: row;
+    justify-content: center;
     align-items: center;
-    position: relative;
 
     div {
         margin: auto 1rem;
@@ -111,6 +114,15 @@ const InputAndSubmit = styled.div`
         }
     }
 `
+// 주소검색창 부분
+const StyledPostCode = styled(DaumPostcode)`
+	position: absolute;
+	top: 50px;
+	border: 1px solid #E0E0E0;
+    @media screen and (max-width: 1081px) {
+        top: 32px;
+    }
+`;
 
 const Input = styled.input`
     padding: 0.5rem;
@@ -120,7 +132,7 @@ const Input = styled.input`
     background-color: var(--page-bg-color);
     border: 0.5px solid #dbdbdb;
     border-radius: 3px;
-    
+
     @media screen and (min-width: 1081px) {
         width: 300px;
     }
@@ -157,24 +169,24 @@ const Button = styled.button`
     margin: 0.5rem;
     border-radius: 10%;
 `
-const SearchBarAndDaumPost = styled.div`
-    // display: flex;
-    // flex-direction: row;
-    position: relative;
-    margin: "100px solid green";
-`
-const DaumPostcodeWrap = styled.div`
-    height: 3.5rem;
-    width: 100%;
-    // padding-right: 2.5rem;
-`
+// const SearchBarAndDaumPost = styled.div`
+//     // display: flex;
+//     // flex-direction: row;
+//     position: relative;
+//     margin: "100px solid green";
+// `
+// const DaumPostcodeWrap = styled.div`
+//     height: 3.5rem;
+//     width: 100%;
+//     // padding-right: 2.5rem;
+// `
 const Cancel = styled.button`
     // height: 3.5rem;
     // width: 100%;
     // padding-right: 2.5rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
     font-size: 0.8rem;
-    /* border: 1px solid red;  // 확인용 */
+    /* padding: 0.3rem; */
 `
 const Buttons2 = styled.div`
     background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
@@ -183,7 +195,9 @@ const Buttons2 = styled.div`
     padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
     margin: 0.5rem;
     border-radius: 10%;
-    /* border: 1px solid red; // 확인용 */
+    @media screen and (max-width: 1081px) {
+        padding: ${(props) => (props.isText ? ".6rem" : "0 0.5rem")};
+    }
     @media screen and (max-width: 375px) {
         font-size: ${(props) => (props.isText ? "1.2rem" : "1.2rem")};
         padding: ${(props) => (props.isText ? ".6rem" : ".2rem")};
@@ -243,7 +257,7 @@ export default function Header({ isInput, isMobileLogo }) {
                     src="img/img4.png"
                     alt="logo"
                 />
-                <h1 onClick={() => history.push("/")}>거기날씨</h1>
+                <h2 onClick={() => history.push("/")}>There Weather</h2>
             </TitleAndLogo>
 
             {isInput ? (
@@ -259,42 +273,34 @@ export default function Header({ isInput, isMobileLogo }) {
                             // onClick={onRest}
                             onFocus={(e) => setOnFocus(true)}
                         />
-                        {/* <SearchBarAndDaumPost> */}
-                        {/* <DaumPostcodeWrap> */}
-                        {onFocus ? (
-                            <DaumPostcode
-                                onComplete={handleComplete}
-                                style={{
-                                    position: "absolute",
-                                    left: "0",
-                                    top: "45px",
-                                    border: "1px solid pink",
-                                    // display: onFocus ? "none" : "true",
-                                    // left: "0",
-                                    // height: "80%",
-                                    width: "395px",
-                                }}
-                            />
-                        ) : (
-                            <></>
-                        )}
-                        {/* </DaumPostcodeWrap> */}
-                        {/* </SearchBarAndDaumPost> */}
                         <Buttons2 bgGrey>
                             {onFocus ? (
                                 <Cancel onClick={() => setOnFocus(false)}>
                                     Cancel
                                 </Cancel>
                             ) : (
-                                <FontAwesomeIcon
-                                    onClick={() =>
-                                        dispatch(changeSearchword(searchEvent))
-                                    }
-                                    icon={faSearch}
-                                />
+                            <FontAwesomeIcon
+                                onClick={() =>
+                                    dispatch(changeSearchword(searchEvent))
+                                }
+                                icon={faSearch}
+                            />
                             )}
                         </Buttons2>
+                        {/* <SearchBarAndDaumPost> */}
+                        {/* <DaumPostcodeWrap> */}
+                        
+                        {/* </DaumPostcodeWrap> */}
+                        {/* </SearchBarAndDaumPost> */}
                     </InputAndSubmit>
+                        {onFocus ? (
+                            <StyledPostCode
+                                className="daumPostCodeContainer"
+                                onComplete={handleComplete}
+                            />
+                            ) : (
+                                <></>
+                        )}
                     <Buttons className="headerButtons">
                         <Button>
                             <FontAwesomeIcon icon={faSun} />

@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 const Outer = styled.div`
     margin: 0 auto;
-    background-color: #fef9ef;
+    background-color: var(--page-bg-color);
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -18,11 +18,13 @@ const InfoBox = styled.div`
     margin: 0 auto;
     background-color: #ffffff;
     border-radius: 10px;
-    width: 40vw;
+    width: 30vw;
     height: 10vh;
     text-align: center;
+    border: 1px solid #dbdbdb;
     p {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
+        color: #dbdbdb;
         margin: 0;
         line-height: 10vh;
         @media screen and (max-width: 375px) {
@@ -33,12 +35,17 @@ const InfoBox = styled.div`
         margin-top: 3vh;
     }
     &:hover {
-        background-color: #f4b567;
-        color: #ffffff;
+        border: 1px solid #262626;
+        p{
+            color: #262626;
+        }
     }
 
     @media screen and (max-width: 1081px) {
         /* border: 1px solid green; */
+    }
+    @media screen and (max-width: 375px) {
+
     }
 `
 
