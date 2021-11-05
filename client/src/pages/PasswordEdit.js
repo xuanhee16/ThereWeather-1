@@ -78,8 +78,10 @@ const StyledLi = styled.li`
   height: 1.2rem;
   padding: 0 1.5rem;
   font-size: .9rem;
+  // font-weight: bold;
   color: ${ props => props.valid ? `var(--font-validation-positive)` : `var(--font-validation-negative)` };
-`;
+  font-weight: ${ props => props.valid ? `bold` : `null` };
+  `;
 
 const Buttons = styled.div`
   display: flex;
