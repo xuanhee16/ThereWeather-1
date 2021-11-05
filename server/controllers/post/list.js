@@ -1,7 +1,6 @@
 const { post } = require("../../models")
 const { user } = require("../../models")
 const { Op } = require("sequelize")
-const map = require("../get/map")
 
 module.exports = {
     get: async (req, res) => {
