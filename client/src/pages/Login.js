@@ -201,7 +201,7 @@ const Button = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "#419300")};
+    background-color: #EA4335;
     border-radius: 1rem;
 
     > span {
@@ -225,7 +225,7 @@ const Button3 = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    background-color: #2f6ecb;
     border-radius: 1rem;
 
     > span {
@@ -242,7 +242,7 @@ const Button2 = styled.input`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")};
     border-radius: 1rem;
 
     > span {
