@@ -11,7 +11,7 @@
 
 :root {
     /* 색상 */
-    --page-bg-color: #fef9ef;
+    --page-bg-color: #FAFAFA;
     --mobile-header-color: #a2d2ff;
     --button-bg-normal: #ddd;
     --button-bg-positive: #b79ac1;
@@ -25,7 +25,7 @@
     --modal-confirm-button-bg: #c4c4c4;
 
     /* 길이 - 모바일 */
-    --mobile-page-height: calc(100vh - 200px);
+    --mobile-page-height: calc(100vh - 125px);
     --mobile-header-height: 200px;
     --mobile-menubar-height: 70px;
 

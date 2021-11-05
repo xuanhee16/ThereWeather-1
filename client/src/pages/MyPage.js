@@ -10,14 +10,14 @@ import GoBackButton from  "../components/GoBackButton";
 const Outer = styled.div`
     background-color: var(--page-bg-color);
     width: 100vw;
-    /* height: auto; */
-    min-height: 100vh;
+    min-height: calc(100vh - 125px);
     position: relative;
     display: flex;
     padding-bottom: 100px;
 
     @media screen and (max-width: 1081px) {
         flex-direction: column;
+        min-height: calc(100vh - 125px - 70px);
     }
 `
 /* 프로필 정보 */
@@ -118,7 +118,6 @@ const GridArea = styled.div`
     column-gap: 20px; /* column의 간격을 20px로 */
 
     .item:nth-child(1) {
-        background-color: #fef9ef;
         border: none;
         grid-column: 1 / 4;
         grid-row: 1 / 2;
@@ -138,6 +137,7 @@ const GridArea = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
+        background-color: transparent;
     }
     p {
         font-size: 3rem;

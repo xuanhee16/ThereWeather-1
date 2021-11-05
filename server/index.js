@@ -56,7 +56,6 @@ app.get("/", (req, res) => {
 
 
 
-
 //겹치는거
 app.use("/users", upload.single("img"), userRouter)
 app.use("/post", upload.single("img"), postRouter) //글쓰는 곳 - Write.js
