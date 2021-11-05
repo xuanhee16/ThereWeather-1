@@ -17,7 +17,7 @@ import DaumPostcode from "react-daum-postcode"
 
 const HeaderOuter = styled.div`
     width: 100vw;
-    height: 200px;
+    height: 125px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,13 +39,11 @@ const HeaderOuter = styled.div`
 
     @media screen and (min-width: 1081px) {
         width: 100vw;
-        // height: 125px;
         background-color: white;
         flex-direction: row;
         justify-content: space-around;
     }
     @media screen and (max-width: 375px) {
-        // height: 100px;
         /* border: 1px solid red;  // 확인용 */
     }
 `
@@ -85,9 +83,10 @@ const Center = styled.div`
 		position: relative;
     display: flex;
     flex-direction: column;
+		justify-content: center;
     align-items: center;
 		min-width: 350px;
-    justify-content: flex-start;
+    justify-content: space-around;
 
     @media screen and (min-width: 1081px) {
         flex-direction: row;
@@ -98,7 +97,6 @@ const Center = styled.div`
 
 const InputAndSubmit = styled.div`
     display: flex;
-		// flex-direction: row;
     justify-content: center;
     align-items: center;
 
@@ -115,7 +113,7 @@ const InputAndSubmit = styled.div`
 const StyledPostCode = styled(DaumPostcode)`
 	position: absolute;
 	top: 50px;
-	border: 5px solid hotpink;
+	border: 1px solid black;
 `;
 
 const Input = styled.input`
@@ -163,17 +161,20 @@ const Button = styled.button`
     margin: 0.5rem;
     border-radius: 10%;
 `
+
 // const SearchBarAndDaumPost = styled.div`
 //     // display: flex;
 //     // flex-direction: row;
 //     position: relative;
 //     margin: "100px solid green";
 // `
+
 // const DaumPostcodeWrap = styled.div`
 //     height: 3.5rem;
 //     width: 100%;
 //     // padding-right: 2.5rem;
 // `
+
 const Cancel = styled.button`
     // height: 3.5rem;
     // width: 100%;
@@ -182,6 +183,7 @@ const Cancel = styled.button`
     font-size: 0.8rem;
     /* border: 1px solid red;  // 확인용 */
 `
+
 const Buttons2 = styled.div`
     background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
     color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
