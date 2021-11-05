@@ -15,7 +15,7 @@ const { isAuthorized } = require("./controllers/tokenFunc/index")
 const { user } = require("./models/index")
 const { encrypto } = require("./controllers/get/setpw")
 
-const weather = require("./controllers/get/weather.js")
+// const weather = require("./controllers/post/weather.js")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -45,24 +45,30 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-app.get("/2", (req, res) => {
-    res.send("Hello World!!22!2")
-})
-app.get("/", (req, res) => {
-    res.send("Hello World!!ThereWeather!!!!")
-})
 
-// //기상청 날씨 api
-app.get("/", async (req, res) => {
-    //서울시 중구
-    await weather("60", "127", (error, { weathers } = {}) => {
-        if (error) {
-            res.send(error)
-        } else {
-            res.send(weathers)
-        }
-    })
-})
+// app.get("/2", (req, res) => {
+//     res.send("Hello World!!22!2")
+// })
+// app.get("/", (req, res) => {
+//     res.send("Hello World!!ThereWeather!!!!")
+// })
+app.get("/map2", controllers.map)
+//기상청 날씨 api 
+// app.get("/", async(req, res) => {
+//     //서울시 중구 
+//     await weather('x', 'y', (error, {weathers}={}) => {
+//         if(error){
+//             console.log("index:",error)
+//             res.send(error)
+//         }
+//         else{
+//             console.log("index:",weathers)
+//             res.send(weathers)
+//         }
+//     })
+// })
+
+
 
 //겹치는거
 app.use("/users", upload.single("img"), userRouter)
@@ -76,13 +82,14 @@ app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
 app.get("/bookmark", controllers.bookmark) //북마크 보는 곳 - BookMark.js
 app.get("/codi", controllers.codi) //북마크에서 코디 누르면 확대해서 보는 곳 - Codi.js
 app.get("/home", controllers.home) //홈 - Home.js
-app.get("/map", controllers.map) //지도 - Map.js
-app.get("/mypage", controllers.mypage) //마이페이지 - MyPage.js
+app.get("/weather", controllers.weather)
+app.post("/mypage", controllers.mypage) //마이페이지 - MyPage.js
 app.get("/readpost", controllers.readpost) //예보글보기 - PostRead.js
 
 //post
 app.post("/login", controllers.login) //로그인시 - Login.js
 app.post("/signout", controllers.signout) //로그아웃시
+app.post("/map", controllers.map) //지도 - Map.js
 
 //put
 app.put("/password", controllers.password) //비밀번호 수정시 - MyPage.js

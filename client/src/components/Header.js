@@ -17,7 +17,7 @@ import DaumPostcode from "react-daum-postcode"
 
 const HeaderOuter = styled.div`
     width: 100vw;
-    height: 150px;
+    height: 125px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +28,7 @@ const HeaderOuter = styled.div`
     top: 0;
     left: 0;
     z-index: 100;
-    border: 0.5px solid #dbdbdb;
+    border-bottom: 0.5px solid #dbdbdb;
 
     h1 {
         font-weight: bold;
@@ -39,13 +39,11 @@ const HeaderOuter = styled.div`
 
     @media screen and (min-width: 1081px) {
         width: 100vw;
-        height: 125px;
         background-color: white;
         flex-direction: row;
         justify-content: space-around;
     }
     @media screen and (max-width: 375px) {
-        height: 110px;
         /* border: 1px solid red;  // 확인용 */
     }
 `
@@ -83,14 +81,13 @@ const TitleAndLogo = styled.div`
 `
 
 const Center = styled.div`
-	position: relative;
+    position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-	min-width: 350px;
-    max-width: 800px;
-    /* justify-content: flex-start; */
-    justify-content: space-between;
+    min-width: 350px;
+    justify-content: space-around;
 
     @media screen and (min-width: 1081px) {
         flex-direction: row;
@@ -101,7 +98,6 @@ const Center = styled.div`
 
 const InputAndSubmit = styled.div`
     display: flex;
-		// flex-direction: row;
     justify-content: center;
     align-items: center;
 
@@ -122,6 +118,12 @@ const StyledPostCode = styled(DaumPostcode)`
     @media screen and (max-width: 1081px) {
         top: 32px;
     }
+`;
+
+const StyledPostCode = styled(DaumPostcode)`
+	position: absolute;
+	top: 50px;
+	border: 1px solid black;
 `;
 
 const Input = styled.input`
@@ -188,6 +190,7 @@ const Cancel = styled.button`
     font-size: 0.8rem;
     /* padding: 0.3rem; */
 `
+
 const Buttons2 = styled.div`
     background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
     color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};

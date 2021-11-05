@@ -6,10 +6,15 @@ const Outer = styled.div`
     margin: 0 auto;
     background-color: var(--page-bg-color);
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 125px);
     display: flex;
     align-items: center;
+
+    @media screen and (max-width: 1081px) {
+        height: calc(100vh - 125px - 70px);
+    }
 `
+
 const InfoBoxes = styled.div`
     margin: 0 auto;
 `
