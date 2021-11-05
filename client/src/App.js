@@ -20,9 +20,8 @@ import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import FirstPage from "./pages/FirstPage"
 import { changeIsLogin, changeUser } from "./actions/index"
-import styled from "styled-components"
 
-let url = process.env.REACT_APP_LOCAL_URL 
+let url = process.env.REACT_APP_LOCAL_URL
 // const url = "https://thereweather.space"
 
 export default function App() {

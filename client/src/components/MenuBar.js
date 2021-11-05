@@ -20,7 +20,6 @@ const Outer = styled.div`
     right: 0;
     bottom: 0;
 
-
     @media screen and (min-width: 1081px) {
         width: 1080px;
     }
@@ -36,12 +35,13 @@ const Buttons = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 101;
+    border-top: 1px solid #dbdbdb;
 
     @media screen and (min-width: 1081px) {
         position: fixed;
         background-color: white;
-        border-top: 1px solid black;
-        border-left: 1px solid black;
+        border-top: 1px solid #dbdbdb;
+        border-left: 1px solid #dbdbdb;
         width: 400px;
     }
 `
