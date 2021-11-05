@@ -45,10 +45,11 @@ export default function Location(props) {
                     console.log(lat, lon) //브라우저에 찍힘        
                     axios({
                         url: url + "/map",
-                        method: "post",
+                        method: "post",   
                         data: { lat: lat, lon: lon },
                         withCredentials: true
                     })
+                    .then((res) => console.log(res))
                 })
             };
         })
