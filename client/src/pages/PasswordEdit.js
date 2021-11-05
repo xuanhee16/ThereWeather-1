@@ -78,6 +78,7 @@ const StyledLi = styled.li`
   height: 1.2rem;
   padding: .3rem 2rem;
   font-size: .9rem;
+  // font-weight: bold;
   color: ${ props => props.valid ? `var(--font-validation-positive)` : `var(--font-validation-negative)` };
   font-weight: ${ props => props.valid ? `bold` : `null` };
   `;
