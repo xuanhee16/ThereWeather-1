@@ -22,7 +22,7 @@ const HeaderOuter = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #FFFFFF;
+    background-color: white;
     padding: 1rem;
     position: sticky;
     top: 0;
@@ -100,6 +100,7 @@ const InputAndSubmit = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 
     div {
         margin: auto 1rem;
@@ -265,13 +266,13 @@ export default function Header({ isInput, isMobileLogo }) {
                                 onComplete={handleComplete}
                                 style={{
                                     position: "absolute",
-                                    left: "332px",
-                                    top: "5px",
+                                    left: "0",
+                                    top: "45px",
                                     border: "1px solid pink",
                                     // display: onFocus ? "none" : "true",
                                     // left: "0",
                                     // height: "80%",
-                                    // width: "100%",
+                                    width: "395px",
                                 }}
                             />
                         ) : (
