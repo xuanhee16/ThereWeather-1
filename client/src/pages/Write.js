@@ -51,12 +51,11 @@ const Button2 = styled.input`
     max-width: 300px;
     margin: 1rem;
     padding: 0.8rem;
-    font-size: 1.2rem;
+    border-radius: 1rem;
+    font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
-
-    border-radius: 1rem;
+    background-color: #2f6ecb;
 
     > span {
         margin: 0.25rem;
@@ -71,11 +70,11 @@ const PictureSection = styled.form`
     margin: 1rem;
     height: inherit;
 
-    & > img {
-        width: 80%;
-        height: auto;
-        margin: 1rem;
-    }
+    // & > img {
+    //     width: 70%;
+    //     height: auto;
+    //     margin: 1rem;
+    // }
 
     @media screen and (min-width: 1081px) {
         justify-content: center;
@@ -183,33 +182,34 @@ const WriteText = styled.textarea`
     }
 `
 const PhotoBox = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
     min-width: 300px;
-    width: 30vh;
-    height: 30vh;
+    min-height: 300px;
     background-color: #ececec;
-    font-size: 30px;
-    color: palevioletred;
     border: 1px solid #b5b5b5;
-    /* width: 300px;
-height: 150px; */
     object-fit: cover;
 `
+
 const PhotoBox2 = styled.img`
     min-width: 300px;
     width: 30vh;
-    height: 30vh;
+    height: auto;
 `
 
 const Button3 = styled.button`
     width: 50vw;
     min-width: 100px;
     max-width: 300px;
-    margin: 1rem;
+    margin: .5rem;
     padding: 0.8rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    background-color: #2f6ecb;
     border-radius: 1rem;
 
     > span {
