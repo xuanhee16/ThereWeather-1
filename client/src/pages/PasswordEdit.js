@@ -52,7 +52,7 @@ const InputAndTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: .5rem;
+  // margin: .5rem;
 
   h3 {
     font-size: 1.3rem;
@@ -70,16 +70,17 @@ const InputText = styled.input`
 
 const ValidationListBox = styled.ul`
   list-style: none;
-  padding: 0 1.5rem;
+  padding: 0 0 1rem 0;
   font-size: 1rem;
 `;
 
 const StyledLi = styled.li`
   height: 1.2rem;
-  padding: 0 1.5rem;
+  padding: .3rem 2rem;
   font-size: .9rem;
   color: ${ props => props.valid ? `var(--font-validation-positive)` : `var(--font-validation-negative)` };
-`;
+  font-weight: ${ props => props.valid ? `bold` : `null` };
+  `;
 
 const Buttons = styled.div`
   display: flex;
