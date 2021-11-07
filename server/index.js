@@ -45,7 +45,6 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-
 // app.get("/2", (req, res) => {
 //     res.send("Hello World!!22!2")
 // })
@@ -53,9 +52,9 @@ const upload = multer({
 //     res.send("Hello World!!ThereWeather!!!!")
 // })
 app.get("/map2", controllers.map)
-//기상청 날씨 api 
+//기상청 날씨 api
 // app.get("/", async(req, res) => {
-//     //서울시 중구 
+//     //서울시 중구
 //     await weather('x', 'y', (error, {weathers}={}) => {
 //         if(error){
 //             console.log("index:",error)
@@ -67,8 +66,6 @@ app.get("/map2", controllers.map)
 //         }
 //     })
 // })
-
-
 
 //겹치는거
 app.use("/users", upload.single("img"), userRouter)
@@ -111,6 +108,7 @@ if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
     server = https.createServer(credentials, app)
     server.listen(HTTPS_PORT, () => console.log("https server runnning"))
 } else {
+    console.log("feat/socket")
     server = app.listen(HTTPS_PORT, () => console.log("http server runnning"))
 }
 module.exports = server

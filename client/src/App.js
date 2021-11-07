@@ -19,10 +19,11 @@ import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import FirstPage from "./pages/FirstPage"
+import One from "./pages/One"
 import { changeIsLogin, changeUser } from "./actions/index"
 import styled from "styled-components"
 
-let url = process.env.REACT_APP_LOCAL_URL 
+let url = process.env.REACT_APP_LOCAL_URL
 // const url = "https://thereweather.space"
 
 export default function App() {
@@ -95,6 +96,12 @@ export default function App() {
                     <PostRead></PostRead>
                 </Route>
                 <Route exact path="/first">
+                    <FirstPage />
+                </Route>
+                <Route exact path="/one">
+                    <One />
+                </Route>
+                <Route exact path="/two">
                     <FirstPage />
                 </Route>
                 <Route exact path="/writeorlogin">
