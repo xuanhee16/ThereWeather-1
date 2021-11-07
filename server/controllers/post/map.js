@@ -1,4 +1,4 @@
-const { toXY } = require("../post/xyConvert")
+const { toXY } = require("./xyConvert")
 const axios = require("axios")
 const serviceKey = require("../../config/key")
 const aqiUrl = require("../../config/url")

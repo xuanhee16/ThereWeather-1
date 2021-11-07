@@ -120,11 +120,6 @@ const StyledPostCode = styled(DaumPostcode)`
     }
 `;
 
-const StyledPostCode = styled(DaumPostcode)`
-	position: absolute;
-	top: 50px;
-	border: 1px solid black;
-`;
 
 const Input = styled.input`
     padding: 0.5rem;

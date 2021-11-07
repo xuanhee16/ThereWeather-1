@@ -68,37 +68,10 @@ export default function Location(props) {
     console.log(searchWord)
     console.log(props)
 
-    //현재 위치 test 
-    //  useEffect(() => {
-    //         if (navigator.geolocation) {
-    //             // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-    //             navigator.geolocation.getCurrentPosition(function (position) {
-    //                 let lat = position.coords.latitude, // 위도
-    //                     lon = position.coords.longitude // 경도
-    //                 console.log(lat, lon) //브라우저에 찍힘        
-    //                 axios({
-    //                     url: url + "/map",
-    //                     method: "post",   
-    //                     data: { lat: lat, lon: lon },
-    //                     withCredentials: true
-    //                 })
-                    
-    //                 // .then((res) => console.log(res.data.item.filter((obj) => {
-    //                 //     return obj['category'] === "SKY"
-    //                 // })[0].fcstValue)) //1
-
-    //                 // .then((res) => console.log(res.data.item.filter((obj) => {
-    //                 //     return obj['category'] === "SKY"
-    //                 // })))
-    //                 .then((res) => console.log(res.data))
-    //             })
-    //         };
-    //     })
 
 
 
-    //-----------------------------------------------------------------
-
+    //---------------
     useEffect(() => {
         var container = document.getElementById("map")
         var options = {

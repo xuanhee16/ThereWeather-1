@@ -87,7 +87,7 @@ export default function Home() {
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
   
-    const [weatherData, setWeatherData] = useState([])
+    const [weatherData, setWeatherData] = useState()
     useEffect(() => {
 
     if (navigator.geolocation) {
@@ -103,29 +103,15 @@ export default function Home() {
               withCredentials: true
           })
           .then((res) => {
-            console.log(res.data)
-            const { fcstDate, fcstTime, fcstValue, category } = res.data
-            setWeatherData({ fcstDate, fcstTime, fcstValue, category })
+            //console.log(res.data)
+            //console.log(res.data.item)
+            setWeatherData(res.data)
             dispatch(updateWeatherInfo(res.data))    
-            
-            
-            .then((res) => console.log(res.data.item.filter((obj) => {
-              return obj['category'] === "SKY"
-            })[0].fcstValue)) //1
-        
-            // console.log(res.data.item.filter((obj) => {
-            //   return obj['category'] === "T1H" || obj['category'] === "SKY" || obj['category'] === "PTY" 
-            // }))
-          }) 
-
-          // .then((res) => console.log(res.data.item.filter((obj) => {
-          //     return obj['category'] === "SKY"
-          // })))
-         
+          })
       })
-  };
+    };
   }, [])
-   
+ 
 
     return (
         <div className="homecontainer">
@@ -140,13 +126,14 @@ export default function Home() {
                         기상청 일기예보
                         <div className="weatherInfo">
                         <ul>
-                          <li>x위치:{weatherData.xLocation}</li>
-                          <li>y위치:{weatherData.yLocation}</li>
-                          <li>기준 예보시각:{weatherData.time}</li>
-                          <li>날짜:{weatherData.fcstDate}</li>
-                          <li>하늘상태:{weatherData.cloudy === 0 ? null : "맑음"}</li>
-                          <li>현재기온:{weatherData.temp}</li>
-                          <li>날씨:{weatherData.weatherType === 0 ? null : "해"}</li>
+                          {/* {console.log(weatherData.item)}  */}
+                          {/* weatherData -> {item: Array(30)}, weatherData.item -> [ baseDate: '20211106',baseTime: '2130',category: 'T1H', fcstDate: '20211107', fcstTime: '0300', fcstValue: '10', nx: 59, ny: 128, ... ] */}
+                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] }
+                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>기준 예보시각:{info.baseTime}</li> })[0] }
+                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 기온:{info.fcstValue}</li> })[24] } {/* T1H */}
+                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 하늘상태:{info.fcstValue === 1 ? "맑음" : (info.fcstValue === 3 ? "구름많음" : "흐림") }</li> })[18] } {/* SKY */}
+                         {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 날씨상태:{info.fcstValue === 0 ? null : "해"}</li> })[6] } PTY */}
+                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 날씨상태:{info.fcstValue === 0 ? (info.fcstValue === 1 ? "비" : "눈"): "해" }</li> })[6] } {/* PTY */}
                         </ul> 
                         </div>
                     </LeftNav2>
