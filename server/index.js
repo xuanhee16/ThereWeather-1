@@ -1,6 +1,7 @@
 require("dotenv").config()
 const fs = require("fs")
 const path = require("path")
+const http = require("http")
 const https = require("https")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
@@ -107,8 +108,74 @@ if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
     const credentials = { key: privateKey, cert: certificate }
     server = https.createServer(credentials, app)
     server.listen(HTTPS_PORT, () => console.log("https server runnning"))
-} else {
-    console.log("feat/socket")
-    server = app.listen(HTTPS_PORT, () => console.log("http server runnning"))
 }
+// else {
+console.log("feat/socket")
+server = http.createServer(app)
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+    },
+})
+
+//클라와 연결되면 시작할 함수
+io.on("connection", (socket) => {
+    // console.log(socket)
+    console.log("나 연결")
+    socket.onAny((event) => {
+        console.log("onAny= " + event)
+    })
+    socket.on("enter_room", (roomName) => {
+        console.log(socket.rooms)
+        console.log(roomName)
+        socket.join(roomName)
+        socket.to(roomName).emit("welcome")
+    })
+    socket.on("disconnecting", () => {
+        socket.rooms.forEach((room) => socket.to(room).emit("bye"))
+    })
+    socket.on("newMsg", (msg, room, done) => {
+        // socket.rooms.forEach((room) => socket.to(room).emit("bye"))
+        socket.to(room).emit("newMsg", msg)
+        done()
+    })
+
+    // // socket.emit("서버로 보낼 이벤트명", 데이터)
+    // socket.emit("me", socket.id)
+
+    // //클라로부터 disconnect 이벤트를 받을경우 실행할 함수
+    // socket.on("disconnect", () => {
+    //     //나를 제외한 전체에게 메세지를 보내는 방법
+    //     console.log("disconnect연결")
+    //     socket.broadcast.emit("callEnded")
+    // })
+
+    // //클라로부터 callUser 이벤트를 받을경우 실행할 함수
+    // //전화가 닿으면 받기전에 미리 연결된다
+    // socket.on("callUser", (data) => {
+    //     console.log("callUser연결")
+
+    //     io.to(data.userToCall).emit("callUser", {
+    //         signal: data.signalData,
+    //         from: data.from,
+    //         name: data.name,
+    //     })
+    // })
+
+    // //클라로부터 answerCall 이벤트를 받을경우 실행할 함수
+    // //전화를 받기 완료 후 연결된다.
+    // socket.on("answerCall", (data) => {
+    //     console.log("answerCall연결")
+
+    //     io.to(data.to).emit("callAccepted", data.signal)
+    // })
+})
+
+server.listen(HTTPS_PORT, function () {
+    var host = server.address().address
+    var port = server.address().port
+    console.log("Server is working : PORT - ", port)
+})
+// }
 module.exports = server

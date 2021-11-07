@@ -20,6 +20,7 @@ import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import FirstPage from "./pages/FirstPage"
 import One from "./pages/One"
+import Two from "./pages/Two"
 import { changeIsLogin, changeUser } from "./actions/index"
 import styled from "styled-components"
 
@@ -102,7 +103,7 @@ export default function App() {
                     <One />
                 </Route>
                 <Route exact path="/two">
-                    <FirstPage />
+                    <Two />
                 </Route>
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
