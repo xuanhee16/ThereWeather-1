@@ -1,28 +1,19 @@
-import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React from "react"
+// import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
-import { changeUser } from "../actions/index"
 import MapBox from "../components/MapBox"
 
 const Container = styled.div`
     // background-color: #f1319e;
     width: 100%;
+    border: 1px solid pink;
+    position: relative;
 
     @media screen and (min-width: 1081px) {
-        background-color: yellow;
+        // background-color: yellow;
         // max-width: 100%;
         width: 100%;
-    }
-`
-const Container2 = styled.img`
-    // background-color: pink;
-
-    @media screen and (min-width: 1081px) {
-        // width: 100%;
-        // max-width: 100%
-        // background-color: blue;
-        display: block;
-        // width: 100%;
+        position: relative;
     }
 `
 
