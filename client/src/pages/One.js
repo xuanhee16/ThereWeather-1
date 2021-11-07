@@ -18,7 +18,13 @@ const Container = styled.div`
         position: relative;
     }
 `
-const socket = io.connect("http://localhost:80")
+
+let url = process.env.REACT_APP_LOCAL_URL
+if (!url) {
+    url = "https://thereweather.space"
+}
+// const socket = io.connect("http://localhost:80")
+const socket = io.connect(url)
 
 export default function One() {
     // const dispatch = useDispatch()
