@@ -4,7 +4,6 @@ module.exports = {
     codi: require("./get/codi"),
     home: require("./get/home"),
     map: require("./post/map"),
-    weather: require("./get/weather"),
     mypage: require("./get/mypage"),
     readpost: require("./get/readpost"),
     login: require("./post/login"),

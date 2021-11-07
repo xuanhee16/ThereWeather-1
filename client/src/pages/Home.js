@@ -131,9 +131,9 @@ export default function Home() {
                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] }
                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>기준 예보시각:{info.baseTime}</li> })[0] }
                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 기온:{info.fcstValue}</li> })[24] } {/* T1H */}
-                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 하늘상태:{info.fcstValue === 1 ? "맑음" : (info.fcstValue === 3 ? "구름많음" : "흐림") }</li> })[18] } {/* SKY */}
+                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 하늘상태:{info.fcstValue  === "1" ? (info.fcstValue  === "3" ? "맑음" : "구름많음") : "흐림" }</li> })[18] } {/* SKY */}
                          {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 날씨상태:{info.fcstValue === 0 ? null : "해"}</li> })[6] } PTY */}
-                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 날씨상태:{info.fcstValue === 0 ? (info.fcstValue === 1 ? "비" : "눈"): "해" }</li> })[6] } {/* PTY */}
+                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 날씨상태:{info.fcstValue === "0" ? (info.fcstValue === "1" ? "비" : "강수량 없음"): "눈" }</li> })[6] } {/* PTY */}
                         </ul> 
                         </div>
                     </LeftNav2>

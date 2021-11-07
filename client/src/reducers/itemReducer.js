@@ -74,13 +74,6 @@ const itemReducer = (state = initialState, action) => {
             return {
                 ...state,
                 item: action.payload
-                // xLocation: action.payload.xLocation,
-                // yLocation: action.payload.yLocation,
-                // date: action.payload.date, 
-                // time: action.payload.time, 
-                // cloudy: action.payload.cloudy, 
-                // temp: action.payload.temp, 
-                // weatherType: action.payload.weatherType
             }
 
         default:

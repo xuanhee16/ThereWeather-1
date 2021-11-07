@@ -66,7 +66,6 @@ app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
 app.get("/bookmark", controllers.bookmark) //북마크 보는 곳 - BookMark.js
 app.get("/codi", controllers.codi) //북마크에서 코디 누르면 확대해서 보는 곳 - Codi.js
 app.get("/home", controllers.home) //홈 - Home.js
-app.get("/weather", controllers.weather)
 app.get("/readpost", controllers.readpost) //예보글보기 - PostRead.js
 
 //post
