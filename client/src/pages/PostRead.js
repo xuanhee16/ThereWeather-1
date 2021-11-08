@@ -6,6 +6,7 @@ import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
 
+
 const Outer = styled.div`
   width: 100vw;
   background-color: var(--page-bg-color);
@@ -272,15 +273,16 @@ const Buttons = styled.div`
 `
 // 스크롤 top 버튼 (필요한 페이지 추가적으로 나오면 컴포넌트로 만들기)
 const TopButton = styled.div`
-  width: 100%;
+  /* width: 100%; */
   height: 200px;
   position: fixed;
   z-index: 100;
   display: flex;
   justify-content: flex-end;
-  bottom: 0px;
+  right: 0;
+  bottom: 0;
   transition: all 0.3s;
-  
+
   img{
     width: 6rem;
     height: 6rem;
@@ -316,26 +318,31 @@ export default function PostRead(){
 
   // 게시물 수정
   const editPost = () => {
-    setEdit(!isOpen)
-    history.push()
+    console.log('수정버튼동작확인');
+    setEdit(true);
   }
+
   // 게시물 삭제
   const deletePost = () => {
-    setRemovePost(!isOpen)
-    history.push()
+    console.log('삭제버튼동작확인');
+    setRemovePost(true);
   }
+
   const editModalYes = () => {
-    console.log('수정완료');
-    setEdit(false)
+    setEdit(false);
+    history.push("/editpost");
   }
+
   const removeModalYes = () => {
     console.log('삭제완료')
     setRemovePost(false)
   }
+
   const modalNoButtonHandler = () => {
     setRemovePost(false)
     setEdit(false)
   }
+
   const modalCloseButtonHandler = () => {
     setRemovePost(false)
     setEdit(false)
@@ -343,7 +350,6 @@ export default function PostRead(){
 
   const bookmarkHandler = (e) => {
     console.log(e.currentTarget);
-
   }
 
   // top button
@@ -393,7 +399,7 @@ export default function PostRead(){
         <Title>
           <BookmarkIcon>
             <FontAwesomeIcon icon={faHeart} size="2x" className="heart" onClick={bookmarkHandler}/>
-            
+
           </BookmarkIcon>
           <span>{'오늘 날씨 맑음☀️'}</span>
         </Title>
@@ -435,7 +441,7 @@ export default function PostRead(){
             yesHandler={removeModalYes}
             noHandler={modalNoButtonHandler}
             closeHandler={modalCloseButtonHandler}
-          >삭제하시겠습니까</ModalConfirm>
+          >삭제하시겠습니까?</ModalConfirm>
           )}
         <button className="button button2" onClick={editPost}>수정</button>
         {edit === false ? null : (
@@ -443,7 +449,7 @@ export default function PostRead(){
             yesHandler={editModalYes}
             noHandler={modalNoButtonHandler}
             closeHandler={modalCloseButtonHandler}
-          >수정하시겠습니까</ModalConfirm>
+          >수정하시겠습니까?</ModalConfirm>
         )}
       </Buttons>
 
