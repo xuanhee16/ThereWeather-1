@@ -82,6 +82,11 @@ export default function UserInfo() {
                     <p>마이페이지</p>
                 </InfoBox>
                 <InfoBox>
+                    <button onClick={() => history.push("/messenger")}>
+                        <p>메신져</p>
+                    </button>
+                </InfoBox>
+                <InfoBox>
                     <button onClick={logoutBtnHandler}>
                         <p>로그아웃</p>
                     </button>
