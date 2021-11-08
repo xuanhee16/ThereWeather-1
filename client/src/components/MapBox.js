@@ -487,6 +487,10 @@ export default function Location(props) {
             background-color: #f7f7f7;
         }
 
+        &:hover {
+            background-color: #fafafa;
+        }
+
         @media screen and (min-width: 1081px) {
         }
     `
