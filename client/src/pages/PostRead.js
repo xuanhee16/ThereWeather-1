@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTshirt } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faTshirt } from "@fortawesome/free-solid-svg-icons";
 // faHeart, faSun, faWind, faThermometerHalf
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -9,8 +9,9 @@ import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
-import { get, post } from "jquery";
+// import { get, post } from "jquery";
 
+// TODO : *북마크 여부*, 주소, 프로필 사진, 닉네임
 
 const Outer = styled.div`
   width: 100vw;
@@ -21,8 +22,8 @@ const Outer = styled.div`
     margin: 0 auto;
     width: 60%;
     text-align: center;
-    font-size: 25px;
-    font-weight: bold;
+    // font-size: 25px;
+    // font-weight: bold;
     color: #2E2E2E;
     padding-top: 2vh;
     border-top: 1px solid #aaa;
@@ -30,13 +31,13 @@ const Outer = styled.div`
   @media screen and (max-width: 1081px){
     .todayCodi{
       margin-top: 2vh;
-      font-size: 2rem;
+      // font-size: 2rem;
       font-weight: bold;
     }
   }
   @media screen and (max-width: 375px) {
     .todayCodi{
-      font-size: 1.5rem;
+      // font-size: 1.5rem;
     }
   }
 `
@@ -177,7 +178,7 @@ const WeatherInfo = styled.div`
   }
 `
 
-const WeatherIcon = styled.img`
+const Icon = styled.img`
   @media screen and (max-width: 1081px) {
     width: 4rem;
   }
@@ -191,19 +192,27 @@ const TodayCodi = styled.div`
   width: 20%;
   text-align: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items:center;
   margin: auto;
   margin-top: 3vh;
   margin-bottom: 3vh;
-  font-size: 8rem;
+  // font-size: 8rem;
+
+  & p {
+    font-size: .9rem;
+    width: 6rem;
+    height: 6rem;
+    text-align: center;
+  }
 
   @media screen and (max-width: 1081px) {
     width: 50%;
-    font-size: 5rem;
+    // font-size: 5rem;
   }
   @media screen and (max-width: 375px) {
     width: 50vw;
-    font-size: 70px;
+    // font-size: 70px;
   }
 `
 
@@ -361,13 +370,14 @@ export default function PostRead(){
         withCredentials: true
       })
       .then (res => {
+        console.log(res.data);
         setPostData(prev => res.data);
       })
       .catch (err => console.log(err));
     };
 
     if (!readPostId) {
-      console.log('**postread: id가 없습니다**')
+      console.log('**postread: id가 없습니다**');
     } else {
       getOnePost(readPostId);
     }
@@ -481,7 +491,11 @@ export default function PostRead(){
               {formatDate(postData.updatedAt)}
             </span>
           </div>
-          <p className="location">{'서울시 종로구 가회동'}</p>
+          {/* <p className="location">{'서울시 종로구 가회동'}</p> */}
+          <div>
+            <p className="location">{postData.xLocation.slice(0, -8)}</p>
+            <p className="location">{postData.yLocation.slice(0, -8)}</p>
+          </div>
         </Profile>
       </PostHeader>
       {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */}
@@ -492,30 +506,42 @@ export default function PostRead(){
           <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`} alt="날씨아이콘"/>
           <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`} alt="날씨아이콘"/> */}
           {
-            postData.weather.length === 0 ?
+            !postData.weather?
               ''
             :
-              <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.weather}.png`} alt="날씨아이콘"/>
+              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.weather}.png`} alt="날씨아이콘"/>
           }
           {
-            postData.wind.length === 0 ?
+            !postData.wind?
               ''
             :
-              <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`} alt="바람아이콘"/>
+              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`} alt="바람아이콘"/>
           }
           {
-            postData.temp.length === 0 ?
+            !postData.temp?
               ''
             :
-              <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`} alt="날씨아이콘"/>
+              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`} alt="날씨아이콘"/>
           }
       </WeatherInfo>
 
       {/* 코디가 있을 때, 없을 때 */}
-      <p className="todayCodi">오늘의 코디</p>
+      <h2 className="todayCodi">오늘의 코디</h2>
       <TodayCodi>
-          <FontAwesomeIcon icon={faTshirt} color="purple"/>
-          <FontAwesomeIcon icon={faTshirt} color="pink"/>
+          {/* <FontAwesomeIcon icon={faTshirt} color="purple"/>
+          <FontAwesomeIcon icon={faTshirt} color="pink"/> */}
+          {
+            !postData.top_id || postData.top_id === 'default' ?
+              <p>상의 데이터가 없습니다</p>
+            :
+              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.top_id}.png`} alt="상의" />
+          }
+          {
+            !postData.bottom_id || postData.top_id === 'default' ?
+              <p>하의 데이터가 없습니다</p>
+            :
+              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.bottom_id}.png`} alt="하의" />
+          }
       </TodayCodi>
 
       <Post>
