@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faTshirt, faSun, faWind, faThermometerHalf } from "@fortawesome/free-solid-svg-icons";
+import { faTshirt } from "@fortawesome/free-solid-svg-icons";
+// faHeart, faSun, faWind, faThermometerHalf
+import { useSelector } from "react-redux";
 import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
@@ -314,7 +316,6 @@ const TopButton = styled.div`
 
 export default function PostRead(){
   const history = useHistory()
-
   // 북마크 상태
   const [bookmarked, setBookmarked] = useState(false);
 

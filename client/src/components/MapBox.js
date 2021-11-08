@@ -1,10 +1,11 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { changeSearchword, changeCurLocation } from "../actions/index"
+import { changeSearchword, changeCurLocation, updatePostId } from "../actions/index"
 import $ from "jquery"
 import axios from "axios"
 import { Doughnut, Bar } from "react-chartjs-2"
+import { useHistory } from "react-router-dom";
 
 const ImgContainer = styled.div`
     position: relative;
@@ -90,6 +91,7 @@ let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 
 export default function Location(props) {
+    const history = useHistory();
     const dispatch = useDispatch()
     const { searchWord } = useSelector((state) => state.itemReducer)
     const { kakao } = window
@@ -547,10 +549,11 @@ export default function Location(props) {
                 return;
             }
         }
-
         // TODO postid로 게시물 정보 받아와서 postread에 채우기
         // elem.id 조회 가능 // 자료형은 문자열, 내용은 숫자 = 게시글 고유 id
         console.log(elem.id);
+        dispatch(updatePostId(elem.id));
+        history.push('/postread');
     }
 
     return (
