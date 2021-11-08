@@ -9,9 +9,10 @@
 		스타일드 컴포넌트에서도 사용 가능합니다!
 	*/
 
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500&display=swap");
 :root {
     /* 색상 */
-    --page-bg-color: #FAFAFA;
+    --page-bg-color: #fafafa;
     --mobile-header-color: #a2d2ff;
     --button-bg-normal: #ddd;
     --button-bg-positive: #b79ac1;
@@ -63,7 +64,6 @@ button {
         opacity: 1;
     }
 }
-
 
 /* [start] create-react-app default style */
 body {

@@ -16,8 +16,10 @@ module.exports = async (req, res) => {
         day = day < 10 ? "0" + day.toString() : day.toString()
         return year + month + day
     }
+
    
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
+
     function getFormatTime() {
         let hourDate = new Date(Date.now() - 45 * 60 * 1000)
         let hour = hourDate.getHours()
@@ -43,6 +45,7 @@ module.exports = async (req, res) => {
             },
         })
         .then((res2) => {
+
            console.log(res2.data.response) 
            //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
            //에러코드 참고  -> https://www.nanumtip.com/qa/41692/ 
@@ -50,8 +53,3 @@ module.exports = async (req, res) => {
            res.send(res2.data.response.body.items)
         })
 }
-
-
-  
-
-  
