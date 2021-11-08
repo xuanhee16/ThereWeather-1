@@ -1,10 +1,8 @@
 import styled from "styled-components"
 import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
-
 import axios from "axios"
 
-// import { Upload, SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
 
 /* TODO
   [] 업로드된 이미지의 크기 정리를 어떻게 할지
@@ -241,24 +239,6 @@ export default function Write() {
         console.log(userInfo.user_id)
     }, [])
 
-    // img src 상태
-    // 테스트용 이미지
-    const imageUrl = {
-        normalLarge:
-            "https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)",
-        normalSmall: "https://dummyimage.com/300x180/000/fff&text=300x180",
-        narrowLong:
-            "https://dummyimage.com/400x800/857285/fff.png&text=400x800",
-        wideShort: "https://dummyimage.com/800x300/857285/fff.png&text=800x300",
-        realImageNormal:
-            "https://cdn.pixabay.com/photo/2020/11/08/13/28/tree-5723734_1280.jpg",
-        realImageLong:
-            "https://cdn.pixabay.com/photo/2021/09/03/02/08/skyscrapers-6594833_1280.png",
-    }
-
-    // state 변수
-    const [photoSrc, setPhotoSrc] = useState(imageUrl.realImageNormal)
-
     // 날씨 버튼
     const weathers = [
         "sunny",
@@ -346,16 +326,6 @@ export default function Write() {
 
     const selectBottomHandler = (e) => {
         setSelectValueBottom(e.target.value)
-    }
-
-    // 사진 업로드 버튼 이벤트
-    const photoUploadButtonHandler = (e) => {
-        console.log("사진 업로드 버튼 동작 확인")
-        // TODO
-        // multer 연결
-        // axios 요청
-        // 이미지 src 바꾸기
-        // setPhotoSrc(res로 받은 src);
     }
 
     // textarea state & handler
@@ -451,6 +421,7 @@ export default function Write() {
                     <WriteText
                         onChange={titleInputHandler}
                         value={title}
+                        placeholder="제목을 입력하세요."
                         small
                     ></WriteText>
                 </article>
@@ -467,7 +438,6 @@ export default function Write() {
                     onChange={addFile}
                     round
                 />
-
                 <Button3 type="submit">업로드</Button3>
             </PictureSection>
 
