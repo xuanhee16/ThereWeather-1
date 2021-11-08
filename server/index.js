@@ -15,6 +15,7 @@ const postRouter = require("./routes/post")
 const { isAuthorized } = require("./controllers/tokenFunc/index")
 const { user } = require("./models/index")
 const { encrypto } = require("./controllers/get/setpw")
+const chatRouter = require("./routes/chat")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -44,21 +45,19 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-
-//아래 내용 지우지말것 
+//아래 내용 지우지말것
 app.get("/2", (req, res) => {
     res.send("Hello World!!22!2")
 })
 app.get("/", (req, res) => {
     res.send("Hello World!!ThereWeather!!!!")
-}) 
-
-
+})
 
 //겹치는거
 app.use("/users", upload.single("img"), userRouter)
 app.use("/post", upload.single("img"), postRouter) //글쓰는 곳 - Write.js
 app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
+app.use("/chat", chatRouter) //인증 - App.js
 
 //get
 //인증 - App.js
@@ -108,6 +107,7 @@ const io = require("socket.io")(server, {
 //클라와 연결되면 시작할 함수
 io.on("connection", (socket) => {
     // console.log(socket)
+
     console.log("나 연결")
     socket.onAny((event) => {
         console.log("onAny= " + event)
@@ -116,6 +116,7 @@ io.on("connection", (socket) => {
         console.log(socket.rooms)
         console.log(roomName)
         socket.join(roomName)
+        console.log(socket.rooms)
         socket.to(roomName).emit("welcome")
     })
     socket.on("disconnecting", () => {
