@@ -8,8 +8,10 @@ import {
     UPDATE_START_END_PAGE,
     CHANGE_USER_PW,
     CHANGE_CUR_LOCATION,
+    UPDATE_WEATHERINFO
 } from "../actions/index"
 import { initialState } from "./initialState"
+
 
 const itemReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -67,6 +69,11 @@ const itemReducer = (state = initialState, action) => {
             return {
                 ...state,
                 curLocation: action.payload,
+            }
+        case UPDATE_WEATHERINFO: 
+            return {
+                ...state,
+                item: action.payload
             }
 
         default:

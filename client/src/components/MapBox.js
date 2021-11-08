@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { changeSearchword, changeCurLocation } from "../actions/index"
 import $ from "jquery"
 import axios from "axios"
-
+import { Doughnut, Bar } from "react-chartjs-2"
 
 const ImgContainer = styled.div`
     position: relative;
@@ -37,6 +37,55 @@ const PostListModal = styled.div`
         overflow: auto;
     }
 `
+const GraphModal = styled.div`
+    // border: 1px solid black;
+    width: 50%;
+    display: flex;
+
+    @media screen and (min-width: 1081px) {
+        border: 1px solid pink;
+    }
+`
+
+const GraphTitle = styled.div`
+    // border: 1px solid black;
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (min-width: 1081px) {
+        border: 1px solid pink;
+    }
+`
+const GraphTitleDiv = styled.div`
+    // border: 1px solid black;
+    // margin: 1px;
+    width: 100%;
+
+    @media screen and (min-width: 1081px) {
+        border: 1px solid pink;
+    }
+`
+const BarGraphFlex = styled.div`
+    // border: 1px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    // @media screen and (min-width: 1081px) {
+    //     border: 1px solid pink;
+    // }
+`
+const BarGraphchild = styled.div`
+    // border: 1px solid black;
+    width: 100%;
+
+    // @media screen and (min-width: 1081px) {
+    //     border: 1px solid pink;
+    // }
+`
 
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
@@ -45,6 +94,12 @@ export default function Location(props) {
     const dispatch = useDispatch()
     const { searchWord } = useSelector((state) => state.itemReducer)
     const { kakao } = window
+    const [weatherCount, setWeatherCount] = useState({
+        sunny: 0,
+        cloudy: 0,
+        rainy: 0,
+        snowy: 0,
+    }) //그래프 통계용
 
     const [postList, setPostList] = useState([
         {
@@ -68,29 +123,8 @@ export default function Location(props) {
     console.log(searchWord)
     console.log(props)
 
-    //현재 위치 test 
-     useEffect(() => {
-            if (navigator.geolocation) {
-                // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    let lat = position.coords.latitude, // 위도
-                        lon = position.coords.longitude // 경도
-                    console.log(lat, lon) //브라우저에 찍힘        
-                    axios({
-                        url: url + "/map",
-                        method: "post",   
-                        data: { lat: lat, lon: lon },
-                        withCredentials: true
-                    })
-                    .then((res) => console.log(res))
-                })
-            };
-        })
 
-
-
-    //-----------------------------------------------------------------
-
+    //---------------
     useEffect(() => {
         var container = document.getElementById("map")
         var options = {
@@ -127,6 +161,7 @@ export default function Location(props) {
             displayMarker(locPosition, message)
         }
         // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+
         function displayMarker(locPosition, message) {
             // 마커를 생성합니다
             var marker = new kakao.maps.Marker({
@@ -213,7 +248,32 @@ export default function Location(props) {
             console.log(markers)
             console.log($(data.positions)[0])
             $(data.positions).map((n, idx) => {
-                console.log(n)
+                console.log($(data.positions))
+                // $(data.positions).map((el) => {
+                //     console.log(el)
+                //     if ($(data.positions)[el].weather === "sunny") {
+                //         setWeatherCount({
+                //             ...weatherCount,
+                //             sunny: weatherCount.sunny + 1,
+                //         })
+                //     } else if ($(data.positions)[el].weather === "cloudy") {
+                //         setWeatherCount({
+                //             ...weatherCount,
+                //             cloudy: weatherCount.cloudy + 1,
+                //         })
+                //     } else if ($(data.positions)[el].weather === "rainy") {
+                //         setWeatherCount({
+                //             ...weatherCount,
+                //             rainy: weatherCount.rainy + 1,
+                //         })
+                //     } else if ($(data.positions)[el].weather === "snowy") {
+                //         setWeatherCount({
+                //             ...weatherCount,
+                //             snowy: weatherCount.snowy + 1,
+                //         })
+                //     }
+                // })
+
                 var iwContent = `
                 <container style="border:3px solid pink; padding:5px; height:20rem; width:15rem; display:flex; flex-direction: row;">
                     <box style="">
@@ -293,9 +353,15 @@ export default function Location(props) {
             if (timer) {
                 clearTimeout(timer)
             }
+
             timer = setTimeout(function () {
                 console.log("지도 위치가 변경 될 때마다 API요청")
-
+                // setWeatherCount({
+                //     sunny: 0,
+                //     cloudy: 0,
+                //     rainy: 0,
+                //     snowy: 0,
+                // })
                 // 지도 영역정보를 얻어옵니다
                 var bounds = map.getBounds()
 
@@ -328,9 +394,30 @@ export default function Location(props) {
                     },
                     withCredentials: true,
                 }).then((res) => {
-                    console.log(res)
+                    console.log(res.data)
                     setPostList(res.data)
                     console.log(postList)
+                    let sunny = 0
+                    let cloudy = 0
+                    let rainy = 0
+                    let snowy = 0
+                    for (let n = 0; n < res.data.length; n++) {
+                        if (res.data[n].weather === "sunny") {
+                            sunny = sunny + 1
+                        } else if (res.data[n].weather === "cloudy") {
+                            cloudy++
+                        } else if (res.data[n].weather === "rainy") {
+                            rainy++
+                        } else if (res.data[n].weather === "snowy") {
+                            snowy++
+                        }
+                    }
+                    setWeatherCount({
+                        sunny: sunny,
+                        cloudy: cloudy,
+                        rainy: rainy,
+                        snowy: snowy,
+                    })
                 })
             }, 1000)
         })
@@ -401,11 +488,63 @@ export default function Location(props) {
         @media screen and (min-width: 1081px) {
         }
     `
-
+    console.log(weatherCount)
+    const data = {
+        labels: ["맑음", "구름", "비", "폭뢰"],
+        datasets: [
+            {
+                data: [
+                    weatherCount.sunny,
+                    weatherCount.cloudy,
+                    weatherCount.rainy,
+                    weatherCount.snowy,
+                ],
+                backgroundColor: ["#FF6384", "gray", "#36A2EB", "#FFCE56"],
+                hoverBackgroundColor: ["#FF6384", "gray", "#36A2EB", "#FFCE56"],
+            },
+        ],
+    }
+    const data2 = {
+        labels: ["사용자예보", "기상청"],
+        datasets: [
+            {
+                label: "강수 확률",
+                backgroundColor: "rgba(255,99,132,0.2)",
+                borderColor: "rgba(255,99,132,1)",
+                borderWidth: 1,
+                hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                hoverBorderColor: "rgba(255,99,132,1)",
+                data: [
+                    ((weatherCount.rainy + weatherCount.snowy) /
+                        (weatherCount.sunny +
+                            weatherCount.cloudy +
+                            weatherCount.rainy +
+                            weatherCount.snowy)) *
+                        100,
+                    10,
+                ],
+            },
+        ],
+    }
     return (
         <>
             <ImgContainer id="map"></ImgContainer>
             <PostListModal>
+                <GraphTitleDiv>현재지역</GraphTitleDiv>
+                <GraphTitle>
+                    <GraphTitleDiv>사용자 예보 날씨 비율</GraphTitleDiv>
+                    <GraphTitleDiv>
+                        사용자예보 vs 기상청예보 강수확률
+                    </GraphTitleDiv>
+                </GraphTitle>
+                <GraphModal>
+                    <Doughnut data={data} />
+                    <BarGraphFlex>
+                        <BarGraphchild>
+                            <Bar data={data2} />
+                        </BarGraphchild>
+                    </BarGraphFlex>
+                </GraphModal>
                 {postList.map((post) => {
                     return (
                         <PostBox>

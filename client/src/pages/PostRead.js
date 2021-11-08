@@ -160,6 +160,7 @@ const WeatherInfo = styled.div`
   @media screen and (max-width: 1081px) {
     margin-top: 1vh;
     margin-bottom: 1vw;
+    justify-content: space-around;
   }
   @media screen and (max-width: 375px) {
     width: 50%;
@@ -168,6 +169,9 @@ const WeatherInfo = styled.div`
 `
 
 const WeatherIcon = styled.img`
+  @media screen and (max-width: 1081px) {
+    width: 4rem;
+  }
   @media screen and (max-width: 375px) {
     width: 3rem;
   }
@@ -185,10 +189,11 @@ const TodayCodi = styled.div`
   font-size: 8rem;
 
   @media screen and (max-width: 1081px) {
-    width: 40%;
+    width: 50%;
+    font-size: 5rem;
   }
   @media screen and (max-width: 375px) {
-    width: 50%;
+    width: 50vw;
     font-size: 70px;
   }
 `
@@ -378,7 +383,7 @@ export default function PostRead(){
         {
           btnStatus?
           <img 
-            src={`${process.env.PUBLIC_URL}img/scroll-up.png`} alt="top"
+            src={`${process.env.PUBLIC_URL}img/scroll-up-2.png`} alt="top"
             onClick={scrollToTop}
           /> : null
         }
@@ -390,12 +395,12 @@ export default function PostRead(){
             <FontAwesomeIcon icon={faHeart} size="2x" className="heart" onClick={bookmarkHandler}/>
             
           </BookmarkIcon>
-          <span>{'제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목'}</span>
+          <span>{'오늘 날씨 맑음☀️'}</span>
         </Title>
 
         <Profile>
           <div className="profileInfo">
-            <ProfileImg src="img/blankProfile.png"/>
+            <ProfileImg src="img/user-img.png"/>
             <span className="nickName">{'김코딩'}</span>
             <span className="date">{'2021. 10.19. 15:24'}</span>
           </div>

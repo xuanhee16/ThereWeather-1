@@ -111,7 +111,6 @@ const Outer = styled.section`
     justify-content: center;
     align-items: center;
     overflow: scroll;
-    font-family: "BMDOHYEON";
 
     h2 {
         margin-top: 3rem;
