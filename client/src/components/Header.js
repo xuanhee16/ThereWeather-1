@@ -64,7 +64,7 @@ const TitleAndLogo = styled.div`
     display: ${(props) => (props.isMobileLogo ? "flex" : "none")};
     justify-content: center;
     align-items: center;
-    color: #231F20;
+    color: #231f20;
     font-family: cursive;
     & img {
         width: 20%;
@@ -112,14 +112,13 @@ const InputAndSubmit = styled.div`
 `
 // 주소검색창 부분
 const StyledPostCode = styled(DaumPostcode)`
-	position: absolute;
-	top: 50px;
-	border: 1px solid #E0E0E0;
+    position: absolute;
+    top: 50px;
+    border: 1px solid #e0e0e0;
     @media screen and (max-width: 1081px) {
         top: 32px;
     }
-`;
-
+`
 
 const Input = styled.input`
     padding: 0.5rem;
@@ -276,28 +275,28 @@ export default function Header({ isInput, isMobileLogo }) {
                                     Cancel
                                 </Cancel>
                             ) : (
-                            <FontAwesomeIcon
-                                onClick={() =>
-                                    dispatch(changeSearchword(searchEvent))
-                                }
-                                icon={faSearch}
-                            />
+                                <FontAwesomeIcon
+                                    onClick={() =>
+                                        dispatch(changeSearchword(searchEvent))
+                                    }
+                                    icon={faSearch}
+                                />
                             )}
                         </Buttons2>
                         {/* <SearchBarAndDaumPost> */}
                         {/* <DaumPostcodeWrap> */}
-                        
+
                         {/* </DaumPostcodeWrap> */}
                         {/* </SearchBarAndDaumPost> */}
                     </InputAndSubmit>
-                        {onFocus ? (
-                            <StyledPostCode
-                                className="daumPostCodeContainer"
-                                onComplete={handleComplete}
-                            />
-                            ) : (
-                                <></>
-                        )}
+                    {onFocus ? (
+                        <StyledPostCode
+                            className="daumPostCodeContainer"
+                            onComplete={handleComplete}
+                        />
+                    ) : (
+                        <></>
+                    )}
                     <Buttons className="headerButtons">
                         <Button>
                             <FontAwesomeIcon icon={faSun} />
