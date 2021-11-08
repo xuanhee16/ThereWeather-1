@@ -16,7 +16,7 @@ const ImgContainer = styled.div`
     }
 `
 const PostListModal = styled.div`
-    border: 1px solid black;
+    border: 0.5px solid #dbdbdb;
     background-color: white;
     z-index: 999;
     position: absolute;
@@ -25,8 +25,8 @@ const PostListModal = styled.div`
     width: 50%;
     height: 70%;
     overflow: auto;
+    padding: 0.5rem;
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
         background-color: white;
         z-index: 999;
         position: absolute;
@@ -43,20 +43,18 @@ const GraphModal = styled.div`
     display: flex;
 
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
+        // border: 1px solid pink;
     }
 `
 
 const GraphTitle = styled.div`
     // border: 1px solid black;
-
     width: 100%;
     display: flex;
     flex-direction: row;
     font-weight: bold;
 
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
     }
 `
 const GraphTitleDiv = styled.div`
@@ -65,7 +63,7 @@ const GraphTitleDiv = styled.div`
     width: 100%;
 
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
+        // border: 1px solid pink;
     }
 `
 const BarGraphFlex = styled.div`
