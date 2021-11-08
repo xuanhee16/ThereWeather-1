@@ -53,6 +53,7 @@ const GraphTitle = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
+    font-weight: bold;
 
     @media screen and (min-width: 1081px) {
         border: 1px solid pink;
