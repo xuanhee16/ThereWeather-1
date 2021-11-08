@@ -26,7 +26,7 @@
     --modal-confirm-button-bg: #c4c4c4;
 
     /* 길이 - 모바일 */
-    --mobile-page-height: calc(100vh - 200px);
+    --mobile-page-height: calc(100vh - 125px);
     --mobile-header-height: 200px;
     --mobile-menubar-height: 70px;
 

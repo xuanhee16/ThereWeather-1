@@ -23,7 +23,7 @@ import DaumPostcode from "react-daum-postcode"
 const LoginOuter = styled.section`
     position: relative;
     width: 100vw;
-    min-height: var(--mobile-page-height);
+    min-height: calc(var(--mobile-page-height) - 70px);
     background-color: var(--page-bg-color);
     display: flex;
     flex-direction: column;
@@ -292,7 +292,7 @@ export default function Login() {
     const [idInput, setIdInput] = useState("")
     const [pwInput, setPwInput] = useState("")
     const [idInputMessage, setIdInputMessage] =
-        useState("아이디를 입력하세요.!")
+        useState("아이디를 입력하세요.")
     const [pwInputMessage, setPwInputMessage] =
         useState("비밀번호를 입력하세요.")
     const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=1079927639813-87e5g0991msheh50mt77eclt2vij4kks.apps.googleusercontent.com&response_type=token&redirect_uri=${clientUrl}/login&scope=https://www.googleapis.com/auth/userinfo.email`
