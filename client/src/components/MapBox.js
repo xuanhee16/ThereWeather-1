@@ -441,6 +441,8 @@ export default function Location(props) {
         // display: flex;
         // flex-direction: row;
         // width: 10000px;
+        width: 100%;
+        // padding: 0 .5rem;
 
         @media screen and (min-width: 1081px) {
         }
@@ -455,7 +457,9 @@ export default function Location(props) {
     const PostTitle = styled.div`
         // display: flex;
         // flex-direction: row;
-        width: 50%;
+        // width: 50%;
+        width: 100%;
+        font-weight: bold;
 
         @media screen and (min-width: 1081px) {
         }
@@ -463,7 +467,11 @@ export default function Location(props) {
     const PostContent = styled.div`
         // display: flex;
         // flex-direction: row;
-        width: 50%;
+        // width: 50%;
+        width: 100%;
+        // padding: .5rem 0;
+        font-size: .9rem;
+        line-height: 180%;
 
         @media screen and (min-width: 1081px) {
         }
@@ -472,6 +480,12 @@ export default function Location(props) {
         display: flex;
         flex-direction: row;
         width: 100%;
+        // margin: .5rem 0;
+        // padding: .5rem;
+
+        &:hover {
+            background-color: #f7f7f7;
+        }
 
         @media screen and (min-width: 1081px) {
         }
@@ -526,10 +540,26 @@ export default function Location(props) {
             },
         ],
     }
+
+    const postboxClickHandler = (e) => {
+        let elem = e.target;
+        while (!elem.classList.contains('postbox')) {
+            elem = elem.parentNode;
+            if(elem.classList.contains('postlistModal')) {
+                elem = null;
+                return;
+            }
+        }
+
+        // TODO postid로 게시물 정보 받아와서 postread에 채우기
+        // elem.id 조회 가능 // 자료형은 문자열, 내용은 숫자 = 게시글 고유 id
+        console.log(elem.id);
+    }
+
     return (
         <>
             <ImgContainer id="map"></ImgContainer>
-            <PostListModal>
+            <PostListModal className="postlistModal">
                 <GraphTitleDiv>현재지역</GraphTitleDiv>
                 <GraphTitle>
                     <GraphTitleDiv>사용자 예보 날씨 비율</GraphTitleDiv>
@@ -547,7 +577,7 @@ export default function Location(props) {
                 </GraphModal>
                 {postList.map((post) => {
                     return (
-                        <PostBox>
+                        <PostBox key={post.id} id={post.id} onClick={postboxClickHandler} className='postbox'>
                             <Box>
                                 <PostImg src={`${post.post_photo}`} />
                                 <EmoticonBox>
