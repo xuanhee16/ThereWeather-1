@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from "react";
 import styled from "styled-components"
-import { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
-
 import axios from "axios"
+import { useSelector, useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 
 // import { Upload, SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
 
@@ -219,11 +219,14 @@ const Button3 = styled.button`
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Write() {
+    const history = useHistory()
     const { userInfo, curLocation } = useSelector((state) => state.itemReducer)
+ 
     const [selectWeather, setSelectWeather] = useState()
     const [selectWind, setSelectWind] = useState()
     const [selectTemp, setSelectTemp] = useState()
     const [photo, setPhoto] = useState("")
+    const [userPosts,setUserPosts] = useState()
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankPost.png",
         filePath: `${url}/img/blankPost.png`,
@@ -366,11 +369,12 @@ export default function Write() {
 
     // 등록버튼 이벤트
     const submitButtonHandler = (e) => {
-        console.log("등록버튼 동작 확인")
+        //console.log("등록버튼 동작 확인")
         // TODO
         // axios.post
         // 페이지 이동 : '글 읽기' 페이지로?
-        console.log(userInfo.user_id)
+        //console.log(userInfo.user_id)
+       
         axios({
             url: url + "/post/write",
             method: "post",
@@ -391,6 +395,10 @@ export default function Write() {
                 yLocation: curLocation.lon,
             },
             withCredentials: true,
+        })
+        .then((res) => {
+            alert("작성 완료")
+            history.push("/mypage")
         })
     }
 

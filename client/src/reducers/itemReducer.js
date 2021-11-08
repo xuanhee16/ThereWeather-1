@@ -8,7 +8,8 @@ import {
     UPDATE_START_END_PAGE,
     CHANGE_USER_PW,
     CHANGE_CUR_LOCATION,
-    UPDATE_WEATHERINFO
+    UPDATE_WEATHERINFO,
+    UPDATE_USER_POST
 } from "../actions/index"
 import { initialState } from "./initialState"
 
@@ -74,6 +75,11 @@ const itemReducer = (state = initialState, action) => {
             return {
                 ...state,
                 item: action.payload
+            }
+        case UPDATE_USER_POST: 
+            return {
+                ...state,
+                postInfo: action.payload
             }
 
         default:

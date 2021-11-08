@@ -5,6 +5,9 @@ import { faHeart, faTshirt, faSun, faWind, faThermometerHalf } from "@fortawesom
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux"
+import { changeIsLogin, userPosts } from "../actions/index"
+import axios from "axios"
 
 const Outer = styled.div`
   width: 100vw;

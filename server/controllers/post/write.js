@@ -2,7 +2,7 @@ const { post } = require("../../models")
 
 module.exports = {
     post: async (req, res) => {
-        // console.log(req.body)
+        console.log(req.body)
         console.log("여긴 post/write/")
         await post.create({
             user_id: req.body.user_id,
@@ -17,7 +17,6 @@ module.exports = {
             xLocation: req.body.xLocation,
             yLocation: req.body.yLocation,
         })
-
         res.status(210).send("posting ok")
     },
 }
