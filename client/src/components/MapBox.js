@@ -442,7 +442,7 @@ export default function Location(props) {
         // flex-direction: row;
         // width: 10000px;
         width: 100%;
-        // padding: 0 .5rem;
+        padding: 0 .5rem;
 
         @media screen and (min-width: 1081px) {
         }
@@ -471,7 +471,6 @@ export default function Location(props) {
         width: 100%;
         // padding: .5rem 0;
         font-size: .9rem;
-        line-height: 180%;
 
         @media screen and (min-width: 1081px) {
         }
@@ -480,15 +479,10 @@ export default function Location(props) {
         display: flex;
         flex-direction: row;
         width: 100%;
-        // margin: .5rem 0;
-        // padding: .5rem;
+        padding: .5rem;
 
         &:hover {
-            background-color: #f7f7f7;
-        }
-
-        &:hover {
-            background-color: #fafafa;
+            background-color: #f5f5f5;
         }
 
         @media screen and (min-width: 1081px) {
