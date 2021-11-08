@@ -3,12 +3,6 @@ import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 import axios from "axios"
 
-
-/* TODO
-  [] 업로드된 이미지의 크기 정리를 어떻게 할지
-    - 가로, 세로 비율 유지 방법
-*/
-
 const Outer = styled.div`
     overflow: scroll;
     display: flex;
@@ -32,7 +26,7 @@ const Button = styled.button`
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-    border-radius: ${(props) => (props.round ? "50%" : null)};
+    border-radius: ${(props) => (props.round ? "50%" : ".5rem")};
     background-color: var(--button-bg-normal);
     font-size: 1.25rem;
     padding: ${(props) => (props.round ? ".5rem .5rem" : ".5rem 2rem")};
@@ -67,12 +61,6 @@ const PictureSection = styled.form`
     align-items: center;
     margin: 1rem;
     height: inherit;
-
-    // & > img {
-    //     width: 70%;
-    //     height: auto;
-    //     margin: 1rem;
-    // }
 
     @media screen and (min-width: 1081px) {
         justify-content: center;
@@ -214,6 +202,7 @@ const Button3 = styled.button`
         margin: 0.25rem;
     }
 `
+
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Write() {
@@ -297,12 +286,7 @@ export default function Write() {
         }
     }
 
-    /* clickedWeatherButtons 상태 확인용 */
-    // useEffect (() => {
-    //   console.log('***clickedWeatherButtons: useEffect***', clickedWeatherButtons);
-    // },[clickedWeatherButtons]);
-
-    // 상의 더미데이터 (state 변수가 필요하게 될까?)
+    // 상의 더미데이터
     const clothesTop = [
         ["default", "상의 선택"],
         ["tshirts", "티셔츠"],
@@ -383,6 +367,7 @@ export default function Write() {
             setSelectTemp(select)
         }
     }
+
     const onSubmit = (e) => {
         console.log(e)
         e.preventDefault()
@@ -406,6 +391,7 @@ export default function Write() {
                 console.error(err)
             })
     }
+
     const addFile = (e) => {
         console.log(e.target.files[0])
         setPhoto(e.target.files[0])
@@ -512,7 +498,7 @@ export default function Write() {
                         className="submitButton"
                         onClick={submitButtonHandler}
                     >
-                        등록
+                        수정
                     </Button>
                 </TextSection>
             </DesktopRight>

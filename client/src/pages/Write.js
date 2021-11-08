@@ -3,12 +3,6 @@ import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 import axios from "axios"
 
-
-/* TODO
-  [] 업로드된 이미지의 크기 정리를 어떻게 할지
-    - 가로, 세로 비율 유지 방법
-*/
-
 const Outer = styled.div`
     overflow: scroll;
     display: flex;
@@ -67,12 +61,6 @@ const PictureSection = styled.form`
     align-items: center;
     margin: 1rem;
     height: inherit;
-
-    // & > img {
-    //     width: 70%;
-    //     height: auto;
-    //     margin: 1rem;
-    // }
 
     @media screen and (min-width: 1081px) {
         justify-content: center;
