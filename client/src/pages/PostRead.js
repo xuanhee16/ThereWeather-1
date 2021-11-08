@@ -343,10 +343,11 @@ export default function PostRead(){
 
   // 날짜 처리
   const formatDate = (dateString) => {
+    // 예시 : 2021. 11. 5. 22:02
     const dateObject = new Date(dateString);
     let dateOnly = dateObject.toLocaleDateString();
-    let hourAndMin = dateObject.toLocaleTimeString();
-    hourAndMin = hourAndMin.slice(3).slice(0, -3);
+    let hourAndMin = dateObject.toLocaleTimeString('en-US', { hour12: false });
+    hourAndMin = hourAndMin.slice(0, -3);
 
     return `${dateOnly} ${hourAndMin}`
   }
@@ -474,7 +475,7 @@ export default function PostRead(){
 
         <Profile>
           <div className="profileInfo">
-            <ProfileImg src="img/user-img.png"/>
+            <ProfileImg src={"img/user-img.png"}/>
             <span className="nickName">{'김코딩'}</span>
             <span className="date">
               {formatDate(postData.updatedAt)}
@@ -483,14 +484,33 @@ export default function PostRead(){
           <p className="location">{'서울시 종로구 가회동'}</p>
         </Profile>
       </PostHeader>
-      <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
+      {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */}
+      <PostImg src={postData.post_photo} alt="post picture" />
 
       <WeatherInfo>
-          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`} alt="날씨아이콘"/>
-          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/breezy.png`} alt="날씨아이콘"/>
-          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`} alt="날씨아이콘"/>
+          {/* <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.weather}.png`} alt="날씨아이콘"/>
+          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`} alt="날씨아이콘"/>
+          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`} alt="날씨아이콘"/> */}
+          {
+            postData.weather.length === 0 ?
+              ''
+            :
+              <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.weather}.png`} alt="날씨아이콘"/>
+          }
+          {
+            postData.wind.length === 0 ?
+              ''
+            :
+              <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`} alt="바람아이콘"/>
+          }
+          {
+            postData.temp.length === 0 ?
+              ''
+            :
+              <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`} alt="날씨아이콘"/>
+          }
       </WeatherInfo>
-      
+
       {/* 코디가 있을 때, 없을 때 */}
       <p className="todayCodi">오늘의 코디</p>
       <TodayCodi>
@@ -499,8 +519,11 @@ export default function PostRead(){
       </TodayCodi>
 
       <Post>
-        <p>
+        {/* <p>
         곧 심장은 얼음과 예수는 열락의 가는 눈에 영원히 얼음에 것이다. 주는 일월과 대한 안고, 생의 스며들어 장식하는 위하여서. 이상의 온갖 이것은 가슴이 우리의 넣는 바이며, 하는 듣는다. 얼마나 수 만물은 작고 역사를 방지하는 것이다. 앞이 인도하겠다는 그들에게 때까지 아름다우냐? 자신과 위하여 많이 유소년에게서 봄바람이다. 능히 몸이 우리의 곳으로 운다.
+        </p> */}
+        <p>
+          {postData.post_content}
         </p>
       </Post>
 
