@@ -315,15 +315,32 @@ const TopButton = styled.div`
   }
 `
 
+let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
+
 export default function PostRead(){
   const history = useHistory()
   // post id 가져오기
   const { readPostId } = useSelector(state => state.itemReducer);
-  console.log('**postId read**', readPostId);
 
-  // TODO get요청 보내기, params에 id 넣어서
-  // 준비물 : url, params, header?, contenttype? confidential?
-  // axios.get()
+  // 글 불러오기
+  useEffect(() => {
+    async function getOnePost(postId) {
+      axios.get(`${url}/readpost`, {
+        headers: { "Content-Type": "application/json" },
+        params: { id: postId },
+        withCredentials: true
+      })
+      .then (res => console.log(res.data))
+      .catch (err => console.log(err));
+    };
+
+    if (!readPostId) {
+      console.log('**postread: id가 없습니다**');
+    } else {
+      getOnePost(readPostId);
+    }
+  }, [readPostId])
 
   // 북마크 상태
   const [bookmarked, setBookmarked] = useState(false);
@@ -480,3 +497,19 @@ export default function PostRead(){
     </Outer>
   )
 }
+
+// TODO 응답에서 사용할 값
+// bottom_id: "pants"
+// createdAt: "2021-11-08T02:57:35.000Z"
+// id: 4
+// post_content: "빨간색"
+// post_photo: "http://localhost:80/img/imgfile1636340242444.png"
+// post_title: "add"
+// temp: "cold"
+// top_id: "shirts"
+// updatedAt: "2021-11-08T02:57:35.000Z"
+// user_id: "dummydummy"
+// weather: "cold"
+// wind: null
+// xLocation: "36.619121200000000"
+// yLocation: "127.433451700000000"
