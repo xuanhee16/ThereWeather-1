@@ -26,7 +26,7 @@ if (!url) {
 // const socket = io.connect("http://localhost:80")
 const socket = io.connect(url)
 
-export default function One() {
+export default function Messenger() {
     // const dispatch = useDispatch()
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))

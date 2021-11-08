@@ -116,11 +116,10 @@ const Input = styled.input`
     padding: 0.5rem;
     font-size: 1.2rem;
     text-align: center;
-    font-family: "BMDOHYEON";
     background-color: var(--page-bg-color);
     border: 0.5px solid #dbdbdb;
     border-radius: 3px;
-    
+
     @media screen and (min-width: 1081px) {
         width: 300px;
     }
