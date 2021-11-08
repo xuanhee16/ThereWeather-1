@@ -65,7 +65,6 @@ const TitleAndLogo = styled.div`
     justify-content: center;
     align-items: center;
     color: #231F20;
-    font-family: cursive;
     & img {
         width: 20%;
         margin-right: 0.5rem;
