@@ -9,6 +9,7 @@ import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
+import { get, post } from "jquery";
 
 
 const Outer = styled.div`
@@ -322,21 +323,50 @@ export default function PostRead(){
   const history = useHistory()
   // post id 가져오기
   const { readPostId } = useSelector(state => state.itemReducer);
+  // postData state 변수
+  const [postData, setPostData] = useState({
+    id: null,
+    post_title: '',
+    user_id: '',
+    createdAt: '',
+    updatedAt: '',
+    xLocation: '',
+    yLocation: '',
+    post_photo: '',
+    weather: '',
+    wind: '',
+    temp: '',
+    top_id: '',
+    bottom_id: '',
+    post_content: ''
+  });
+
+  // 날짜 처리
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    let dateOnly = dateObject.toLocaleDateString();
+    let hourAndMin = dateObject.toLocaleTimeString();
+    hourAndMin = hourAndMin.slice(3).slice(0, -3);
+
+    return `${dateOnly} ${hourAndMin}`
+  }
 
   // 글 불러오기
   useEffect(() => {
-    async function getOnePost(postId) {
+    function getOnePost(postId) {
       axios.get(`${url}/readpost`, {
         headers: { "Content-Type": "application/json" },
         params: { id: postId },
         withCredentials: true
       })
-      .then (res => console.log(res.data))
+      .then (res => {
+        setPostData(prev => res.data);
+      })
       .catch (err => console.log(err));
     };
 
     if (!readPostId) {
-      console.log('**postread: id가 없습니다**');
+      console.log('**postread: id가 없습니다**')
     } else {
       getOnePost(readPostId);
     }
@@ -434,7 +464,8 @@ export default function PostRead(){
       <GoBackButton/>
       <PostHeader>
         <Title>
-          <span>{'오늘 날씨 맑음☀️'}</span>
+          {/* <span>{'오늘 날씨 맑음☀️'}</span> */}
+          <span>{postData.post_title}</span>
           <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
             color={bookmarked ? '#ED4956' : '#aaa'}
@@ -445,7 +476,9 @@ export default function PostRead(){
           <div className="profileInfo">
             <ProfileImg src="img/user-img.png"/>
             <span className="nickName">{'김코딩'}</span>
-            <span className="date">{'2021. 10.19. 15:24'}</span>
+            <span className="date">
+              {formatDate(postData.updatedAt)}
+            </span>
           </div>
           <p className="location">{'서울시 종로구 가회동'}</p>
         </Profile>
@@ -498,18 +531,19 @@ export default function PostRead(){
   )
 }
 
-// TODO 응답에서 사용할 값
-// bottom_id: "pants"
-// createdAt: "2021-11-08T02:57:35.000Z"
+// TODO 응답에서 사용할 값에 * 표시
+// * bottom_id: "pants"
+// * createdAt: "2021-11-08T02:57:35.000Z"
 // id: 4
-// post_content: "빨간색"
-// post_photo: "http://localhost:80/img/imgfile1636340242444.png"
-// post_title: "add"
-// temp: "cold"
-// top_id: "shirts"
-// updatedAt: "2021-11-08T02:57:35.000Z"
-// user_id: "dummydummy"
-// weather: "cold"
-// wind: null
-// xLocation: "36.619121200000000"
-// yLocation: "127.433451700000000"
+// * post_content: "빨간색"
+// * post_photo: "http://localhost:80/img/imgfile1636340242444.png"
+// * post_title: "add"
+// * temp: "cold"
+// * top_id: "shirts"
+// * updatedAt: "2021-11-08T02:57:35.000Z"
+// * user_id: "dummydummy"
+// * weather: "cold"
+// * wind: null
+// * xLocation: "36.619121200000000"
+// * yLocation: "127.433451700000000"
+// 닉네임이... 없어...
