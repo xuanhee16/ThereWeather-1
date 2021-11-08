@@ -32,7 +32,7 @@ const Buttons = styled.div`
     bottom: 0;
     width: 100vw;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     z-index: 101;
     border-top: 1px solid #dbdbdb;
@@ -69,7 +69,7 @@ export default function MenuBar() {
                         onClick={() => history.push("/homeorlogin")}
                         icon={faHome}
                     /> */}
-                    <img 
+                    <img
                         src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/45/000000/external-home-instagram-flatart-icons-outline-flatarticons.png"
                         onClick={() => history.push("/homeorlogin")}
                     />
@@ -79,7 +79,7 @@ export default function MenuBar() {
                         onClick={() => history.push("/bookmarkorlogin")}
                         icon={faHeart}
                     /> */}
-                    <img 
+                    <img
                         src="https://img.icons8.com/ios/45/000000/like--v1.png"
                         onClick={() => history.push("/bookmarkorlogin")}
                     />
@@ -89,7 +89,7 @@ export default function MenuBar() {
                         onClick={() => history.push("/map")}
                         icon={faMapMarkerAlt}
                     /> */}
-                    <img 
+                    <img
                         src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/45/000000/external-location-map-location-flatart-icons-outline-flatarticons-13.png"
                         onClick={() => history.push("/map")}
                     />
@@ -99,7 +99,7 @@ export default function MenuBar() {
                         onClick={() => history.push("/writeorlogin")}
                         icon={faPencilAlt}
                     /> */}
-                    <img 
+                    <img
                         src="https://img.icons8.com/ios/45/000000/pencil--v1.png"
                         onClick={() => history.push("/writeorlogin")}
                     />
@@ -109,7 +109,7 @@ export default function MenuBar() {
                         onClick={() => history.push("/moreoruserinfo")}
                         icon={faUserAlt}
                     /> */}
-                    <img 
+                    <img
                         src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/45/000000/external-user-interface-kiranshastry-lineal-kiranshastry.png"
                         onClick={() => history.push("/moreoruserinfo")}
                     />

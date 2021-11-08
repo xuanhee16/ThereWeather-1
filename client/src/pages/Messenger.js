@@ -292,7 +292,7 @@ export default function Messenger() {
         // setmsg(["상대방이 방에 들어왔습니다", ...msg])
     })
     socket.on("bye", () => {
-        console.log("메시지가 찍히나")
+        // console.log("메시지가 찍히나")
         // setmsg(["상대방이 나갔습니다", ...msg])
     })
     socket.on("newMsg", (msg2) => {
@@ -312,7 +312,8 @@ export default function Messenger() {
                 chatcontent: JSON.stringify(msg),
             },
             withCredentials: true,
-        }).then((res) => console.log("글 업데이트 완료"))
+        }).then((res) => {})
+        // .then((res) => console.log("글 업데이트 완료"))
     }, [msg])
 
     const goBackHandler = () => {
