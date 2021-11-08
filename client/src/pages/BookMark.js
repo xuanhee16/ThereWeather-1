@@ -28,7 +28,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   grid-template-rows: 3fr 3fr;
-  grid-template-columns: 5fr 5fr;
+  /* grid-template-columns: 5fr 5fr; */
   grid-template-areas: 
   "div div"
   "div div";
@@ -38,7 +38,7 @@ const Container = styled.div`
   @media (max-width: 1081px) {
     gap: 2rem;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-template-columns: 5fr;
+    /* grid-template-columns: 5fr; */
     grid-template-areas: 
     "div"
     ;
@@ -57,7 +57,7 @@ const BookMarkContainer = styled.div`
 const BookMarkPhoto = styled.div`
   flex-basis: 30rem;
   .postPicture{
-    margin: 1rem 2rem;
+    margin: 1rem 2rem 1rem 1rem;
     padding: 0;
     /* border: solid 1px black; */
     height: 25vh;
@@ -89,15 +89,15 @@ const BookMarkList = styled.div`
 
   .postTitle {
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   .postDate {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   .postWeather {
     /* font-size: 1.5rem; */
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
   }
   img{
     width: 100%;

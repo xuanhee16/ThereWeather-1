@@ -65,33 +65,53 @@ export default function MenuBar() {
                     </Link>
                 */}
                 <Button>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                         onClick={() => history.push("/homeorlogin")}
                         icon={faHome}
+                    /> */}
+                    <img 
+                        src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/45/000000/external-home-instagram-flatart-icons-outline-flatarticons.png"
+                        onClick={() => history.push("/homeorlogin")}
                     />
                 </Button>
                 <Button>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                         onClick={() => history.push("/bookmarkorlogin")}
                         icon={faHeart}
+                    /> */}
+                    <img 
+                        src="https://img.icons8.com/ios/45/000000/like--v1.png"
+                        onClick={() => history.push("/bookmarkorlogin")}
                     />
                 </Button>
                 <Button>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                         onClick={() => history.push("/map")}
                         icon={faMapMarkerAlt}
+                    /> */}
+                    <img 
+                        src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/45/000000/external-location-map-location-flatart-icons-outline-flatarticons-13.png"
+                        onClick={() => history.push("/map")}
                     />
                 </Button>
                 <Button>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                         onClick={() => history.push("/writeorlogin")}
                         icon={faPencilAlt}
+                    /> */}
+                    <img 
+                        src="https://img.icons8.com/ios/45/000000/pencil--v1.png"
+                        onClick={() => history.push("/writeorlogin")}
                     />
                 </Button>
                 <Button>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                         onClick={() => history.push("/moreoruserinfo")}
                         icon={faUserAlt}
+                    /> */}
+                    <img 
+                        src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/45/000000/external-user-interface-kiranshastry-lineal-kiranshastry.png"
+                        onClick={() => history.push("/moreoruserinfo")}
                     />
                 </Button>
             </Buttons>
