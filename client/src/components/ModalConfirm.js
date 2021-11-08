@@ -59,9 +59,17 @@ const Button = styled.button`
   min-width: 80px;
   max-width: 120px;
   margin: .8rem;
-  padding: .3rem;
+  padding: .5rem;
   font-size: 1.2rem;
+  border-radius: .5rem;
   background-color: var(--modal-confirm-button-bg);
+
+  &:active{
+    border: none;
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+  }
 `;
 
 
