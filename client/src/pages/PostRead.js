@@ -315,15 +315,38 @@ const TopButton = styled.div`
   }
 `
 
+let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
+
 export default function PostRead(){
   const history = useHistory()
   // post id 가져오기
   const { readPostId } = useSelector(state => state.itemReducer);
-  console.log('**postId read**', readPostId);
 
   // TODO get요청 보내기, params에 id 넣어서
-  // 준비물 : url, params, header?, contenttype? confidential?
-  // axios.get()
+  // 준비물 
+    // url + /read_post, params{ id: readPostId }
+    // header
+    // contenttype
+    // confidential
+
+  useEffect(() => {
+    async function getOnePost(postId) {
+      axios.get(`${url}/readpost`, {
+        headers: { "Content-Type": "application/json" },
+        params: { id: postId },
+        withCredentials: true
+      })
+      .then (res => console.log(res.data))
+      .catch (err => console.log(err));
+    };
+
+    if (!readPostId) {
+      console.log('**postread: id가 없습니다**')
+    } else {
+      getOnePost(readPostId);
+    }
+  }, [readPostId])
 
   // 북마크 상태
   const [bookmarked, setBookmarked] = useState(false);
