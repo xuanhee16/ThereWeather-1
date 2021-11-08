@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTshirt } from "@fortawesome/free-solid-svg-icons";
 // faHeart, faSun, faWind, faThermometerHalf
 import { useSelector } from "react-redux";
+import axios from "axios";
 import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
@@ -316,6 +317,14 @@ const TopButton = styled.div`
 
 export default function PostRead(){
   const history = useHistory()
+  // post id 가져오기
+  const { readPostId } = useSelector(state => state.itemReducer);
+  console.log('**postId read**', readPostId);
+
+  // TODO get요청 보내기, params에 id 넣어서
+  // 준비물 : url, params, header?, contenttype? confidential?
+  // axios.get()
+
   // 북마크 상태
   const [bookmarked, setBookmarked] = useState(false);
 
