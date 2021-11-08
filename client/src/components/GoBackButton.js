@@ -1,7 +1,7 @@
 // 모바일 뒤로가기 버튼
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faAngleDoubleLeft } from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { useHistory } from "react-router-dom"
 
 const Button = styled.button`
@@ -15,12 +15,12 @@ const Button = styled.button`
         border-radius: 50%;
         z-index:100;
         .fa-fw {
-            font-size: 55px;
+            font-size: 50px;
         }
     }
     @media screen and (max-width: 375px) {
         .fa-fw {
-            font-size: 40px;
+            font-size: 35px;
         }
     }
 `
@@ -33,7 +33,7 @@ export default function GoBackButton() {
     return (
         <Button>
             <FontAwesomeIcon
-                icon={faAngleDoubleLeft}
+                icon={faChevronLeft}
                 className="fa-fw"
                 color="#ACB5BD"
                 onClick={goBackHandler}

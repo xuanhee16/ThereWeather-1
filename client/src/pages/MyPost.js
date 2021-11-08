@@ -29,6 +29,9 @@ const GridArea = styled.div`
     grid-template-rows: 300px 300px;
     grid-gap: 1.5rem;
     height: 70vh;
+    p{
+      font-size: 28px;
+    }
 
     .item {
       background-color: rgba(255, 255, 255, 0.6);
@@ -54,6 +57,8 @@ const GridArea = styled.div`
         }
     }
     @media screen and (max-width: 1081px) {
+      padding-left: 5vw;
+      padding-right: 5vw;
       height: 100vh;
       grid-template-columns: 1fr;
       grid-template-rows: 3fr 3fr 3fr 3fr;
@@ -61,6 +66,13 @@ const GridArea = styled.div`
       .item:nth-child(odd),
       .item:nth-child(even) {
         margin: 0 2vw;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      padding-left: 2vw;
+      padding-right: 2vw;
+      p{
+        font-size:20px
       }
     }
     @media screen and (max-width: 375px) {
