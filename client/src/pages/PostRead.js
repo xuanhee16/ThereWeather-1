@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTshirt, faSun, faWind, faThermometerHalf } from "@fortawesome/free-solid-svg-icons";
+import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
@@ -46,7 +47,9 @@ const PostHeader = styled.div`
 `
 // 제목
 const Title = styled.div`
-  width: 60rem;
+  display: flex;
+  justify-content: space-between;
+  width: 80vw;
   text-align: center;
   margin: 0 auto;
 
@@ -56,7 +59,7 @@ const Title = styled.div`
   }
 
   @media screen and (max-width: 1081px) {
-    width: 80%;
+    width: 70%;
   }
   @media screen and (max-width: 375px) {
     span{
@@ -64,11 +67,12 @@ const Title = styled.div`
     }
   }
 `
+
 // 북마크 아이콘
-const BookmarkIcon = styled.div`
+const BookmarkIcon = styled(Bookmark)`
   float: right;
 
-  .heart{
+  & .heart{
     cursor: pointer;
     color: #aaa;
   }
@@ -310,7 +314,11 @@ const TopButton = styled.div`
 
 export default function PostRead(){
   const history = useHistory()
-  const [isOpen, setIsOpen] = useState(false)
+
+  // 북마크 상태
+  const [bookmarked, setBookmarked] = useState(false);
+
+  // const [isOpen, setIsOpen] = useState(false);
   // 게시물 수정
   const [edit, setEdit] = useState(false)
   // 게시물 삭제
@@ -323,7 +331,7 @@ export default function PostRead(){
   }
 
   // 게시물 삭제
-  const deletePost = () => {
+  const deletePost = (e) => {
     console.log('삭제버튼동작확인');
     setRemovePost(true);
   }
@@ -349,7 +357,9 @@ export default function PostRead(){
   }
 
   const bookmarkHandler = (e) => {
-    console.log(e.currentTarget);
+    console.log('글 읽기 - 북마크 버튼 동작 확인');
+    setBookmarked(prev => !prev);
+    // console.log(e.currentTarget);
   }
 
   // top button
@@ -397,11 +407,11 @@ export default function PostRead(){
       <GoBackButton/>
       <PostHeader>
         <Title>
-          <BookmarkIcon>
-            <FontAwesomeIcon icon={faHeart} size="2x" className="heart" onClick={bookmarkHandler}/>
-
-          </BookmarkIcon>
           <span>{'오늘 날씨 맑음☀️'}</span>
+          <BookmarkIcon
+            bookmarkHandler={bookmarkHandler}
+            color={bookmarked ? '#ED4956' : '#aaa'}
+          />
         </Title>
 
         <Profile>
