@@ -226,14 +226,17 @@ let url = process.env.REACT_APP_LOCAL_URL
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { isLogin, userInfo } = useSelector((state) => state.itemReducer)
-    console.log(userInfo)
+
+    const { isLogin, userInfo } = useSelector((state) => state.itemReducer)   //
+    console.log(userInfo)   // 회원정보데이터
+
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
     if (!url) {
         url = "https://thereweather.space"
     }
+
 
     const [currentPosts, setcurrentPosts] = useState([])
     // 게시물 데이터 조회
@@ -247,6 +250,7 @@ export default function MyPage() {
             console.log(currentPosts)
         })
     }, [])
+
 
     // 정보수정
     const changeUserInfo = () => {
@@ -301,7 +305,9 @@ export default function MyPage() {
             <ProfileArea>
                 <ProfileImg src={`${process.env.PUBLIC_URL}img/user-img.png`} />
                 <div className="mediaBox">
-                    <p id="user-name">{userInfo.user_id}</p>
+
+                    <p id="user-name">{userInfo.nickName}</p>
+
                     <p id="user-gender">성별 : {"남성"}</p>
                     <p id="user-location">나의 위치 : {userInfo.location}</p>
                     <p id="user-changeInfo" onClick={changeUserInfo}>

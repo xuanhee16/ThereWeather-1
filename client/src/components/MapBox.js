@@ -1,10 +1,11 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { changeSearchword, changeCurLocation } from "../actions/index"
+import { changeSearchword, changeCurLocation, updatePostId } from "../actions/index"
 import $ from "jquery"
 import axios from "axios"
 import { Doughnut, Bar } from "react-chartjs-2"
+import { useHistory } from "react-router-dom";
 
 const ImgContainer = styled.div`
     position: relative;
@@ -16,7 +17,7 @@ const ImgContainer = styled.div`
     }
 `
 const PostListModal = styled.div`
-    border: 1px solid black;
+    border: 0.5px solid #dbdbdb;
     background-color: white;
     z-index: 999;
     position: absolute;
@@ -25,8 +26,8 @@ const PostListModal = styled.div`
     width: 50%;
     height: 70%;
     overflow: auto;
+    padding: 0.5rem;
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
         background-color: white;
         z-index: 999;
         position: absolute;
@@ -43,19 +44,18 @@ const GraphModal = styled.div`
     display: flex;
 
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
+        // border: 1px solid pink;
     }
 `
 
 const GraphTitle = styled.div`
     // border: 1px solid black;
-
     width: 100%;
     display: flex;
     flex-direction: row;
+    font-weight: bold;
 
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
     }
 `
 const GraphTitleDiv = styled.div`
@@ -64,7 +64,7 @@ const GraphTitleDiv = styled.div`
     width: 100%;
 
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
+        // border: 1px solid pink;
     }
 `
 const BarGraphFlex = styled.div`
@@ -91,6 +91,7 @@ let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 
 export default function Location(props) {
+    const history = useHistory();
     const dispatch = useDispatch()
     const { searchWord } = useSelector((state) => state.itemReducer)
     const { kakao } = window
@@ -441,6 +442,8 @@ export default function Location(props) {
         // display: flex;
         // flex-direction: row;
         // width: 10000px;
+        width: 100%;
+        padding: 0 .5rem;
 
         @media screen and (min-width: 1081px) {
         }
@@ -455,7 +458,9 @@ export default function Location(props) {
     const PostTitle = styled.div`
         // display: flex;
         // flex-direction: row;
-        width: 50%;
+        // width: 50%;
+        width: 100%;
+        font-weight: bold;
 
         @media screen and (min-width: 1081px) {
         }
@@ -463,7 +468,10 @@ export default function Location(props) {
     const PostContent = styled.div`
         // display: flex;
         // flex-direction: row;
-        width: 50%;
+        // width: 50%;
+        width: 100%;
+        // padding: .5rem 0;
+        font-size: .9rem;
 
         @media screen and (min-width: 1081px) {
         }
@@ -472,6 +480,11 @@ export default function Location(props) {
         display: flex;
         flex-direction: row;
         width: 100%;
+        padding: .5rem;
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
 
         @media screen and (min-width: 1081px) {
         }
@@ -526,10 +539,27 @@ export default function Location(props) {
             },
         ],
     }
+
+    const postboxClickHandler = (e) => {
+        let elem = e.target;
+        while (!elem.classList.contains('postbox')) {
+            elem = elem.parentNode;
+            if(elem.classList.contains('postlistModal')) {
+                elem = null;
+                return;
+            }
+        }
+        // TODO postid로 게시물 정보 받아와서 postread에 채우기
+        // elem.id 조회 가능 // 자료형은 문자열, 내용은 숫자 = 게시글 고유 id
+        console.log(elem.id);
+        dispatch(updatePostId(elem.id));
+        history.push('/postread');
+    }
+
     return (
         <>
             <ImgContainer id="map"></ImgContainer>
-            <PostListModal>
+            <PostListModal className="postlistModal">
                 <GraphTitleDiv>현재지역</GraphTitleDiv>
                 <GraphTitle>
                     <GraphTitleDiv>사용자 예보 날씨 비율</GraphTitleDiv>
@@ -547,7 +577,7 @@ export default function Location(props) {
                 </GraphModal>
                 {postList.map((post) => {
                     return (
-                        <PostBox>
+                        <PostBox key={post.id} id={post.id} onClick={postboxClickHandler} className='postbox'>
                             <Box>
                                 <PostImg src={`${post.post_photo}`} />
                                 <EmoticonBox>

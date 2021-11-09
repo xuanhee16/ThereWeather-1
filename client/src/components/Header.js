@@ -64,8 +64,9 @@ const TitleAndLogo = styled.div`
     display: ${(props) => (props.isMobileLogo ? "flex" : "none")};
     justify-content: center;
     align-items: center;
-    color: #231f20;
-    font-family: cursive;
+
+    color: #231F20;
+
     & img {
         width: 20%;
         margin-right: 0.5rem;
@@ -118,7 +119,9 @@ const StyledPostCode = styled(DaumPostcode)`
     @media screen and (max-width: 1081px) {
         top: 32px;
     }
+
 `
+
 
 const Input = styled.input`
     padding: 0.5rem;
@@ -159,7 +162,7 @@ const Buttons = styled.div`
 const Button = styled.button`
     background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
     color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
-    font-size: ${(props) => (props.isText ? "1.2rem" : "1.6rem")};
+    font-size: ${(props) => (props.isText ? "1rem" : "1.6rem")};
     padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
     margin: 0.5rem;
     border-radius: 10%;
@@ -306,9 +309,6 @@ export default function Header({ isInput, isMobileLogo }) {
                         </Button>
                         <Button>
                             <FontAwesomeIcon icon={faCloudRain} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faPooStorm} />
                         </Button>
                         <Button>
                             <FontAwesomeIcon icon={faSnowflake} />
