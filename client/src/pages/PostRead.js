@@ -93,6 +93,10 @@ const Profile = styled.div`
   span{
     margin-left: 1vh;
   }
+  span.date {
+    font-size: .8rem;
+    color: #707B7C;
+  }
 
   @media screen and (max-width: 1081px) {
     width: 70%;
@@ -480,8 +484,10 @@ export default function PostRead(){
 
         <Profile className="userProfile">
           <div className="profileInfo">
-            <ProfileImg src={"img/user-img.png"}/>
-            <span className="nickName">{'김코딩'}</span>
+            {/* <ProfileImg src={"img/user-img.png"}/> */}
+            <ProfileImg src={postData.user_Photo}/>
+            {/* <span className="nickName">{'김코딩'}</span> */}
+            <span className="nickName">{postData.nickName}</span>
             <span className="date">
               {formatDate(postData.updatedAt)}
             </span>
