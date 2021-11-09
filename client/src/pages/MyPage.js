@@ -220,7 +220,7 @@ const GridArea = styled.div`
         }
     }
 `
-let url = process.env.REACT_APP_LOCAL_URL
+const url = process.env.REACT_APP_LOCAL_URL
 
 export default function MyPage() {
     const dispatch = useDispatch()
@@ -285,8 +285,12 @@ export default function MyPage() {
 
     // 게시물사진 클릭했을 때
     const postClickHandler = () => {
-        //test
         history.push("/postread")
+        // history.push({
+        //     pathname: 'postread',
+        //     search: `?searchID=${userInfo.user_id}`,
+        //     state: {data: postInfo.postinfo}
+        // })
         // 해당 게시물의 id, user_id
     }
 

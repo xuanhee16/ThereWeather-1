@@ -374,7 +374,7 @@ export default function Write() {
         // axios.post
         // 페이지 이동 : '글 읽기' 페이지로?
         //console.log(userInfo.user_id)
-       
+       if(title.length > 0 && postText.length > 0){ //&& !photo && !selectWeather && !selectWind && !setSelectTemp
         axios({
             url: url + "/post/write",
             method: "post",
@@ -400,6 +400,11 @@ export default function Write() {
             alert("작성 완료")
             history.push("/mypage")
         })
+        .catch((err) => console.log(err))
+       }
+       else{
+        alert("제목과 내용은 필수입니다:)")
+       }
     }
 
     function weatherFunc(select) {

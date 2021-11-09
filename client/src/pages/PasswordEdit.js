@@ -111,6 +111,8 @@ const TextButton = styled.button`
   text-decoration: underline;
 `;
 
+const url = process.env.REACT_APP_LOCAL_URL
+
 
 export default function PasswordEdit() {
   const { password } = useSelector((state) => state.itemReducer)
