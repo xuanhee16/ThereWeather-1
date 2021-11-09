@@ -405,9 +405,14 @@ export default function PostRead(){
   //삭제버튼 
   const removeModalYes = () => {
     // console.log('삭제완료')
+    const token = JSON.parse(localStorage.getItem("ATOKEN"))
     axios({
       url:  url + "/deletepost",
       method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `token ${token}`,
+      },
       withCredentials: true
     })
     .then(() => {

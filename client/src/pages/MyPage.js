@@ -328,14 +328,12 @@ export default function MyPage() {
         <Outer>
             <GoBackButton />
             <ProfileArea>
-                <ProfileImg src={`${process.env.PUBLIC_URL}img/user-img.png`} />
+                <ProfileImg src={userInfo.user_Photo} />
                 <div className="mediaBox">
-
                     <p id="user-name">{userInfo.user_id}</p>
                     <p id="user-gender">{userInfo.gender === 1 ? "남성" : "여성"}</p>
                     <p id="user-location">나의 위치 : {userInfo.location}</p>
                     <p id="user-changeInfo" onClick={changeUserInfo}>정보수정</p>
-
                 </div>
                 <ButtonArea>
                     <button onClick={() => history.push("/editpassword")}>
@@ -372,14 +370,8 @@ export default function MyPage() {
                 <div className="item more">
                     <p>내가 쓴 예보</p>
                 </div>
-
                 {currentPosts.map((el) => <div className={["item", "postItem"]} id={el.id} onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
-
-                <button
-                    className="moreView"
-                    onClick={moreViewHandler}
-                >
-
+                <button className="moreView" onClick={moreViewHandler}>
                     더 보기
                 </button>
             </GridArea>
