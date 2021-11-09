@@ -43,7 +43,7 @@ const InfoBox = styled.div`
         }
     }
 
-    &:nth-child(2) {
+    &:nth-child(n+2) {
         margin-top: 3vh;
     }
 

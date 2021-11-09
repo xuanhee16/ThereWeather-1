@@ -65,7 +65,6 @@ const TitleAndLogo = styled.div`
     justify-content: center;
     align-items: center;
     color: #231F20;
-    font-family: cursive;
     & img {
         width: 20%;
         margin-right: 0.5rem;
@@ -159,7 +158,7 @@ const Buttons = styled.div`
 const Button = styled.button`
     background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
     color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
-    font-size: ${(props) => (props.isText ? "1.2rem" : "1.6rem")};
+    font-size: ${(props) => (props.isText ? "1rem" : "1.6rem")};
     padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
     margin: 0.5rem;
     border-radius: 10%;
@@ -306,9 +305,6 @@ export default function Header({ isInput, isMobileLogo }) {
                         </Button>
                         <Button>
                             <FontAwesomeIcon icon={faCloudRain} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faPooStorm} />
                         </Button>
                         <Button>
                             <FontAwesomeIcon icon={faSnowflake} />

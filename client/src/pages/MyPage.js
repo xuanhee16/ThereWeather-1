@@ -225,7 +225,8 @@ let url = process.env.REACT_APP_LOCAL_URL
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { isLogin } = useSelector((state) => state.itemReducer)
+    const { isLogin, userInfo } = useSelector((state) => state.itemReducer)   //
+    console.log(userInfo)   // 회원정보데이터
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
@@ -233,18 +234,18 @@ export default function MyPage() {
         url = "https://thereweather.space"
     }
 
-    const [currentPosts, setcurrentPosts] = useState([])
-    // 게시물 데이터 조회
-    useEffect(() => {
-        axios({
-            url: url + "/mypage",
-            method: "get",
-            withCredentials: true,
-        }).then((res) => {
-            setcurrentPosts(res.data)
-            console.log(currentPosts);
-        }) 
-    }, [])
+    // const [currentPosts, setcurrentPosts] = useState([])
+    // // 게시물 데이터 조회
+    // useEffect(() => {
+    //     axios({
+    //         url: url + "/mypage",
+    //         method: "get",
+    //         withCredentials: true,
+    //     }).then((res) => {
+    //         setcurrentPosts(res.data)
+    //         console.log(currentPosts);
+    //     }) 
+    // }, [])
 
     // 정보수정
     const changeUserInfo = () => {
@@ -300,7 +301,7 @@ export default function MyPage() {
             <ProfileArea>
                 <ProfileImg src={`${process.env.PUBLIC_URL}img/user-img.png`} />
                 <div className="mediaBox">
-                    <p id="user-name">{"김코딩"}</p>
+                    <p id="user-name">{userInfo.nickName}</p>
                     <p id="user-gender">성별 : {"남성"}</p>
                     <p id="user-location">나의 위치 : {"서울시 종로구 경교장길"}</p>
                     <p id="user-changeInfo" onClick={changeUserInfo}>정보수정</p>

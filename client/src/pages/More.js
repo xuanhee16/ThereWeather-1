@@ -36,7 +36,7 @@ const InfoBox = styled.div`
             font-size: 1rem;
         }
     }
-    &:nth-child(2) {
+    &:nth-child(n+2) {
         margin-top: 3vh;
     }
     &:hover {
