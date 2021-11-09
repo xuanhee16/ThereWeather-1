@@ -405,8 +405,18 @@ export default function PostRead(){
     history.push("/editpost");
   }
 
+  //삭제버튼 
   const removeModalYes = () => {
-    console.log('삭제완료')
+    // console.log('삭제완료')
+    axios({
+      url:  url + "/deletepost",
+      method: "delete",
+      withCredentials: true
+    })
+    .then(() => {
+      alert("삭제 완료")
+      history.push("/mypage")
+    })
     setRemovePost(false)
   }
 

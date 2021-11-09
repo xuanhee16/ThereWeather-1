@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 import ModalConfirm from "../components/ModalConfirm"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { changeIsLogin, userPosts } from "../actions/index"
+import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from  "../components/GoBackButton";
 
 
@@ -228,10 +228,11 @@ const url = process.env.REACT_APP_LOCAL_URL
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
-
-    const { isLogin, userInfo, postInfo } = useSelector((state) => state.itemReducer)
+    const { isLogin, userInfo, postInfo, readPostId } = useSelector((state) => state.itemReducer)
     console.log(userInfo) //정보잘넘어옴 
     console.log(postInfo.postinfo)
+    console.log(readPostId)
+
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
@@ -293,12 +294,6 @@ export default function MyPage() {
     // 게시물사진 클릭했을 때
     const postClickHandler = () => {
         history.push("/postread")
-        // history.push({
-        //     pathname: 'postread',
-        //     search: `?searchID=${userInfo.user_id}`,
-        //     state: {data: postInfo.postinfo}
-        // })
-        // 해당 게시물의 id, user_id
     }
 
     // 더보기
