@@ -550,9 +550,11 @@ export default function Location(props) {
             }
         }
 
-        // console.log(elem.id);
         dispatch(updatePostId(elem.id));
-        history.push('/postread');
+        history.push({
+            pathname: '/postread',
+            state: {postId: elem.id}
+        });
     }
 
     return (
