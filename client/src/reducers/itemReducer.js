@@ -9,7 +9,6 @@ import {
     CHANGE_USER_PW,
     CHANGE_CUR_LOCATION,
     UPDATE_WEATHERINFO,
-    UPDATE_POST_ID
 } from "../actions/index"
 import { initialState } from "./initialState"
 
@@ -76,11 +75,19 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 item: action.payload
             }
+
+        case UPDATE_USER_POST: 
+            return {
+                ...state,
+                postInfo: action.payload
+            }
+
         case UPDATE_POST_ID:
             return {
                 ...state,
                 readPostId: action.payload
             }
+
         default:
             return state
     }

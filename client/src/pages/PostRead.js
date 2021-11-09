@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faTshirt } from "@fortawesome/free-solid-svg-icons";
-// faHeart, faSun, faWind, faThermometerHalf
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
-// import { get, post } from "jquery";
+import { changeIsLogin, userPosts } from "../actions/index"
 
-// TODO : *북마크 여부*, 주소, 프로필 사진, 닉네임
 
 const Outer = styled.div`
   width: 100vw;

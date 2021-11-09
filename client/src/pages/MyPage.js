@@ -4,8 +4,10 @@ import { useHistory } from "react-router-dom"
 import ModalConfirm from "../components/ModalConfirm"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { changeIsLogin } from "../actions/index"
-import GoBackButton from "../components/GoBackButton"
+import { changeIsLogin, userPosts } from "../actions/index"
+import GoBackButton from  "../components/GoBackButton";
+
+
 
 const Outer = styled.div`
     background-color: var(--page-bg-color);
@@ -221,15 +223,15 @@ const GridArea = styled.div`
         }
     }
 `
-let url = process.env.REACT_APP_LOCAL_URL
+const url = process.env.REACT_APP_LOCAL_URL
 
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const { isLogin, userInfo } = useSelector((state) => state.itemReducer)   //
-    console.log(userInfo)   // 회원정보데이터
-
+    const { isLogin, userInfo, postInfo } = useSelector((state) => state.itemReducer)
+    console.log(userInfo) //정보잘넘어옴 
+    console.log(postInfo.postinfo)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
@@ -237,18 +239,19 @@ export default function MyPage() {
         url = "https://thereweather.space"
     }
 
-
     const [currentPosts, setcurrentPosts] = useState([])
+
     // 게시물 데이터 조회
     useEffect(() => {
         axios({
-            url: url + "/mypage",
+            url: url + `/mypage?searchID=${userInfo.user_id}`,
             method: "get",
             withCredentials: true,
         }).then((res) => {
+            //console.log(res)
             setcurrentPosts(res.data)
-            console.log(currentPosts)
-        })
+            dispatch(userPosts(res.data))
+        }) 
     }, [])
 
 
@@ -289,8 +292,12 @@ export default function MyPage() {
 
     // 게시물사진 클릭했을 때
     const postClickHandler = () => {
-        //test
         history.push("/postread")
+        // history.push({
+        //     pathname: 'postread',
+        //     search: `?searchID=${userInfo.user_id}`,
+        //     state: {data: postInfo.postinfo}
+        // })
         // 해당 게시물의 id, user_id
     }
 
@@ -299,6 +306,8 @@ export default function MyPage() {
         history.push("/mypost")
     }
 
+    console.log(currentPosts)
+
     return (
         <Outer>
             <GoBackButton />
@@ -306,13 +315,11 @@ export default function MyPage() {
                 <ProfileImg src={`${process.env.PUBLIC_URL}img/user-img.png`} />
                 <div className="mediaBox">
 
-                    <p id="user-name">{userInfo.nickName}</p>
-
-                    <p id="user-gender">성별 : {"남성"}</p>
+                    <p id="user-name">{userInfo.user_id}</p>
+                    <p id="user-gender">{userInfo.gender === 1 ? "남성" : "여성"}</p>
                     <p id="user-location">나의 위치 : {userInfo.location}</p>
-                    <p id="user-changeInfo" onClick={changeUserInfo}>
-                        정보수정
-                    </p>
+                    <p id="user-changeInfo" onClick={changeUserInfo}>정보수정</p>
+
                 </div>
                 <ButtonArea>
                     <button onClick={() => history.push("/editpassword")}>
@@ -349,18 +356,13 @@ export default function MyPage() {
                 <div className="item more">
                     <p>내가 쓴 예보</p>
                 </div>
-                <div className="item" onClick={postClickHandler}>
-                    <img
-                        src={`${process.env.PUBLIC_URL}img/sky.png`}
-                        alt="weather"
-                    />
-                </div>
-                <div className="item"></div>
-                <div className="item"></div>
-                <div className="item"></div>
-                <div className="item"></div>
-                <div className="item"></div>
-                <button className="moreView" onClick={moreViewHandler}>
+
+                {currentPosts.map((el) => <div className="item" onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
+                <button
+                    className="moreView"
+                    onClick={moreViewHandler}
+                >
+
                     더 보기
                 </button>
             </GridArea>
