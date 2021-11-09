@@ -575,4 +575,3 @@ export default function PostRead(){
 // * wind: null
 // * xLocation: "36.619121200000000"
 // * yLocation: "127.433451700000000"
-// 닉네임이... 없어...
