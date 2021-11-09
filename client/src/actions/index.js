@@ -96,6 +96,8 @@ export const userPosts = (postinfo) => {
         payload: {
            postinfo: postinfo,
         }
+   }
+}
 
 export const updatePostId = (pageId) => {
     return {
