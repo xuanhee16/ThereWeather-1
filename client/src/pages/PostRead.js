@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
-import { changeIsLogin, userPosts } from "../actions/index"
-
 
 const Outer = styled.div`
   width: 100vw;
@@ -18,8 +15,6 @@ const Outer = styled.div`
     margin: 0 auto;
     width: 60%;
     text-align: center;
-    // font-size: 25px;
-    // font-weight: bold;
     color: #2E2E2E;
     padding-top: 2vh;
     border-top: 1px solid #aaa;
@@ -27,14 +22,10 @@ const Outer = styled.div`
   @media screen and (max-width: 1081px){
     .todayCodi{
       margin-top: 2vh;
-      // font-size: 2rem;
       font-weight: bold;
     }
   }
   @media screen and (max-width: 375px) {
-    .todayCodi{
-      // font-size: 1.5rem;
-    }
   }
 `
 // 제목, 유저프로필사진,닉네임 북마크버튼
@@ -46,15 +37,15 @@ const PostHeader = styled.div`
     padding-top: 5vh;
   }
 `
-// 제목
+// 제목 // 제목글자수 제한 필요?
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 80vw;
+  width: 80%;
+  max-width: 960px;
   text-align: center;
   margin: 0 auto;
 
-  // 제목글자수 제한 필요?
   span{
     font-size: 2rem;
   }
@@ -90,7 +81,7 @@ const Profile = styled.div`
   display: flex; 
   justify-content: space-between;
   flex-flow: wrap;
-  
+
   .profileInfo{
     display: flex; 
     align-items: center;
@@ -101,6 +92,10 @@ const Profile = styled.div`
   }
   span{
     margin-left: 1vh;
+  }
+  span.date {
+    font-size: .8rem;
+    color: #707B7C;
   }
 
   @media screen and (max-width: 1081px) {
@@ -193,9 +188,8 @@ const TodayCodi = styled.div`
   margin: auto;
   margin-top: 3vh;
   margin-bottom: 3vh;
-  // font-size: 8rem;
 
-  & p {
+  & p.warning {
     font-size: .9rem;
     width: 6rem;
     height: 6rem;
@@ -204,11 +198,9 @@ const TodayCodi = styled.div`
 
   @media screen and (max-width: 1081px) {
     width: 50%;
-    // font-size: 5rem;
   }
   @media screen and (max-width: 375px) {
     width: 50vw;
-    // font-size: 70px;
   }
 `
 
@@ -219,7 +211,7 @@ const Post = styled.div`
   margin-bottom: 5vh;
   padding: 1rem;
   width: 60rem;
-  
+
   p{
     line-height: 2.5rem;
     font-size: 1.5rem;
@@ -326,8 +318,10 @@ if (!url) url = "https://thereweather.space"
 
 export default function PostRead(){
   const history = useHistory()
+
   // post id 가져오기
-  const { readPostId } = useSelector(state => state.itemReducer);
+  const { postId } = history.location.state;
+
   // postData state 변수
   const [postData, setPostData] = useState({
     id: null,
@@ -372,12 +366,12 @@ export default function PostRead(){
       .catch (err => console.log(err));
     };
 
-    if (!readPostId) {
+    if (!postId) {
       console.log('**postread: id가 없습니다**');
     } else {
-      getOnePost(readPostId);
+      getOnePost(postId);
     }
-  }, [readPostId])
+  }, [postId])
 
   // 북마크 상태
   const [bookmarked, setBookmarked] = useState(false);
@@ -403,6 +397,9 @@ export default function PostRead(){
   const editModalYes = () => {
     setEdit(false);
     history.push("/editpost");
+    // 여기서 회원인지 아닌지 확인을 한 뒤에 postEdit으로 넘겨야
+    // postEdit.js에 redux로 글 내용을 보내야 하는 건가?
+    // 아이디로 악시오스 요청? 어차피 똑같은 내용인데?
   }
 
   //삭제버튼 
@@ -418,6 +415,8 @@ export default function PostRead(){
       history.push("/mypage")
     })
     setRemovePost(false)
+    // 'a페이지' -> 글 읽기 -> 삭제
+      // a페이지로 redirect
   }
 
   const modalNoButtonHandler = () => {
@@ -472,16 +471,15 @@ export default function PostRead(){
       <TopButton>
         {
           btnStatus?
-          <img 
+          <img
             src={`${process.env.PUBLIC_URL}img/scroll-up-2.png`} alt="top"
             onClick={scrollToTop}
           /> : null
         }
       </TopButton>
       <GoBackButton/>
-      <PostHeader>
-        <Title>
-          {/* <span>{'오늘 날씨 맑음☀️'}</span> */}
+      <PostHeader className="postHeader">
+        <Title className="title">
           <span>{postData.post_title}</span>
           <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
@@ -489,28 +487,25 @@ export default function PostRead(){
           />
         </Title>
 
-        <Profile>
+        <Profile className="userProfile">
           <div className="profileInfo">
-            <ProfileImg src={"img/user-img.png"}/>
-            <span className="nickName">{'김코딩'}</span>
+            {/* <ProfileImg src={"img/user-img.png"}/> */}
+            <ProfileImg src={postData.user_Photo}/>
+            {/* <span className="nickName">{'김코딩'}</span> */}
+            <span className="nickName">{postData.nickName}</span>
             <span className="date">
               {formatDate(postData.updatedAt)}
             </span>
           </div>
-          {/* <p className="location">{'서울시 종로구 가회동'}</p> */}
           <div>
             <p className="location">{postData.xLocation.slice(0, -8)}</p>
             <p className="location">{postData.yLocation.slice(0, -8)}</p>
           </div>
         </Profile>
       </PostHeader>
-      {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */}
       <PostImg src={postData.post_photo} alt="post picture" />
 
       <WeatherInfo>
-          {/* <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.weather}.png`} alt="날씨아이콘"/>
-          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`} alt="날씨아이콘"/>
-          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`} alt="날씨아이콘"/> */}
           {
             !postData.weather?
               ''
@@ -534,26 +529,21 @@ export default function PostRead(){
       {/* 코디가 있을 때, 없을 때 */}
       <h2 className="todayCodi">오늘의 코디</h2>
       <TodayCodi>
-          {/* <FontAwesomeIcon icon={faTshirt} color="purple"/>
-          <FontAwesomeIcon icon={faTshirt} color="pink"/> */}
           {
             !postData.top_id || postData.top_id === 'default' ?
-              <p>상의 데이터가 없습니다</p>
+              <p className="warning">상의 데이터가 없습니다</p>
             :
               <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.top_id}.png`} alt="상의" />
           }
           {
             !postData.bottom_id || postData.top_id === 'default' ?
-              <p>하의 데이터가 없습니다</p>
+              <p className="warning">하의 데이터가 없습니다</p>
             :
               <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.bottom_id}.png`} alt="하의" />
           }
       </TodayCodi>
 
       <Post>
-        {/* <p>
-        곧 심장은 얼음과 예수는 열락의 가는 눈에 영원히 얼음에 것이다. 주는 일월과 대한 안고, 생의 스며들어 장식하는 위하여서. 이상의 온갖 이것은 가슴이 우리의 넣는 바이며, 하는 듣는다. 얼마나 수 만물은 작고 역사를 방지하는 것이다. 앞이 인도하겠다는 그들에게 때까지 아름다우냐? 자신과 위하여 많이 유소년에게서 봄바람이다. 능히 몸이 우리의 곳으로 운다.
-        </p> */}
         <p>
           {postData.post_content}
         </p>
@@ -577,11 +567,6 @@ export default function PostRead(){
           >수정하시겠습니까?</ModalConfirm>
         )}
       </Buttons>
-
-      {/* <TopButton>
-          <img src={`${process.env.PUBLIC_URL}img/scroll-up-2.png`} alt="top"></img>
-      </TopButton> */}
-
     </Outer>
   )
 }
@@ -601,4 +586,3 @@ export default function PostRead(){
 // * wind: null
 // * xLocation: "36.619121200000000"
 // * yLocation: "127.433451700000000"
-// 닉네임이... 없어...
