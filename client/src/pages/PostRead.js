@@ -272,13 +272,14 @@ const Buttons = styled.div`
 `
 // 스크롤 top 버튼 (필요한 페이지 추가적으로 나오면 컴포넌트로 만들기)
 const TopButton = styled.div`
-  width: 100%;
+  /* width: 100%; */
   height: 200px;
   position: fixed;
   z-index: 100;
   display: flex;
   justify-content: flex-end;
-  bottom: 0px;
+  right: 0;
+  bottom: 0;
   transition: all 0.3s;
   
   img{
