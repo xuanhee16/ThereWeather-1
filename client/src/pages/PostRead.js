@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
@@ -315,8 +314,10 @@ if (!url) url = "https://thereweather.space"
 
 export default function PostRead(){
   const history = useHistory()
+
   // post id 가져오기
-  const { readPostId } = useSelector(state => state.itemReducer);
+  const { postId } = history.location.state;
+
   // postData state 변수
   const [postData, setPostData] = useState({
     id: null,
@@ -361,12 +362,12 @@ export default function PostRead(){
       .catch (err => console.log(err));
     };
 
-    if (!readPostId) {
+    if (!postId) {
       console.log('**postread: id가 없습니다**');
     } else {
-      getOnePost(readPostId);
+      getOnePost(postId);
     }
-  }, [readPostId])
+  }, [postId])
 
   // 북마크 상태
   const [bookmarked, setBookmarked] = useState(false);
