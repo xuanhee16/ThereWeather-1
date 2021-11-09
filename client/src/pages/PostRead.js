@@ -462,7 +462,7 @@ export default function PostRead(){
       <TopButton>
         {
           btnStatus?
-          <img 
+          <img
             src={`${process.env.PUBLIC_URL}img/scroll-up-2.png`} alt="top"
             onClick={scrollToTop}
           /> : null
@@ -471,7 +471,6 @@ export default function PostRead(){
       <GoBackButton/>
       <PostHeader>
         <Title>
-          {/* <span>{'오늘 날씨 맑음☀️'}</span> */}
           <span>{postData.post_title}</span>
           <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
@@ -487,20 +486,15 @@ export default function PostRead(){
               {formatDate(postData.updatedAt)}
             </span>
           </div>
-          {/* <p className="location">{'서울시 종로구 가회동'}</p> */}
           <div>
             <p className="location">{postData.xLocation.slice(0, -8)}</p>
             <p className="location">{postData.yLocation.slice(0, -8)}</p>
           </div>
         </Profile>
       </PostHeader>
-      {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */}
       <PostImg src={postData.post_photo} alt="post picture" />
 
       <WeatherInfo>
-          {/* <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.weather}.png`} alt="날씨아이콘"/>
-          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`} alt="날씨아이콘"/>
-          <WeatherIcon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`} alt="날씨아이콘"/> */}
           {
             !postData.weather?
               ''
@@ -524,8 +518,6 @@ export default function PostRead(){
       {/* 코디가 있을 때, 없을 때 */}
       <h2 className="todayCodi">오늘의 코디</h2>
       <TodayCodi>
-          {/* <FontAwesomeIcon icon={faTshirt} color="purple"/>
-          <FontAwesomeIcon icon={faTshirt} color="pink"/> */}
           {
             !postData.top_id || postData.top_id === 'default' ?
               <p>상의 데이터가 없습니다</p>
@@ -541,9 +533,6 @@ export default function PostRead(){
       </TodayCodi>
 
       <Post>
-        {/* <p>
-        곧 심장은 얼음과 예수는 열락의 가는 눈에 영원히 얼음에 것이다. 주는 일월과 대한 안고, 생의 스며들어 장식하는 위하여서. 이상의 온갖 이것은 가슴이 우리의 넣는 바이며, 하는 듣는다. 얼마나 수 만물은 작고 역사를 방지하는 것이다. 앞이 인도하겠다는 그들에게 때까지 아름다우냐? 자신과 위하여 많이 유소년에게서 봄바람이다. 능히 몸이 우리의 곳으로 운다.
-        </p> */}
         <p>
           {postData.post_content}
         </p>
@@ -567,11 +556,6 @@ export default function PostRead(){
           >수정하시겠습니까?</ModalConfirm>
         )}
       </Buttons>
-
-      {/* <TopButton>
-          <img src={`${process.env.PUBLIC_URL}img/scroll-up-2.png`} alt="top"></img>
-      </TopButton> */}
-
     </Outer>
   )
 }

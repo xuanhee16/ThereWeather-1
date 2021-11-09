@@ -9,6 +9,8 @@ import {
     CHANGE_USER_PW,
     CHANGE_CUR_LOCATION,
     UPDATE_WEATHERINFO,
+    UPDATE_USER_POST,
+    UPDATE_POST_ID
 } from "../actions/index"
 import { initialState } from "./initialState"
 
