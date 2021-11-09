@@ -7,6 +7,8 @@ import axios from "axios"
 import { changeIsLogin, userPosts } from "../actions/index"
 import GoBackButton from  "../components/GoBackButton";
 
+
+
 const Outer = styled.div`
     background-color: var(--page-bg-color);
     width: 100vw;
@@ -25,22 +27,23 @@ const ProfileArea = styled.div`
     width: 30%;
     padding: 15vh 1vw 1vh 1vw;
     text-align: center;
-    button {    // 비밀번호 수정, 회원탈퇴
+    button {
+        // 비밀번호 수정, 회원탈퇴
         color: #336fc9;
         font-size: 1.5rem;
         margin-top: 1vh;
     }
-    .mediaBox{
+    .mediaBox {
         margin-top: 2vh;
         margin-bottom: 2vh;
-        p{
+        p {
             margin-top: 1vh;
         }
-        #user-name{
+        #user-name {
             font-size: 1.5rem;
             font-weight: bold;
         }
-        #user-changeInfo{
+        #user-changeInfo {
             color: #336fc9;
         }
     }
@@ -51,7 +54,7 @@ const ProfileArea = styled.div`
         margin-top: 4vh;
         width: 100%;
         padding: 0 1vw 3vh 1vw;
-        .mediaBox{
+        .mediaBox {
             width: 40%;
             display: inline-block;
             text-align: left;
@@ -65,10 +68,10 @@ const ProfileArea = styled.div`
     }
 
     @media screen and (max-width: 375px) {
-        button{
+        button {
             font-size: 1rem;
         }
-        .mediaBox{
+        .mediaBox {
             width: 50%;
             display: inline-block;
             padding-bottom: 1vh;
@@ -76,12 +79,12 @@ const ProfileArea = styled.div`
                 margin-top: 0;
                 justify-content: center;
                 font-size: 1rem;
-            }      
-            #user-name{
+            }
+            #user-name {
                 font-size: 1rem;
             }
         }
-    }    
+    }
 `
 /* 프로필 사진 */
 const ProfileImg = styled.img`
@@ -105,13 +108,13 @@ const ButtonArea = styled.div`
     justify-content: space-around;
     align-items: flex-end;
     text-decoration: none;
-    
+
     button {
         font-size: 1.2rem;
     }
 
     @media screen and (max-width: 1081px) {
-        width: 100vw;   // 가운데로 맞춤
+        width: 100vw; // 가운데로 맞춤
         align-items: center;
         height: 10vh;
         position: absolute;
@@ -121,7 +124,7 @@ const ButtonArea = styled.div`
         padding: 0 15vw;
         height: 20vh;
         justify-content: space-between;
-        button{
+        button {
             font-size: 1rem;
         }
     }
@@ -137,7 +140,7 @@ const GridArea = styled.div`
 
     row-gap: 10px; /* row의 간격을 10px로 */
     column-gap: 20px; /* column의 간격을 20px로 */
-    border-top: 1px solid #aaa;  // 구분선 추가
+    border-top: 1px solid #aaa; // 구분선 추가
 
     .item:nth-child(1) {
         border: none;
@@ -151,7 +154,7 @@ const GridArea = styled.div`
     div:hover {
         border: 1px solid var(--page-bg-color);
     }
-    img{
+    img {
         width: 100%;
         height: 100%;
     }
@@ -165,7 +168,7 @@ const GridArea = styled.div`
         font-size: 2rem;
         margin: 0 auto;
         font-weight: bold;
-        color: #8E8E8E;
+        color: #8e8e8e;
     }
     .moreView {
         font-size: 1.5rem;
@@ -225,14 +228,17 @@ const url = process.env.REACT_APP_LOCAL_URL
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
+
     const { isLogin, userInfo, postInfo } = useSelector((state) => state.itemReducer)
     console.log(userInfo) //정보잘넘어옴 
     console.log(postInfo.postinfo)
+
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
     if (!url) {
         url = "https://thereweather.space"
     }
+
     const [currentPosts, setcurrentPosts] = useState([])
 
     // 게시물 데이터 조회
@@ -248,9 +254,10 @@ export default function MyPage() {
         }) 
     }, [])
 
+
     // 정보수정
     const changeUserInfo = () => {
-        console.log('정보수정 클릭');
+        console.log("정보수정 클릭")
     }
 
     const removeUserInfo = () => {
@@ -297,21 +304,22 @@ export default function MyPage() {
     // 더보기
     const moreViewHandler = () => {
         history.push("/mypost")
-
     }
 
     console.log(currentPosts)
 
     return (
         <Outer>
-            <GoBackButton/>
+            <GoBackButton />
             <ProfileArea>
                 <ProfileImg src={`${process.env.PUBLIC_URL}img/user-img.png`} />
                 <div className="mediaBox">
+
                     <p id="user-name">{userInfo.user_id}</p>
                     <p id="user-gender">{userInfo.gender === 1 ? "남성" : "여성"}</p>
                     <p id="user-location">나의 위치 : {userInfo.location}</p>
                     <p id="user-changeInfo" onClick={changeUserInfo}>정보수정</p>
+
                 </div>
                 <ButtonArea>
                     <button onClick={() => history.push("/editpassword")}>
@@ -348,11 +356,13 @@ export default function MyPage() {
                 <div className="item more">
                     <p>내가 쓴 예보</p>
                 </div>
+
                 {currentPosts.map((el) => <div className="item" onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
                 <button
                     className="moreView"
                     onClick={moreViewHandler}
                 >
+
                     더 보기
                 </button>
             </GridArea>

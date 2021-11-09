@@ -11,6 +11,7 @@ export const CHANGE_CUR_LOCATION = "CHANGE_CUR_LOCATION"
 
 export const UPDATE_WEATHERINFO = "UPDATE_WEATHERINFO"
 export const UPDATE_USER_POST = "UPDATE_USER_POST"
+export const UPDATE_POST_ID = "UPDATE_POST_ID"
 
 // actions creator functions
 export const changeUser = (userinfo) => {
@@ -88,11 +89,17 @@ export const updateWeatherInfo = (data) => {
     }
 }
 
+
 export const userPosts = (postinfo) => {
     return {
         type: UPDATE_USER_POST,
         payload: {
            postinfo: postinfo,
         }
+
+export const updatePostId = (pageId) => {
+    return {
+        type: UPDATE_POST_ID,
+        payload: pageId
     }
 }

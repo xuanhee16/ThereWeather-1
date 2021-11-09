@@ -18,4 +18,5 @@ module.exports = {
     sociallogin: require("./post/sociallogin"),
     usersController: require("./users"),
     postsController: require("./post"),
+    chatsController: require("./chat"),
 }

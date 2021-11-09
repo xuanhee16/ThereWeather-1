@@ -6,7 +6,7 @@ import axios from "axios"
 import { changeIsLogin } from "../actions/index"
 
 const Outer = styled.div`
-// 여기는 데스크탑
+    // 여기는 데스크탑
     margin: 0 auto;
     background-color: var(--page-bg-color);
     width: 100vw;
@@ -15,7 +15,7 @@ const Outer = styled.div`
     align-items: center;
 
     @media screen and (max-width: 1081px) {
-    // 여기가 모바일
+        // 여기가 모바일
         height: calc(100vh - 125px - 70px);
     }
 `
@@ -35,7 +35,7 @@ const InfoBox = styled.div`
 
     p {
         font-size: 1.5rem;
-        color: #dbdbdb;
+        color: black;
         margin: 0;
         line-height: 10vh;
         @media screen and (max-width: 375px) {
@@ -43,13 +43,13 @@ const InfoBox = styled.div`
         }
     }
 
-    &:nth-child(2) {
+    &:nth-child(n+2) {
         margin-top: 3vh;
     }
 
     &:hover {
         border: 1px solid #262626;
-        p{
+        p {
             color: #262626;
         }
     }
@@ -58,7 +58,6 @@ const InfoBox = styled.div`
         /* border: 1px solid green; */
     }
     @media screen and (max-width: 375px) {
-
     }
 `
 
@@ -109,7 +108,6 @@ export default function UserInfo() {
                     <button onClick={logoutBtnHandler}>
                         <p>로그아웃</p>
                     </button>
-
                 </InfoBox>
             </InfoBoxes>
         </Outer>
