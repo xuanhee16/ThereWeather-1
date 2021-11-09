@@ -1,15 +1,8 @@
 import styled from "styled-components"
 import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
-
 import axios from "axios"
-
-// import { Upload, SunFill, CloudyFill, CloudRainFill, Snow, Thermometer, ThermometerHalf, ThermometerHigh } from "@styled-icons/bootstrap"
-
-/* TODO
-  [] 업로드된 이미지의 크기 정리를 어떻게 할지
-    - 가로, 세로 비율 유지 방법
-*/
+import { useHistory } from "react-router-dom";
 
 const Outer = styled.div`
     overflow: scroll;
@@ -51,12 +44,11 @@ const Button2 = styled.input`
     max-width: 300px;
     margin: 1rem;
     padding: 0.8rem;
-    font-size: 1.2rem;
+    border-radius: 1rem;
+    font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
-
-    border-radius: 1rem;
+    background-color: #2f6ecb;
 
     > span {
         margin: 0.25rem;
@@ -70,12 +62,6 @@ const PictureSection = styled.form`
     align-items: center;
     margin: 1rem;
     height: inherit;
-
-    & > img {
-        width: 80%;
-        height: auto;
-        margin: 1rem;
-    }
 
     @media screen and (min-width: 1081px) {
         justify-content: center;
@@ -183,33 +169,34 @@ const WriteText = styled.textarea`
     }
 `
 const PhotoBox = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
     min-width: 300px;
-    width: 30vh;
-    height: 30vh;
+    min-height: 300px;
     background-color: #ececec;
-    font-size: 30px;
-    color: palevioletred;
     border: 1px solid #b5b5b5;
-    /* width: 300px;
-height: 150px; */
     object-fit: cover;
 `
+
 const PhotoBox2 = styled.img`
     min-width: 300px;
     width: 30vh;
-    height: 30vh;
+    height: auto;
 `
 
 const Button3 = styled.button`
     width: 50vw;
     min-width: 100px;
     max-width: 300px;
-    margin: 1rem;
+    margin: .5rem;
     padding: 0.8rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    background-color: #2f6ecb;
     border-radius: 1rem;
 
     > span {
@@ -219,6 +206,7 @@ const Button3 = styled.button`
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Write() {
+    const history = useHistory();
     const { userInfo, curLocation } = useSelector((state) => state.itemReducer)
     const [selectWeather, setSelectWeather] = useState()
     const [selectWind, setSelectWind] = useState()
@@ -240,24 +228,6 @@ export default function Write() {
     useEffect(() => {
         console.log(userInfo.user_id)
     }, [])
-
-    // img src 상태
-    // 테스트용 이미지
-    const imageUrl = {
-        normalLarge:
-            "https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)",
-        normalSmall: "https://dummyimage.com/300x180/000/fff&text=300x180",
-        narrowLong:
-            "https://dummyimage.com/400x800/857285/fff.png&text=400x800",
-        wideShort: "https://dummyimage.com/800x300/857285/fff.png&text=800x300",
-        realImageNormal:
-            "https://cdn.pixabay.com/photo/2020/11/08/13/28/tree-5723734_1280.jpg",
-        realImageLong:
-            "https://cdn.pixabay.com/photo/2021/09/03/02/08/skyscrapers-6594833_1280.png",
-    }
-
-    // state 변수
-    const [photoSrc, setPhotoSrc] = useState(imageUrl.realImageNormal)
 
     // 날씨 버튼
     const weathers = [
@@ -348,16 +318,6 @@ export default function Write() {
         setSelectValueBottom(e.target.value)
     }
 
-    // 사진 업로드 버튼 이벤트
-    const photoUploadButtonHandler = (e) => {
-        console.log("사진 업로드 버튼 동작 확인")
-        // TODO
-        // multer 연결
-        // axios 요청
-        // 이미지 src 바꾸기
-        // setPhotoSrc(res로 받은 src);
-    }
-
     // textarea state & handler
     const [postText, setPostText] = useState("")
     const postTextHandler = (e) => {
@@ -366,10 +326,6 @@ export default function Write() {
 
     // 등록버튼 이벤트
     const submitButtonHandler = (e) => {
-        console.log("등록버튼 동작 확인")
-        // TODO
-        // axios.post
-        // 페이지 이동 : '글 읽기' 페이지로?
         console.log(userInfo.user_id)
         axios({
             url: url + "/post/write",
@@ -392,6 +348,10 @@ export default function Write() {
             },
             withCredentials: true,
         })
+        .then (() => {
+            history.push('/map');
+        })
+        .catch(err => console.log(err));
     }
 
     function weatherFunc(select) {
@@ -451,6 +411,7 @@ export default function Write() {
                     <WriteText
                         onChange={titleInputHandler}
                         value={title}
+                        placeholder="제목을 입력하세요."
                         small
                     ></WriteText>
                 </article>
@@ -467,7 +428,6 @@ export default function Write() {
                     onChange={addFile}
                     round
                 />
-
                 <Button3 type="submit">업로드</Button3>
             </PictureSection>
 

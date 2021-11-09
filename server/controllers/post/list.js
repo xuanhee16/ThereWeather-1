@@ -2,7 +2,6 @@ const { post } = require("../../models")
 const { user } = require("../../models")
 const { Op } = require("sequelize")
 
-
 module.exports = {
     get: async (req, res) => {
         console.log(req.query)

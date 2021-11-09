@@ -5,7 +5,6 @@ import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
 import GoBackButton from "../components/GoBackButton"
 
 const Outer = styled.div`
-
   background-color: var(--page-bg-color);
   width: 100vw;
   /* height: 100vh; */
