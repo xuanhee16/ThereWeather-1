@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
-import { changeIsLogin, userPosts } from "../actions/index"
-
 
 const Outer = styled.div`
   width: 100vw;
@@ -18,8 +16,6 @@ const Outer = styled.div`
     margin: 0 auto;
     width: 60%;
     text-align: center;
-    // font-size: 25px;
-    // font-weight: bold;
     color: #2E2E2E;
     padding-top: 2vh;
     border-top: 1px solid #aaa;
@@ -27,14 +23,10 @@ const Outer = styled.div`
   @media screen and (max-width: 1081px){
     .todayCodi{
       margin-top: 2vh;
-      // font-size: 2rem;
       font-weight: bold;
     }
   }
   @media screen and (max-width: 375px) {
-    .todayCodi{
-      // font-size: 1.5rem;
-    }
   }
 `
 // 제목, 유저프로필사진,닉네임 북마크버튼
@@ -46,15 +38,15 @@ const PostHeader = styled.div`
     padding-top: 5vh;
   }
 `
-// 제목
+// 제목 // 제목글자수 제한 필요?
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 80vw;
+  width: 80%;
+  max-width: 960px;
   text-align: center;
   margin: 0 auto;
 
-  // 제목글자수 제한 필요?
   span{
     font-size: 2rem;
   }
@@ -90,7 +82,7 @@ const Profile = styled.div`
   display: flex; 
   justify-content: space-between;
   flex-flow: wrap;
-  
+
   .profileInfo{
     display: flex; 
     align-items: center;
@@ -193,9 +185,8 @@ const TodayCodi = styled.div`
   margin: auto;
   margin-top: 3vh;
   margin-bottom: 3vh;
-  // font-size: 8rem;
 
-  & p {
+  & p.warning {
     font-size: .9rem;
     width: 6rem;
     height: 6rem;
@@ -204,11 +195,9 @@ const TodayCodi = styled.div`
 
   @media screen and (max-width: 1081px) {
     width: 50%;
-    // font-size: 5rem;
   }
   @media screen and (max-width: 375px) {
     width: 50vw;
-    // font-size: 70px;
   }
 `
 
@@ -219,7 +208,7 @@ const Post = styled.div`
   margin-bottom: 5vh;
   padding: 1rem;
   width: 60rem;
-  
+
   p{
     line-height: 2.5rem;
     font-size: 1.5rem;
@@ -403,11 +392,21 @@ export default function PostRead(){
   const editModalYes = () => {
     setEdit(false);
     history.push("/editpost");
+    // 여기서 회원인지 아닌지 확인을 한 뒤에 postEdit으로 넘겨야
+    // postEdit.js에 redux로 글 내용을 보내야 하는 건가?
+    // 아이디로 악시오스 요청? 어차피 똑같은 내용인데?
   }
 
   const removeModalYes = () => {
     console.log('삭제완료')
+    // 글 쓴 사람 본인인지 확인 - redux의 회원정보와? auth axios?
+    // 글 readPostId와 개인정보를 서버로 보내서
+      // 서버 : 개인정보가 맞는지 확인하고 아이디에 맞는 데이터를 삭제
+    // 서버와 통신
+      // 성공 : removePost의 스테이트 변경
     setRemovePost(false)
+    // 'a페이지' -> 글 읽기 -> 삭제
+      // a페이지로 redirect
   }
 
   const modalNoButtonHandler = () => {
@@ -469,8 +468,8 @@ export default function PostRead(){
         }
       </TopButton>
       <GoBackButton/>
-      <PostHeader>
-        <Title>
+      <PostHeader className="postHeader">
+        <Title className="title">
           <span>{postData.post_title}</span>
           <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
@@ -478,7 +477,7 @@ export default function PostRead(){
           />
         </Title>
 
-        <Profile>
+        <Profile className="userProfile">
           <div className="profileInfo">
             <ProfileImg src={"img/user-img.png"}/>
             <span className="nickName">{'김코딩'}</span>
@@ -520,13 +519,13 @@ export default function PostRead(){
       <TodayCodi>
           {
             !postData.top_id || postData.top_id === 'default' ?
-              <p>상의 데이터가 없습니다</p>
+              <p className="warning">상의 데이터가 없습니다</p>
             :
               <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.top_id}.png`} alt="상의" />
           }
           {
             !postData.bottom_id || postData.top_id === 'default' ?
-              <p>하의 데이터가 없습니다</p>
+              <p className="warning">하의 데이터가 없습니다</p>
             :
               <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.bottom_id}.png`} alt="하의" />
           }
