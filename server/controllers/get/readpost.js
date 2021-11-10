@@ -19,7 +19,7 @@ module.exports = async function(req, res)  {
         user.findOne({ where: { user_id : userId } })
             // 작성자 아이디로 회원 정보 찾기
         .then(async userinfo => {
-            const { nickName, user_Photo, location } = userinfo.dataValues;
+            const { nickName, user_Photo } = userinfo.dataValues;
             // 위도 경도 이용해서 주소 찾기
             const { xLocation, yLocation } = postData;
             const {level1, level2,level4L} = await getAddress(xLocation, yLocation);
@@ -28,7 +28,6 @@ module.exports = async function(req, res)  {
             return {
                 nickName: nickName,
                 user_Photo: user_Photo,
-                location: location,
                 address: address
             };
         })

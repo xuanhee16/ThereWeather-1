@@ -14,7 +14,7 @@ dotenv.config();
   [수정사항]
   - 옷차림 아이콘 경로 수정
   - select 태그용 배열 테스트
-  - geocoder api 사용 시도 - 코어스 에러로 실패 : 서버로 넘어감
+  - 게시물 작성 위치를 기준으로 주소 렌더링
 */
 
 const Outer = styled.div`
@@ -358,8 +358,7 @@ export default function PostRead(){
     top_id: '',
     bottom_id: '',
     post_content: '',
-    location: '',
-    address: {}
+    address: ''
   });
   const [ noIdWarning, setNoIdWarning ] = useState('');
 
@@ -541,7 +540,7 @@ export default function PostRead(){
             </span>
           </div>
           <div>
-            <p className="location">{postData.location}</p>
+            <p className="location">{postData.address}</p>
             {/* <p className="location">{postData.xLocation.slice(0, -8)}</p>
             <p className="location">{postData.yLocation.slice(0, -8)}</p> */}
           </div>
