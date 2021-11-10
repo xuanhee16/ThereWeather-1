@@ -7,6 +7,10 @@ import axios from "axios"
 import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from  "../components/GoBackButton";
 
+/*
+    [수정]
+    - 제가 작성했던(것 같은) 주석과 console.log 몇 가지 제거
+*/
 
 
 const Outer = styled.div`
@@ -249,7 +253,6 @@ export default function MyPage() {
             method: "get",
             withCredentials: true,
         }).then((res) => {
-            //console.log(res.data)
             setcurrentPosts(res.data)
             dispatch(userPosts(res.data))
         }) 
@@ -266,7 +269,6 @@ export default function MyPage() {
     }
 
     const modalYesButtonHandlers = () => {
-        //console.log('회원탈퇴 완료');
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios
             .delete(url + "/removeuser", {
@@ -293,15 +295,6 @@ export default function MyPage() {
 
     // 게시물 클릭했을 때
     const postClickHandler = (e) => {
-        // console.log(e.target.id);
-        // history.push("/postread")
-        // history.push({
-        //     pathname: 'postread',
-        //     search: `?searchID=${userInfo.user_id}`,
-        //     state: {data: postInfo.postinfo}
-        // })
-        // 해당 게시물의 id, user_id
-
         let elem = e.target;
         while(!elem.classList.contains("postItem")) {
             elem = elem.parentNode;
@@ -321,8 +314,6 @@ export default function MyPage() {
     const moreViewHandler = () => {
         history.push("/mypost")
     }
-
-    // console.log(currentPosts)
 
     return (
         <Outer>
