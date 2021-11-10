@@ -2,7 +2,7 @@ module.exports = {
     auth: require("./get/auth"),
     bookmark: require("./get/bookmark"),
     codi: require("./get/codi"),
-    home: require("./get/home"),
+    home: require("./post/home"),
     map: require("./post/map"),
     mypage: require("./get/mypage"),
     mypost: require("./get/mypost"),
