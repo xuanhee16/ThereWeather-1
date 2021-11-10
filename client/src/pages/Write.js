@@ -208,10 +208,9 @@ const Button3 = styled.button`
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Write() {
-
+    const dispatch = useDispatch()
     const history = useHistory();
     const { userInfo, curLocation } = useSelector((state) => state.itemReducer)
- 
     const [selectWeather, setSelectWeather] = useState()
     const [selectWind, setSelectWind] = useState()
     const [selectTemp, setSelectTemp] = useState()

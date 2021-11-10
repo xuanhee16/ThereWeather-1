@@ -5,6 +5,7 @@ module.exports = {
     home: require("./get/home"),
     map: require("./post/map"),
     mypage: require("./get/mypage"),
+    mypost: require("./get/mypost"),
     readpost: require("./get/readpost"),
     login: require("./post/login"),
     signout: require("./post/signout"),

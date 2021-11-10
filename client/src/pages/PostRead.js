@@ -416,13 +416,23 @@ export default function PostRead(){
     // 아이디로 악시오스 요청? 어차피 똑같은 내용인데?
   }
 
+  //삭제버튼 
   const removeModalYes = () => {
-    console.log('삭제완료')
-    // 글 쓴 사람 본인인지 확인 - redux의 회원정보와? auth axios?
-    // 글 readPostId와 개인정보를 서버로 보내서
-      // 서버 : 개인정보가 맞는지 확인하고 아이디에 맞는 데이터를 삭제
-    // 서버와 통신
-      // 성공 : removePost의 스테이트 변경
+    // console.log('삭제완료')
+    const token = JSON.parse(localStorage.getItem("ATOKEN"))
+    axios({
+      url:  url + "/deletepost",
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `token ${token}`,
+      },
+      withCredentials: true
+    })
+    .then(() => {
+      alert("삭제 완료")
+      history.push("/mypage")
+    })
     setRemovePost(false)
     // 'a페이지' -> 글 읽기 -> 삭제
       // a페이지로 redirect

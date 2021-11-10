@@ -1,7 +1,9 @@
 import styled from "styled-components"
-import { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+import React,{ useState, useEffect } from "react"
 import axios from "axios"
+import { useSelector, useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
+//import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 
 const Outer = styled.div`
     overflow: scroll;
@@ -206,26 +208,41 @@ const Button3 = styled.button`
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Write() {
-    const { userInfo, curLocation } = useSelector((state) => state.itemReducer)
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const { userInfo, curLocation, postInfo, readPostId } = useSelector((state) => state.itemReducer)
+    console.log(userInfo)
+    console.log(postInfo)
+    console.log(readPostId)
+  
     const [selectWeather, setSelectWeather] = useState()
     const [selectWind, setSelectWind] = useState()
     const [selectTemp, setSelectTemp] = useState()
     const [photo, setPhoto] = useState("")
+    const [postId, setPostId] = useState(readPostId)
+    // const [uploadedImg, setUploadedImg] = useState({
+    //     fileName: "blankPost.png",
+    //     filePath: `${url}/img/blankPost.png`,
+    // })
     const [uploadedImg, setUploadedImg] = useState({
-        fileName: "blankPost.png",
-        filePath: `${url}/img/blankPost.png`,
+        fileName: null,
+        filePath: null,
     })
+    
+  
     if (!url) {
         url = "https://thereweather.space"
     }
+
     // 제목 handler
     const [title, setTitle] = useState("")
-
     const titleInputHandler = (e) => {
         setTitle((prev) => e.target.value)
     }
     useEffect(() => {
-        console.log(userInfo.user_id)
+      console.log(userInfo.user_id)
+      // setTitle()
+
     }, [])
 
     // 날씨 버튼
@@ -324,15 +341,13 @@ export default function Write() {
         // TODO
         // axios.post
         // 페이지 이동 : '글 읽기' 페이지로?
-        console.log(userInfo.user_id)
+        //console.log(userInfo.user_id)
         axios({
-            url: url + "/post/write",
-            method: "post",
-            // headers: {
-            //     // accept: "application/json",
-            // },
+            url: url + "/editpost",
+            method: "put",
             data: {
                 user_id: userInfo.user_id,
+                post_id: postId, //추가 
                 post_photo: uploadedImg.filePath,
                 post_title: title,
                 post_content: postText,
@@ -346,6 +361,13 @@ export default function Write() {
             },
             withCredentials: true,
         })
+        .then((res) => {
+            console.log(res.data)
+            alert("수정 완료")
+            //setTitle(res.dat)
+            history.push("/mypage")
+        })
+        .catch((err) => console.log(err))
     }
 
     function weatherFunc(select) {
