@@ -5,6 +5,13 @@ import { useHistory } from "react-router-dom"
 import axios from "axios"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from "../components/GoBackButton"
+import Pagination from "../components/Pagination"
+
+/*
+  [수정]
+  - 레이아웃 고치다가 중단함
+  - 페이지네이션 컴포넌트 추가함
+*/
 
 const Outer = styled.div`
   background-color: var(--page-bg-color);
@@ -97,22 +104,32 @@ const PostImg = styled.img`
 `
 // 게시물 내용
 const PostInfo = styled.div`
-  width: 50%;
-  padding: 3vh 2vw 2vh 2vw;
-  font-size: 2rem;
+  // width: 50%;
+  // padding: 3vh 2vw 2vh 2vw;
+  // font-size: 2rem;
+  // align-items: center;
+
+  display: flex;
+  justify-content: center;
   align-items: center;
-  p{
-    margin-top: 10px;
+
+  img {
+    width: 30%;
+    height: auto;
   }
 
-  @media screen and (max-width: 1081px) {
-    padding: 1vh 2vw 2vh 2vw;
-    font-size: 1.5rem;
+  p{
+    margin: .5rem;
   }
-  @media screen and (max-width: 375px) {
-    font-size: 1rem;
-    padding-left: 3vw;
-  }
+
+  // @media screen and (max-width: 1081px) {
+  //   padding: 1vh 2vw 2vh 2vw;
+  //   font-size: 1.5rem;
+  // }
+  // @media screen and (max-width: 375px) {
+  //   font-size: 1rem;
+  //   padding-left: 3vw;
+  // }
 
 `
 
@@ -237,7 +254,22 @@ const postClickHandler = (e) => {
       <GridArea className="myPostList">
         {/* <div className="item"> */}
           {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */} 
-          {currentPosts.map((el) => <div className={["item", "postItem"]} id={el.id} onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
+          {currentPosts.map((el) => {
+            return(
+              <PostInfo
+                className={["item", "postItem"]}
+                id={el.id}
+                onClick={postClickHandler}
+                key={el.id}
+              >
+                <img src={el.post_photo} alt="posts" className="postPhoto" />
+                <div className="postContent">
+                  <p className="date">날짜</p>
+                  <p className="address">주소</p>
+                </div>
+              </PostInfo>
+            );
+          })}
           {/* <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -247,6 +279,13 @@ const postClickHandler = (e) => {
           </PostInfo> */}
         {/* </div> */}
       </GridArea>
+
+      {/* 페이지네이션 테스트 */}
+      <Pagination
+        dataLength={100}
+        unit={5}
+        // numberButtonClickHandler={}
+      />
 
       {/* 페이지네이션이나 무한스크롤 */}
       <Page>

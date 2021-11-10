@@ -7,6 +7,12 @@ import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
 
+/*
+  [수정사항]
+  - 옷차림 아이콘 경로 수정
+  - select 태그용 배열 테스트
+*/
+
 const Outer = styled.div`
   width: 100vw;
   background-color: var(--page-bg-color);
