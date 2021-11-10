@@ -1,6 +1,6 @@
 module.exports = {
     auth: require("./get/auth"),
-    bookmark: require("./get/bookmark"),
+    bookmark: require("./post/bookmark"),
     codi: require("./get/codi"),
     home: require("./post/home"),
     map: require("./post/map"),

@@ -325,7 +325,11 @@ if (!url) url = "https://thereweather.space"
 
 export default function PostRead(){
   const history = useHistory()
-  const { readPostId } = useSelector(state => state.itemReducer);
+  const { readPostId, userInfo } = useSelector(state => state.itemReducer);
+  console.log(userInfo.id)
+  console.log(readPostId)
+  const postId = Number(readPostId)
+  //console.log(postId) 
 
   // postData state 변수
   const [postData, setPostData] = useState({
@@ -450,8 +454,21 @@ export default function PostRead(){
 
   const bookmarkHandler = (e) => {
     console.log('글 읽기 - 북마크 버튼 동작 확인');
-    setBookmarked(prev => !prev);
-    // console.log(e.currentTarget);
+    //눌렀을 때  북마크에 저장
+    //다시 누르면 해제
+      axios({
+        url: url + '/bookmark',
+        method: "post",
+        data: { user_id: userInfo.id, post_id: postId },
+        headers: {  "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+    .then((res) => {
+      console.log(res.data)
+      setBookmarked(prev => !prev);    
+    })
+    
+  // console.log(e.currentTarget);
   }
 
   // top button
