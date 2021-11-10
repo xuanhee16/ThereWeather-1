@@ -6,15 +6,14 @@ import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
-import dotenv from 'dotenv';
-dotenv.config();
-// process.env.REACT_APP_GEOCODER_AUTH_KEY
 
 /*
   [수정사항]
   - 옷차림 아이콘 경로 수정
   - select 태그용 배열 테스트
   - 게시물 작성 위치를 기준으로 주소 렌더링
+  - 하단의 주석 제거
+
 */
 
 const Outer = styled.div`
@@ -613,21 +612,3 @@ export default function PostRead(){
     </Outer>
   )
 }
-
-// TODO 응답에서 사용할 값에 * 표시
-// * bottom_id: "pants"
-// * createdAt: "2021-11-08T02:57:35.000Z"
-// id: 4
-// * post_content: "빨간색"
-// * post_photo: "http://localhost:80/img/imgfile1636340242444.png"
-// * post_title: "add"
-// * temp: "cold"
-// * top_id: "shirts"
-// * updatedAt: "2021-11-08T02:57:35.000Z"
-// * user_id: "dummydummy"
-// * weather: "cold"
-// * wind: null
-// * xLocation: "36.619121200000000"
-// * yLocation: "127.433451700000000"
-
-// Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.

@@ -22,8 +22,11 @@ module.exports = async function(req, res)  {
             const { nickName, user_Photo } = userinfo.dataValues;
             // 위도 경도 이용해서 주소 찾기
             const { xLocation, yLocation } = postData;
-            const {level1, level2,level4L} = await getAddress(xLocation, yLocation);
-            const address = `${level1} ${level2} ${level4L}`;
+            const {level1, level2, level4L} = await getAddress(xLocation, yLocation);
+            let address = `${level1} ${level2} ${level4L}`;
+            if (!level1 || !level2 || !level4L) {
+                address = "주소를 찾을 수 없습니다"
+            }
 
             return {
                 nickName: nickName,
