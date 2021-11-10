@@ -4,7 +4,10 @@ import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 
-
+/*
+    [수정]
+    이미지 태그에 alt 추가 (없으면 콘솔에 오류 뜸)
+*/
 
 const Outer = styled.div`
     overflow: scroll;
@@ -453,7 +456,7 @@ export default function Write() {
                 </article>
                 <PhotoBox>
                     {uploadedImg ? (
-                        <PhotoBox2 src={uploadedImg.filePath} />
+                        <PhotoBox2 src={uploadedImg.filePath} alt="icon"/>
                     ) : (
                         <div></div>
                     )}
@@ -485,6 +488,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"sunny"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             <FilteringBtn
@@ -498,6 +502,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"cloudy"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             <FilteringBtn
@@ -511,6 +516,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"rainy"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             <FilteringBtn
@@ -524,6 +530,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"snowy"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             <FilteringBtn
@@ -537,6 +544,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"breezy"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             <FilteringBtn
@@ -550,6 +558,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"windy"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             <FilteringBtn
@@ -563,6 +572,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"strong"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             <FilteringBtn
@@ -576,6 +586,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"hot"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             <FilteringBtn
@@ -589,6 +600,7 @@ export default function Write() {
                                     src={`${
                                         process.env.PUBLIC_URL
                                     }img/icons-write/${"cold"}.png`}
+                                    alt="icon"
                                 />
                             </FilteringBtn>
                             {/* ) */}

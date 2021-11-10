@@ -6,11 +6,15 @@ import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
+import dotenv from 'dotenv';
+dotenv.config();
+// process.env.REACT_APP_GEOCODER_AUTH_KEY
 
 /*
   [수정사항]
   - 옷차림 아이콘 경로 수정
   - select 태그용 배열 테스트
+  - geocoder api 사용 시도 - 코어스 에러로 실패 : 서버로 넘어감
 */
 
 const Outer = styled.div`
@@ -353,7 +357,9 @@ export default function PostRead(){
     temp: '',
     top_id: '',
     bottom_id: '',
-    post_content: ''
+    post_content: '',
+    location: '',
+    address: {}
   });
   const [ noIdWarning, setNoIdWarning ] = useState('');
 
@@ -379,6 +385,7 @@ export default function PostRead(){
       .then (res => {
         console.log(res.data);
         return setPostData(prev => res.data);
+        // return res.data;
       })
       .catch (err => console.log(err));
     };
