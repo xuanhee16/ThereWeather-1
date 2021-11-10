@@ -5,8 +5,8 @@ const { Op } = require("sequelize")
 
 module.exports = {
     post: async (req, res) => {
-        console.log(req.body)
-        console.log("여긴 /chat/messagelist post")
+        // console.log(req.body)
+        // console.log("여긴 /chat/messagelist post")
 
         const updateContents = await room.update(
             { chatcontent: req.body.chatcontent },
@@ -21,8 +21,8 @@ module.exports = {
         res.send("정상완료")
     },
     get: async (req, res) => {
-        console.log("req.query.roomlist= " + req.query.roomlist)
-        console.log("여긴 /chat/messagelist 의 get")
+        // console.log("req.query.roomlist= " + req.query.roomlist)
+        // console.log("여긴 /chat/messagelist 의 get")
 
         let contentlists = await room.findAll({
             where: {
@@ -41,7 +41,7 @@ module.exports = {
                 delete el.dataValues.updatedAt
                 return el.dataValues.chatcontent
             })
-            console.log(contentlist[0])
+            // console.log(contentlist[0])
             res.send(contentlist[0])
             // res.send()
         }

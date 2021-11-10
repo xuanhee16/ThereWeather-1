@@ -308,9 +308,6 @@ export default function Header({ isInput, isMobileLogo }) {
                             <FontAwesomeIcon icon={faCloudRain} />
                         </Button>
                         <Button>
-                            <FontAwesomeIcon icon={faPooStorm} />
-                        </Button>
-                        <Button>
                             <FontAwesomeIcon icon={faSnowflake} />
                         </Button>
                     </Buttons>

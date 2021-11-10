@@ -229,16 +229,6 @@ export default function Messenger() {
             setjoinedRoom(res.data)
         })
     }
-    useEffect(() => {
-        axios({
-            url: url + `/chat/rooms?user_id=${userInfo.user_id}`,
-            method: "get",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            withCredentials: true,
-        }).then((res) => console.log(res))
-    }, [joinedRoom])
 
     useEffect(() => {
         axios({
@@ -264,7 +254,6 @@ export default function Messenger() {
             },
             withCredentials: true,
         }).then((res) => {
-            console.log(res.data)
             setmsg(res.data)
         })
     }
@@ -287,14 +276,14 @@ export default function Messenger() {
     }
     // socket.on("newMsg", setmsg([msg, ...msg]))
 
-    socket.on("welcome", () => {
-        // console.log("메시지가 찍히나")
-        // setmsg(["상대방이 방에 들어왔습니다", ...msg])
-    })
-    socket.on("bye", () => {
-        // console.log("메시지가 찍히나")
-        // setmsg(["상대방이 나갔습니다", ...msg])
-    })
+    // socket.on("welcome", () => {
+    //     // console.log("메시지가 찍히나")
+    //     // setmsg(["상대방이 방에 들어왔습니다", ...msg])
+    // })
+    // socket.on("bye", () => {
+    //     // console.log("메시지가 찍히나")
+    //     // setmsg(["상대방이 나갔습니다", ...msg])
+    // })
     socket.on("newMsg", (msg2) => {
         // console.log("메시지 적용되야됨")
         //총 메시지리스트를 여기서 업데이트하고있다

@@ -279,9 +279,13 @@ export default function Write() {
         cloudy: false,
         rainy: false,
         snowy: false,
+    })
+    const [isFilteringBtnActive2, setIsFilteringBtnActive2] = useState({
         breezy: false,
         windy: false,
         strong: false,
+    })
+    const [isFilteringBtnActive3, setIsFilteringBtnActive3] = useState({
         cold: false,
         hot: false,
     })
@@ -393,25 +397,41 @@ export default function Write() {
             withCredentials: true,
         })
     }
-
+    useEffect(() => {
+        setIsFilteringBtnActive({
+            sunny: false,
+            cloudy: false,
+            rainy: false,
+            snowy: false,
+            [selectWeather]: true,
+        })
+    }, [selectWeather])
+    useEffect(() => {
+        setIsFilteringBtnActive2({
+            breezy: false,
+            windy: false,
+            strong: false,
+            [selectWind]: true,
+        })
+    }, [selectWind])
+    useEffect(() => {
+        setIsFilteringBtnActive3({
+            cold: false,
+            hot: false,
+            [selectTemp]: true,
+        })
+    }, [selectTemp])
     function weatherFunc(select) {
         console.log("select=" + select)
-        if (
-            select === "sunny" ||
-            select === "cloudy" ||
-            select === "rainy" ||
-            select === "snowy"
-        ) {
-            setSelectWeather(select)
-        } else if (
-            select === "breezy" ||
-            select === "windy" ||
-            select === "strong"
-        ) {
-            setSelectWind(select)
-        } else if (select === "cold" || select === "hot") {
-            setSelectTemp(select)
-        }
+        setSelectWeather(select)
+    }
+    function weatherFunc2(select) {
+        console.log("select=" + select)
+        setSelectWind(select)
+    }
+    function weatherFunc3(select) {
+        console.log("select=" + select)
+        setSelectTemp(select)
     }
     const onSubmit = (e) => {
         console.log(e)
@@ -475,26 +495,128 @@ export default function Write() {
                 <ButtonsAndSelects className="buttonsAndSelects">
                     <FlexColumnCenter className="smallSection">
                         <p>날씨를 선택하세요.</p>
-                        <FilteringButtons
-                            className="filteringButtons"
-                            onClick={weatherBtnHandler}
-                        >
-                            {weathers.map((weather, idx) => {
-                                return (
-                                    <FilteringBtn
-                                        key={idx}
-                                        name={weather}
-                                        className="weatherButton"
-                                        type="button"
-                                        active={isFilteringBtnActive[weather]}
-                                        onClick={() => weatherFunc(weather)}
-                                    >
-                                        <img
-                                            src={`${process.env.PUBLIC_URL}img/icons-write/${weather}.png`}
-                                        />
-                                    </FilteringBtn>
-                                )
-                            })}
+                        <FilteringButtons className="filteringButtons">
+                            {/* {weathers.map((weather, idx) => { */}
+                            {/* return ( */}
+                            <FilteringBtn
+                                name={"sunny"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive["sunny"]}
+                                onClick={() => weatherFunc("sunny")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"sunny"}.png`}
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"cloudy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive["cloudy"]}
+                                onClick={() => weatherFunc("cloudy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"cloudy"}.png`}
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"rainy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive["rainy"]}
+                                onClick={() => weatherFunc("rainy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"rainy"}.png`}
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"snowy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive["snowy"]}
+                                onClick={() => weatherFunc("snowy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"snowy"}.png`}
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"breezy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive2["breezy"]}
+                                onClick={() => weatherFunc2("breezy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"breezy"}.png`}
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"windy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive2["windy"]}
+                                onClick={() => weatherFunc2("windy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"windy"}.png`}
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"strong"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive2["strong"]}
+                                onClick={() => weatherFunc2("strong")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"strong"}.png`}
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"hot"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive3["hot"]}
+                                onClick={() => weatherFunc3("hot")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"hot"}.png`}
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"cold"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive3["cold"]}
+                                onClick={() => weatherFunc3("cold")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"cold"}.png`}
+                                />
+                            </FilteringBtn>
+                            {/* ) */}
+                            {/* })} */}
                         </FilteringButtons>
                     </FlexColumnCenter>
 
