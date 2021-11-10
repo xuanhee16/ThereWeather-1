@@ -291,7 +291,7 @@ export default function MyPage() {
         setIsModalOpen(false)
     }
 
-    // 게시물사진 클릭했을 때
+    // 게시물 클릭했을 때
     const postClickHandler = (e) => {
         // console.log(e.target.id);
         // history.push("/postread")
