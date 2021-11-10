@@ -645,19 +645,23 @@ export default function Location({ bottom }) {
     // postbox를 클릭하면 postread로 연결됩니다
     const postBoxHandler = (e) => {
         let elem = e.target;
+
         while(!elem.classList.contains("postbox")) {
             elem = elem.parentNode;
-            if(!elem.classList.contains("mapModal")) {
-                break;
+            if(elem.classList.contains("mapModal")) {
+                elem = null;
+                return;
             }
         }
 
+        // console.log('**mapbox click id**',elem.id);
         dispatch(updatePostId(elem.id));
         history.push({
             pathname: '/postread',
             state: {postId: elem.id}
         });
     }
+    // postbox를 클릭하면 postread로 연결됩니다
 
     return (
         <>
@@ -710,8 +714,8 @@ export default function Location({ bottom }) {
                                 return (
                                     // <PostBox onClick={() => console.log(post)}>
                                     <PostBox className="postbox" onClick={postBoxHandler} key={post.id} id={post.id}>
-                                        <Box>
-                                            <PostImg
+                                        <Box className="box">
+                                            <PostImg className="postImage"
                                                 src={`${post.post_photo}`}
                                             />
                                             <EmoticonBox>
