@@ -233,8 +233,8 @@ export default function Home() {
     // dispatch(changeUser(axiosData))
   
     const [weatherData, setWeatherData] = useState()
-    useEffect(() => {
 
+    useEffect(() => {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(function (position) {

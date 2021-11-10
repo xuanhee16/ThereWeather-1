@@ -193,13 +193,15 @@ export default function PasswordEdit() {
     // const token = localStorage.getItem("ATOKEN")  //문자열
     const token = JSON.parse(localStorage.getItem("ATOKEN")) //문자열벗긴 토큰
     //console.log(token) //토큰찾음
-    axios.put("http://localhost/password", 
-    { password: newPwd }, 
-    { headers: {
-      "Content-Type": "application/json",
-      "Authorization": `token ${token}`,
-    },
-     withCredentials: true })
+     axios({
+       url: url + "/password",
+       method: "put",
+       data: { password: newPwd },
+       headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `token ${token}` },
+        withCredentials: true,
+     })
      .then((res) => {
       // console.log(res.data)
       dispatch(changeUserPw(true))

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 import ModalConfirm from "../components/ModalConfirm"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { changeIsLogin, userPosts } from "../actions/index"
+import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from  "../components/GoBackButton";
 
 
@@ -228,10 +228,11 @@ const url = process.env.REACT_APP_LOCAL_URL
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
-
-    const { isLogin, userInfo, postInfo } = useSelector((state) => state.itemReducer)
+    const { isLogin, userInfo, postInfo, readPostId } = useSelector((state) => state.itemReducer)
     console.log(userInfo) //정보잘넘어옴 
     console.log(postInfo.postinfo)
+    console.log(readPostId)
+
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
@@ -248,7 +249,7 @@ export default function MyPage() {
             method: "get",
             withCredentials: true,
         }).then((res) => {
-            //console.log(res)
+            //console.log(res.data)
             setcurrentPosts(res.data)
             dispatch(userPosts(res.data))
         }) 
@@ -291,14 +292,29 @@ export default function MyPage() {
     }
 
     // 게시물사진 클릭했을 때
-    const postClickHandler = () => {
-        history.push("/postread")
+    const postClickHandler = (e) => {
+        // console.log(e.target.id);
+        // history.push("/postread")
         // history.push({
         //     pathname: 'postread',
         //     search: `?searchID=${userInfo.user_id}`,
         //     state: {data: postInfo.postinfo}
         // })
         // 해당 게시물의 id, user_id
+
+        let elem = e.target;
+        while(!elem.classList.contains("postItem")) {
+            elem = elem.parentNode;
+            if(!elem.classList.contains("myPagePostList")) {
+                break;
+            }
+        }
+
+        dispatch(updatePostId(elem.id));
+        history.push({
+            pathname: '/postread',
+            state: {postId: elem.id}
+        });
     }
 
     // 더보기
@@ -306,20 +322,18 @@ export default function MyPage() {
         history.push("/mypost")
     }
 
-    console.log(currentPosts)
+    // console.log(currentPosts)
 
     return (
         <Outer>
             <GoBackButton />
             <ProfileArea>
-                <ProfileImg src={`${process.env.PUBLIC_URL}img/user-img.png`} />
+                <ProfileImg src={userInfo.user_Photo} />
                 <div className="mediaBox">
-
                     <p id="user-name">{userInfo.user_id}</p>
                     <p id="user-gender">{userInfo.gender === 1 ? "남성" : "여성"}</p>
                     <p id="user-location">나의 위치 : {userInfo.location}</p>
                     <p id="user-changeInfo" onClick={changeUserInfo}>정보수정</p>
-
                 </div>
                 <ButtonArea>
                     <button onClick={() => history.push("/editpassword")}>
@@ -352,17 +366,12 @@ export default function MyPage() {
                 </ButtonArea>
             </ProfileArea>
 
-            <GridArea>
+            <GridArea className="myPagePostList">
                 <div className="item more">
                     <p>내가 쓴 예보</p>
                 </div>
-
-                {currentPosts.map((el) => <div className="item" onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
-                <button
-                    className="moreView"
-                    onClick={moreViewHandler}
-                >
-
+                {currentPosts.map((el) => <div className={["item", "postItem"]} id={el.id} onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
+                <button className="moreView" onClick={moreViewHandler}>
                     더 보기
                 </button>
             </GridArea>

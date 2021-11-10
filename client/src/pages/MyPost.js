@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
+import { useHistory } from "react-router-dom"
+import axios from "axios"
+import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from "../components/GoBackButton"
 
 const Outer = styled.div`
@@ -159,18 +161,62 @@ const Page = styled.div`
       }
     }
 `
+const url = process.env.REACT_APP_LOCAL_URL
 
 export default function MyPost() {
-
   const dispatch = useDispatch()
-  const state = useSelector(state => state.itemReducer)
-  const { start, end, current } = state;
+  const history = useHistory()
+  const { start, end, current, isLogin, userInfo, postInfo, readPostId } = useSelector((state) => state.itemReducer)
+  console.log(postInfo)
+  console.log(readPostId)
+ 
   const updateCurrPage = page => (dispatchs) => {
     dispatch({ type : UPDATE_CURRENT_PAGE, payload: page })
   }
   const updateStartEndPage = (start, end) => (dispatchs) => {
     dispatch({type: UPDATE_START_END_PAGE, payload: {start, end}})
   }
+  const [currentPosts, setcurrentPosts] = useState([])
+
+  useEffect(() => {
+    axios({
+        url: url + `/mypost?searchID=${userInfo.user_id}`,
+        method: "get",
+        withCredentials: true,
+    }).then((res) => {
+        //console.log(res.data)
+        setcurrentPosts(res.data)
+        dispatch(userPosts(res.data))
+    }) 
+}, [])
+
+// 게시물사진 클릭했을 때
+const postClickHandler = (e) => {
+  // console.log(e.target.id);
+  // history.push("/postread")
+  // history.push({
+  //     pathname: 'postread',
+  //     search: `?searchID=${userInfo.user_id}`,
+  //     state: {data: postInfo.postinfo}
+  // })
+  // 해당 게시물의 id, user_id
+
+  let elem = e.target;
+  while(!elem.classList.contains("postItem")) {
+      elem = elem.parentNode;
+      if(!elem.classList.contains("myPostList")) {
+          break;
+      }
+  }
+
+  dispatch(updatePostId(elem.id));
+  history.push({
+      pathname: '/postread',
+      state: {postId: elem.id}
+  });
+}
+
+
 
   // 페이지별 담는 글 갯수
   const per = 4;
@@ -188,50 +234,18 @@ export default function MyPost() {
   return (
     <Outer>
       <GoBackButton/>
-      <GridArea>
-        <div className="item">
-          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-          <PostInfo>
+      <GridArea className="myPostList">
+        {/* <div className="item"> */}
+          {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */} 
+          {currentPosts.map((el) => <div className={["item", "postItem"]} id={el.id} onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
+          {/* <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
             <p>날씨 : {'맑음'}</p>
             <p>바람 : {'조금'}</p>
             <p>온도 : {'따뜻함'}</p>
-          </PostInfo>
-        </div>
-        <div className="item">
-          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-          <PostInfo>
-            <p>{'서울시 종로구'}</p>
-            <p>{'10/19'}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
-          </PostInfo>
-        </div>
-        <div className="item">
-          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-          <PostInfo>
-            <p>{'서울시 종로구'}</p>
-            <p>{'10/19'}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
-          </PostInfo>
-        </div>
-        <div className="item">
-          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-          <PostInfo>
-            <p>{'서울시 종로구'}</p>
-            <p>{'10/19'}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
-          </PostInfo>
-        </div>
-        {/* <div className="item"></div>
-        <div className="item"></div>
-        <div className="item"></div> */}
+          </PostInfo> */}
+        {/* </div> */}
       </GridArea>
 
       {/* 페이지네이션이나 무한스크롤 */}

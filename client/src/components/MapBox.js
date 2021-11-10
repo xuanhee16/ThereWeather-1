@@ -549,11 +549,12 @@ export default function Location(props) {
                 return;
             }
         }
-        // TODO postid로 게시물 정보 받아와서 postread에 채우기
-        // elem.id 조회 가능 // 자료형은 문자열, 내용은 숫자 = 게시글 고유 id
-        console.log(elem.id);
+
         dispatch(updatePostId(elem.id));
-        history.push('/postread');
+        history.push({
+            pathname: '/postread',
+            state: {postId: elem.id}
+        });
     }
 
     return (
