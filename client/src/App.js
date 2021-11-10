@@ -20,11 +20,11 @@ import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import FirstPage from "./pages/FirstPage"
 import Messenger from "./pages/Messenger"
+import Loading from "./pages/Loading"
 import { changeIsLogin, changeUser } from "./actions/index"
 
 import styled from "styled-components"
 import GlobalStyle from "./components/GlobalStyle"
-
 
 let url = process.env.REACT_APP_LOCAL_URL
 // const url = "https://thereweather.space"
@@ -108,6 +108,9 @@ export default function App() {
                 <Route exact path="/Messenger">
                     <Messenger />
                 </Route>
+                <Route exact path="/loading">
+                    <Loading />
+                </Route>
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
                         <Redirect to="/write" />
@@ -140,7 +143,7 @@ export default function App() {
                     <PostEdit></PostEdit>
                 </Route>
                 <Route exact path="/">
-                    <Redirect to="/map" />
+                    <Redirect to="/first" />
                 </Route>
             </Switch>
             <MenuBar></MenuBar>

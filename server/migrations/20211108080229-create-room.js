@@ -15,7 +15,7 @@ module.exports = {
                 type: Sequelize.STRING,
             },
             chatcontent: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
             },
             createdAt: {
                 allowNull: false,
