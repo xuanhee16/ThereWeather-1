@@ -99,6 +99,9 @@ export default function App() {
                 <Route exact path="/postread">
                     <PostRead></PostRead>
                 </Route>
+                <Route exact path="/postedit">
+                    <PostEdit></PostEdit>
+                </Route>
                 <Route exact path="/first">
                     <FirstPage />
                 </Route>

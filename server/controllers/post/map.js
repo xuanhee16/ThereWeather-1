@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
         .get(url, {
             params: {
                 ServiceKey: ServiceKey,
-                numOfRows: "30",
+                numOfRows: "60",
                 pageNo: "1",
                 dataType: "JSON",
                 base_date: getCurrentDate(),

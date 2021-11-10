@@ -12,4 +12,7 @@ export const initialState = {
     end: 10,
     current: 1,
     item: [], //기상청 데이터 
+    postInfo: {},
+    readPostId: '', // 북마크나 지도 모달에서 클릭한 게시물의 아이디
+    homePost: [],   // Home의 최근 게시물
 }

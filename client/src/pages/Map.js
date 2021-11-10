@@ -6,6 +6,7 @@ import MapBox from "../components/MapBox"
 const Container = styled.div`
     background-color: var(--page-bg-color);
     width: 100%;
+
     position: relative;
 
     @media screen and (min-width: 1081px) {

@@ -1,13 +1,17 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { changeSearchword, changeCurLocation } from "../actions/index"
+import { changeSearchword, changeCurLocation, updatePostId } from "../actions/index"
 import $ from "jquery"
 import axios from "axios"
 import { Doughnut, Bar } from "react-chartjs-2"
+
 import LoadingSpinner from "./LoadingSpinner"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
+
+import { useHistory } from "react-router-dom";
+
 
 const ImgContainer = styled.div`
     position: relative;
@@ -19,7 +23,9 @@ const ImgContainer = styled.div`
     }
 `
 const PostListModal = styled.div`
+
     // border: 1px solid black;
+
     background-color: white;
     z-index: 999;
     // position: absolute;
@@ -29,6 +35,7 @@ const PostListModal = styled.div`
     width: 100%;
     height: 50%;
     overflow: auto;
+    padding: 0.5rem;
     @media screen and (min-width: 1081px) {
         background-color: white;
         z-index: 999;
@@ -84,13 +91,12 @@ const GraphModal = styled.div`
 
 const GraphTitle = styled.div`
     // border: 1px solid black;
-
     width: 100%;
     display: flex;
     flex-direction: row;
+    font-weight: bold;
 
     @media screen and (min-width: 1081px) {
-        border: 1px solid pink;
     }
 `
 const GraphTitleDiv = styled.div`
@@ -105,6 +111,7 @@ const GraphTitleDiv = styled.div`
 
     @media screen and (min-width: 1081px) {
         // border: 1px solid pink;
+
     }
 `
 const GraphTitleDiv2 = styled.div`
@@ -116,6 +123,7 @@ const GraphTitleDiv2 = styled.div`
 
     @media screen and (min-width: 1081px) {
         // border: 1px solid pink;
+
     }
 `
 const BarGraphFlex = styled.div`
@@ -141,8 +149,13 @@ const BarGraphchild = styled.div`
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 
+
 export default function Location({ bottom }) {
     const [isLoading, setisLoading] = useState(false)
+
+
+    const history = useHistory();
+
     const dispatch = useDispatch()
     const { searchWord } = useSelector((state) => state.itemReducer)
     const { kakao } = window
@@ -496,7 +509,9 @@ export default function Location({ bottom }) {
         // display: flex;
         // flex-direction: row;
         // width: 10000px;
+
         width: 50%;
+
 
         @media screen and (min-width: 1081px) {
         }
@@ -511,10 +526,12 @@ export default function Location({ bottom }) {
     const PostTitle = styled.div`
         // display: flex;
         // flex-direction: row;
+
         // border: 1px solid black;
         text-align: center;
         background-color: pink;
         border-radius: 10%;
+
 
         @media screen and (min-width: 1081px) {
         }
@@ -523,6 +540,7 @@ export default function Location({ bottom }) {
         // display: flex;
         // flex-direction: row;
 
+
         @media screen and (min-width: 1081px) {
         }
     `
@@ -530,7 +548,13 @@ export default function Location({ bottom }) {
         display: flex;
         flex-direction: row;
         width: 100%;
-        // border: 1px solid black;
+
+        padding: .5rem;
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
+
 
         @media screen and (min-width: 1081px) {
         }
@@ -611,6 +635,7 @@ export default function Location({ bottom }) {
             },
         ],
     }
+
     const [isOnOff, setisOnOff] = useState(true)
     return (
         <>
@@ -697,6 +722,7 @@ export default function Location({ bottom }) {
             ) : (
                 <></>
             )}
+
         </>
     )
 }
