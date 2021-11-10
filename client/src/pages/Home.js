@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components"
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux"
-import { updateWeatherInfo } from "../actions/index"
+import { updateWeatherInfo, homePost } from "../actions/index"
 // import Loading from "./Loading";
 
 const HomeContainer = styled.div`
 display: flex;
 flex-direction: row;
+height: 90vh;
 background-color: var(--page-bg-color);
 ul {
   list-style: none;
@@ -24,13 +25,28 @@ ul {
   padding: 0 2vw;
   border: 1px solid #aaa;
   width: 85%;
+  height: 100%;
 }
 @media screen and (max-width: 900px) {
   width: 100%;
 }
 `;
 
-// 왼족 container
+// 날짜
+const TodaysDate = styled.div`
+  border: 1px solid red;
+  margin: 0 auto;
+  height: 2rem;
+  width: 90%;
+  @media screen and (max-width: 1081px) {
+
+  }
+  @media screen and (max-width: 900px) {
+
+  }
+`
+
+// 왼쪽 container
 const LeftContainer1 = styled.div`
 display: flex;
 gap: 0.1rem;
@@ -140,7 +156,7 @@ const Codi = styled.img`
 // 오른쪽 container
 const RightContainer = styled.div`
   display: grid;
-  height:100vh;
+  /* height:100vh; */
   width: 80vw;
   grid-template-rows: 0.5fr 2.3fr 2.3fr 2.3fr;
   grid-template-columns: 1fr 1fr 1fr;
@@ -166,6 +182,10 @@ const RightContainer = styled.div`
   .userPost {
     text-align: center;
     border: 1px solid #aaa;
+  }
+  img{
+    width: 100%;
+    height: 100%;
   }
   /* border: 1px solid purple; */
   @media screen and (max-width: 1081px) {
@@ -207,7 +227,7 @@ const url = process.env.REACT_APP_LOCAL_URL;
 export default function Home() {
   // 날짜
     const dispatch = useDispatch()
-    const { item } = useSelector((state) => state.itemReducer)
+    const { item, postInfo } = useSelector((state) => state.itemReducer)
     console.log(item)
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
@@ -237,30 +257,150 @@ export default function Home() {
     };
   }, [])
 
-  {/* 최근게시물 test 중 */}
+  // 최근 게시물(위도, 경도, 지역범위 확인 필요..)
+  const [currentPosts, setcurrentPosts] = useState([])
   useEffect(() => {
-    axios({
-      url: url + "/home",
-      method: "get",
-      ithCredentials: true
-    }).then((res) => {
-      console.log(res);
-    })
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        let lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude // 경도
+        
+        // 위도,경도 소수점 버림
+        let lat2 = Math.floor(lat)
+        let lon2 = Math.floor(lon)
+        console.log('소수점 버림 : ', lat2, lon2);
+
+        axios({
+          url: url + "/home",
+          method: "post",
+          data: {
+            lat2: lat2,
+            lon2: lon2
+          },
+          withCredentials: true
+        })
+        .then((res) => {
+          console.log('게시글 데이터 : ', res.data);
+          setcurrentPosts(res.data)
+          // dispatch(homePost(res.data))
+        })
+      })
+    };
   }, [])
+
+  // 날짜
+  const [todaysDate, settodaysDate] = useState('')
+  useEffect(() => {
+    let date = new Date()
+    const formatDate = (currentDate) => {
+      let formatted = `${currentDate.getFullYear()}년 ${(currentDate.getMonth() + 1)}월 ${currentDate.getDate()}일`
+      return formatted
+    }
+    settodaysDate(formatDate(date))
+  })
+
+  // 추후 수정
+  let [currentTemp, setcurrentTemp] = useState('')
+  let [currentWind, setcurrentWind] = useState('')
+  let [currentWeather, setcurrentWeather] = useState('')
+  // 체감온도
+  useEffect(() => {
+    let tempArr = []
+    for(let i = 0; i < currentPosts.length; i++){
+      tempArr.push(currentPosts[i].temp)  // temp키만 가져옴
+    }
+    // 해당 키의 중복개수세는 함수
+    function getCount(arr){
+      return arr.reduce((pv, cv) => {
+        pv[cv] = (pv[cv] || 0) + 1;
+        return pv;
+      }, {})
+    }
+
+    let obj = getCount(tempArr) // {hot: 6, cold: 3}
+    // 최대값
+    let arr = Object.values(obj) // [6, 3]
+    let maxNum = Math.max(...arr) // 6
+    let maxTemp;
+    // 최대값과 일치하는 key 추출
+    for(let key in obj){
+      if(obj[key] === maxNum){
+        maxTemp = key
+      }
+    }
+    setcurrentTemp(maxTemp)
+  })
+
+  // 바람세기
+  useEffect(() => {
+    let windArr = []
+    for(let i = 0; i < currentPosts.length; i++){
+      windArr.push(currentPosts[i].wind)
+    }
+    // 해당 키의 중복개수세는 함수
+    function getCount(arr){
+      return arr.reduce((pv, cv) => {
+        pv[cv] = (pv[cv] || 0) + 1;
+        return pv;
+      }, {})
+    }
+
+    let obj = getCount(windArr)
+    // 최대값
+    let arr = Object.values(obj)
+    let maxNum = Math.max(...arr)
+    let maxWind;
+    // 최대값과 일치하는 key 추출
+    for(let key in obj){
+      if(obj[key] === maxNum){
+        maxWind = key
+      }
+    }
+    setcurrentWind(maxWind)
+  })
+
+  // 날씨상태
+  useEffect(() => {
+    let weatherArr = []
+    for(let i = 0; i < currentPosts.length; i++){
+      weatherArr.push(currentPosts[i].weather)
+    }
+    // 해당 키의 중복개수세는 함수
+    function getCount(arr){
+      return arr.reduce((pv, cv) => {
+        pv[cv] = (pv[cv] || 0) + 1;
+        return pv;
+      }, {})
+    }
+
+    let obj = getCount(weatherArr)
+    // 최대값
+    let arr = Object.values(obj)
+    let maxNum = Math.max(...arr)
+    let maxWeather;
+    // 최대값과 일치하는 key 추출
+    for(let key in obj){
+      if(obj[key] === maxNum){
+        maxWeather = key
+      }
+    }
+    setcurrentWeather(maxWeather)
+  })
 
     return (
         <div className="homecontainer">
             {/* <Loading /> */}
+            <TodaysDate>날짜: {todaysDate}</TodaysDate>
             <HomeContainer>
                 <LeftContainer1>
                     <LeftNav1>
                         <p>{'00구'}주민예보</p>
                         <div className="weatherInfo">
                           <ul>
-                            <li>날짜: {}</li>
-                            <li>현재위치 체감온도: {}</li>
-                            <li>현재위치 바람세기: {}</li>
-                            <li>현재위치 날씨상태: {}</li>
+                            {/* <li>날짜: {todaysDate}</li> */}
+                            <li>현재위치 체감온도: {currentTemp}</li>
+                            <li>현재위치 바람세기: {currentWind}</li>
+                            <li>현재위치 날씨상태: {currentWeather}</li>
                           </ul>
                         </div>
                     </LeftNav1>
@@ -270,8 +410,7 @@ export default function Home() {
                         <ul>
                           {/* {console.log(weatherData.item)}  */}
                           {/* weatherData -> {item: Array(30)}, weatherData.item -> [ baseDate: '20211106',baseTime: '2130',category: 'T1H', fcstDate: '20211107', fcstTime: '0300', fcstValue: '10', nx: 59, ny: 128, ... ] */}
-
-                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] }
+                         {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] } */}
                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>기준 예보시각:{info.baseTime}</li> })[0] }
                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 기온:{info.fcstValue}℃</li> })[24] } {/* T1H */}
                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 바람세기:{info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } {/* WSD */}
@@ -294,16 +433,9 @@ export default function Home() {
                     <RightNav1>
                       <span id="location">{'00구'} 주민예보글</span>
                     </RightNav1>
-                    {/* <RightNav2>오른쪽2</RightNav2> */}
-                    <div className="userPost">1</div>
-                    <div className="userPost">2</div>
-                    <div className="userPost">3</div>
-                    <div className="userPost">4</div>
-                    <div className="userPost">5</div>
-                    <div className="userPost">6</div>
-                    <div className="userPost">7</div>
-                    <div className="userPost">8</div>
-                    <div className="userPost">9</div>
+                    {currentPosts.map((el) => 
+                      <div className="userPost" key={el.id}><img src={el.post_photo}/></div>
+                    )}
                 </RightContainer>
             </HomeContainer>
         </div>
