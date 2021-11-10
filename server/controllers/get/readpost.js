@@ -11,8 +11,8 @@ module.exports = async function(req, res)  {
         user.findOne({ where: { user_id : userId } })
             // 작성자 아이디로 회원 정보 찾기
         .then(userinfo => {
-            const { nickName, user_Photo } = userinfo.dataValues;
-            return { nickName: nickName, user_Photo: user_Photo };
+            const { nickName, user_Photo, location } = userinfo.dataValues;
+            return { nickName: nickName, user_Photo: user_Photo, location: location };
             // 회원정보에서 닉네임과 사용자 프로필 사진을 골라 객체를 들어 반환
             // 아래로 전달
         })

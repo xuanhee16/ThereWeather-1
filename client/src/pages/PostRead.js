@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
@@ -19,6 +20,12 @@ const Outer = styled.div`
     padding-top: 2vh;
     border-top: 1px solid #aaa;
   }
+
+  h2.warning--nodata {
+    color: #c60239;
+    font-size: 3rem;
+  }
+
   @media screen and (max-width: 1081px){
     .todayCodi{
       margin-top: 2vh;
@@ -318,9 +325,7 @@ if (!url) url = "https://thereweather.space"
 
 export default function PostRead(){
   const history = useHistory()
-
-  // post id 가져오기
-  const { postId } = history.location.state;
+  const { readPostId } = useSelector(state => state.itemReducer);
 
   // postData state 변수
   const [postData, setPostData] = useState({
@@ -339,6 +344,7 @@ export default function PostRead(){
     bottom_id: '',
     post_content: ''
   });
+  const [ noIdWarning, setNoIdWarning ] = useState('');
 
   // 날짜 처리
   const formatDate = (dateString) => {
@@ -361,17 +367,25 @@ export default function PostRead(){
       })
       .then (res => {
         console.log(res.data);
-        setPostData(prev => res.data);
+        return setPostData(prev => res.data);
       })
       .catch (err => console.log(err));
     };
 
-    if (!postId) {
-      console.log('**postread: id가 없습니다**');
+    let id;
+    if (history.location.state) {
+      id = history.location.state.postId;
     } else {
-      getOnePost(postId);
+      id = readPostId;
     }
-  }, [postId])
+
+    if (!id) {
+      console.log('**postread: id가 없습니다**');
+      setNoIdWarning(prev => '잘못된 접근입니다.');
+    } else {
+      getOnePost(id);
+    }
+  }, [])
 
   // 북마크 상태
   const [bookmarked, setBookmarked] = useState(false);
@@ -463,6 +477,12 @@ export default function PostRead(){
 
   return (
     <Outer>
+      {
+        noIdWarning.length !== 0?
+          <h2 className="warning--nodata">{noIdWarning}</h2>
+        :
+          ''
+      }
       <TopButton>
         {
           btnStatus?
@@ -493,8 +513,9 @@ export default function PostRead(){
             </span>
           </div>
           <div>
-            <p className="location">{postData.xLocation.slice(0, -8)}</p>
-            <p className="location">{postData.yLocation.slice(0, -8)}</p>
+            <p className="location">{postData.location}</p>
+            {/* <p className="location">{postData.xLocation.slice(0, -8)}</p>
+            <p className="location">{postData.yLocation.slice(0, -8)}</p> */}
           </div>
         </Profile>
       </PostHeader>
@@ -581,3 +602,5 @@ export default function PostRead(){
 // * wind: null
 // * xLocation: "36.619121200000000"
 // * yLocation: "127.433451700000000"
+
+// Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
