@@ -203,6 +203,11 @@ const TodayCodi = styled.div`
     text-align: center;
   }
 
+  img {
+    width: 4rem;
+    height: auto;
+  }
+
   @media screen and (max-width: 1081px) {
     width: 50%;
   }
@@ -559,13 +564,13 @@ export default function PostRead(){
             !postData.top_id || postData.top_id === 'default' ?
               <p className="warning">상의 데이터가 없습니다</p>
             :
-              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.top_id}.png`} alt="상의" />
+              <Icon src={`${process.env.PUBLIC_URL}img/codi/${postData.top_id}.png`} alt="상의" />
           }
           {
             !postData.bottom_id || postData.top_id === 'default' ?
               <p className="warning">하의 데이터가 없습니다</p>
             :
-              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.bottom_id}.png`} alt="하의" />
+              <Icon src={`${process.env.PUBLIC_URL}img/codi/${postData.bottom_id}.png`} alt="하의" />
           }
       </TodayCodi>
 

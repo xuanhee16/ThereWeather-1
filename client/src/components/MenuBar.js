@@ -42,6 +42,8 @@ const Buttons = styled.div`
         background-color: white;
         border-top: 1px solid #dbdbdb;
         border-left: 1px solid #dbdbdb;
+        position: fiexd;
+
         width: 400px;
     }
 `
