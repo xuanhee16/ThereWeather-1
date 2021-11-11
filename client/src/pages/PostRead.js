@@ -8,6 +8,15 @@ import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
 import TopButton from "../components/TopButton";
 
+/*
+  [수정사항]
+  - 옷차림 아이콘 경로 수정
+  - select 태그용 배열 테스트
+  - 게시물 작성 위치를 기준으로 주소 렌더링
+  - 하단의 주석 제거
+  - '잘못된 요청입니다' 메시지 h2에 margin 추가
+*/
+
 const Outer = styled.div`
   width: 100vw;
   background-color: var(--page-bg-color);
@@ -25,6 +34,7 @@ const Outer = styled.div`
   h2.warning--nodata {
     color: #c60239;
     font-size: 3rem;
+    margin: 0 1rem;
   }
 
   @media screen and (max-width: 1081px){
@@ -206,6 +216,11 @@ const TodayCodi = styled.div`
     text-align: center;
   }
 
+  img {
+    width: 4rem;
+    height: auto;
+  }
+
   @media screen and (max-width: 1081px) {
     width: 50%;
   }
@@ -314,7 +329,8 @@ export default function PostRead(){
     temp: '',
     top_id: '',
     bottom_id: '',
-    post_content: ''
+    post_content: '',
+    address: ''
   });
   const [ noIdWarning, setNoIdWarning ] = useState('');
 
@@ -340,6 +356,7 @@ export default function PostRead(){
       .then (res => {
         console.log(res.data);
         return setPostData(prev => res.data);
+        // return res.data;
       })
       .catch (err => console.log(err));
     };
@@ -469,7 +486,7 @@ export default function PostRead(){
             </span>
           </div>
           <div>
-            <p className="location">{postData.location}</p>
+            <p className="location">{postData.address}</p>
             {/* <p className="location">{postData.xLocation.slice(0, -8)}</p>
             <p className="location">{postData.yLocation.slice(0, -8)}</p> */}
           </div>
@@ -529,7 +546,6 @@ export default function PostRead(){
           </>
       }
 
-
       <Post>
         <p>
           {postData.post_content}
@@ -557,21 +573,3 @@ export default function PostRead(){
     </Outer>
   )
 }
-
-// TODO 응답에서 사용할 값에 * 표시
-// * bottom_id: "pants"
-// * createdAt: "2021-11-08T02:57:35.000Z"
-// id: 4
-// * post_content: "빨간색"
-// * post_photo: "http://localhost:80/img/imgfile1636340242444.png"
-// * post_title: "add"
-// * temp: "cold"
-// * top_id: "shirts"
-// * updatedAt: "2021-11-08T02:57:35.000Z"
-// * user_id: "dummydummy"
-// * weather: "cold"
-// * wind: null
-// * xLocation: "36.619121200000000"
-// * yLocation: "127.433451700000000"
-
-// Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.

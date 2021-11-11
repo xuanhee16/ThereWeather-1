@@ -9,11 +9,9 @@ import {
 import $ from "jquery"
 import axios from "axios"
 import { Doughnut, Bar } from "react-chartjs-2"
-
 import LoadingSpinner from "./LoadingSpinner"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
-
 import { useHistory } from "react-router-dom"
 
 const ImgContainer = styled.div`
@@ -588,7 +586,7 @@ export default function Location({ bottom }) {
     `
     const IconImg = styled.img`
         width: 20%;
-
+        cursor: pointer;
         @media screen and (min-width: 1081px) {
         }
     `
@@ -657,6 +655,28 @@ export default function Location({ bottom }) {
     }
 
     const [isOnOff, setisOnOff] = useState(true)
+
+    // postbox를 클릭하면 postread로 연결됩니다
+    const postBoxHandler = (e) => {
+        let elem = e.target;
+
+        while(!elem.classList.contains("postbox")) {
+            elem = elem.parentNode;
+            if(elem.classList.contains("mapModal")) {
+                elem = null;
+                return;
+            }
+        }
+
+        // console.log('**mapbox click id**',elem.id);
+        dispatch(updatePostId(elem.id));
+        history.push({
+            pathname: '/postread',
+            state: {postId: elem.id}
+        });
+    }
+    // postbox를 클릭하면 postread로 연결됩니다
+
     return (
         <>
             <ImgContainer id="map"></ImgContainer>
@@ -685,8 +705,8 @@ export default function Location({ bottom }) {
                         <LoadingBoxDiv>
                             <LoadingSpinner size={"100%;"} />
                         </LoadingBoxDiv>
-                    ) : (
-                        <>
+                    ) : (<>
+                          <div className="mapModal">
                             <GraphTitleDiv>현재동네 날씨정보</GraphTitleDiv>
                             <GraphTitle>
                                 <GraphTitleDiv2>
@@ -707,9 +727,10 @@ export default function Location({ bottom }) {
                             <GraphTitleDiv>동네 예보</GraphTitleDiv>
                             {postList.map((post) => {
                                 return (
-                                    <PostBox onClick={() => console.log(post)}>
-                                        <Box>
-                                            <PostImg
+                                    // <PostBox onClick={() => console.log(post)}>
+                                    <PostBox className="postbox" onClick={postBoxHandler} key={post.id} id={post.id}>
+                                        <Box className="box">
+                                            <PostImg className="postImage"
                                                 src={`${post.post_photo}`}
                                             />
                                             <EmoticonBox>
@@ -723,10 +744,10 @@ export default function Location({ bottom }) {
                                                     src={`/img/icons-write/${post.temp}.png`}
                                                 />
                                                 <IconImg
-                                                    src={`/img/icons-write/${post.top_id}.png`}
+                                                    src={`/img/codi/${post.top_id}.png`}
                                                 />
                                                 <IconImg
-                                                    src={`/img/icons-write/${post.bottom_id}.png`}
+                                                    src={`/img/codi/${post.bottom_id}.png`}
                                                 />
                                             </EmoticonBox>
                                         </Box>
@@ -737,7 +758,7 @@ export default function Location({ bottom }) {
                                     </PostBox>
                                 )
                             })}
-                        </>
+                        </div>
                     )}
                 </PostListModal>
             ) : (

@@ -5,6 +5,13 @@ import { useHistory } from "react-router-dom"
 import axios from "axios"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from "../components/GoBackButton"
+import Pagination from "../components/Pagination"
+
+/*
+  [수정]
+  - 레이아웃 고치다가 중단함
+  - 페이지네이션 컴포넌트 추가함
+*/
 
 const Outer = styled.div`
   background-color: var(--page-bg-color);
@@ -237,6 +244,13 @@ const postClickHandler = (e) => {
           </PostInfo> */}
         {/* </div> */}
       </GridArea>
+
+      {/* 페이지네이션 테스트 */}
+      <Pagination
+        dataLength={100}
+        unit={5}
+        // numberButtonClickHandler={}
+      />
 
       {/* 페이지네이션이나 무한스크롤 */}
       <Page>
