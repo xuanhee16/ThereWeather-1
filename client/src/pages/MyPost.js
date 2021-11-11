@@ -30,24 +30,21 @@ const Outer = styled.div`
     align-self: flex-start;
     margin: 2rem 0;
   }
-  .gobackbuttonContainer {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-  }
+
   button{
     font-size: 1.5rem;
   }
-  .paginationContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding-top: 1rem;
-  }
+  // .paginationContainer {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   width: 100%;
+  //   height: 100%;
+  //   padding-top: 1rem;
+  // }
 
   @media screen and (min-width: 1500px) {
+    // 제일 큰 사이즈
     padding-left: 3vh;
     padding-right: 3vh;
   }
@@ -55,19 +52,13 @@ const Outer = styled.div`
     padding-top: 2vh;
   }
   @media screen and (max-width: 1081px) {
-    .gobackbuttonContainer {
-      flex-direction: column;
-    }
+    // 1080이하
   }
 `
 
-const StyledGoBackButton = styled(GoBackButton)`
-  // position: absolute;
-  // left: 0;
-`;
-
 // 내가 쓴 글 (grid)
 const GridArea = styled.div`
+    // border: 1px solid blue;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 300px 300px ;
@@ -109,6 +100,7 @@ const GridArea = styled.div`
 
 // 게시물 사진
 const PostImg = styled.img`
+  // border: 1px solid red;
   width: 100%;
   height: 100%;
   background-color: #FFFFFF;
@@ -175,8 +167,8 @@ export default function MyPost() {
 
   return (
     <Outer className="MyPostPage">
-      <div className="gobackbuttonContainer">
-        <StyledGoBackButton className="gobackButton" />
+      <div>
+        <GoBackButton className="gobackButton" />
         <h2>내가 쓴 게시물</h2>
       </div>
 

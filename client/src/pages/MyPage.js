@@ -7,6 +7,12 @@ import axios from "axios"
 import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from  "../components/GoBackButton";
 
+/*
+    [수정]
+    - 페이지네이션 추가
+    - 주석, console.log 정리
+*/
+
 const Outer = styled.div`
     background-color: var(--page-bg-color);
     width: 100vw;

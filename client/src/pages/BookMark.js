@@ -9,6 +9,13 @@ import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } f
 import { useHistory } from "react-router"
 import { default as PaginationComp } from "../components/Pagination"
 
+/*
+  [수정]
+  - 페이지네이션 컴포넌트 추가, 테스트 중
+  TODO
+  - 데이터 로딩 되는지 확인 후 한 페이지당 게시물 갯수 맞추기
+*/
+
 const Outer = styled.div`
   background-color: var(--page-bg-color);
   width: 100vw;
