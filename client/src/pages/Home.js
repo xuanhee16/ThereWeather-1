@@ -1,40 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import axios from "axios";
+import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
 import { updateWeatherInfo, homePost } from "../actions/index"
 import TopButton from "../components/TopButton";
 // import Loading from "./Loading";
 
 const HomeContainer = styled.div`
-display: flex;
-flex-direction: row;
-height: 90vh;
-background-color: var(--page-bg-color);
-ul {
-  list-style: none;
-}
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+    background-color: var(--page-bg-color);
+    ul {
+        list-style: none;
+    }
 
-@media screen and (min-width: 1500px) {
-  margin: 0 auto;
-  width: 90%;
-  border: 1px solid #aaa;
-}
-@media screen and (max-width: 1081px) {
-  flex-direction: column;
-  margin: 0 auto;
-  padding: 0 2vw;
-  border: 1px solid #aaa;
-  width: 85%;
-  height: 100%;
-}
-@media screen and (max-width: 900px) {
-  width: 100%;
-}
-`;
+    @media screen and (min-width: 1500px) {
+        margin: 0 auto;
+        width: 90%;
+        border: 1px solid #aaa;
+    }
+    @media screen and (max-width: 1081px) {
+        flex-direction: column;
+        margin: 0 auto;
+        padding: 0 2vw;
+        border: 1px solid #aaa;
+        width: 85%;
+        height: 100%;
+    }
+    @media screen and (max-width: 900px) {
+        width: 100%;
+    }
+`
 
 // 날짜
 const TodaysDate = styled.div`
+
   margin: 0 auto;
   height: 2rem;
   padding-top: 3px;
@@ -48,10 +49,12 @@ const TodaysDate = styled.div`
   @media screen and (max-width: 900px) {
     width: 100%;
   }
+
 `
 
 // 왼쪽 container
 const LeftContainer1 = styled.div`
+
 display: flex;
 gap: 0.1rem;
 flex-direction: row;
@@ -102,13 +105,15 @@ const LeftNav1 = styled.nav`
     margin-top: 5px;
   }
 
-  @media screen and (max-width: 375px) {
-    margin-top: 10px;
-    line-height: 4vh;
-  }
-  `
+
+    @media screen and (max-width: 375px) {
+        margin-top: 10px;
+        line-height: 4vh;
+    }
+`
 // 기상청 일기예보
 const LeftNav2 = styled.div`
+
   text-align: center;
   flex-basis: 310px;
   flex-grow: 1;
@@ -150,15 +155,33 @@ const LeftNav3 = styled.div`
     flex-grow: 2;
   }
   @media screen and (max-width: 375px) {
-    p {
-      font-size: 1rem;
-      margin: 1vh 0;
-    }
-  }
 
+    p {
+        font-size: 1.2rem;
+        margin: 2vh 0;
+    }
+    .codiInfo {
+        /* border: 1px solid hotpink; */
+        height: 80%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    @media screen and (max-width: 1081px) {
+        height: 30vh;
+        flex-basis: 100vh;
+        flex-grow: 2;
+    }
+    @media screen and (max-width: 375px) {
+        p {
+            font-size: 1rem;
+            margin: 1vh 0;
+        }
+    }
 `
 // 코디 이미지
 const Codi = styled.img`
+
   width: 7rem;
   height: 7rem;
   border: purple;
@@ -166,10 +189,12 @@ const Codi = styled.img`
     width: 5rem;
     height: 5rem;
   }
+
 `
 
 // 오른쪽 container
 const RightContainer = styled.div`
+
   display: grid;
   /* height:100vh; */
   width: 80vw;
@@ -207,6 +232,7 @@ const RightContainer = styled.div`
   }
 `;
 
+
 // '00구 주민예보글'
 const RightNav1 = styled.nav`
     margin-top: 0.8rem;
@@ -219,24 +245,25 @@ const RightNav1 = styled.nav`
     justify-content: space-between;
     align-items: center;
     padding: 1vh 1vh;
-    #location{
-      font-size: 1.5rem;
-      color: #8E8E8E;
+    #location {
+        font-size: 1.5rem;
+        color: #8e8e8e;
     }
-    #moreView{
-      color: #336fc9;
+    #moreView {
+        color: #336fc9;
     }
     @media screen and (max-width: 600px) {
-      grid-column: 1 / 3;
-      #location{
-        font-size: 1rem;
-      }
+        grid-column: 1 / 3;
+        #location {
+            font-size: 1rem;
+        }
     }
 `
 
-const url = process.env.REACT_APP_LOCAL_URL;
+const url = process.env.REACT_APP_LOCAL_URL
 
 export default function Home() {
+
   const dispatch = useDispatch()
   const { item, postInfo } = useSelector((state) => state.itemReducer)
   console.log(item)
@@ -301,16 +328,20 @@ export default function Home() {
     };
   }, [])
 
-  // 날짜
-  const [todaysDate, settodaysDate] = useState('')
-  useEffect(() => {
-    let date = new Date()
-    const formatDate = (currentDate) => {
-      let formatted = `${currentDate.getFullYear()}년 ${(currentDate.getMonth() + 1)}월 ${currentDate.getDate()}일`
-      return formatted
-    }
-    settodaysDate(formatDate(date))
-  })
+
+    // 날짜
+    const [todaysDate, settodaysDate] = useState("")
+    useEffect(() => {
+        let date = new Date()
+        const formatDate = (currentDate) => {
+            let formatted = `${currentDate.getFullYear()}년 ${
+                currentDate.getMonth() + 1
+            }월 ${currentDate.getDate()}일`
+            return formatted
+        }
+        settodaysDate(formatDate(date))
+    })
+
 
   // 날씨, 코디 가져오기, 추후 수정
   let [currentTemp, setcurrentTemp] = useState('')
@@ -398,6 +429,7 @@ export default function Home() {
     console.log('currentWeather : ', currentWeather);
   })
 
+
     return (
         <div className="homecontainer">
             {/* <Loading /> */}
@@ -406,6 +438,7 @@ export default function Home() {
             <HomeContainer>
                 <LeftContainer1>
                     <LeftNav1>
+
                         <p>{} 주민예보</p>
                         <div className="weatherInfo">
                           {
@@ -428,6 +461,7 @@ export default function Home() {
                               </li>
                             </ul>
                           }
+
                         </div>
                     </LeftNav1>
                     <LeftNav2>
@@ -457,17 +491,22 @@ export default function Home() {
                               <Codi src={`${process.env.PUBLIC_URL}img/codi/${currentBottom}.png`} alt="하의"></Codi>
                             </>
                           }
+
                         </div>
                     </LeftNav3>
                 </LeftContainer1>
 
                 <RightContainer>
                     <RightNav1>
+
                       <span id="location">주민 예보글</span>
+
                     </RightNav1>
-                    {currentPosts.map((el) => 
-                      <div className="userPost" key={el.id}><img src={el.post_photo}/></div>
-                    )}
+                    {currentPosts.map((el) => (
+                        <div className="userPost" key={el.id}>
+                            <img src={el.post_photo} />
+                        </div>
+                    ))}
                 </RightContainer>
             </HomeContainer>
         </div>

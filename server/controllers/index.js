@@ -18,6 +18,8 @@ module.exports = {
     deletepost: require("./del/deletepost"),
     removeuser: require("./del/removeuser"),
     sociallogin: require("./post/sociallogin"),
+    ////////
+    map2: require("./post/map2"),
     usersController: require("./users"),
     postsController: require("./post"),
     chatsController: require("./chat"),

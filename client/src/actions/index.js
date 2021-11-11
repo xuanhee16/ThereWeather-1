@@ -14,11 +14,14 @@ export const UPDATE_USER_POST = "UPDATE_USER_POST"
 export const UPDATE_POST_ID = "UPDATE_POST_ID"
 export const UPDATE_HOME_POST = "UPDATE_HOME_POST"
 
+export const CHANGE_WHEATER_FILTER = "CHANGE_WHEATER_FILTER"
+
+
 // actions creator functions
 export const changeUser = (userinfo) => {
     return {
         type: CHANGE_USER_INFO,
-        payload: { 
+        payload: {
             ...userinfo,
         },
     }
@@ -80,30 +83,28 @@ export const changeCurLocation = (lat, lon) => {
     }
 }
 
-
 export const updateWeatherInfo = (data) => {
     return {
         type: UPDATE_WEATHERINFO,
         payload: {
-           data: data
-        }
+            data: data,
+        },
     }
 }
-
 
 export const userPosts = (postinfo) => {
     return {
         type: UPDATE_USER_POST,
         payload: {
-           postinfo: postinfo,
-        }
+            postinfo: postinfo,
+        },
     }
 }
 
 export const updatePostId = (pageId) => {
     return {
         type: UPDATE_POST_ID,
-        payload: pageId
+        payload: pageId,
     }
 }
 
@@ -111,7 +112,15 @@ export const homePost = (homePost) => {
     return {
         type: UPDATE_HOME_POST,
         payload: {
-            homePost: homePost
-        }
+            homePost: homePost,
+        },
+    }
+}
+export const changeWeatherFilter = (weatherFilter) => {
+    return {
+        type: CHANGE_WHEATER_FILTER,
+        payload: {
+            weatherFilter: weatherFilter,
+        },
     }
 }
