@@ -11,9 +11,8 @@ import {
     UPDATE_WEATHERINFO,
     UPDATE_USER_POST,
     UPDATE_POST_ID,
-
     CHANGE_WHEATER_FILTER,
-
+    CHANGE_MAP_PAGE,
 } from "../actions/index"
 import { initialState } from "./initialState"
 
@@ -96,6 +95,12 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 weatherFilter: action.payload,
             }
+        case CHANGE_MAP_PAGE:
+            return {
+                ...state,
+                mapPage: action.payload,
+            }
+
         default:
             return state
     }

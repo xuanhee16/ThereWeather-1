@@ -15,7 +15,7 @@ export const UPDATE_POST_ID = "UPDATE_POST_ID"
 export const UPDATE_HOME_POST = "UPDATE_HOME_POST"
 
 export const CHANGE_WHEATER_FILTER = "CHANGE_WHEATER_FILTER"
-
+export const CHANGE_MAP_PAGE = "CHANGE_MAP_PAGE"
 
 // actions creator functions
 export const changeUser = (userinfo) => {
@@ -121,6 +121,15 @@ export const changeWeatherFilter = (weatherFilter) => {
         type: CHANGE_WHEATER_FILTER,
         payload: {
             weatherFilter: weatherFilter,
+        },
+    }
+}
+
+export const changeMapPage = (mapPage) => {
+    return {
+        type: CHANGE_MAP_PAGE,
+        payload: {
+            mapPage: mapPage,
         },
     }
 }
