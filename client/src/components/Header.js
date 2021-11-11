@@ -11,7 +11,11 @@ import {
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { changeIsLogin, changeSearchword } from "../actions/index"
+import {
+    changeIsLogin,
+    changeSearchword,
+    changeWeatherFilter,
+} from "../actions/index"
 import React, { useState, useEffect } from "react"
 import DaumPostcode from "react-daum-postcode"
 
@@ -65,7 +69,7 @@ const TitleAndLogo = styled.div`
     justify-content: center;
     align-items: center;
 
-    color: #231F20;
+    color: #231f20;
 
     & img {
         width: 20%;
@@ -119,9 +123,7 @@ const StyledPostCode = styled(DaumPostcode)`
     @media screen and (max-width: 1081px) {
         top: 32px;
     }
-
 `
-
 
 const Input = styled.input`
     padding: 0.5rem;
@@ -147,7 +149,7 @@ const Buttons = styled.div`
     align-items: center;
 
     svg:hover {
-        color: black;
+        color: red;
     }
 
     @media screen and (max-width: 375px) {
@@ -160,10 +162,11 @@ const Buttons = styled.div`
 `
 
 const Button = styled.button`
-    background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
-    color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
-    font-size: ${(props) => (props.isText ? "1rem" : "1.6rem")};
-    padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
+    background-color: ${(props) =>
+        props.bgGrey || props.isText ? "white" : "white"};
+    color: ${(props) => (props.bgGrey || props.isText ? "#ff6384" : "grey")};
+    font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
+    padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
     margin: 0.5rem;
     border-radius: 10%;
 `
@@ -205,19 +208,17 @@ const Buttons2 = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
-export default function Header({ isInput, isMobileLogo }) {
+export default function Header({ isInput, isMobileLogo, isText }) {
     const dispatch = useDispatch()
     const history = useHistory()
     const { isLogin } = useSelector((state) => state.itemReducer)
     const [searchEvent, setSearchEvent] = useState("")
+    //검색창에 사용할 포커스변수-hoon
     const [onFocus, setOnFocus] = useState(false)
 
     // const [postOnFocus, setOnFocus] = useState(false)
-
-    if (!url) {
-        url = "https://thereweather.space"
-    }
 
     // isInput : Map 페이지 사용시 true
     // isMobileLogo : Map 페이지 사용시 false
@@ -226,6 +227,13 @@ export default function Header({ isInput, isMobileLogo }) {
         setSearchEvent(e.roadAddress)
         setOnFocus(false)
     }
+    const [weatherFilter, setweatherFilter] = useState("")
+    useEffect(() => {
+        setweatherFilter(weatherFilter)
+        dispatch(changeWeatherFilter(weatherFilter))
+
+        console.log(weatherFilter)
+    }, [weatherFilter])
 
     const logoutBtnHandler = (e) => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
@@ -301,16 +309,48 @@ export default function Header({ isInput, isMobileLogo }) {
                         <></>
                     )}
                     <Buttons className="headerButtons">
-                        <Button>
+                        <Button
+                            onClick={() => {
+                                if (weatherFilter === "sunny") {
+                                    return setweatherFilter("")
+                                }
+                                return setweatherFilter("sunny")
+                            }}
+                            isText={weatherFilter === "sunny" ? true : false}
+                        >
                             <FontAwesomeIcon icon={faSun} />
                         </Button>
-                        <Button>
+                        <Button
+                            onClick={() => {
+                                if (weatherFilter === "cloudy") {
+                                    return setweatherFilter("")
+                                }
+                                return setweatherFilter("cloudy")
+                            }}
+                            isText={weatherFilter === "cloudy" ? true : false}
+                        >
                             <FontAwesomeIcon icon={faCloud} />
                         </Button>
-                        <Button>
+                        <Button
+                            onClick={() => {
+                                if (weatherFilter === "rainy") {
+                                    return setweatherFilter("")
+                                }
+                                return setweatherFilter("rainy")
+                            }}
+                            isText={weatherFilter === "rainy" ? true : false}
+                        >
                             <FontAwesomeIcon icon={faCloudRain} />
                         </Button>
-                        <Button>
+                        <Button
+                            onClick={() => {
+                                if (weatherFilter === "snowy") {
+                                    return setweatherFilter("")
+                                }
+                                return setweatherFilter("snowy")
+                            }}
+                            isText={weatherFilter === "snowy" ? true : false}
+                        >
                             <FontAwesomeIcon icon={faSnowflake} />
                         </Button>
                     </Buttons>

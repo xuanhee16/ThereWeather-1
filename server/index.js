@@ -21,13 +21,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(
     cors({
-        // origin: [url],
-        // origin: "https://there-weather.vercel.app",
         origin: process.env.CLIENT_URL || "https://there-weather.vercel.app",
-        // origin: true,
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        // exposedHeaders: ["Authorization", "Content-Disposition"],
     })
 )
 app.use(logger("dev")) //서버요청 로그
@@ -58,6 +54,7 @@ app.use("/users", upload.single("img"), userRouter)
 app.use("/post", upload.single("img"), postRouter) //글쓰는 곳 - Write.js
 app.post("/sociallogin", controllers.sociallogin) //인증 - App.js
 app.use("/chat", chatRouter) //인증 - App.js
+app.get("/map2", controllers.map2) //지도 - Map.js
 
 //get
 //인증 - App.js
@@ -96,7 +93,6 @@ if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
     server.listen(HTTPS_PORT, () => console.log("https server runnning"))
 }
 // else {
-console.log("feat/socket")
 server = http.createServer(app)
 const io = require("socket.io")(server, {
     cors: {
@@ -113,20 +109,22 @@ io.on("connection", (socket) => {
     socket.onAny((event) => {
         console.log("onAny= " + event)
     })
-    socket.on("enter_room", (roomName) => {
-        console.log(socket.rooms)
-        console.log(roomName)
-        socket.join(roomName)
-        console.log(socket.rooms)
-        socket.to(roomName).emit("welcome")
-    })
-    socket.on("disconnecting", () => {
-        socket.rooms.forEach((room) => socket.to(room).emit("bye"))
-    })
-    socket.on("newMsg", (msg, room, done) => {
+    // socket.on("enter_room", (roomName) => {
+    //     console.log(socket.rooms)
+    //     console.log(roomName)
+    //     socket.join(roomName)
+    //     console.log(socket.rooms)
+    //     socket.to(roomName).emit("welcome")
+    // })
+    // socket.on("disconnecting", () => {
+    //     socket.rooms.forEach((room) => socket.to(room).emit("bye"))
+    // })
+    socket.on("message", (msgobj) => {
         // socket.rooms.forEach((room) => socket.to(room).emit("bye"))
-        socket.to(room).emit("newMsg", msg)
-        done()
+        // console.log(msgobj)
+        // socket.to(room).emit("newMsg", msg)
+        // done()
+        io.emit("sendmsg", msgobj)
     })
 
     // // socket.emit("서버로 보낼 이벤트명", 데이터)

@@ -5,71 +5,35 @@ const { Op } = require("sequelize")
 
 module.exports = {
     post: async (req, res) => {
-        // console.log(req.body)
-        // console.log("여긴 /chat/messagelist post")
+        //show
+        console.log(req.body)
+        console.log("여긴 /chat/messagelist post")
 
-        const updateContents = await room.update(
-            { chatcontent: req.body.chatcontent },
-            {
-                where: {
-                    roomlist: req.body.roomlist,
-                },
-            }
-        )
+        let chatcontentList = await room.findAll({
+            where: {
+                // user_id: req.body.user_id,
+                // receiver_id: req.body.receiver_id,
+                roomName: req.body.roomName,
+                // chatcontent: req.body.chatcontent,
+            },
+        })
+        // console.log(updateContents)
+
+        res.send(chatcontentList)
+    },
+    put: async (req, res) => {
+        //post
+        console.log("여긴 /chat/messagelist 의 put")
+        console.log("req.body= " + req.body)
+
+        await room.create({
+            user_id: req.body.user_id,
+            receiver_id: req.body.receiver_id,
+            roomName: req.body.roomName,
+            chatcontent: req.body.chatcontent,
+        })
         // console.log(updateContents)
 
         res.send("정상완료")
-    },
-    get: async (req, res) => {
-        // console.log("req.query.roomlist= " + req.query.roomlist)
-        // console.log("여긴 /chat/messagelist 의 get")
-
-        let contentlists = await room.findAll({
-            where: {
-                roomlist: req.query.roomlist,
-            },
-        })
-
-        if (!contentlists) {
-            res.send([""])
-        } else {
-            let contentlist = contentlists.map((el) => {
-                delete el.dataValues.id
-                delete el.dataValues.user_id
-                delete el.dataValues.roomlist
-                delete el.dataValues.createdAt
-                delete el.dataValues.updatedAt
-                return el.dataValues.chatcontent
-            })
-            // console.log(contentlist[0])
-            res.send(contentlist[0])
-            // res.send()
-        }
-
-        // let roomlist = roomlists.dataValues
-
-        // delete roomlists.dataValues.id
-        // delete roomlist.user_id
-        // delete roomlist.roomlist
-        // delete roomlist.createdAt
-        // delete roomlist.updatedAt
-
-        // console.log(roomlists)
-
-        // console.log(roomlists)
-        // if (!roomlists) {
-        //     res.send("일치하는 방이름 없음")
-        // } else {
-        //     let roomlistsmap = roomlists.map((el) => {
-        //         delete el.dataValues.chatcontent
-        //         delete el.dataValues.id
-        //         delete el.dataValues.user_id
-        //         delete el.dataValues.createdAt
-        //         delete el.dataValues.updatedAt
-        //         return el.dataValues.roomlist
-        //     })
-        //     // console.log(roomlistsmap)
-        //     res.send(roomlistsmap)
-        // }
     },
 }

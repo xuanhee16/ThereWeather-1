@@ -11,11 +11,14 @@ module.exports = {
             user_id: {
                 type: Sequelize.STRING,
             },
-            roomlist: {
+            receiver_id: {
+                type: Sequelize.STRING,
+            },
+            roomName: {
                 type: Sequelize.STRING,
             },
             chatcontent: {
-                type: Sequelize.TEXT,
+                type: Sequelize.STRING,
             },
             createdAt: {
                 allowNull: false,

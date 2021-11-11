@@ -20,6 +20,7 @@ import PostRead from "./pages/PostRead"
 import PostEdit from "./pages/PostEdit"
 import FirstPage from "./pages/FirstPage"
 import Messenger from "./pages/Messenger"
+import Messenger2 from "./pages/Messenger2"
 import Loading from "./pages/Loading"
 import { changeIsLogin, changeUser } from "./actions/index"
 
@@ -27,14 +28,14 @@ import styled from "styled-components"
 import GlobalStyle from "./components/GlobalStyle"
 
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) {
+    url = "https://thereweather.space"
+}
 // const url = "https://thereweather.space"
 
 export default function App() {
     const dispatch = useDispatch()
     const history = useHistory()
-    if (!url) {
-        url = "https://thereweather.space"
-    }
 
     const isInput = true
     const { isLogin } = useSelector((state) => state.itemReducer)
@@ -107,6 +108,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/Messenger">
                     <Messenger />
+                </Route>
+                <Route exact path="/Messenger2">
+                    <Messenger2 />
                 </Route>
                 <Route exact path="/loading">
                     <Loading />
