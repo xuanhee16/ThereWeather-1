@@ -247,7 +247,7 @@ const RightNav1 = styled.nav`
     }
 `
 
-const url = process.env.REACT_APP_LOCAL_URL
+let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -255,7 +255,9 @@ export default function Home() {
     console.log(item)
     console.log("카카오 위도 : ", curLocation.lat) // map 페이지 거쳐야함
     console.log("카카오 경도 : ", curLocation.lon)
-
+    if (!url) {
+        url = "https://thereweather.space"
+    }
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
 
