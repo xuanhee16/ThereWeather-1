@@ -9,7 +9,7 @@ module.exports = async(req, res) => {
     where: {
         user_id: searchID
     },
-    limit: 4,
+    limit: 8,
     order :  [['createdAt', 'ASC']]
 }) 
 .then((userPost) => {
@@ -20,7 +20,7 @@ module.exports = async(req, res) => {
         res.status(202).send(userPost.map((el) => {
             return el.dataValues;
         }))
-        // res.status(202).send("post")
+        res.status(202).send("post")
     }
 }) 
 }

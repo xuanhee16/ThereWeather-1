@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            models.post.hasMany(models.bookmark, {foreignKey:"post_id", sourceKey:"id"})
         }
     }
     post.init(
@@ -20,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             weather: DataTypes.STRING,
             wind: DataTypes.STRING,
             temp: DataTypes.STRING,
+            outer_id: DataTypes.STRING,
             top_id: DataTypes.STRING,
             bottom_id: DataTypes.STRING,
             xLocation: DataTypes.NUMERIC(20, 15),

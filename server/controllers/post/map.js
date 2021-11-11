@@ -19,7 +19,6 @@ module.exports = async (req, res) => {
 
    
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
-
     function getFormatTime() {
         let hourDate = new Date(Date.now() - 45 * 60 * 1000)
         let hour = hourDate.getHours()
