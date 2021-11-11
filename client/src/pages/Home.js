@@ -289,8 +289,8 @@ export default function Home() {
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                let lat = position.coords.latitude, // 위도
-                    lon = position.coords.longitude // 경도
+                let lat = curLocation.lat, // 위도
+                    lon = curLocation.lon // 경도
                 // 37.5525698 127.0783197
                 /*
           소수 7째자리까지 : Math.floor(a * 10000000) /10000000
