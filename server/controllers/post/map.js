@@ -1,4 +1,4 @@
-const { toXY } = require("../post/xyConvert")
+const { toXY } = require("./xyConvert")
 const axios = require("axios")
 const serviceKey = require("../../config/key")
 const aqiUrl = require("../../config/url")
@@ -16,24 +16,26 @@ module.exports = async (req, res) => {
         day = day < 10 ? "0" + day.toString() : day.toString()
         return year + month + day
     }
-    //단기예보시간 - 현재시간으로 입력해둠 - 예보발표시간에 맞춰서 3시간씩 잘라야함
+
+   
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
-    //초단기예보실황 - 예보시간 정각
     function getFormatTime() {
         let hourDate = new Date(Date.now() - 45 * 60 * 1000)
         let hour = hourDate.getHours()
         hour = hour >= 10 ? hour : "0" + hour
         return hour + "" + "30"
     }
+
     const { lat, lon } = req.body
     const toXYconvert = toXY(lat, lon)
     const url = aqiUrl.dataUrl
     const ServiceKey = decodeURIComponent(serviceKey.publicPortalkey)
+    
     axios
         .get(url, {
             params: {
                 ServiceKey: ServiceKey,
-                numOfRows: "30",
+                numOfRows: "60",
                 pageNo: "1",
                 dataType: "JSON",
                 base_date: getCurrentDate(),
@@ -43,7 +45,11 @@ module.exports = async (req, res) => {
             },
         })
         .then((res2) => {
-            console.log(res2.data.response.body)
-            res.send(res2.data.response.body.items)
+
+           console.log(res2.data.response) 
+           //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
+           //에러코드 참고  -> https://www.nanumtip.com/qa/41692/ 
+           //console.log(res2.data.response.body.items)
+           res.send(res2.data.response.body.items)
         })
 }

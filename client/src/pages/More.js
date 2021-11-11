@@ -1,15 +1,23 @@
 // 로그아웃 상태에서 뜨는 화면
+import React, { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import styled from "styled-components"
+import { changeMapPage } from "../actions/index"
+import { useDispatch } from "react-redux"
 
 const Outer = styled.div`
     margin: 0 auto;
-    background-color: #fef9ef;
+    background-color: var(--page-bg-color);
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 125px);
     display: flex;
     align-items: center;
+
+    @media screen and (max-width: 1081px) {
+        height: calc(100vh - 125px - 70px);
+    }
 `
+
 const InfoBoxes = styled.div`
     margin: 0 auto;
 `
@@ -18,32 +26,46 @@ const InfoBox = styled.div`
     margin: 0 auto;
     background-color: #ffffff;
     border-radius: 10px;
-    width: 40vw;
+    width: 30vw;
     height: 10vh;
     text-align: center;
+    // border: 1px solid #dbdbdb;
+    border: 1px solid black;
+
     p {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
+        color: black;
         margin: 0;
         line-height: 10vh;
         @media screen and (max-width: 375px) {
             font-size: 1rem;
         }
     }
-    &:nth-child(2) {
+    &:nth-child(n + 2) {
         margin-top: 3vh;
     }
     &:hover {
-        background-color: #f4b567;
-        color: #ffffff;
+        // border: 1px solid #262626;
+        border: 1px solid pink;
+        p {
+            // color: #262626;
+            color: pink;
+        }
     }
 
     @media screen and (max-width: 1081px) {
         /* border: 1px solid green; */
     }
+    @media screen and (max-width: 375px) {
+    }
 `
 
 export default function More() {
+    const dispatch = useDispatch()
     const history = useHistory()
+    useEffect(() => {
+        dispatch(changeMapPage(false))
+    }, [])
     return (
         <Outer>
             <InfoBoxes>

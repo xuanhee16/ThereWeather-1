@@ -4,9 +4,10 @@ import styled from "styled-components"
 // import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
+import { changeMapPage } from "../actions/index"
 
 /*
   TODO
@@ -30,7 +31,6 @@ const Outer = styled.section`
     justify-content: center;
     align-items: center;
     overflow: scroll;
-    font-family: "BMDOHYEON";
 
     h2 {
         margin-top: 3rem;
@@ -144,7 +144,7 @@ const Button3 = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")};
     border-radius: 1rem;
 
     > span {
@@ -161,7 +161,7 @@ const Button2 = styled.input`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")};
     border-radius: 1rem;
 
     > span {
@@ -200,6 +200,7 @@ let url = process.env.REACT_APP_LOCAL_URL
 // const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 
 export default function SignUp() {
+    const dispatch = useDispatch()
     // input 상태 관리, 유효성 검사
     if (!url) {
         url = "https://thereweather.space"
@@ -226,7 +227,9 @@ export default function SignUp() {
         filePath: `${url}/img/blankProfile.png`,
     })
     const history = useHistory()
-
+    useEffect(() => {
+        dispatch(changeMapPage(false))
+    }, [])
     const idOnChangeHanlder = (key) => (e) => {
         setInputSignUpData({
             ...inputSignUpData,

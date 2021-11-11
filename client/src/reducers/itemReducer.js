@@ -8,6 +8,11 @@ import {
     UPDATE_START_END_PAGE,
     CHANGE_USER_PW,
     CHANGE_CUR_LOCATION,
+    UPDATE_WEATHERINFO,
+    UPDATE_USER_POST,
+    UPDATE_POST_ID,
+    CHANGE_WHEATER_FILTER,
+    CHANGE_MAP_PAGE,
 } from "../actions/index"
 import { initialState } from "./initialState"
 
@@ -18,7 +23,7 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 userInfo: action.payload,
             }
-        // 새로운기능은 아래양식으로 만들어서 쓸수있다.
+        // 새로운기능은 위의 양식으로 아래쪽에 만들어서 쓸수있다.-hoon
 
         case CHANGE_USER_GENDER:
             return {
@@ -67,6 +72,33 @@ const itemReducer = (state = initialState, action) => {
             return {
                 ...state,
                 curLocation: action.payload,
+            }
+        case UPDATE_WEATHERINFO:
+            return {
+                ...state,
+                item: action.payload,
+            }
+
+        case UPDATE_USER_POST:
+            return {
+                ...state,
+                postInfo: action.payload,
+            }
+
+        case UPDATE_POST_ID:
+            return {
+                ...state,
+                readPostId: action.payload,
+            }
+        case CHANGE_WHEATER_FILTER:
+            return {
+                ...state,
+                weatherFilter: action.payload,
+            }
+        case CHANGE_MAP_PAGE:
+            return {
+                ...state,
+                mapPage: action.payload,
             }
 
         default:

@@ -1,11 +1,19 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
+import { useHistory } from "react-router-dom"
+import axios from "axios"
+import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from "../components/GoBackButton"
+import Pagination from "../components/Pagination"
+
+/*
+  [수정]
+  - 레이아웃 고치다가 중단함
+  - 페이지네이션 컴포넌트 추가함
+*/
 
 const Outer = styled.div`
-
   background-color: var(--page-bg-color);
   width: 100vw;
   /* height: 100vh; */
@@ -13,6 +21,11 @@ const Outer = styled.div`
   padding-top: 100px;
   button{
     font-size: 1.5rem;
+  }
+
+  @media screen and (min-width: 1500px) {
+    padding-left: 3vh;
+    padding-right: 3vh;
   }
   @media screen and (max-width: 375px) {
     padding-top: 2vh;
@@ -25,51 +38,46 @@ const Outer = styled.div`
 // 내가 쓴 글 (grid)
 const GridArea = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 300px 300px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 300px 300px ;
     grid-gap: 1.5rem;
     height: 70vh;
+    p{
+      font-size: 28px;
+    }
 
-    .item {
+    .postItem {
       background-color: rgba(255, 255, 255, 0.6);
       display: flex;
     }
-    .item:nth-child(odd) {
-        margin-left: 5vw;
-    }
-    .item:nth-child(even) {
-        margin-right: 5vw;
-    }
-    .item:hover {
+    .postItem:hover {
     }
     
     @media screen and (min-width: 2100px) {
         height: 50vh;
-
-        .item:nth-child(odd) {
-            margin-left: 30vw;
-        }
-        .item:nth-child(even) {
-            margin-right: 30vw;
-        }
+        width: 300px;
     }
     @media screen and (max-width: 1081px) {
-      height: 100vh;
-      grid-template-columns: 1fr;
-      grid-template-rows: 3fr 3fr 3fr 3fr;
-
-      .item:nth-child(odd),
-      .item:nth-child(even) {
-        margin: 0 2vw;
+      padding-left: 5vw;
+      padding-right: 5vw;
+      height: auto;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (max-width: 600px) {
+      padding-left: 2vw;
+      padding-right: 2vw;
+      p{
+        font-size:20px
       }
     }
     @media screen and (max-width: 375px) {
       height: auto;
     }
 `
+
 // 게시물 사진
 const PostImg = styled.img`
-  width: 50%;
+  width: 100%;
   height: 100%;
   background-color: #FFFFFF;
 
@@ -83,25 +91,24 @@ const PostImg = styled.img`
   }
 `
 // 게시물 내용
-const PostInfo = styled.div`
-  width: 50%;
-  padding: 3vh 2vw 2vh 2vw;
-  font-size: 2rem;
-  align-items: center;
-  p{
-    margin-top: 10px;
-  }
+// const PostInfo = styled.div`
+//   width: 50%;
+//   padding: 3vh 2vw 2vh 2vw;
+//   font-size: 2rem;
+//   align-items: center;
+//   p{
+//     margin-top: 10px;
+//   }
 
-  @media screen and (max-width: 1081px) {
-    padding: 1vh 2vw 2vh 2vw;
-    font-size: 1.5rem;
-  }
-  @media screen and (max-width: 375px) {
-    font-size: 1rem;
-    padding-left: 3vw;
-  }
-
-`
+//   @media screen and (max-width: 1081px) {
+//     padding: 1vh 2vw 2vh 2vw;
+//     font-size: 1.5rem;
+//   }
+//   @media screen and (max-width: 375px) {
+//     font-size: 1rem;
+//     padding-left: 3vw;
+//   }
+// `
 
 // 페이지네이션
 const Page = styled.div`
@@ -126,7 +133,7 @@ const Page = styled.div`
       background: none;
     }
     @media screen and (max-width: 1081px) {
-      margin-top: 30rem;
+      margin-top: 10rem;
       padding-bottom: 5rem;
 
     }
@@ -148,18 +155,62 @@ const Page = styled.div`
       }
     }
 `
+const url = process.env.REACT_APP_LOCAL_URL
 
 export default function MyPost() {
-
   const dispatch = useDispatch()
-  const state = useSelector(state => state.itemReducer)
-  const { start, end, current } = state;
+  const history = useHistory()
+  const { start, end, current, isLogin, userInfo, postInfo, readPostId } = useSelector((state) => state.itemReducer)
+  console.log(postInfo)
+  console.log(readPostId)
+ 
   const updateCurrPage = page => (dispatchs) => {
     dispatch({ type : UPDATE_CURRENT_PAGE, payload: page })
   }
   const updateStartEndPage = (start, end) => (dispatchs) => {
     dispatch({type: UPDATE_START_END_PAGE, payload: {start, end}})
   }
+  const [currentPosts, setcurrentPosts] = useState([])
+
+  useEffect(() => {
+    axios({
+        url: url + `/mypost?searchID=${userInfo.user_id}`,
+        method: "get",
+        withCredentials: true,
+    }).then((res) => {
+        //console.log(res.data)
+        setcurrentPosts(res.data)
+        dispatch(userPosts(res.data))
+    }) 
+}, [])
+
+// 게시물사진 클릭했을 때
+const postClickHandler = (e) => {
+  // console.log(e.target.id);
+  // history.push("/postread")
+  // history.push({
+  //     pathname: 'postread',
+  //     search: `?searchID=${userInfo.user_id}`,
+  //     state: {data: postInfo.postinfo}
+  // })
+  // 해당 게시물의 id, user_id
+
+  let elem = e.target;
+  while(!elem.classList.contains("postItem")) {
+      elem = elem.parentNode;
+      if(!elem.classList.contains("myPostList")) {
+          break;
+      }
+  }
+
+  dispatch(updatePostId(elem.id));
+  history.push({
+      pathname: '/postread',
+      state: {postId: elem.id}
+  });
+}
+
+
 
   // 페이지별 담는 글 갯수
   const per = 4;
@@ -177,51 +228,29 @@ export default function MyPost() {
   return (
     <Outer>
       <GoBackButton/>
-      <GridArea>
-        <div className="item">
-          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-          <PostInfo>
+      <GridArea className="myPostList">
+        {/* <div className="item"> */}
+          {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */} 
+          {currentPosts.map((el) => 
+            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
+              <PostImg src={el.post_photo} alt="posts"/>
+            </div>)}
+          {/* <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
             <p>날씨 : {'맑음'}</p>
             <p>바람 : {'조금'}</p>
             <p>온도 : {'따뜻함'}</p>
-          </PostInfo>
-        </div>
-        <div className="item">
-          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-          <PostInfo>
-            <p>{'서울시 종로구'}</p>
-            <p>{'10/19'}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
-          </PostInfo>
-        </div>
-        <div className="item">
-          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-          <PostInfo>
-            <p>{'서울시 종로구'}</p>
-            <p>{'10/19'}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
-          </PostInfo>
-        </div>
-        <div className="item">
-          <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-          <PostInfo>
-            <p>{'서울시 종로구'}</p>
-            <p>{'10/19'}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
-          </PostInfo>
-        </div>
-        {/* <div className="item"></div>
-        <div className="item"></div>
-        <div className="item"></div> */}
+          </PostInfo> */}
+        {/* </div> */}
       </GridArea>
+
+      {/* 페이지네이션 테스트 */}
+      <Pagination
+        dataLength={100}
+        unit={5}
+        // numberButtonClickHandler={}
+      />
 
       {/* 페이지네이션이나 무한스크롤 */}
       <Page>

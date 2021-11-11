@@ -1,12 +1,9 @@
-import { useState } from "react"
 import styled from "styled-components"
-import ModalConfirm from "../components/ModalConfirm"
-
-/* TODO
-	[] 원래 썼던 게시물을 Load
-  [] 악시오스 요청
-  [] redirect
-*/
+import React,{ useState, useEffect } from "react"
+import axios from "axios"
+import { useSelector, useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
+//import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 
 const Outer = styled.div`
     overflow: scroll;
@@ -20,9 +17,9 @@ const Outer = styled.div`
     background-color: var(--page-bg-color);
 
     @media screen and (min-width: 1081px) {
-      flex-direction: row;
-      min-height: var(--desktop-page-height);
-      padding: 2rem;
+        flex-direction: row;
+        min-height: var(--desktop-page-height);
+        padding: 2rem;
     }
 `
 
@@ -30,11 +27,9 @@ const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: ${(props) => (props.blue ? null : "1px solid black")};
-    border-radius: ${(props) => (props.round ? "50%" : null)};
-    background-color: ${(props) =>
-        props.blue ? "var(--button-bg-edit)" : "var(--button-bg-normal)"};
-    color: ${(props) => (props.blue ? "white" : "black")};
+    border: 1px solid black;
+    border-radius: ${(props) => (props.round ? "50%" : ".5rem")};
+    background-color: var(--button-bg-normal);
     font-size: 1.25rem;
     padding: ${(props) => (props.round ? ".5rem .5rem" : ".5rem 2rem")};
     margin: ${(props) => (props.round ? ".5rem" : "1rem")};
@@ -44,22 +39,33 @@ const Button = styled.button`
         width: 1.5rem;
     }
 `
+const Button2 = styled.input`
+    width: 50vw;
+    min-width: 100px;
+    max-width: 300px;
+    margin: 1rem;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #2f6ecb;
 
-const PictureSection = styled.section`
+    > span {
+        margin: 0.25rem;
+    }
+`
+
+const PictureSection = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 1rem;
-
-    & > img {
-        width: 80%;
-        height: 80%;
-        margin: 1rem;
-    }
+    height: inherit;
 
     @media screen and (min-width: 1081px) {
-        justify-content: space-around;
+        justify-content: center;
         width: 40vw;
     }
 `
@@ -129,6 +135,7 @@ const TextSection = styled.section`
     justify-content: space-around;
     align-items: center;
     margin: 2rem auto;
+    height: inherit;
 
     & > .submitButton {
         margin: 2rem auto;
@@ -147,49 +154,109 @@ const SelectArea = styled.article`
 `
 
 const WriteText = styled.textarea`
-	width: 70vw;
-	min-width: 250px;
-	height: ${props => props.small ? '3rem' : '20vh'};
-	text-align: justify;
-	vertical-align: center;
-	line-height: 1.2rem;
-	font-size: 1.2rem;
-	margin: 2rem 1rem 4rem;
-	padding: 1rem;
+    width: 70vw;
+    min-width: 250px;
+    height: ${(props) => (props.small ? "3rem" : "20vh")};
+    text-align: justify;
+    vertical-align: center;
+    line-height: 1.2rem;
+    font-size: 1.2rem;
+    margin: 2rem 1rem 4rem;
+    padding: 1rem;
 
-	@media screen and (min-width: 1081px) {
-		width: ${props => props.small ? '35vw' : '40vw'};
-		max-width: ${props => props.small ? '500px' : '800px'};
-	}
+    @media screen and (min-width: 1081px) {
+        width: ${(props) => (props.small ? "35vw" : "40vw")};
+        max-width: ${(props) => (props.small ? "500px" : "800px")};
+    }
+`
+const PhotoBox = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    min-width: 300px;
+    min-height: 300px;
+    background-color: #ececec;
+    border: 1px solid #b5b5b5;
+    object-fit: cover;
 `
 
-export default function PostEdit() {
-		// 제목 handler
-		const [ title, setTitle ] = useState('');
-		const titleInputHandler = (e) => {
-			setTitle(prev => e.target.value);
-		}
+const PhotoBox2 = styled.img`
+    min-width: 300px;
+    width: 30vh;
+    height: auto;
+`
 
-    // img src 상태
-    	// 테스트용 이미지
-    const imageUrl = {
-        normalLarge:
-            "https://dummyimage.com/1000x750/7e57c2/fff.png&text=dummy(1000x750)",
-        normalSmall: "https://dummyimage.com/300x180/000/fff&text=300x180",
-        narrowLong:
-            "https://dummyimage.com/400x800/857285/fff.png&text=400x800",
-        wideShort: "https://dummyimage.com/800x300/857285/fff.png&text=800x300",
-        realImageNormal:
-            "https://cdn.pixabay.com/photo/2020/11/08/13/28/tree-5723734_1280.jpg",
-        realImageLong:
-            "https://cdn.pixabay.com/photo/2021/09/03/02/08/skyscrapers-6594833_1280.png",
+const Button3 = styled.button`
+    width: 50vw;
+    min-width: 100px;
+    max-width: 300px;
+    margin: .5rem;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #2f6ecb;
+    border-radius: 1rem;
+
+    > span {
+        margin: 0.25rem;
+    }
+`
+
+let url = process.env.REACT_APP_LOCAL_URL
+
+export default function Write() {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const { userInfo, curLocation, postInfo, readPostId } = useSelector((state) => state.itemReducer)
+    console.log(userInfo)
+    console.log(postInfo)
+    console.log(readPostId)
+  
+    const [selectWeather, setSelectWeather] = useState()
+    const [selectWind, setSelectWind] = useState()
+    const [selectTemp, setSelectTemp] = useState()
+    const [photo, setPhoto] = useState("")
+    const [postId, setPostId] = useState(readPostId)
+    // const [uploadedImg, setUploadedImg] = useState({
+    //     fileName: "blankPost.png",
+    //     filePath: `${url}/img/blankPost.png`,
+    // })
+    const [uploadedImg, setUploadedImg] = useState({
+        fileName: null,
+        filePath: null,
+    })
+    
+  
+    if (!url) {
+        url = "https://thereweather.space"
     }
 
-    // state 변수
-    const [photoSrc, setPhotoSrc] = useState(imageUrl.realImageNormal)
+    // 제목 handler
+    const [title, setTitle] = useState("")
+    const titleInputHandler = (e) => {
+        setTitle((prev) => e.target.value)
+    }
+    useEffect(() => {
+      console.log(userInfo.user_id)
+      // setTitle()
+
+    }, [])
 
     // 날씨 버튼
-    const weathers = ["sunny", "cloudy",  "rainy", "snowy", "breezy", "windy", "strong", "cold", "hot"]
+    const weathers = [
+        "sunny",
+        "cloudy",
+        "rainy",
+        "snowy",
+        "breezy",
+        "windy",
+        "strong",
+        "cold",
+        "hot",
+    ]
     // 날씨 필터링용 state
     const [clickedWeatherButtons, setClickedWeatherButtons] = useState([])
     // 스타일 적용 state
@@ -213,6 +280,7 @@ export default function PostEdit() {
         while (!elem.classList.contains("weatherButton")) {
             elem = elem.parentNode
             console.log("while - work?", elem.name)
+            setSelectWeather(elem.name)
 
             if (elem.nodeName === "ARTICLE") {
                 elem = null
@@ -235,12 +303,7 @@ export default function PostEdit() {
         }
     }
 
-    /* clickedWeatherButtons 상태 확인용 */
-    // useEffect (() => {
-    //   console.log('***clickedWeatherButtons: useEffect***', clickedWeatherButtons);
-    // },[clickedWeatherButtons]);
-
-    // 상의 더미데이터 (state 변수가 필요하게 될까?)
+    // 상의 더미데이터
     const clothesTop = [
         ["default", "상의 선택"],
         ["tshirts", "티셔츠"],
@@ -266,62 +329,124 @@ export default function PostEdit() {
         setSelectValueBottom(e.target.value)
     }
 
-    // 사진 업로드 버튼 이벤트
-    const photoUploadButtonHandler = (e) => {
-        console.log("사진 업로드 버튼 동작 확인")
-        // TODO
-        // multer 연결
-        // axios 요청
-        // 이미지 src 바꾸기
-        // setPhotoSrc(res로 받은 src);
-    }
-
     // textarea state & handler
     const [postText, setPostText] = useState("")
     const postTextHandler = (e) => {
         setPostText(e.target.value)
     }
 
-    // 모달 오픈 여부 state
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-
     // 등록버튼 이벤트
-    const editSubmitHandler = (e) => {
-        console.log("수정버튼 동작 확인")
-        setIsEditModalOpen((prev) => true)
+    const submitButtonHandler = (e) => {
+        console.log("등록버튼 동작 확인")
+        // TODO
+        // axios.post
+        // 페이지 이동 : '글 읽기' 페이지로?
+        //console.log(userInfo.user_id)
+        axios({
+            url: url + "/editpost",
+            method: "put",
+            data: {
+                user_id: userInfo.user_id,
+                post_id: postId, //추가 
+                post_photo: uploadedImg.filePath,
+                post_title: title,
+                post_content: postText,
+                weather: selectWeather,
+                wind: selectWind,
+                temp: selectTemp,
+                top_id: selectValueTop,
+                bottom_id: selectValueBottom,
+                xLocation: curLocation.lat,
+                yLocation: curLocation.lon,
+            },
+            withCredentials: true,
+        })
+        .then((res) => {
+            console.log(res.data)
+            alert("수정 완료")
+            //setTitle(res.dat)
+            history.push("/mypage")
+        })
+        .catch((err) => console.log(err))
     }
 
-    // 모달 닫기/예/아니오 이벤트 함수
-    const editYesHandler = (e) => {
-        // TODO 악시오스 요청, 페이지 redirection
-        console.log("수정 yes")
+    function weatherFunc(select) {
+        console.log("select=" + select)
+        if (
+            select === "sunny" ||
+            select === "cloudy" ||
+            select === "rainy" ||
+            select === "snowy"
+        ) {
+            setSelectWeather(select)
+        } else if (
+            select === "breezy" ||
+            select === "windy" ||
+            select === "strong"
+        ) {
+            setSelectWind(select)
+        } else if (select === "cold" || select === "hot") {
+            setSelectTemp(select)
+        }
     }
 
-    const editNoHandler = (e) => {
-        setIsEditModalOpen((prev) => false)
+    const onSubmit = (e) => {
+        console.log(e)
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append("img", photo)
+        console.log(formData)
+        axios
+            .post(url + "/post/photo", formData, {
+                "Content-Type": "application/json",
+                withCredentials: true,
+            })
+            .then((res) => {
+                const { fileName } = res.data
+                setUploadedImg({
+                    fileName,
+                    filePath: `${url}/img/${fileName}`,
+                })
+                alert("사진을 성공적으로 업로드 하였습니다!")
+            })
+            .catch((err) => {
+                console.error(err)
+            })
     }
 
-    const modalCloseHandler = (e) => {
-        setIsEditModalOpen((prev) => false)
+    const addFile = (e) => {
+        console.log(e.target.files[0])
+        setPhoto(e.target.files[0])
     }
 
     return (
         <Outer className="writePage">
-            <PictureSection className="pictureUploadSection writePageLeft">
-								<article className="titleInput" >
-          				<WriteText onChange={titleInputHandler} value={title} small></WriteText>
-        				</article>
-								<img src={photoSrc} alt="dummy" />
-                <Button
+            <PictureSection
+                className="pictureUploadSection writePageLeft"
+                onSubmit={onSubmit}
+            >
+                <article className="titleInput">
+                    <WriteText
+                        onChange={titleInputHandler}
+                        value={title}
+                        placeholder="제목을 입력하세요."
+                        small
+                    ></WriteText>
+                </article>
+                <PhotoBox>
+                    {uploadedImg ? (
+                        <PhotoBox2 src={uploadedImg.filePath} />
+                    ) : (
+                        <div></div>
+                    )}
+                </PhotoBox>
+                <Button2
+                    type="file"
                     className="uploadButton"
-                    onClick={photoUploadButtonHandler}
+                    onChange={addFile}
                     round
-                >
-                    <img
-                        src={`${process.env.PUBLIC_URL}img/icons-write/upload.png`}
-                        alt=""
-                    />
-                </Button>
+                />
+                <Button3 type="submit">업로드</Button3>
             </PictureSection>
 
             <DesktopRight className="writePageRight">
@@ -340,10 +465,10 @@ export default function PostEdit() {
                                         className="weatherButton"
                                         type="button"
                                         active={isFilteringBtnActive[weather]}
+                                        onClick={() => weatherFunc(weather)}
                                     >
                                         <img
                                             src={`${process.env.PUBLIC_URL}img/icons-write/${weather}.png`}
-                                            alt=""
                                         />
                                     </FilteringBtn>
                                 )
@@ -393,26 +518,12 @@ export default function PostEdit() {
                     />
                     <Button
                         className="submitButton"
-                        onClick={editSubmitHandler}
-                        blue
+                        onClick={submitButtonHandler}
                     >
                         수정
                     </Button>
-                    {postText}
                 </TextSection>
             </DesktopRight>
-
-            {isEditModalOpen ? (
-                <ModalConfirm
-                    yesHandler={editYesHandler}
-                    noHandler={editNoHandler}
-                    closeHandler={modalCloseHandler}
-                >
-                    <p>수정하시겠습니까?</p>
-                </ModalConfirm>
-            ) : (
-                ""
-            )}
         </Outer>
     )
 }

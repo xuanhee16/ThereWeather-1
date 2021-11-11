@@ -4,65 +4,85 @@ import { useHistory } from "react-router-dom"
 import ModalConfirm from "../components/ModalConfirm"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { changeIsLogin } from "../actions/index"
+import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from  "../components/GoBackButton";
 
 const Outer = styled.div`
     background-color: var(--page-bg-color);
     width: 100vw;
-    /* height: auto; */
-    min-height: 100vh;
+    min-height: calc(100vh - 125px);
     position: relative;
     display: flex;
     padding-bottom: 100px;
 
     @media screen and (max-width: 1081px) {
         flex-direction: column;
+        min-height: calc(100vh - 125px - 70px);
     }
 `
 /* 프로필 정보 */
 const ProfileArea = styled.div`
     width: 30%;
-    padding: 20vh 1vw 1vh 1vw;
+    padding: 15vh 1vw 1vh 1vw;
     text-align: center;
-
-    span {
-        display: flex;
-        margin: 2vh 2vw;
-        justify-content: center;
-        font-size: 1.5rem;
-    }
-
     button {
+        // 비밀번호 수정, 회원탈퇴
         color: #336fc9;
         font-size: 1.5rem;
         margin-top: 1vh;
     }
+    .mediaBox {
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        p {
+            margin-top: 1vh;
+        }
+        #user-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        #user-changeInfo {
+            color: #336fc9;
+        }
+    }
 
     @media screen and (max-width: 1081px) {
-        border-bottom: 1px solid #aaa;  // 구분선 추가
+        /* border-bottom: 1px solid #aaa;  // 구분선 추가 */
         margin: 0 auto;
         margin-top: 4vh;
-        width: 50%;
-        padding: 0 0 3vh 0;
-
-        span {
-            display: flex;
-            margin-top: 2vh;
-            justify-content: center;
+        width: 100%;
+        padding: 0 1vw 3vh 1vw;
+        .mediaBox {
+            width: 40%;
+            display: inline-block;
+            text-align: left;
+            p {
+                margin-top: 2vh;
+                justify-content: center;
+                line-height: 3vh;
+                font-size: 1.2rem;
+            }
         }
     }
 
     @media screen and (max-width: 375px) {
-        padding-bottom: 4vh;
-        span{
-            font-size: 1rem;
-            margin: 1vh 1vw;
-        }
-        button{
+        button {
             font-size: 1rem;
         }
-    }    
+        .mediaBox {
+            width: 50%;
+            display: inline-block;
+            padding-bottom: 1vh;
+            p {
+                margin-top: 0;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            #user-name {
+                font-size: 1rem;
+            }
+        }
+    }
 `
 /* 프로필 사진 */
 const ProfileImg = styled.img`
@@ -70,8 +90,9 @@ const ProfileImg = styled.img`
     height: 200px;
     padding: 10px 10px;
     border-radius: 50%;
-    background-color: #ffffff;
-
+    @media screen and (max-width: 1081px) {
+        margin-right: 5vw;
+    }
     @media screen and (max-width: 375px) {
         width: 7rem;
         height: 7rem;
@@ -91,16 +112,17 @@ const ButtonArea = styled.div`
     }
 
     @media screen and (max-width: 1081px) {
-        width: 50vw;
+        width: 100vw; // 가운데로 맞춤
         align-items: center;
         height: 10vh;
         position: absolute;
         bottom: 0;
     }
     @media screen and (max-width: 375px) {
+        padding: 0 15vw;
         height: 20vh;
         justify-content: space-between;
-        button{
+        button {
             font-size: 1rem;
         }
     }
@@ -116,9 +138,9 @@ const GridArea = styled.div`
 
     row-gap: 10px; /* row의 간격을 10px로 */
     column-gap: 20px; /* column의 간격을 20px로 */
+    border-top: 1px solid #aaa; // 구분선 추가
 
     .item:nth-child(1) {
-        background-color: #fef9ef;
         border: none;
         grid-column: 1 / 4;
         grid-row: 1 / 2;
@@ -128,9 +150,9 @@ const GridArea = styled.div`
         background-color: rgba(255, 255, 255, 0.5); // 추가
     }
     div:hover {
-        border: 1px solid #a2d2ff;
+        border: 1px solid var(--page-bg-color);
     }
-    img{
+    img {
         width: 100%;
         height: 100%;
     }
@@ -138,11 +160,13 @@ const GridArea = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
+        background-color: transparent;
     }
     p {
-        font-size: 3rem;
+        font-size: 2rem;
         margin: 0 auto;
         font-weight: bold;
+        color: #8e8e8e;
     }
     .moreView {
         font-size: 1.5rem;
@@ -162,48 +186,51 @@ const GridArea = styled.div`
         margin-bottom: 10vh;
         padding: 0;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 150px 300px 300px;
+        grid-template-rows: 100px 300px 300px;
         row-gap: 5px;
         column-gap: 3px;
 
         p {
-            font-size: 3rem;
+            font-size: 2rem;
         }
         .item {
             margin: 0.5vh;
         }
         .moreView {
-            width: 7vw;
+            width: 80px;
         }
     }
 
-    @media screen and (max-width: 375px) {
+    @media screen and (max-width: 600px) {
         padding-left: 2vw;
         padding-right: 2vw;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 80px 150px 150px 150px;
+        grid-template-rows: 50px 150px 150px 150px;
         .item:nth-child(1) {
-            background-color: #fef9ef;
             border: none;
             grid-column: 1 / 3;
             grid-row: 1 / 2;
         }
         p {
-            font-size: 1.8rem;
+            font-size: 1rem;
         }
         .moreView {
             font-size: 1rem;
-            width: 15vw;
+            width: 50px;
             height: 3rem;
         }
     }
 `
-let url = process.env.REACT_APP_LOCAL_URL
+const url = process.env.REACT_APP_LOCAL_URL
 
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { isLogin } = useSelector((state) => state.itemReducer)
+    const { isLogin, userInfo, postInfo, readPostId } = useSelector((state) => state.itemReducer)
+    console.log(userInfo) //정보잘넘어옴 
+    console.log(postInfo.postinfo)
+    console.log(readPostId)
+
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
@@ -212,24 +239,30 @@ export default function MyPage() {
     }
 
     const [currentPosts, setcurrentPosts] = useState([])
+
     // 게시물 데이터 조회
     useEffect(() => {
         axios({
-            url: url + "/mypage",
+            url: url + `/mypage?searchID=${userInfo.user_id}`,
             method: "get",
             withCredentials: true,
         }).then((res) => {
             setcurrentPosts(res.data)
-            console.log(currentPosts);
+            dispatch(userPosts(res.data))
         }) 
     }, [])
+
+
+    // 정보수정
+    const changeUserInfo = () => {
+        console.log("정보수정 클릭")
+    }
 
     const removeUserInfo = () => {
         setIsModalOpen(true)
     }
 
     const modalYesButtonHandlers = () => {
-        //console.log('회원탈퇴 완료');
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios
             .delete(url + "/removeuser", {
@@ -254,28 +287,39 @@ export default function MyPage() {
         setIsModalOpen(false)
     }
 
-    // 게시물사진 클릭했을 때
-    const postClickHandler = () => {
-        //test
-        history.push("/postread")
-        // 해당 게시물의 id, user_id
+    // 게시물 클릭했을 때
+    const postClickHandler = (e) => {
+        let elem = e.target;
+        while(!elem.classList.contains("postItem")) {
+            elem = elem.parentNode;
+            if(!elem.classList.contains("myPagePostList")) {
+                break;
+            }
+        }
+
+        dispatch(updatePostId(elem.id));
+        history.push({
+            pathname: '/postread',
+            state: {postId: elem.id}
+        });
     }
 
     // 더보기
     const moreViewHandler = () => {
         history.push("/mypost")
-
     }
 
     return (
         <Outer>
-            <GoBackButton/>
+            <GoBackButton />
             <ProfileArea>
-                <ProfileImg src="img/default-user.png" />
-                <span>{"김코딩"}</span>
-                <span>성별 : {"남성"}</span>
-                <span>나의 위치 : {"서울시 종로구"}</span>
-                <button>정보수정</button>
+                <ProfileImg src={userInfo.user_Photo} />
+                <div className="mediaBox">
+                    <p id="user-name">{userInfo.user_id}</p>
+                    <p id="user-gender">{userInfo.gender === 1 ? "남성" : "여성"}</p>
+                    <p id="user-location">나의 위치 : {userInfo.location}</p>
+                    <p id="user-changeInfo" onClick={changeUserInfo}>정보수정</p>
+                </div>
                 <ButtonArea>
                     <button onClick={() => history.push("/editpassword")}>
                         비밀번호 수정
@@ -307,23 +351,12 @@ export default function MyPage() {
                 </ButtonArea>
             </ProfileArea>
 
-            <GridArea>
+            <GridArea className="myPagePostList">
                 <div className="item more">
                     <p>내가 쓴 예보</p>
                 </div>
-                <div className="item" onClick={postClickHandler}>
-                    <img src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/>
-                </div>
-                <div className="item"></div>
-                <div className="item"></div>
-                <div className="item"></div>
-                <div className="item"></div>
-                <div className="item"></div>
-                {}
-                <button
-                    className="moreView"
-                    onClick={moreViewHandler}
-                >
+                {currentPosts.map((el) => <div className={["item", "postItem"]} id={el.id} onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
+                <button className="moreView" onClick={moreViewHandler}>
                     더 보기
                 </button>
             </GridArea>

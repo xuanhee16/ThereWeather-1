@@ -5,7 +5,7 @@ import axios from "axios"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
-import { changeIsLogin } from "../actions/index"
+import { changeIsLogin, changeMapPage } from "../actions/index"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
 
@@ -23,7 +23,7 @@ import DaumPostcode from "react-daum-postcode"
 const LoginOuter = styled.section`
     position: relative;
     width: 100vw;
-    min-height: var(--mobile-page-height);
+    min-height: calc(var(--mobile-page-height) - 70px);
     background-color: var(--page-bg-color);
     display: flex;
     flex-direction: column;
@@ -111,7 +111,6 @@ const Outer = styled.section`
     justify-content: center;
     align-items: center;
     overflow: scroll;
-    font-family: "BMDOHYEON";
 
     h2 {
         margin-top: 3rem;
@@ -201,7 +200,7 @@ const Button = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "#419300")};
+    background-color: #ea4335;
     border-radius: 1rem;
 
     > span {
@@ -225,7 +224,7 @@ const Button3 = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    background-color: #2f6ecb;
     border-radius: 1rem;
 
     > span {
@@ -242,7 +241,7 @@ const Button2 = styled.input`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "blue")};
+    background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")};
     border-radius: 1rem;
 
     > span {
@@ -292,8 +291,7 @@ export default function Login() {
     // input 상태 관리, 유효성 검사
     const [idInput, setIdInput] = useState("")
     const [pwInput, setPwInput] = useState("")
-    const [idInputMessage, setIdInputMessage] =
-        useState("아이디를 입력하세요.!")
+    const [idInputMessage, setIdInputMessage] = useState("아이디를 입력하세요.")
     const [pwInputMessage, setPwInputMessage] =
         useState("비밀번호를 입력하세요.")
     const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=1079927639813-87e5g0991msheh50mt77eclt2vij4kks.apps.googleusercontent.com&response_type=token&redirect_uri=${clientUrl}/login&scope=https://www.googleapis.com/auth/userinfo.email`
@@ -307,7 +305,7 @@ export default function Login() {
     })
     useEffect(() => {
         console.log("나는 login.js")
-
+        dispatch(changeMapPage(false))
         const urlinfo = new URL(window.location.href)
         const hash = urlinfo.hash
         if (hash) {

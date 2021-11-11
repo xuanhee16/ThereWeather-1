@@ -5,8 +5,6 @@ import { useSelector, useDispatch } from "react-redux"
 import ModalConfirm from "../components/ModalConfirm";
 import axios from "axios";
 import { changeUserPw } from "../actions/index"
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-// import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 
 /*
   TODO - 비밀번호 수정 페이지
@@ -25,8 +23,7 @@ import { changeUserPw } from "../actions/index"
 const Outer = styled.section`
   position: relative;
   width: 100vw;
-  /* height: var(--mobile-page-height); */
-  min-height: 100vh;
+  min-height: calc(100vh - 125px - 70px);
   background-color: var(--page-bg-color);
   display: flex;
   flex-direction: column;
@@ -35,13 +32,13 @@ const Outer = styled.section`
 
   h2 {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 2rem;
   }
 
   @media screen and (min-width: 1081px) {
-    /* height: calc(100vh - 125px); */
+    min-height: calc(100vh - 125px);
 	}
 `;
 
@@ -55,10 +52,10 @@ const InputAndTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  // margin: .5rem;
 
   h3 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     margin: 1rem;
     font-weight: bold;
   }
@@ -73,15 +70,18 @@ const InputText = styled.input`
 
 const ValidationListBox = styled.ul`
   list-style: none;
-  padding: 0 1.5rem;
+  padding: 0 0 1rem 0;
   font-size: 1rem;
 `;
 
 const StyledLi = styled.li`
   height: 1.2rem;
-  padding: 0 1.5rem;
+  padding: .3rem 2rem;
+  font-size: .9rem;
+  // font-weight: bold;
   color: ${ props => props.valid ? `var(--font-validation-positive)` : `var(--font-validation-negative)` };
-`;
+  font-weight: ${ props => props.valid ? `bold` : `null` };
+  `;
 
 const Buttons = styled.div`
   display: flex;
@@ -94,7 +94,7 @@ const Button = styled.button`
   width: 25vw;
   min-width: 50px;
   max-width: 200px;
-  margin: 1rem;
+  margin: .5rem 1rem;
   padding: .8rem;
   font-size: 1.2rem;
   font-weight: bold;
@@ -104,12 +104,14 @@ const Button = styled.button`
 `;
 
 const TextButton = styled.button`
-  align-self: flex-end;
+  // align-self: flex-end;
   margin: 1rem 3rem;
   font-size: 1rem;
   color: grey;
   text-decoration: underline;
 `;
+
+const url = process.env.REACT_APP_LOCAL_URL
 
 
 export default function PasswordEdit() {
@@ -123,14 +125,14 @@ export default function PasswordEdit() {
   const [ curPwdInputWarning, setCurPwdInputWarning ] = useState('비밀번호를 입력해주세요.');
   const [ newPwdInputWarning, setNewPwdInputWarning ] = useState({
     isNoInput: '비밀번호를 입력해주세요.',
-    isTooShort: '8자 이상이어야 합니다.',
+    isTooShort: '6자 이상이어야 합니다.',
     isWrongType: '숫자와 문자를 포함해야 합니다.'
   });
   const { isNoInput, isTooShort, isWrongType } = newPwdInputWarning;
   const [ isValid, setIsValid ] = useState('');
 
-  const validationReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g;
-    // 정규식 : 문자/숫자/특수문자 모두 포함, 8자 이상
+  const validationReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/g;
+    // 정규식 : 최소 6자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함
 
   const curInputHandler = (e) => {
     setCurPwd(prev => e.target.value);
@@ -168,9 +170,9 @@ export default function PasswordEdit() {
       setIsValid(prev => '사용 가능합니다.')
     }
 
-    if (e.target.value.length < 8) {
+    if (e.target.value.length < 6) {
       setNewPwdInputWarning(prev => {
-        return {...prev, isTooShort: '8자 이상이어야 합니다.'}
+        return {...prev, isTooShort: '6자 이상이어야 합니다.'}
       });
     } else {
       setNewPwdInputWarning(prev => {
@@ -191,13 +193,15 @@ export default function PasswordEdit() {
     // const token = localStorage.getItem("ATOKEN")  //문자열
     const token = JSON.parse(localStorage.getItem("ATOKEN")) //문자열벗긴 토큰
     //console.log(token) //토큰찾음
-    axios.put("http://localhost/password", 
-    { password: newPwd }, 
-    { headers: {
-      "Content-Type": "application/json",
-      "Authorization": `token ${token}`,
-    },
-     withCredentials: true })
+     axios({
+       url: url + "/password",
+       method: "put",
+       data: { password: newPwd },
+       headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `token ${token}` },
+        withCredentials: true,
+     })
      .then((res) => {
       // console.log(res.data)
       dispatch(changeUserPw(true))
@@ -255,7 +259,7 @@ export default function PasswordEdit() {
 
       <div className="Login--center">
         <StyledArticle className="id">
-          <InputAndTitle className="inputIdSection">
+          <InputAndTitle className="inputCurPwdSection">
             <h3>현재 비밀번호</h3>
             <InputText
               type="password"
@@ -271,7 +275,7 @@ export default function PasswordEdit() {
         </StyledArticle>
 
         <StyledArticle className="password">
-          <InputAndTitle className="inputPwSection">
+          <InputAndTitle className="inputNewPwSection">
             <h3>새 비밀번호</h3>
             <InputText
               type="password"

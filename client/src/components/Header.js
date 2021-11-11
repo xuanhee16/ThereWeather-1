@@ -11,13 +11,17 @@ import {
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { changeIsLogin, changeSearchword } from "../actions/index"
+import {
+    changeIsLogin,
+    changeSearchword,
+    changeWeatherFilter,
+} from "../actions/index"
 import React, { useState, useEffect } from "react"
 import DaumPostcode from "react-daum-postcode"
 
 const HeaderOuter = styled.div`
     width: 100vw;
-    height: 200px;
+    height: 125px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +32,7 @@ const HeaderOuter = styled.div`
     top: 0;
     left: 0;
     z-index: 100;
-    border: 0.5px solid #dbdbdb;
+    border-bottom: 0.5px solid #dbdbdb;
 
     h1 {
         font-weight: bold;
@@ -39,13 +43,11 @@ const HeaderOuter = styled.div`
 
     @media screen and (min-width: 1081px) {
         width: 100vw;
-        height: 125px;
         background-color: white;
         flex-direction: row;
         justify-content: space-around;
     }
     @media screen and (max-width: 375px) {
-        height: 100px;
         /* border: 1px solid red;  // 확인용 */
     }
 `
@@ -67,9 +69,11 @@ const TitleAndLogo = styled.div`
     justify-content: center;
     align-items: center;
 
+    color: #231f20;
+
     & img {
         width: 20%;
-        margin-right: 1rem;
+        margin-right: 0.5rem;
     }
 
     @media screen and (min-width: 1081px) {
@@ -82,11 +86,13 @@ const TitleAndLogo = styled.div`
 `
 
 const Center = styled.div`
+    position: relative;
     display: flex;
-
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    min-width: 350px;
+    justify-content: space-around;
 
     @media screen and (min-width: 1081px) {
         flex-direction: row;
@@ -96,11 +102,9 @@ const Center = styled.div`
 `
 
 const InputAndSubmit = styled.div`
-    /* flex-growth: 1; */
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    position: relative;
 
     div {
         margin: auto 1rem;
@@ -111,16 +115,24 @@ const InputAndSubmit = styled.div`
         }
     }
 `
+// 주소검색창 부분
+const StyledPostCode = styled(DaumPostcode)`
+    position: absolute;
+    top: 50px;
+    border: 1px solid #e0e0e0;
+    @media screen and (max-width: 1081px) {
+        top: 32px;
+    }
+`
 
 const Input = styled.input`
     padding: 0.5rem;
     font-size: 1.2rem;
     text-align: center;
-    font-family: "BMDOHYEON";
     background-color: var(--page-bg-color);
     border: 0.5px solid #dbdbdb;
     border-radius: 3px;
-    
+
     @media screen and (min-width: 1081px) {
         width: 300px;
     }
@@ -137,7 +149,7 @@ const Buttons = styled.div`
     align-items: center;
 
     svg:hover {
-        color: black;
+        color: red;
     }
 
     @media screen and (max-width: 375px) {
@@ -150,32 +162,34 @@ const Buttons = styled.div`
 `
 
 const Button = styled.button`
-    background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
-    color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
-    font-size: ${(props) => (props.isText ? "1.2rem" : "1.6rem")};
-    padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
+    background-color: ${(props) =>
+        props.bgGrey || props.isText ? "white" : "white"};
+    color: ${(props) => (props.bgGrey || props.isText ? "#ff6384" : "grey")};
+    font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
+    padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
     margin: 0.5rem;
     border-radius: 10%;
 `
-const SearchBarAndDaumPost = styled.div`
-    // display: flex;
-    // flex-direction: row;
-    position: relative;
-    margin: "100px solid green";
-`
-const DaumPostcodeWrap = styled.div`
-    height: 3.5rem;
-    width: 100%;
-    // padding-right: 2.5rem;
-`
+// const SearchBarAndDaumPost = styled.div`
+//     // display: flex;
+//     // flex-direction: row;
+//     position: relative;
+//     margin: "100px solid green";
+// `
+// const DaumPostcodeWrap = styled.div`
+//     height: 3.5rem;
+//     width: 100%;
+//     // padding-right: 2.5rem;
+// `
 const Cancel = styled.button`
     // height: 3.5rem;
     // width: 100%;
     // padding-right: 2.5rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
     font-size: 0.8rem;
-    /* border: 1px solid red;  // 확인용 */
+    /* padding: 0.3rem; */
 `
+
 const Buttons2 = styled.div`
     background-color: ${(props) => (props.bgGrey ? "#E0E0E0" : "white")};
     color: ${(props) => (props.bgGrey || props.isText ? "black" : "grey")};
@@ -183,7 +197,9 @@ const Buttons2 = styled.div`
     padding: ${(props) => (props.isText ? ".6rem" : ".4rem")};
     margin: 0.5rem;
     border-radius: 10%;
-    /* border: 1px solid red; // 확인용 */
+    @media screen and (max-width: 1081px) {
+        padding: ${(props) => (props.isText ? ".6rem" : "0 0.5rem")};
+    }
     @media screen and (max-width: 375px) {
         font-size: ${(props) => (props.isText ? "1.2rem" : "1.2rem")};
         padding: ${(props) => (props.isText ? ".6rem" : ".2rem")};
@@ -192,19 +208,18 @@ const Buttons2 = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
-export default function Header({ isInput, isMobileLogo }) {
+export default function Header({ isInput, isMobileLogo, isText }) {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { isLogin } = useSelector((state) => state.itemReducer)
+    const { isLogin, mapPage } = useSelector((state) => state.itemReducer)
+    console.log(mapPage)
     const [searchEvent, setSearchEvent] = useState("")
+    //검색창에 사용할 포커스변수-hoon
     const [onFocus, setOnFocus] = useState(false)
 
     // const [postOnFocus, setOnFocus] = useState(false)
-
-    if (!url) {
-        url = "https://thereweather.space"
-    }
 
     // isInput : Map 페이지 사용시 true
     // isMobileLogo : Map 페이지 사용시 false
@@ -213,6 +228,13 @@ export default function Header({ isInput, isMobileLogo }) {
         setSearchEvent(e.roadAddress)
         setOnFocus(false)
     }
+    const [weatherFilter, setweatherFilter] = useState("")
+    useEffect(() => {
+        setweatherFilter(weatherFilter)
+        dispatch(changeWeatherFilter(weatherFilter))
+
+        console.log(weatherFilter)
+    }, [weatherFilter])
 
     const logoutBtnHandler = (e) => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
@@ -243,7 +265,7 @@ export default function Header({ isInput, isMobileLogo }) {
                     src="img/img4.png"
                     alt="logo"
                 />
-                <h1 onClick={() => history.push("/")}>거기날씨</h1>
+                <h2 onClick={() => history.push("/")}>There Weather</h2>
             </TitleAndLogo>
 
             {isInput ? (
@@ -259,27 +281,6 @@ export default function Header({ isInput, isMobileLogo }) {
                             // onClick={onRest}
                             onFocus={(e) => setOnFocus(true)}
                         />
-                        {/* <SearchBarAndDaumPost> */}
-                        {/* <DaumPostcodeWrap> */}
-                        {onFocus ? (
-                            <DaumPostcode
-                                onComplete={handleComplete}
-                                style={{
-                                    position: "absolute",
-                                    left: "0",
-                                    top: "45px",
-                                    border: "1px solid pink",
-                                    // display: onFocus ? "none" : "true",
-                                    // left: "0",
-                                    // height: "80%",
-                                    width: "395px",
-                                }}
-                            />
-                        ) : (
-                            <></>
-                        )}
-                        {/* </DaumPostcodeWrap> */}
-                        {/* </SearchBarAndDaumPost> */}
                         <Buttons2 bgGrey>
                             {onFocus ? (
                                 <Cancel onClick={() => setOnFocus(false)}>
@@ -287,31 +288,86 @@ export default function Header({ isInput, isMobileLogo }) {
                                 </Cancel>
                             ) : (
                                 <FontAwesomeIcon
-                                    onClick={() =>
+                                    onClick={() => {
                                         dispatch(changeSearchword(searchEvent))
-                                    }
+                                        history.push("/map")
+                                    }}
                                     icon={faSearch}
                                 />
                             )}
                         </Buttons2>
+                        {/* <SearchBarAndDaumPost> */}
+                        {/* <DaumPostcodeWrap> */}
+
+                        {/* </DaumPostcodeWrap> */}
+                        {/* </SearchBarAndDaumPost> */}
                     </InputAndSubmit>
-                    <Buttons className="headerButtons">
-                        <Button>
-                            <FontAwesomeIcon icon={faSun} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faCloud} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faCloudRain} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faPooStorm} />
-                        </Button>
-                        <Button>
-                            <FontAwesomeIcon icon={faSnowflake} />
-                        </Button>
-                    </Buttons>
+                    {onFocus ? (
+                        <StyledPostCode
+                            className="daumPostCodeContainer"
+                            onComplete={handleComplete}
+                        />
+                    ) : (
+                        <></>
+                    )}
+                    {mapPage.mapPage ? (
+                        <Buttons className="headerButtons">
+                            <Button
+                                onClick={() => {
+                                    if (weatherFilter === "sunny") {
+                                        return setweatherFilter("")
+                                    }
+                                    return setweatherFilter("sunny")
+                                }}
+                                isText={
+                                    weatherFilter === "sunny" ? true : false
+                                }
+                            >
+                                <FontAwesomeIcon icon={faSun} />
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    if (weatherFilter === "cloudy") {
+                                        return setweatherFilter("")
+                                    }
+                                    return setweatherFilter("cloudy")
+                                }}
+                                isText={
+                                    weatherFilter === "cloudy" ? true : false
+                                }
+                            >
+                                <FontAwesomeIcon icon={faCloud} />
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    if (weatherFilter === "rainy") {
+                                        return setweatherFilter("")
+                                    }
+                                    return setweatherFilter("rainy")
+                                }}
+                                isText={
+                                    weatherFilter === "rainy" ? true : false
+                                }
+                            >
+                                <FontAwesomeIcon icon={faCloudRain} />
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    if (weatherFilter === "snowy") {
+                                        return setweatherFilter("")
+                                    }
+                                    return setweatherFilter("snowy")
+                                }}
+                                isText={
+                                    weatherFilter === "snowy" ? true : false
+                                }
+                            >
+                                <FontAwesomeIcon icon={faSnowflake} />
+                            </Button>
+                        </Buttons>
+                    ) : (
+                        <div></div>
+                    )}
                 </Center>
             ) : (
                 <Center className="headerCenter" />
