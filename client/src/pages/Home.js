@@ -178,6 +178,7 @@ const LeftNav3 = styled.div`
             margin: 1vh 0;
         }
     }
+  }
 `
 // 코디 이미지
 const Codi = styled.img`
