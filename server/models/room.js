@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     room.init(
         {
             user_id: DataTypes.STRING,
-            roomlist: DataTypes.STRING,
+            receiver_id: DataTypes.STRING,
+            roomName: DataTypes.STRING,
             chatcontent: DataTypes.STRING,
         },
         {

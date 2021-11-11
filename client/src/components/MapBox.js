@@ -1,21 +1,18 @@
 import styled from "styled-components"
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { changeSearchword, changeCurLocation, updatePostId } from "../actions/index"
+import {
+    changeSearchword,
+    changeCurLocation,
+    updatePostId,
+} from "../actions/index"
 import $ from "jquery"
 import axios from "axios"
 import { Doughnut, Bar } from "react-chartjs-2"
 import LoadingSpinner from "./LoadingSpinner"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
-import { useHistory } from "react-router-dom";
-
-/*
-    [수정사항]
-    - import쪽에 있던 빈 줄 제거
-    - postBoxHandler추가(+className, id, key)
-    - 옷차림 아이콘 경로 변경
-*/
+import { useHistory } from "react-router-dom"
 
 const ImgContainer = styled.div`
     position: relative;
@@ -27,7 +24,6 @@ const ImgContainer = styled.div`
     }
 `
 const PostListModal = styled.div`
-
     // border: 1px solid black;
 
     background-color: white;
@@ -115,7 +111,6 @@ const GraphTitleDiv = styled.div`
 
     @media screen and (min-width: 1081px) {
         // border: 1px solid pink;
-
     }
 `
 const GraphTitleDiv2 = styled.div`
@@ -127,7 +122,6 @@ const GraphTitleDiv2 = styled.div`
 
     @media screen and (min-width: 1081px) {
         // border: 1px solid pink;
-
     }
 `
 const BarGraphFlex = styled.div`
@@ -153,15 +147,14 @@ const BarGraphchild = styled.div`
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 
-
 export default function Location({ bottom }) {
+    const { searchWord, weatherFilter } = useSelector(
+        (state) => state.itemReducer
+    )
+
     const [isLoading, setisLoading] = useState(false)
-
-
-    const history = useHistory();
-
+    const history = useHistory()
     const dispatch = useDispatch()
-    const { searchWord } = useSelector((state) => state.itemReducer)
     const { kakao } = window
     const [weatherCount, setWeatherCount] = useState({
         sunny: 0,
@@ -169,6 +162,7 @@ export default function Location({ bottom }) {
         rainy: 0,
         snowy: 0,
     }) //그래프 통계용
+    const [weatherApi, setweatherApi] = useState(0)
 
     const [postList, setPostList] = useState([
         {
@@ -188,10 +182,7 @@ export default function Location({ bottom }) {
             yLocation: null,
         },
     ])
-
-    console.log(searchWord)
-    // console.log(props)
-
+    console.log(weatherFilter)
     //---------------
     useEffect(() => {
         var container = document.getElementById("map")
@@ -302,49 +293,54 @@ export default function Location({ bottom }) {
 
         // 데이터를 가져오기 위해 jQuery를 사용합니다
         // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
-        $.get(url + "/post/location", function (data) {
-            // 데이터에서 좌표 값을 가지고 마커를 표시합니다
-            // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-            console.log($(data.positions))
-            var markers = $(data.positions).map(function (i, position) {
-                return new kakao.maps.Marker({
-                    position: new kakao.maps.LatLng(
-                        position.xLocation,
-                        position.yLocation
-                    ),
-                })
-            })
-            console.log(markers)
-            console.log($(data.positions)[0])
-            $(data.positions).map((n, idx) => {
-                console.log($(data.positions))
-                // $(data.positions).map((el) => {
-                //     console.log(el)
-                //     if ($(data.positions)[el].weather === "sunny") {
-                //         setWeatherCount({
-                //             ...weatherCount,
-                //             sunny: weatherCount.sunny + 1,
-                //         })
-                //     } else if ($(data.positions)[el].weather === "cloudy") {
-                //         setWeatherCount({
-                //             ...weatherCount,
-                //             cloudy: weatherCount.cloudy + 1,
-                //         })
-                //     } else if ($(data.positions)[el].weather === "rainy") {
-                //         setWeatherCount({
-                //             ...weatherCount,
-                //             rainy: weatherCount.rainy + 1,
-                //         })
-                //     } else if ($(data.positions)[el].weather === "snowy") {
-                //         setWeatherCount({
-                //             ...weatherCount,
-                //             snowy: weatherCount.snowy + 1,
-                //         })
-                //     }
-                // })
+        $.get(
+            url + `/post/location?weather=${weatherFilter.weatherFilter}`,
+            function (data) {
+                // 데이터에서 좌표 값을 가지고 마커를 표시합니다
+                // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
+                // console.log(data)
+                // console.log($(data.positions))
+                // console.log($(data.positions[0]))
 
-                var iwContent = `
-                <container style="border:3px solid pink; padding:5px; height:20rem; width:15rem; display:flex; flex-direction: row;">
+                var markers = $(data.positions).map(function (i, position) {
+                    return new kakao.maps.Marker({
+                        position: new kakao.maps.LatLng(
+                            position.xLocation,
+                            position.yLocation
+                        ),
+                    })
+                })
+                console.log(markers)
+                console.log($(data.positions)[0])
+                $(data.positions).map((n, idx) => {
+                    console.log($(data.positions))
+                    // $(data.positions).map((el) => {
+                    //     console.log(el)
+                    //     if ($(data.positions)[el].weather === "sunny") {
+                    //         setWeatherCount({
+                    //             ...weatherCount,
+                    //             sunny: weatherCount.sunny + 1,
+                    //         })
+                    //     } else if ($(data.positions)[el].weather === "cloudy") {
+                    //         setWeatherCount({
+                    //             ...weatherCount,
+                    //             cloudy: weatherCount.cloudy + 1,
+                    //         })
+                    //     } else if ($(data.positions)[el].weather === "rainy") {
+                    //         setWeatherCount({
+                    //             ...weatherCount,
+                    //             rainy: weatherCount.rainy + 1,
+                    //         })
+                    //     } else if ($(data.positions)[el].weather === "snowy") {
+                    //         setWeatherCount({
+                    //             ...weatherCount,
+                    //             snowy: weatherCount.snowy + 1,
+                    //         })
+                    //     }
+                    // })
+
+                    var iwContent = `
+                <container style="border:3px solid pink; padding:5px; height:20rem; width:15rem; display:flex; flex-direction: row; overflow: auto;">
                     <box style="">
                         <h3>${$(data.positions)[n].post_title}</h3>
                             <box style="display:flex; flex-direction: row;">
@@ -393,28 +389,33 @@ export default function Location({ bottom }) {
                         </box>
                         <img src=${
                             $(data.positions)[n].post_photo
-                        } style="padding:5px; width:100%;"></img>
+                        } style="padding:5px; max-height:100%; max-width:100%;"></img>
                         <div>${$(data.positions)[n].post_content}</div>
                     </box>
                 </container>
 
 
                              `, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                    iwRemoveable = true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+                        iwRemoveable = true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
-                // 인포윈도우를 생성합니다
-                var infowindow = new kakao.maps.InfoWindow({
-                    content: iwContent,
-                    removable: iwRemoveable,
+                    // 인포윈도우를 생성합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: iwContent,
+                        removable: iwRemoveable,
+                    })
+                    kakao.maps.event.addListener(
+                        markers[n],
+                        "click",
+                        function () {
+                            // 마커 위에 인포윈도우를 표시합니다
+                            infowindow.open(map, markers[n])
+                        }
+                    )
                 })
-                kakao.maps.event.addListener(markers[n], "click", function () {
-                    // 마커 위에 인포윈도우를 표시합니다
-                    infowindow.open(map, markers[n])
-                })
-            })
 
-            clusterer.addMarkers(markers)
-        })
+                clusterer.addMarkers(markers)
+            }
+        )
 
         let timer
         // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
@@ -489,6 +490,22 @@ export default function Location({ bottom }) {
                         snowy: snowy,
                     })
                 })
+
+                //지도중심좌표 기준으로 기상청 데이터를 받아올예정 -hoon
+                var latlng = map.getCenter()
+
+                axios({
+                    url: url + `/map2?lat=${latlng.Ma}&lon=${latlng.La}`,
+                    // url: url + "/signup",
+                    method: "get",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // "Content-Type": "text/plain",
+                    },
+                    withCredentials: true,
+                }).then((res) => {
+                    setweatherApi(res.data.fcstValue)
+                })
             }, 1000)
             setisLoading(true)
         })
@@ -498,6 +515,7 @@ export default function Location({ bottom }) {
         kakao.maps.event,
         kakao.maps.Map,
         searchWord,
+        weatherFilter,
     ])
 
     const Box = styled.div`
@@ -515,7 +533,6 @@ export default function Location({ bottom }) {
         // width: 10000px;
 
         width: 50%;
-
 
         @media screen and (min-width: 1081px) {
         }
@@ -536,14 +553,12 @@ export default function Location({ bottom }) {
         background-color: pink;
         border-radius: 10%;
 
-
         @media screen and (min-width: 1081px) {
         }
     `
     const PostContent = styled.div`
         // display: flex;
         // flex-direction: row;
-
 
         @media screen and (min-width: 1081px) {
         }
@@ -553,12 +568,11 @@ export default function Location({ bottom }) {
         flex-direction: row;
         width: 100%;
 
-        padding: .5rem;
+        padding: 0.5rem;
 
         &:hover {
             background-color: #f5f5f5;
         }
-
 
         @media screen and (min-width: 1081px) {
         }
@@ -612,18 +626,18 @@ export default function Location({ bottom }) {
                     weatherCount.rainy,
                     weatherCount.snowy,
                 ],
-                backgroundColor: ["#FF6384", "gray", "#36A2EB", "#FFCE56"],
-                hoverBackgroundColor: ["#FF6384", "gray", "#36A2EB", "#FFCE56"],
+                backgroundColor: ["#FF6384", "gray", "#36A2EB", "silver"],
+                hoverBackgroundColor: ["yellow", "black", "blue", "#d9d9d9"],
             },
         ],
     }
     const data2 = {
-        labels: ["사용자예보", "기상청"],
+        labels: ["동네 예보", "기상청"],
         datasets: [
             {
                 label: "강수 확률",
-                backgroundColor: "rgba(255,99,132,0.2)",
-                borderColor: "rgba(255,99,132,1)",
+                backgroundColor: "#697cfa",
+                borderColor: "#0022ff",
                 borderWidth: 1,
                 hoverBackgroundColor: "rgba(255,99,132,0.4)",
                 hoverBorderColor: "rgba(255,99,132,1)",
@@ -634,7 +648,7 @@ export default function Location({ bottom }) {
                             weatherCount.rainy +
                             weatherCount.snowy)) *
                         100,
-                    10,
+                    weatherApi,
                 ],
             },
         ],
@@ -691,15 +705,15 @@ export default function Location({ bottom }) {
                         <LoadingBoxDiv>
                             <LoadingSpinner size={"100%;"} />
                         </LoadingBoxDiv>
-                    ) : (
-                        <div className="mapModal">
-                            <GraphTitleDiv>현재지역</GraphTitleDiv>
+                    ) : (<>
+                          <div className="mapModal">
+                            <GraphTitleDiv>현재동네 날씨정보</GraphTitleDiv>
                             <GraphTitle>
                                 <GraphTitleDiv2>
-                                    사용자 예보 날씨 비율
+                                    동네 예보 날씨 비율
                                 </GraphTitleDiv2>
                                 <GraphTitleDiv2>
-                                    사용자예보 vs 기상청예보 강수확률
+                                    동네 예보 vs 기상청예보
                                 </GraphTitleDiv2>
                             </GraphTitle>
                             <GraphModal>
@@ -710,6 +724,7 @@ export default function Location({ bottom }) {
                                     </BarGraphchild>
                                 </BarGraphFlex>
                             </GraphModal>
+                            <GraphTitleDiv>동네 예보</GraphTitleDiv>
                             {postList.map((post) => {
                                 return (
                                     // <PostBox onClick={() => console.log(post)}>
@@ -749,7 +764,6 @@ export default function Location({ bottom }) {
             ) : (
                 <></>
             )}
-
         </>
     )
 }

@@ -22,6 +22,11 @@ const Outer = styled.div`
   button{
     font-size: 1.5rem;
   }
+
+  @media screen and (min-width: 1500px) {
+    padding-left: 3vh;
+    padding-right: 3vh;
+  }
   @media screen and (max-width: 375px) {
     padding-top: 2vh;
   }
@@ -33,48 +38,30 @@ const Outer = styled.div`
 // 내가 쓴 글 (grid)
 const GridArea = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 300px 300px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 300px 300px ;
     grid-gap: 1.5rem;
     height: 70vh;
     p{
       font-size: 28px;
     }
 
-    .item {
+    .postItem {
       background-color: rgba(255, 255, 255, 0.6);
       display: flex;
     }
-    .item:nth-child(odd) {
-        margin-left: 5vw;
-    }
-    .item:nth-child(even) {
-        margin-right: 5vw;
-    }
-    .item:hover {
+    .postItem:hover {
     }
     
     @media screen and (min-width: 2100px) {
         height: 50vh;
-
-        .item:nth-child(odd) {
-            margin-left: 30vw;
-        }
-        .item:nth-child(even) {
-            margin-right: 30vw;
-        }
+        width: 300px;
     }
     @media screen and (max-width: 1081px) {
       padding-left: 5vw;
       padding-right: 5vw;
-      height: 100vh;
-      grid-template-columns: 1fr;
-      grid-template-rows: 3fr 3fr 3fr 3fr;
-
-      .item:nth-child(odd),
-      .item:nth-child(even) {
-        margin: 0 2vw;
-      }
+      height: auto;
+      grid-template-columns: 1fr 1fr;
     }
     @media screen and (max-width: 600px) {
       padding-left: 2vw;
@@ -87,9 +74,10 @@ const GridArea = styled.div`
       height: auto;
     }
 `
+
 // 게시물 사진
 const PostImg = styled.img`
-  width: 50%;
+  width: 100%;
   height: 100%;
   background-color: #FFFFFF;
 
@@ -103,35 +91,24 @@ const PostImg = styled.img`
   }
 `
 // 게시물 내용
-const PostInfo = styled.div`
-  // width: 50%;
-  // padding: 3vh 2vw 2vh 2vw;
-  // font-size: 2rem;
-  // align-items: center;
+// const PostInfo = styled.div`
+//   width: 50%;
+//   padding: 3vh 2vw 2vh 2vw;
+//   font-size: 2rem;
+//   align-items: center;
+//   p{
+//     margin-top: 10px;
+//   }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: 30%;
-    height: auto;
-  }
-
-  p{
-    margin: .5rem;
-  }
-
-  // @media screen and (max-width: 1081px) {
-  //   padding: 1vh 2vw 2vh 2vw;
-  //   font-size: 1.5rem;
-  // }
-  // @media screen and (max-width: 375px) {
-  //   font-size: 1rem;
-  //   padding-left: 3vw;
-  // }
-
-`
+//   @media screen and (max-width: 1081px) {
+//     padding: 1vh 2vw 2vh 2vw;
+//     font-size: 1.5rem;
+//   }
+//   @media screen and (max-width: 375px) {
+//     font-size: 1rem;
+//     padding-left: 3vw;
+//   }
+// `
 
 // 페이지네이션
 const Page = styled.div`
@@ -156,7 +133,7 @@ const Page = styled.div`
       background: none;
     }
     @media screen and (max-width: 1081px) {
-      margin-top: 30rem;
+      margin-top: 10rem;
       padding-bottom: 5rem;
 
     }
@@ -254,22 +231,10 @@ const postClickHandler = (e) => {
       <GridArea className="myPostList">
         {/* <div className="item"> */}
           {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */} 
-          {currentPosts.map((el) => {
-            return(
-              <PostInfo
-                className={["item", "postItem"]}
-                id={el.id}
-                onClick={postClickHandler}
-                key={el.id}
-              >
-                <img src={el.post_photo} alt="posts" className="postPhoto" />
-                <div className="postContent">
-                  <p className="date">날짜</p>
-                  <p className="address">주소</p>
-                </div>
-              </PostInfo>
-            );
-          })}
+          {currentPosts.map((el) => 
+            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
+              <PostImg src={el.post_photo} alt="posts"/>
+            </div>)}
           {/* <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>

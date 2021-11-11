@@ -7,65 +7,65 @@ module.exports = {
     post: async (req, res) => {
         console.log(req.body)
         console.log("여긴 /chat/rooms")
-        const roomfind = await room.findOne({
-            where: {
-                user_id: req.body.user_id,
-                roomlist: req.body.roomlist,
-            },
-        })
-
-        if (roomfind) {
-            res.status(250).send("이미 존재함")
-        } else {
+        // 1.방을 만들때 -hoon
+        if (!req.body.chatcontent) {
+            //빈글작성
             await room.create({
                 user_id: req.body.user_id,
-                roomlist: req.body.roomlist,
-                chatcontent: "[]",
+                receiver_id: req.body.receiver_id,
+                roomName: req.body.roomName,
             })
-            await room.create({
-                user_id: req.body.opponent,
-                roomlist: req.body.roomlist,
-                chatcontent: "[]",
-            })
-            let roomlists = await room.findAll({
+            //모든 챗팅내역 조회
+            const findRoomLists = await room.findAll({
                 where: {
                     user_id: req.body.user_id,
                 },
             })
-            let roomlistsmap = roomlists.map((el) => {
-                delete el.dataValues.chatcontent
+            //필요데이터 지우기
+            const roomlist = findRoomLists.map((el) => {
                 delete el.dataValues.id
                 delete el.dataValues.user_id
+                delete el.dataValues.receiver_id
+                delete el.dataValues.chatcontent
                 delete el.dataValues.createdAt
                 delete el.dataValues.updatedAt
-                return el.dataValues.roomlist
+                return el.dataValues.roomName
             })
-            res.send(roomlistsmap)
-            // console.log(roomlistsmap)
+            // console.log(roomlist)
+            res.send(roomlist)
+        }
+        //채팅을 생성할때
+        else {
         }
     },
     get: async (req, res) => {
         console.log(req.query)
         console.log("여긴 /chat/rooms 의 get")
-        let roomlists = await room.findAll({
-            where: {
-                user_id: req.query.user_id,
-            },
-        })
-        // console.log(roomlists)
-        if (!roomlists) {
-            res.send("일치하는 방이름 없음")
-        } else {
-            let roomlistsmap = roomlists.map((el) => {
-                delete el.dataValues.chatcontent
-                delete el.dataValues.id
-                delete el.dataValues.user_id
-                delete el.dataValues.createdAt
-                delete el.dataValues.updatedAt
-                return el.dataValues.roomlist
+        // 1.방을 조회만할때 -hoon
+        if (!req.body.chatcontent) {
+            const findRoomLists = await room.findAll({
+                where: {
+                    user_id: req.query.user_id,
+                },
             })
-            // console.log(roomlistsmap)
-            res.send(roomlistsmap)
+            if (!findRoomLists) {
+                res.send("일치하는 방이름 없음")
+            } else {
+                const roomlist = findRoomLists.map((el) => {
+                    delete el.dataValues.id
+                    delete el.dataValues.user_id
+                    delete el.dataValues.receiver_id
+                    delete el.dataValues.chatcontent
+                    delete el.dataValues.createdAt
+                    delete el.dataValues.updatedAt
+                    return el.dataValues.roomName
+                })
+                // console.log(roomlistsmap)
+                res.send(roomlist)
+            }
+        }
+        //2.채팅을 조회할때
+        else {
         }
     },
 }

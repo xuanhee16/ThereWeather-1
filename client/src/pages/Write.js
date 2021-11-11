@@ -303,23 +303,41 @@ export default function Write() {
     //   console.log('***clickedWeatherButtons: useEffect***', clickedWeatherButtons);
     // },[clickedWeatherButtons]);
 
+    // 겉옷 더미데이터
+    const outer = [
+        ["default", "겉옷 선택"],
+        ["가디건", "가디건"],
+        ["자켓", "자켓"],
+        ["얇은코드", "얇은 코트"],
+        ["두꺼운코트", "두꺼운 코트"],
+        ["패딩", "패딩"],
+    ]
+
     // 상의 더미데이터 (state 변수가 필요하게 될까?)
     const clothesTop = [
         ["default", "상의 선택"],
-        ["반팔", "1"],
-        ["셔츠", "2"],
+        ["민소매", "민소매"],
+        ["반팔", "티셔츠"],
+        ["긴팔", "긴팔"],
+        ["셔츠", "셔츠"],
+        ["니트", "니트"],
     ]
 
     // 하의 더미데이터
     const clothesBottom = [
         ["default", "하의 선택"],
-        ["반바지", "1"],
-        ["긴바지", "2"],
+        ["반바지", "반바지"],
+        ["긴바지", "긴 바지"],
     ]
 
     // select 상태 관리 & 이벤트 핸들러
+    const [selectValueOuter, setSelectValueOuter] = useState("default")
     const [selectValueTop, setSelectValueTop] = useState("default")
     const [selectValueBottom, setSelectValueBottom] = useState("default")
+
+    const selectOuterHandler = (e) => {
+        setSelectValueOuter(e.target.value)
+    }
 
     const selectTopHandler = (e) => {
         setSelectValueTop(e.target.value)
@@ -359,6 +377,7 @@ export default function Write() {
                 weather: selectWeather,
                 wind: selectWind,
                 temp: selectTemp,
+                outer_id: selectValueOuter,
                 top_id: selectValueTop,
                 bottom_id: selectValueBottom,
                 xLocation: curLocation.lat,
@@ -611,6 +630,19 @@ export default function Write() {
                     <FlexColumnCenter className="smallSection">
                         <p>의상을 선택하세요.</p>
                         <SelectArea>
+                            <select
+                                className="outer"
+                                value={selectValueOuter}
+                                onChange={selectOuterHandler}
+                            >
+                                {outer.map((elem, idx) => {
+                                    return (
+                                        <option value={elem[0]} key={idx}>
+                                            {elem[1]}
+                                        </option>
+                                    )
+                                })}
+                            </select>
                             <select
                                 className="top"
                                 value={selectValueTop}
