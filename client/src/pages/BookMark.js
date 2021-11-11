@@ -7,7 +7,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons"
 //import { updateCurrentPage, updateStartEndPage } from "../actions/index"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
 import { useHistory } from "react-router"
-// import Pagination from "../components/Pagination"
+import { default as PaginationComp } from "../components/Pagination"
 
 const Outer = styled.div`
   background-color: var(--page-bg-color);
@@ -385,6 +385,12 @@ export default function BookMark() {
           </li>
         </NextPage>
       </Pagination>
+
+      <PaginationComp
+        dataLength={100}
+        itemsPerPage={10}
+        numberButtonClickHandler={e => e.target}
+      />
     </Outer>
   )
 
