@@ -222,6 +222,9 @@ const GridArea = styled.div`
     }
 `
 const url = process.env.REACT_APP_LOCAL_URL
+if (!url) {
+    url = "https://thereweather.space"
+}
 
 export default function MyPage() {
     const dispatch = useDispatch()
@@ -235,9 +238,6 @@ export default function MyPage() {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
-    if (!url) {
-        url = "https://thereweather.space"
-    }
 
     const [currentPosts, setcurrentPosts] = useState([])
 
