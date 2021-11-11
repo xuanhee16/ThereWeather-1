@@ -239,9 +239,7 @@ export default function BookMark() {
   
   useEffect(() => {
     axios({
-      url: url + `/bookmarklist?searchPost=${userInfo.user_id}`,
-      // url: url + `/bookmarklist`,
-      // params: { user_id: userInfo.user_id, post_id: postId },
+      url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
       method: "get",
       withCredentials: true,
     })
@@ -277,24 +275,24 @@ export default function BookMark() {
     });
   }
 
-  const bookmarkHandler = (e) => {
-    console.log('글 읽기 - 북마크 버튼 동작 확인');
-    //눌렀을 때 북마크에 저장
-    //다시 누르면 해제
-      axios({
-        url: url + '/bookmark',
-        method: "post",
-        data: { user_id: userInfo.id, post_id: postId },
-        headers: {  "Content-Type": "application/json" },
-        withCredentials: true,
-      })
-    .then((res) => {
-      console.log(res.data)
-      setBookmarked(prev => !prev);
-      history.push("/home")    
-    })  
-  // console.log(e.currentTarget);
-  }
+  // const bookmarkHandler = (e) => {
+  //   console.log('글 읽기 - 북마크 버튼 동작 확인');
+  //   //눌렀을 때 북마크에 저장
+  //   //다시 누르면 해제
+  //     axios({
+  //       url: url + '/bookmark',
+  //       method: "post",
+  //       data: { user_id: userInfo.id, post_id: postId },
+  //       headers: {  "Content-Type": "application/json" },
+  //       withCredentials: true,
+  //     })
+  //   .then((res) => {
+  //     console.log(res.data)
+  //     setBookmarked(prev => !prev);
+  //     history.push("/home")    
+  //   })  
+  // // console.log(e.currentTarget);
+  // }
 
   // 페이지네이션
   const state = useSelector(state => state.itemReducer);

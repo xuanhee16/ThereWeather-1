@@ -2,7 +2,7 @@ const { bookmark } = require("../../models")
 
 module.exports = async (req, res) => {
     //res.send()
-    console.log("server/bookmark.js", req.body) //{ user_id: 1, post_id: 21 }
+    //console.log("server/bookmark.js", req.body) //{ user_id: 1, post_id: 21 }
     const { user_id, post_id } = req.body; 
 
     const mark = await bookmark.findOne({
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
             post_id: post_id
         })
         marked = marked.get({ plain: true })
-        console.log("bookmark.js ::::::",marked)
+        //console.log("bookmark.js ::::::",marked)
         res.status(201).send("북마크에 저장되었습니다.")
     }
 }

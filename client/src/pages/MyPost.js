@@ -235,14 +235,7 @@ const postClickHandler = (e) => {
             <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
               <PostImg src={el.post_photo} alt="posts"/>
             </div>)}
-          {/* <PostInfo>
-            <p>{'서울시 종로구'}</p>
-            <p>{'10/19'}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
-          </PostInfo> */}
-        {/* </div> */}
+         
       </GridArea>
 
       {/* 페이지네이션 테스트 */}
