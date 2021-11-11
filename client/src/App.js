@@ -28,12 +28,13 @@ import styled from "styled-components"
 import GlobalStyle from "./components/GlobalStyle"
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) {
-    url = "https://thereweather.space"
-}
+
 // const url = "https://thereweather.space"
 
 export default function App() {
+    if (!url) {
+        url = "https://thereweather.space"
+    }
     const dispatch = useDispatch()
     const history = useHistory()
 
