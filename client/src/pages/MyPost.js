@@ -3,22 +3,33 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import { useHistory } from "react-router-dom"
 import axios from "axios"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
+import { userPosts, updatePostId } from "../actions/index"
+// UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE
 import GoBackButton from "../components/GoBackButton"
 import Pagination from "../components/Pagination"
+// import { post } from "jquery"
 
 /*
   [수정]
-  - 레이아웃 고치다가 중단함
-  - 페이지네이션 컴포넌트 추가함
+  - 레이아웃
+  - 페이네이션 동작
 */
 
 const Outer = styled.div`
+  position: relative;
   background-color: var(--page-bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
-  /* height: 100vh; */
   min-height: 100vh;
-  padding-top: 100px;
+  padding: 2rem;
+
+  h2 {
+    align-self: flex-start;
+    margin: 2rem 0;
+  }
   button{
     font-size: 1.5rem;
   }
@@ -41,7 +52,8 @@ const GridArea = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 300px 300px ;
     grid-gap: 1.5rem;
-    height: 70vh;
+    min-height: 70vh;
+    margin: 1rem;
     p{
       font-size: 28px;
     }
@@ -51,8 +63,8 @@ const GridArea = styled.div`
       display: flex;
     }
     .postItem:hover {
+      border: 1px solid #D5D8DC;
     }
-    
     @media screen and (min-width: 2100px) {
         height: 50vh;
         width: 300px;
@@ -90,6 +102,12 @@ const PostImg = styled.img`
     // 이미지 크기 수정 필요
   }
 `
+
+// pagination
+// const StyledPagination = styled(Pagination)`
+
+// `;
+
 // 게시물 내용
 // const PostInfo = styled.div`
 //   width: 50%;
@@ -111,66 +129,68 @@ const PostImg = styled.img`
 // `
 
 // 페이지네이션
-const Page = styled.div`
-    display: flex;
-    justify-content: center;
-    li {
-      /* margin: 3px; */
-      list-style: none;
-      padding: 3px;
-      /* border: 1px solid red; */
-    }
-    button {
-      margin: 0 1vw;
-      padding: 1rem 1.5rem;
-      border-radius: 50%;
-    }
-    button:focus{
-      background-color: var(--modal-bg-color);
-    }
-    #prev,
-    #next{
-      background: none;
-    }
-    @media screen and (max-width: 1081px) {
-      margin-top: 10rem;
-      padding-bottom: 5rem;
+// const Page = styled.div`
+//     display: flex;
+//     justify-content: center;
+//     li {
+//       /* margin: 3px; */
+//       list-style: none;
+//       padding: 3px;
+//       /* border: 1px solid red; */
+//     }
+//     button {
+//       margin: 0 1vw;
+//       padding: 1rem 1.5rem;
+//       border-radius: 50%;
+//     }
+//     button:focus{
+//       background-color: var(--modal-bg-color);
+//     }
+//     #prev,
+//     #next{
+//       background: none;
+//     }
+//     @media screen and (max-width: 1081px) {
+//       margin-top: 10rem;
+//       padding-bottom: 5rem;
 
-    }
+//     }
 
-    @media screen and (max-width: 375px) {
-      margin-top: 3rem;
-      padding-bottom: 3rem;
-      li {
-        /* margin: 0 1vw; */
-        /* margin: 1vh; */
-        padding: 0;
+//     @media screen and (max-width: 375px) {
+//       margin-top: 3rem;
+//       padding-bottom: 3rem;
+//       li {
+//         /* margin: 0 1vw; */
+//         /* margin: 1vh; */
+//         padding: 0;
 
-      }
-      button {
-        /* margin: 0 1.5vw; */
-        font-size: 1.5rem;
-        margin: 0;
-        padding: 1px 7px;
-      }
-    }
-`
+//       }
+//       button {
+//         /* margin: 0 1.5vw; */
+//         font-size: 1.5rem;
+//         margin: 0;
+//         padding: 1px 7px;
+//       }
+//     }
+// `
+
 const url = process.env.REACT_APP_LOCAL_URL
 
 export default function MyPost() {
   const dispatch = useDispatch()
   const history = useHistory()
   const { start, end, current, isLogin, userInfo, postInfo, readPostId } = useSelector((state) => state.itemReducer)
-  console.log(postInfo)
-  console.log(readPostId)
- 
-  const updateCurrPage = page => (dispatchs) => {
-    dispatch({ type : UPDATE_CURRENT_PAGE, payload: page })
-  }
-  const updateStartEndPage = (start, end) => (dispatchs) => {
-    dispatch({type: UPDATE_START_END_PAGE, payload: {start, end}})
-  }
-  const [currentPosts, setcurrentPosts] = useState([])
+  // console.log('**mypost postinfo**',postInfo.postinfo);
+  // console.log(readPostId)
+
+  // const updateCurrPage = page => (dispatchs) => {
+  //   dispatch({ type : UPDATE_CURRENT_PAGE, payload: page })
+  // }
+  // const updateStartEndPage = (start, end) => (dispatchs) => {
+  //   dispatch({type: UPDATE_START_END_PAGE, payload: {start, end}})
+  // }
+
+  const [currentPosts, setcurrentPosts] = useState([]);
 
   useEffect(() => {
     axios({
@@ -181,34 +201,54 @@ export default function MyPost() {
         //console.log(res.data)
         setcurrentPosts(res.data)
         dispatch(userPosts(res.data))
-    }) 
-}, [])
+    })
+  }, [])
 
-// 게시물사진 클릭했을 때
-const postClickHandler = (e) => {
-  // console.log(e.target.id);
-  // history.push("/postread")
-  // history.push({
-  //     pathname: 'postread',
-  //     search: `?searchID=${userInfo.user_id}`,
-  //     state: {data: postInfo.postinfo}
-  // })
-  // 해당 게시물의 id, user_id
+  // 페이지네이션 시작
+  const [ currentPage, setCurrentPage ] = useState(1);
+  // 1페이지로 시작
+  const itemsPerPage = 8;
+  // 한 페이지에 8개씩 보여준다
 
-  let elem = e.target;
-  while(!elem.classList.contains("postItem")) {
-      elem = elem.parentNode;
-      if(!elem.classList.contains("myPostList")) {
-          break;
-      }
+  const lastIdx = currentPage * itemsPerPage;
+  const firstIdx = lastIdx - itemsPerPage;
+  // 1페이지에서 (0 ~ 5) -> slice -> 0 ~ 4
+    // lastIdx = 1 * 5
+    // firstIdx = 5 - 5
+  // 2페이지에서 (5 ~ 10) -> slice -> 5 ~ 9
+    // lastIdx = 2 * 5
+    // firstIdx = 10 - 5
+
+  const slicedData = (dataArr) => {
+    return dataArr.slice(firstIdx, lastIdx);
   }
+  // 페이지네이션 끝
 
-  dispatch(updatePostId(elem.id));
-  history.push({
-      pathname: '/postread',
-      state: {postId: elem.id}
-  });
-}
+  // 게시물사진 클릭했을 때
+  const postClickHandler = (e) => {
+    // console.log(e.target.id);
+    // history.push("/postread")
+    // history.push({
+    //     pathname: 'postread',
+    //     search: `?searchID=${userInfo.user_id}`,
+    //     state: {data: postInfo.postinfo}
+    // })
+    // 해당 게시물의 id, user_id
+
+    let elem = e.target;
+    while(!elem.classList.contains("postItem")) {
+        elem = elem.parentNode;
+        if(!elem.classList.contains("myPostList")) {
+            break;
+        }
+    }
+
+    dispatch(updatePostId(elem.id));
+    history.push({
+        pathname: '/postread',
+        state: {postId: elem.id}
+    });
+  }
 
 
 
@@ -226,15 +266,23 @@ const postClickHandler = (e) => {
   const target = array.slice(start, end)
 
   return (
-    <Outer>
-      <GoBackButton/>
+    <Outer className="MyPostPage">
+      <GoBackButton className="gobackButton" />
+      <h2>내가 쓴 게시물</h2>
       <GridArea className="myPostList">
         {/* <div className="item"> */}
           {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */} 
-          {currentPosts.map((el) => 
+          {/* {currentPosts.map((el) => 
             <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
               <PostImg src={el.post_photo} alt="posts"/>
-            </div>)}
+            </div>)} */}
+          {/* 페이지네이션 적용 */}
+          {
+            slicedData(currentPosts).map((el) =>
+            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
+              <PostImg src={el.post_photo} alt="posts"/>
+            </div>)
+          }
           {/* <PostInfo>
             <p>{'서울시 종로구'}</p>
             <p>{'10/19'}</p>
@@ -247,13 +295,13 @@ const postClickHandler = (e) => {
 
       {/* 페이지네이션 테스트 */}
       <Pagination
-        dataLength={100}
-        unit={5}
-        // numberButtonClickHandler={}
+        dataLength={currentPosts.length}
+        itemsPerPage={itemsPerPage}
+        numberButtonClickHandler={setCurrentPage}
       />
 
       {/* 페이지네이션이나 무한스크롤 */}
-      <Page>
+      {/* <Page>
         <li className="page-item">
           <button
             id="prev"
@@ -302,7 +350,7 @@ const postClickHandler = (e) => {
             다음
           </button>
         </li>
-      </Page>
+      </Page> */}
     </Outer>
   )
 }

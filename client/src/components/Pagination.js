@@ -4,18 +4,23 @@ import styled from "styled-components"
 const PaginationContainer = styled.div.attrs({
   className: "pagination"
 })`
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  // width: 50vw;
   color: #A1A1A1;
   font-weight: bold;
+  font-size: 1.2rem;
+  border: 1px solid hotpink;
+  width: 100vw;
 `;
 
 const PageNumbersList = styled.ul.attrs({
   className: "pageNumbersList"
 })`
-  border: 1px solid red;
+  // border: 1px solid red;
   // width: 50%;
   display: flex;
   align-items: center;
@@ -41,33 +46,33 @@ const PageNumberItem = styled.li.attrs({
   }
 `;
 
-export default function Pagination({dataLength, unit, numberButtonClickHandler}) {
-  const numberOfPages = Math.ceil(dataLength / unit);
+export default function Pagination({dataLength, itemsPerPage, numberButtonClickHandler}) {
+  const numberOfPages = Math.ceil(dataLength / itemsPerPage);
   const numberArr = new Array(numberOfPages).fill(0).map((el, idx) => idx + 1);
   const [startIdx, setStartIdx] = useState(0);
-  const [lastIdx, setLastIdx] = useState(unit);
-  const cutArrInit = new Array(unit).fill(0).map((el, idx) => idx + 1);
+  const [lastIdx, setLastIdx] = useState(itemsPerPage);
+  const cutArrInit = new Array(itemsPerPage).fill(0).map((el, idx) => idx + 1);
   const [cutArr, setCutArr] = useState(cutArrInit);
 
   const prevHandler = () => {
     if(startIdx === 0) return;
-    console.log('**prev**');
-    setStartIdx(prev => prev - unit);
-    setLastIdx(prev => prev - unit);
+    // console.log('**prev**');
+    setStartIdx(prev => prev - itemsPerPage);
+    setLastIdx(prev => prev - itemsPerPage);
   }
 
   const nextHandler = () => {
-    let tempIdxEnd = Math.ceil(numberArr.length/unit) * unit;
+    let tempIdxEnd = Math.ceil(numberArr.length/itemsPerPage) * itemsPerPage;
     if(lastIdx === tempIdxEnd) return;
-    console.log('**next**');
-    setStartIdx(prev => prev + unit);
-    setLastIdx(prev => prev + unit);
+    // console.log('**next**');
+    setStartIdx(prev => prev + itemsPerPage);
+    setLastIdx(prev => prev + itemsPerPage);
   }
 
   useEffect(()=>{
-    let tempIdxEnd = Math.ceil(numberArr.length/unit) * unit;
+    let tempIdxEnd = Math.ceil(numberArr.length/itemsPerPage) * itemsPerPage;
 
-    if(startIdx >= unit || lastIdx <= tempIdxEnd) {
+    if(startIdx >= itemsPerPage || lastIdx <= tempIdxEnd) {
       const result = numberArr.slice(startIdx, lastIdx);
       setCutArr(prev => result);
     }
@@ -80,7 +85,7 @@ export default function Pagination({dataLength, unit, numberButtonClickHandler})
       </ArrowButton>
       <PageNumbersList>
         {
-          cutArr.map(number => {
+          numberArr.map(number => {
             return (
               <PageNumberItem
                 key={number}

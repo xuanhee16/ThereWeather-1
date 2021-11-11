@@ -5,18 +5,24 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { useHistory } from "react-router-dom"
 
 const Button = styled.button`
-    display: none;
-    
+    /* top: 90vh; */
+    // top: 1.5vh;
+    // position: fixed;
+    // z-index:100;
+    // border-radius: 50%;
+    display: flex;
+    padding: 1rem;
+    width: 100vw;
+    border: 1px solid hotpink;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .fa-fw {
+        font-size: 50px;
+    }
+
     @media screen and (max-width: 1081px) {
-        display: inline;
-        /* top: 90vh; */
-        top: 1.5vh;
-        position: fixed;
-        border-radius: 50%;
-        z-index:100;
-        .fa-fw {
-            font-size: 50px;
-        }
     }
     @media screen and (max-width: 375px) {
         .fa-fw {
