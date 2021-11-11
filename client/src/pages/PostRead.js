@@ -308,11 +308,11 @@ if (!url) url = "https://thereweather.space"
 export default function PostRead(){
   const history = useHistory()
   const { readPostId, userInfo, postInfo } = useSelector(state => state.itemReducer);
-  // console.log(userInfo.id)
-  // console.log(readPostId)
-  // console.log(postInfo)
-  const postId = Number(readPostId)
-  //console.log(postId) 
+  console.log(userInfo.id)
+  console.log(readPostId)
+  console.log(postInfo) 
+  const postIds = Number(readPostId)
+  console.log(postIds) 
 
   // postData state 변수
   const [postData, setPostData] = useState({
@@ -409,6 +409,7 @@ export default function PostRead(){
   const removeModalYes = () => {
     // console.log('삭제완료')
     const token = JSON.parse(localStorage.getItem("ATOKEN"))
+    //console.log(token)
     axios({
       url:  url + "/deletepost",
       method: "delete",
@@ -416,6 +417,7 @@ export default function PostRead(){
         "Content-Type": "application/json",
         Authorization: `token ${token}`,
       },
+      data: { post_id: postIds },
       withCredentials: true
     })
     .then(() => {
@@ -423,8 +425,6 @@ export default function PostRead(){
       history.push("/mypage")
     })
     setRemovePost(false)
-    // 'a페이지' -> 글 읽기 -> 삭제
-      // a페이지로 redirect
   }
 
   const modalNoButtonHandler = () => {
@@ -444,7 +444,8 @@ export default function PostRead(){
       axios({
         url: url + '/bookmark',
         method: "post",
-        data: { user_id: userInfo.id, post_id: postId },
+        data: { user_id: userInfo.id, post_id: postIds },
+        // data: { post_id: postId },
         headers: {  "Content-Type": "application/json" },
         withCredentials: true,
       })

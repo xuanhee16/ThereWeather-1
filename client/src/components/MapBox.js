@@ -705,7 +705,7 @@ export default function Location({ bottom }) {
                         <LoadingBoxDiv>
                             <LoadingSpinner size={"100%;"} />
                         </LoadingBoxDiv>
-                    ) : (<>
+                    ) : (
                           <div className="mapModal">
                             <GraphTitleDiv>현재동네 날씨정보</GraphTitleDiv>
                             <GraphTitle>

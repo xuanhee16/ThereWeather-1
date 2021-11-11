@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import styled from "styled-components"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHeart } from "@fortawesome/free-solid-svg-icons"
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+// import { faHeart } from "@fortawesome/free-solid-svg-icons"
+import { Bookmark } from "../components/Heart";
 //import { updateCurrentPage, updateStartEndPage } from "../actions/index"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
+import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, updatePostId } from "../actions/index"
 import { useHistory } from "react-router"
 
 const Outer = styled.div`
@@ -30,7 +31,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   grid-template-rows: 3fr 3fr;
-  /* grid-template-columns: 5fr 5fr; */
+  grid-template-columns: 5fr 5fr;
   grid-template-areas: 
   "div div"
   "div div";
@@ -61,7 +62,7 @@ const BookMarkPhoto = styled.div`
   .postPicture{
     margin: 1rem 2rem 1rem 1rem;
     padding: 0;
-    /* border: solid 1px black; */
+    border: solid 1px black;
     height: 25vh;
     align-items: center;
   }
@@ -138,19 +139,21 @@ const BookMarkList = styled.div`
     }
   }
 `;
-// 북마크 아이콘
-const BookMarkIcon = styled.div`
-  flex-direction: column;
-  flex-basis: 10.5rem;
-  text-align: end;
-  margin: 1rem;
-  color: #ED4956;
 
-  @media screen and (max-width: 375px) {
-    margin: 0;
-    padding: 0 0.3rem 0 0;
-    font-size: 10px;
+const BookMarkIcon = styled(Bookmark)`
+  float: right;
+
+  & .heart{
+    cursor: pointer;
+    color: #aaa;
   }
+`
+
+//북마크가 없습니다.
+const Waring = styled.div`
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
 `
 
 // 페이지네이션
@@ -214,16 +217,33 @@ export default function BookMark() {
   const history = useHistory()
   const { userInfo, readPostId } = useSelector((state) => state.itemReducer)
   const [bookmarkList, setBookmarkList] = useState()
+  const [bookmarked, setBookmarked] = useState(false)
   console.log(userInfo)
   console.log(readPostId)
-
+  const postId = Number(readPostId)
+  console.log(postId)
   //bookmark는 유저1이 저장해둔 포스트 목록이 나오게 
   //일단 유저정보를 보내서, 그 유저가 북마크에 저장한 내용 싹 보여주기 
 
+  // axios.get(`${url}/readpost`, {
+  //   headers: { "Content-Type": "application/json" },
+  //   params: { id: postId },
+  //   withCredentials: true
+  // })
+  // .then (res => {
+  //   console.log(res.data);
+  //   return setPostData(prev => res.data);
+  //   // return res.data;
+  // })
+  // .catch (err => console.log(err));
   
   useEffect(() => {
     axios({
-      url: url + `/bookmarklist?searchPost=${userInfo.user_id}`
+      url: url + `/bookmarklist?searchPost=${userInfo.user_id}`,
+      // url: url + `/bookmarklist`,
+      // params: { user_id: userInfo.user_id, post_id: postId },
+      method: "get",
+      withCredentials: true,
     })
     .then((res) => {
       console.log(res.data)
@@ -257,6 +277,24 @@ export default function BookMark() {
     });
   }
 
+  const bookmarkHandler = (e) => {
+    console.log('글 읽기 - 북마크 버튼 동작 확인');
+    //눌렀을 때 북마크에 저장
+    //다시 누르면 해제
+      axios({
+        url: url + '/bookmark',
+        method: "post",
+        data: { user_id: userInfo.id, post_id: postId },
+        headers: {  "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+    .then((res) => {
+      console.log(res.data)
+      setBookmarked(prev => !prev);
+      history.push("/home")    
+    })  
+  // console.log(e.currentTarget);
+  }
 
   // 페이지네이션
   const state = useSelector(state => state.itemReducer);
@@ -281,49 +319,35 @@ export default function BookMark() {
   }
   const target = arr.slice(start, end)
 
+  console.log(bookmarkList)
 
-  
+
   return (
     <Outer>
+      {/* {bookmarkList !== undefined ?*/}
       <Container>
-        <BookMarkContainer className="PostBookMarkList">
-          <BookMarkPhoto>
-            <div className="postPicture">
-              {/* <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" /> */}
-              {bookmarkList && bookmarkList.map((el) => <div className={["postImg", "postItem"]} id={el.id} onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
+      {bookmarkList && bookmarkList.map((el, idx) => {
+        return (
+          <BookMarkContainer>
+            <BookMarkPhoto>
+            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.idx}>
+            <img className="postImg" src={el.post_photo} alt="posts" />
             </div>
-          </BookMarkPhoto>
-          <BookMarkList>
-            {/* <div className="postTitle">
-              00구
-            </div> */}
-            {/* <div className="postDate">10 / 25</div> */}
-            {bookmarkList && bookmarkList.map((el) => <div className="postDate" key={el.id}>{formatDate(el.createdAt)}</div>)}
-            <div className="postWeather sky">
-              {/* <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img> */}
-              {bookmarkList && bookmarkList.map((el) => <div className="postDate" key={el.id}>{el.weather}</div>)}
-            </div>
-            <div className="postWeather wind">
-              {/* <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img> */}
-              {bookmarkList && bookmarkList.map((el) => <div className="postDate" key={el.id}>{el.wind}</div>)}
-            </div>
-            <div className="postWeather temp">
-              {/* <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img> */}
-              {bookmarkList && bookmarkList.map((el) => <div className="postDate" key={el.id}>{el.temp}</div>)}
-            </div>
-          </BookMarkList>
-          <BookMarkIcon>
-            {/* 북마크 버튼 렌더링 필요  */}
-            <FontAwesomeIcon icon={faHeart} size="2x"/>
-          </BookMarkIcon>
-        </BookMarkContainer>
-
-
-        {/* <Pagenation>
-          <PrevPage>이전</PrevPage>
-          <NextPage>다음</NextPage>
-        </Pagenation> */}
+            </BookMarkPhoto>
+            <BookMarkList>
+              <div className="postDate" key={el.id}>{formatDate(el.createdAt)}</div>
+              <div className="postWeather sky" key={el.id}>{el.weather}</div>
+              <div className="postWeather wind" key={el.id}>{el.wind}</div>
+              <div className="postWeather temp" key={el.id}>{el.temp}</div>
+            </BookMarkList>
+            {/* <BookMarkIcon bookmarkHandler={bookmarkHandler}
+            color={bookmarked ? '#aaa' :'#ED4956'} >
+            </BookMarkIcon> */}
+          </BookMarkContainer>
+        )
+      })}
       </Container>
+      {/* : <Waring>"북마크가 없습니다."</Waring>} */}
 
       <Pagination>
         <PrevPage>

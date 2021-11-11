@@ -2,7 +2,7 @@ const { bookmark, post } = require("../../models")
 
 module.exports = async(req, res) => {
   //res.send()
-  //console.log("server/bookmarklist.js::::",req.query) //{ searchPost: 'kimcoding1' }
+  console.log("server/bookmarklist.js::::",req.query) //{ searchPost: 'kimcoding1' }
   const { searchPost } = req.query; 
   if(!searchPost){
     res.status(404).send("정보가 없습니다.")
@@ -12,6 +12,7 @@ module.exports = async(req, res) => {
             model: post,
             where: {
                 user_id: searchPost,
+                // id: searchPost
             },
         }]
   })

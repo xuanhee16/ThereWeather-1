@@ -18,11 +18,12 @@ module.exports = async (req, res) => {
         // }]
     })
     let marked; 
+    //저장한 내역이 있으면 삭제 
     if(mark){
         await mark.destroy(); 
         res.status(201).send("북마크가 해제되었습니다.")
     }
-
+    //저장한 내역이 없으면 저장 
     else{
         marked = await bookmark.create({
             user_id: user_id,
