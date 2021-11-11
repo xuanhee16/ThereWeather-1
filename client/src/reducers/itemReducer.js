@@ -10,7 +10,7 @@ import {
     CHANGE_CUR_LOCATION,
     UPDATE_WEATHERINFO,
     UPDATE_USER_POST,
-    UPDATE_POST_ID
+    UPDATE_POST_ID,
 } from "../actions/index"
 import { initialState } from "./initialState"
 
@@ -89,7 +89,6 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 readPostId: action.payload
             }
-
         default:
             return state
     }

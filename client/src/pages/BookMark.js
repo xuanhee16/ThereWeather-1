@@ -1,10 +1,12 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import axios from "axios"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
 //import { updateCurrentPage, updateStartEndPage } from "../actions/index"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE } from "../actions/index"
+import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
+import { useHistory } from "react-router"
 
 const Outer = styled.div`
   background-color: var(--page-bg-color);
@@ -203,12 +205,63 @@ const PageNumber = styled.div`
 
 const NextPage = styled.div``;
 
+
+let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
+
 export default function BookMark() { 
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const { userInfo, readPostId } = useSelector((state) => state.itemReducer)
+  const [bookmarkList, setBookmarkList] = useState()
+  console.log(userInfo)
+  console.log(readPostId)
+
+  //bookmark는 유저1이 저장해둔 포스트 목록이 나오게 
+  //일단 유저정보를 보내서, 그 유저가 북마크에 저장한 내용 싹 보여주기 
+
   
+  useEffect(() => {
+    axios({
+      url: url + `/bookmarklist?searchPost=${userInfo.user_id}`
+    })
+    .then((res) => {
+      console.log(res.data)
+      setBookmarkList(res.data)
+    })
+  },[])
+
+  //console.log(bookmarkList)
+
+  const formatDate = (dateString) => {
+    // 예시 : 2021. 11. 5. 22:02
+    const dateObject = new Date(dateString);
+    let dateOnly = dateObject.toLocaleDateString();
+    return `${dateOnly}`
+  }
+
+  const postClickHandler = (e) => {
+    //"PostBookMarkList"
+    let elem = e.target;
+    while(!elem.classList.contains("postItem")) {
+        elem = elem.parentNode;
+        if(!elem.classList.contains("myPostList")) {
+            break;
+        }
+    }
+  
+    dispatch(updatePostId(elem.id));
+    history.push({
+        pathname: '/postread',
+        state: {postId: elem.id}
+    });
+  }
+
+
   // 페이지네이션
   const state = useSelector(state => state.itemReducer);
   const { start, end, current } = state; 
-  const dispatch = useDispatch();
+
   // const updateCurrentPages = dispatch(updateCurrentPage);
   // const updateStartEndPages = dispatch(updateStartEndPage);
   const updateCurrentPages = page => (dispatchs) => {
@@ -228,106 +281,35 @@ export default function BookMark() {
   }
   const target = arr.slice(start, end)
 
+
+  
   return (
     <Outer>
       <Container>
-        <BookMarkContainer>
+        <BookMarkContainer className="PostBookMarkList">
           <BookMarkPhoto>
             <div className="postPicture">
-              <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" />
+              {/* <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" /> */}
+              {bookmarkList && bookmarkList.map((el) => <div className={["postImg", "postItem"]} id={el.id} onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
             </div>
           </BookMarkPhoto>
           <BookMarkList>
-            <div className="postTitle">
+            {/* <div className="postTitle">
               00구
-            </div>
-            <div className="postDate">10 / 25</div>
+            </div> */}
+            {/* <div className="postDate">10 / 25</div> */}
+            {bookmarkList && bookmarkList.map((el) => <div className="postDate" key={el.id}>{formatDate(el.createdAt)}</div>)}
             <div className="postWeather sky">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img>
+              {/* <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img> */}
+              {bookmarkList && bookmarkList.map((el) => <div className="postDate" key={el.id}>{el.weather}</div>)}
             </div>
             <div className="postWeather wind">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img>
+              {/* <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img> */}
+              {bookmarkList && bookmarkList.map((el) => <div className="postDate" key={el.id}>{el.wind}</div>)}
             </div>
             <div className="postWeather temp">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img>
-            </div>
-          </BookMarkList>
-          <BookMarkIcon>
-            {/* 북마크 버튼 렌더링 필요  */}
-            <FontAwesomeIcon icon={faHeart} size="2x"/>
-          </BookMarkIcon>
-        </BookMarkContainer>
-        <BookMarkContainer>
-          <BookMarkPhoto>
-            <div className="postPicture">
-              <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" />
-            </div>
-          </BookMarkPhoto>
-          <BookMarkList>
-            <div className="postTitle">
-              00구
-            </div>
-            <div className="postDate">10 / 25</div>
-            <div className="postWeather sky">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img>
-            </div>
-            <div className="postWeather wind">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img>
-            </div>
-            <div className="postWeather temp">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img>
-            </div>
-          </BookMarkList>
-          <BookMarkIcon>
-            {/* 북마크 버튼 렌더링 필요  */}
-            <FontAwesomeIcon icon={faHeart} size="2x"/>
-          </BookMarkIcon>
-        </BookMarkContainer>
-        <BookMarkContainer>
-          <BookMarkPhoto>
-            <div className="postPicture">
-              <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" />
-            </div>
-          </BookMarkPhoto>
-          <BookMarkList>
-            <div className="postTitle">
-              00구
-            </div>
-            <div className="postDate">10 / 25</div>
-            <div className="postWeather sky">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img>
-            </div>
-            <div className="postWeather wind">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img>
-            </div>
-            <div className="postWeather temp">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img>
-            </div>
-          </BookMarkList>
-          <BookMarkIcon>
-            {/* 북마크 버튼 렌더링 필요  */}
-            <FontAwesomeIcon icon={faHeart} size="2x"/>
-          </BookMarkIcon>
-        </BookMarkContainer>
-        <BookMarkContainer>
-          <BookMarkPhoto>
-            <div className="postPicture">
-              <img className="postImg" src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather" />
-            </div>
-          </BookMarkPhoto>
-          <BookMarkList>
-            <div className="postTitle">
-              00구
-            </div>
-            <div className="postDate">10 / 25</div>
-            <div className="postWeather sky">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/sunny.png`}></img>
-            </div>
-            <div className="postWeather wind">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}></img>
-            </div>
-            <div className="postWeather temp">
-              <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img>
+              {/* <img src={`${process.env.PUBLIC_URL}img/icons-write/hot.png`}></img> */}
+              {bookmarkList && bookmarkList.map((el) => <div className="postDate" key={el.id}>{el.temp}</div>)}
             </div>
           </BookMarkList>
           <BookMarkIcon>

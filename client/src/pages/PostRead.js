@@ -325,9 +325,10 @@ if (!url) url = "https://thereweather.space"
 
 export default function PostRead(){
   const history = useHistory()
-  const { readPostId, userInfo } = useSelector(state => state.itemReducer);
-  console.log(userInfo.id)
-  console.log(readPostId)
+  const { readPostId, userInfo, postInfo } = useSelector(state => state.itemReducer);
+  // console.log(userInfo.id)
+  // console.log(readPostId)
+  // console.log(postInfo)
   const postId = Number(readPostId)
   //console.log(postId) 
 
@@ -454,7 +455,7 @@ export default function PostRead(){
 
   const bookmarkHandler = (e) => {
     console.log('글 읽기 - 북마크 버튼 동작 확인');
-    //눌렀을 때  북마크에 저장
+    //눌렀을 때 북마크에 저장
     //다시 누르면 해제
       axios({
         url: url + '/bookmark',
@@ -465,9 +466,9 @@ export default function PostRead(){
       })
     .then((res) => {
       console.log(res.data)
-      setBookmarked(prev => !prev);    
-    })
-    
+      setBookmarked(prev => !prev);
+      history.push("/bookmark")    
+    })  
   // console.log(e.currentTarget);
   }
 

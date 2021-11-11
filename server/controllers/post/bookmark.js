@@ -1,4 +1,3 @@
-const { createDecipheriv } = require("crypto");
 const { bookmark } = require("../../models")
 
 module.exports = async (req, res) => {

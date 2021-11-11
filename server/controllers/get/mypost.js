@@ -20,7 +20,7 @@ module.exports = async(req, res) => {
         res.status(202).send(userPost.map((el) => {
             return el.dataValues;
         }))
-        // res.status(202).send("post")
+        res.status(202).send("post")
     }
 }) 
 }
