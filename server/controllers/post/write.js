@@ -12,6 +12,7 @@ module.exports = {
                 weather: req.body.weather,
                 wind: req.body.wind,
                 temp: req.body.temp,
+                outer_id: req.body.outer_id,
                 top_id: req.body.top_id,
                 bottom_id: req.body.bottom_id,
                 xLocation: req.body.xLocation,

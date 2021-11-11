@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             weather: DataTypes.STRING,
             wind: DataTypes.STRING,
             temp: DataTypes.STRING,
+            outer_id: DataTypes.STRING,
             top_id: DataTypes.STRING,
             bottom_id: DataTypes.STRING,
             xLocation: DataTypes.NUMERIC(20, 15),

@@ -9,7 +9,7 @@ module.exports = async(req, res) => {
     where: {
         user_id: searchID
     },
-    limit: 4,
+    limit: 8,
     order :  [['createdAt', 'ASC']]
 }) 
 .then((userPost) => {

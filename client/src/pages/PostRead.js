@@ -6,6 +6,7 @@ import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
+import TopButton from "../components/TopButton";
 
 const Outer = styled.div`
   width: 100vw;
@@ -195,7 +196,9 @@ const TodayCodi = styled.div`
   margin: auto;
   margin-top: 3vh;
   margin-bottom: 3vh;
-
+  .warning{
+    display: none;
+  }
   & p.warning {
     font-size: .9rem;
     width: 6rem;
@@ -280,42 +283,6 @@ const Buttons = styled.div`
     }
     .button2{
       margin-left: 0;
-    }
-  }
-`
-// 스크롤 top 버튼 (필요한 페이지 추가적으로 나오면 컴포넌트로 만들기)
-const TopButton = styled.div`
-  /* width: 100%; */
-  height: 200px;
-  position: fixed;
-  z-index: 100;
-  display: flex;
-  justify-content: flex-end;
-  right: 0;
-  bottom: 0;
-  transition: all 0.3s;
-
-  img{
-    width: 6rem;
-    height: 6rem;
-    margin-right: 2vh;
-    opacity: 0.7;
-  }
-
-  @media screen and (max-width: 1081px) {
-    height: 200px;
-    img{
-      width: 6rem;
-      height: 6rem;
-      margin-right: 3vh;
-    }
-  }
-  @media screen and (max-width: 375px) {
-    height: 130px;
-    img{
-      width: 3rem;
-      height: 3rem;
-      margin-right: 2vh;
     }
   }
 `
@@ -454,37 +421,6 @@ export default function PostRead(){
     // console.log(e.currentTarget);
   }
 
-  // top button
-  const [ScrollY, setScrollY] = useState(0);
-  const [btnStatus, setBtnStatus] = useState(false);  // 버튼 상태
-
-  // console.log(window.pageYOffset)
-  // console.log(btnStatus)
-
-  const handleFollow = () => {
-    setScrollY(window.scrollY)
-    if(ScrollY > 200){  // 200 이상이면 버튼이 보임
-      setBtnStatus(true)
-    }else{  // 200 이하일때 버튼이 사라짐
-      setBtnStatus(false)
-    }
-  }
-
-  // 클릭시 위로 올라감
-  const scrollToTop = () => {
-    // e.preventDefault() // 새로고침 방지
-    window.scrollTo({top: 0, behavior: 'smooth'}) // 위로 올라감
-    setScrollY(0);  // 올라가면 다시 0으로 초기화
-    setBtnStatus(false); // 버튼 다시 사라짐
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleFollow)
-    return () => {
-      window.removeEventListener('scroll', handleFollow)
-    }
-  })
-
   return (
     <Outer>
       {
@@ -493,15 +429,7 @@ export default function PostRead(){
         :
           ''
       }
-      <TopButton>
-        {
-          btnStatus?
-          <img
-            src={`${process.env.PUBLIC_URL}img/scroll-up-2.png`} alt="top"
-            onClick={scrollToTop}
-          /> : null
-        }
-      </TopButton>
+      <TopButton/>
       <GoBackButton/>
       <PostHeader className="postHeader">
         <Title className="title">
@@ -553,21 +481,36 @@ export default function PostRead(){
       </WeatherInfo>
 
       {/* 코디가 있을 때, 없을 때 */}
-      <h2 className="todayCodi">오늘의 코디</h2>
-      <TodayCodi>
-          {
-            !postData.top_id || postData.top_id === 'default' ?
-              <p className="warning">상의 데이터가 없습니다</p>
-            :
-              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.top_id}.png`} alt="상의" />
-          }
-          {
-            !postData.bottom_id || postData.top_id === 'default' ?
-              <p className="warning">하의 데이터가 없습니다</p>
-            :
-              <Icon src={`${process.env.PUBLIC_URL}img/icons-write/${postData.bottom_id}.png`} alt="하의" />
-          }
-      </TodayCodi>
+      {
+        // 코디 3개 없을때
+        (!postData.outer_id || postData.outer_id === 'default') && (!postData.top_id || postData.top_id === 'default') && (!postData.bottom_id || postData.top_id === 'default') ?
+          null
+        :
+          <>
+          <h2 className="todayCodi">오늘의 코디</h2>
+          <TodayCodi>
+            {
+              !postData.outer_id || postData.outer_id === 'default' ?
+              <p className="warning">겉옷 데이터가 없습니다</p>
+              :
+                <Icon src={`${process.env.PUBLIC_URL}img/codi/${postData.outer_id}.png`} alt="겉옷" />
+            }
+            {
+              !postData.top_id || postData.top_id === 'default' ?
+                <p className="warning">상의 데이터가 없습니다</p>
+              :
+                <Icon src={`${process.env.PUBLIC_URL}img/codi/${postData.top_id}.png`} alt="상의" />
+            }
+            {
+              !postData.bottom_id || postData.top_id === 'default' ?
+                <p className="warning">하의 데이터가 없습니다</p>
+              :
+                <Icon src={`${process.env.PUBLIC_URL}img/codi/${postData.bottom_id}.png`} alt="하의" />
+            }
+          </TodayCodi>
+          </>
+      }
+
 
       <Post>
         <p>

@@ -2,14 +2,15 @@ const { post } = require("../../models")
 const sequelize = require("sequelize")
 const Op = sequelize.Op;
 module.exports = async (req, res) => {
-    // 현재 위치 날씨 정보
-    // 현재 위치 게시글 (최신순)
     // console.log('home.js - req : ', req.body);
 
+    // bottom,top,left,right를 받아옴
     post.findAll({ 
         where : {
-            xLocation: {[Op.like]: req.body.lat2 + "%"}, 
-            yLocation: {[Op.like]: req.body.lon2 + "%"}
+            // xLocation: {[Op.like]: req.body.lat2 + "%"}, 
+            // yLocation: {[Op.like]: req.body.lon2 + "%"}
+            // Op.between left-right, bottom-top 사이의 위치들에 해당하는 post 조회
+            
         },
         limit : 9 , 
         order :  [['createdAt', 'DESC']]
