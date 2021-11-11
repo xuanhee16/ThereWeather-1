@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
-import { updateWeatherInfo, homePost, changeMapPage } from "../actions/index"
+import { updateWeatherInfo, homePost } from "../actions/index"
 import TopButton from "../components/TopButton"
 // import Loading from "./Loading";
 
@@ -251,8 +251,11 @@ const url = process.env.REACT_APP_LOCAL_URL
 
 export default function Home() {
     const dispatch = useDispatch()
-    const { item, postInfo } = useSelector((state) => state.itemReducer)
+    const { item, curLocation } = useSelector((state) => state.itemReducer)
     console.log(item)
+    console.log("카카오 위도 : ", curLocation.lat) // map 페이지 거쳐야함
+    console.log("카카오 경도 : ", curLocation.lon)
+
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
 
@@ -262,8 +265,8 @@ export default function Home() {
         if (navigator.geolocation) {
             // GeoLocation을 이용해서 접속 위치를 얻어옵니다
             navigator.geolocation.getCurrentPosition(function (position) {
-                let lat = position.coords.latitude, // 위도
-                    lon = position.coords.longitude // 경도
+                let lat = curLocation.lat, // 위도
+                    lon = curLocation.lon // 경도
                 console.log(lat, lon) //브라우저에 찍힘
                 axios({
                     url: url + "/map",
@@ -278,7 +281,6 @@ export default function Home() {
                 })
             })
         }
-        dispatch(changeMapPage(false))
     }, [])
 
     // const { kakao } = window
@@ -289,15 +291,35 @@ export default function Home() {
             navigator.geolocation.getCurrentPosition(function (position) {
                 let lat = position.coords.latitude, // 위도
                     lon = position.coords.longitude // 경도
+                // 37.5525698 127.0783197
+                /*
+          소수 7째자리까지 : Math.floor(a * 10000000) /10000000
 
-                // 위도,경도 소수점 버림
-                let lat2 = Math.floor(lat)
-                let lon2 = Math.floor(lon)
+          남서쪽 위도, 경도는  (37.5262196, 127.0449971)이고
+          북동쪽 위도, 경도는  (37.5684781, 127.1200016)입니다 
+        */
+
+                // left(37.5262196) , right(37.5684781) : 0.0422585(0.04225850000000264), 각 0.02112925
+                // bottom(127.0449971) , top(127.1200016) : 0.0750045(0.07500449999999148), 각 0.03750225
+                // 현재 위도, 경도의 동,서,남,북 범위 설정 (소수 7째자리까지)
+                let right = lat + 0.02112925
+                let left = lat - 0.02112925
+                let top = lon + 0.03750225
+                let bottom = lon - 0.03750225
+
+                console.log(right, left, top, bottom)
 
                 axios({
                     url: url + "/home",
                     method: "post",
-                    data: {},
+                    data: {
+                        lat: lat,
+                        lon: lon,
+                        right: right,
+                        left: left,
+                        top: top,
+                        bottom: bottom,
+                    },
                     withCredentials: true,
                 }).then((res) => {
                     console.log("게시글 데이터 : ", res.data)
