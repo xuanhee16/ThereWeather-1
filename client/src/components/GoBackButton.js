@@ -12,11 +12,8 @@ const Button = styled.button`
     // border-radius: 50%;
     display: flex;
     padding: 1rem;
-    width: 100vw;
-    border: 1px solid hotpink;
-    position: absolute;
-    top: 0;
-    left: 0;
+    // width: 100vw;
+    // border: 1px solid hotpink;
 
     .fa-fw {
         font-size: 50px;

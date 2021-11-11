@@ -13,6 +13,7 @@ import Pagination from "../components/Pagination"
   [수정]
   - 레이아웃
   - 페이네이션 동작
+  - 주석 제거
 */
 
 const Outer = styled.div`
@@ -30,8 +31,21 @@ const Outer = styled.div`
     align-self: flex-start;
     margin: 2rem 0;
   }
+  .gobackbuttonContainer {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
   button{
     font-size: 1.5rem;
+  }
+  .paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 1rem;
   }
 
   @media screen and (min-width: 1500px) {
@@ -42,9 +56,16 @@ const Outer = styled.div`
     padding-top: 2vh;
   }
   @media screen and (max-width: 1081px) {
-    /* height: auto; */
+    .gobackbuttonContainer {
+      flex-direction: column;
+    }
   }
 `
+
+const StyledGoBackButton = styled(GoBackButton)`
+  // position: absolute;
+  // left: 0;
+`;
 
 // 내가 쓴 글 (grid)
 const GridArea = styled.div`
@@ -267,15 +288,12 @@ export default function MyPost() {
 
   return (
     <Outer className="MyPostPage">
-      <GoBackButton className="gobackButton" />
-      <h2>내가 쓴 게시물</h2>
+      <div className="gobackbuttonContainer">
+        <StyledGoBackButton className="gobackButton" />
+        <h2>내가 쓴 게시물</h2>
+      </div>
+
       <GridArea className="myPostList">
-        {/* <div className="item"> */}
-          {/* <PostImg src={`${process.env.PUBLIC_URL}img/sky.png`} alt="weather"/> */} 
-          {/* {currentPosts.map((el) => 
-            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
-              <PostImg src={el.post_photo} alt="posts"/>
-            </div>)} */}
           {/* 페이지네이션 적용 */}
           {
             slicedData(currentPosts).map((el) =>
@@ -283,74 +301,16 @@ export default function MyPost() {
               <PostImg src={el.post_photo} alt="posts"/>
             </div>)
           }
-          {/* <PostInfo>
-            <p>{'서울시 종로구'}</p>
-            <p>{'10/19'}</p>
-            <p>날씨 : {'맑음'}</p>
-            <p>바람 : {'조금'}</p>
-            <p>온도 : {'따뜻함'}</p>
-          </PostInfo> */}
-        {/* </div> */}
       </GridArea>
 
       {/* 페이지네이션 테스트 */}
-      <Pagination
-        dataLength={currentPosts.length}
-        itemsPerPage={itemsPerPage}
-        numberButtonClickHandler={setCurrentPage}
-      />
-
-      {/* 페이지네이션이나 무한스크롤 */}
-      {/* <Page>
-        <li className="page-item">
-          <button
-            id="prev"
-            className="item page-link"
-            onClick={() => {
-              if(current === 1) return alert('첫번째 페이지 입니다.')
-              if(current % 10 === 1){
-                const s = start - 10;
-                const e = end - 10;
-                updateStartEndPage(s, e);
-              }
-              updateCurrPage(current - 1);
-            }}
-          >
-            이전
-          </button>
-        </li>
-
-        {target.map(el => (
-          <li className="page-item" key={el}>
-            <button
-              className="item page-link"
-              onClick={() => {
-                updateCurrPage(el)
-              }}
-            >
-              {el}
-            </button>
-          </li>
-        ))}
-
-        
-        <li className="page-item">
-          <button
-            id="next"
-            className="item page-link"
-            onClick={() => {
-              if(current % 10 === 1){
-                const s = start - 10;
-                const e = end - 10;
-                updateStartEndPage(s, e);
-              }
-              updateCurrPage(current + 1);
-            }}
-          >
-            다음
-          </button>
-        </li>
-      </Page> */}
+      <div className="paginationContainer">
+        <Pagination
+          dataLength={currentPosts.length}
+          itemsPerPage={itemsPerPage}
+          numberButtonClickHandler={setCurrentPage}
+        />
+      </div>
     </Outer>
   )
 }

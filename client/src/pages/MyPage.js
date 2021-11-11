@@ -138,7 +138,7 @@ const GridArea = styled.div`
 
     row-gap: 10px; /* row의 간격을 10px로 */
     column-gap: 20px; /* column의 간격을 20px로 */
-    border-top: 1px solid #aaa; // 구분선 추가
+    // border-top: 1px solid #aaa; // 구분선 추가 // header와 외곽선이 겹쳐서 주석처리합니다 ㅜㅜ
 
     .item:nth-child(1) {
         border: none;

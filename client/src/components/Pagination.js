@@ -4,17 +4,13 @@ import styled from "styled-components"
 const PaginationContainer = styled.div.attrs({
   className: "pagination"
 })`
-  position: absolute;
-  bottom: 0;
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #A1A1A1;
   font-weight: bold;
-  font-size: 1.2rem;
-  border: 1px solid hotpink;
-  width: 100vw;
+  font-size: 1.5rem;
 `;
 
 const PageNumbersList = styled.ul.attrs({
