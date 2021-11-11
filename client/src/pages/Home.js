@@ -265,8 +265,8 @@ export default function Home() {
         if (navigator.geolocation) {
             // GeoLocation을 이용해서 접속 위치를 얻어옵니다
             navigator.geolocation.getCurrentPosition(function (position) {
-                let lat = curLocation.lat, // 위도
-                    lon = curLocation.lon // 경도
+                let lat = position.coords.latitude, // 위도
+                    lon = position.coords.longitude // 경도
                 console.log(lat, lon) //브라우저에 찍힘
                 axios({
                     url: url + "/map",
