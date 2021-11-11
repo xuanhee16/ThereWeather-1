@@ -7,6 +7,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons"
 //import { updateCurrentPage, updateStartEndPage } from "../actions/index"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, userPosts, updatePostId } from "../actions/index"
 import { useHistory } from "react-router"
+// import Pagination from "../components/Pagination"
 
 const Outer = styled.div`
   background-color: var(--page-bg-color);
@@ -281,8 +282,25 @@ export default function BookMark() {
   }
   const target = arr.slice(start, end)
 
+  /*  페이지네이션 시작
+  const [ currentPage, setCurrentPage ] = useState(1);
+    // 1페이지로 시작
+  const itemsPerPage = 8;
+    // 한 페이지에 8개씩 보여준다
+  const lastIdx = currentPage * itemsPerPage;
+  const firstIdx = lastIdx - itemsPerPage;
+  const slicedData = (dataArr) => {
+    return dataArr.slice(firstIdx, lastIdx);
+  }
 
-  
+  // jsx
+  <Pagination
+    dataLength={currentPosts.length}
+    itemsPerPage={itemsPerPage}
+    numberButtonClickHandler={setCurrentPage}
+  />
+  페이지네이션 끝 */
+
   return (
     <Outer>
       <Container>
