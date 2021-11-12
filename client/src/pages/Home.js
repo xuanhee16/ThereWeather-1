@@ -246,7 +246,7 @@ const RightContainer = styled.div`
     grid-template-areas:
       "nav"
       "main";
-  }
+
   .userPost {
     text-align: center;
   }
