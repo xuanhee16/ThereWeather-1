@@ -13,6 +13,14 @@ import {
     changeMapPage,
 } from "../actions/index"
 import { useHistory } from "react-router"
+import { default as PaginationComp } from "../components/Pagination"
+
+/*
+  [수정]
+  - 페이지네이션 컴포넌트 추가, 테스트 중
+  TODO
+  - 데이터 로딩 되는지 확인 후 한 페이지당 게시물 갯수 맞추기
+*/
 
 const Outer = styled.div`
     background-color: var(--page-bg-color);
@@ -279,6 +287,56 @@ export default function BookMark() {
     for (let i = 0; i < total; i++) {
         arr.push(i + 1)
     }
+    dispatch(updatePostId(elem.id));
+    history.push({
+        pathname: '/postread',
+        state: {postId: elem.id}
+    });
+  }
+
+
+  // 페이지네이션
+  const state = useSelector(state => state.itemReducer);
+  const { start, end, current } = state; 
+
+  // const updateCurrentPages = dispatch(updateCurrentPage);
+  // const updateStartEndPages = dispatch(updateStartEndPage);
+  const updateCurrentPages = page => (dispatchs) => {
+    dispatch({ type: UPDATE_CURRENT_PAGE, payload: page })
+  }
+  const updateStartEndPages = (start, end) => (dispatchs) => {
+    dispatch({ type: UPDATE_START_END_PAGE, payload: { start, end } })
+  }
+
+  const per = 4
+  //테스트중 갯수 20개로 고정
+  const total = Math.ceil(20 / per)
+
+  const arr = []
+  for (let i = 0; i < total; i++) {
+      arr.push(i + 1)
+  }
+  const target = arr.slice(start, end)
+
+  /*  페이지네이션 시작
+  const [ currentPage, setCurrentPage ] = useState(1);
+    // 1페이지로 시작
+  const itemsPerPage = 8;
+    // 한 페이지에 8개씩 보여준다
+  const lastIdx = currentPage * itemsPerPage;
+  const firstIdx = lastIdx - itemsPerPage;
+  const slicedData = (dataArr) => {
+    return dataArr.slice(firstIdx, lastIdx);
+  }
+
+  // jsx
+  <Pagination
+    dataLength={currentPosts.length}
+    itemsPerPage={itemsPerPage}
+    numberButtonClickHandler={setCurrentPage}
+  />
+  페이지네이션 끝 */
+
     const target = arr.slice(start, end)
 
     return (
@@ -303,8 +361,8 @@ export default function BookMark() {
                     </BookMarkPhoto>
                     <BookMarkList>
                         {/* <div className="postTitle">
-              00구
-            </div> */}
+                       00구
+                        </div> */}
                         {/* <div className="postDate">10 / 25</div> */}
                         {bookmarkList &&
                             bookmarkList.map((el) => (
@@ -350,62 +408,57 @@ export default function BookMark() {
           <PrevPage>이전</PrevPage>
           <NextPage>다음</NextPage>
         </Pagenation> */}
-            </Container>
+      </Container>
 
-            <Pagination>
-                <PrevPage>
-                    <li className="prevPage">
-                        <button
-                            className="previousPages"
-                            onClick={() => {
-                                if (current === 1)
-                                    return alert("첫번째 페이지입니다")
-                                if (current % 10 === 1) {
-                                    const s = start - 10
-                                    const e = end - 10
-                                    updateStartEndPages(s, e)
-                                }
-                                updateCurrentPages(current - 1)
-                            }}
-                        >
-                            이전
-                        </button>
-                    </li>
-                </PrevPage>
+      <Pagination>
+        <PrevPage>
+          <li className="prevPage">
+            <button className="previousPages" onClick={() => {
+              if(current === 1) return alert('첫번째 페이지입니다')
+              if(current % 10 === 1) {
+                const s = start - 10;
+                const e = end - 10;
+                updateStartEndPages(s, e);
+              }
+              updateCurrentPages(current - 1);
+            }}>
+              이전
+            </button>
+          </li>
+        </PrevPage>
 
-                <PageNumber>
-                    {target.map((el) => (
-                        <li className="pageNum" key={el}>
-                            <button
-                                className="pageNumbers"
-                                onClick={() => {
-                                    updateCurrentPages(el)
-                                }}
-                            >
-                                {el}
-                            </button>
-                        </li>
-                    ))}
-                </PageNumber>
+        <PageNumber>
+        {target.map(el => (
+          <li className="pageNum" key={el}>
+            <button className="pageNumbers" onClick={() => {updateCurrentPages(el)}}>
+              {el}
+            </button>
+          </li>
+        ))}
+        </PageNumber>
+        
+        <NextPage>
+        <li className="nexPage">
+            <button className="nextPages" onClick={() =>{
+              if(current % 10 === 1) {
+                const s = start - 10;
+                const e = end - 10;
+                updateStartEndPages(s, e);
+              }
+              updateCurrentPages(current + 1);
+            }}>
+              다음
+            </button>
+          </li>
+        </NextPage>
+      </Pagination>
 
-                <NextPage>
-                    <li className="nexPage">
-                        <button
-                            className="nextPages"
-                            onClick={() => {
-                                if (current % 10 === 1) {
-                                    const s = start - 10
-                                    const e = end - 10
-                                    updateStartEndPages(s, e)
-                                }
-                                updateCurrentPages(current + 1)
-                            }}
-                        >
-                            다음
-                        </button>
-                    </li>
-                </NextPage>
-            </Pagination>
-        </Outer>
-    )
+      <PaginationComp
+        dataLength={100}
+        itemsPerPage={10}
+        numberButtonClickHandler={e => e.target}
+      />
+    </Outer>
+  )
 }
+
