@@ -491,7 +491,7 @@ export default function PostRead(){
           <span>{postData.post_title}</span>
           <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
-            color={bookmarked ? '#ED4956' : '#aaa' }
+            color={bookmarked ? '#aaa' : '#ED4956' }
           />
          
         </Title>

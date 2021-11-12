@@ -225,14 +225,12 @@ export default function BookMark() {
   const history = useHistory()
   const { userInfo, readPostId, postInfo } = useSelector((state) => state.itemReducer)
   const [bookmarkList, setBookmarkList] = useState()
-  const [bookmarked, setBookmarked] = useState(false)
+
   console.log(userInfo)
   console.log(readPostId)
   console.log(postInfo)
   const postId = Number(readPostId)
   console.log(postId)
-  //bookmark는 유저1이 저장해둔 포스트 목록이 나오게 
-  //일단 유저정보를 보내서, 그 유저가 북마크에 저장한 내용 싹 보여주기 
 
   
   useEffect(() => {
@@ -277,7 +275,8 @@ export default function BookMark() {
   
     dispatch(updatePostId(elem.id));
     history.push({
-        pathname: '/postread',
+        // pathname: '/postread',
+        pathname: '/bookmarkpost',
         state: {postId: elem.id}
     });
   }
@@ -307,7 +306,7 @@ export default function BookMark() {
   }
   const target = arr.slice(start, end)
 
-  console.log(bookmarkList)
+  // console.log(bookmarkList)
 
 
   return (

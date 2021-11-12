@@ -2,7 +2,7 @@ const { bookmark, post, user } = require("../../models")
 
 module.exports = async(req, res) => {
   //res.send()
-  console.log("server/bookmarklist.js::::", req.body) 
+  // console.log("server/bookmarklist.js::::", req.body) 
   const { user_id } = req.body; 
 
   if(!user_id){
@@ -12,13 +12,7 @@ module.exports = async(req, res) => {
     const list = await bookmark.findAll({
       include: [{
               model: post, required: true
-              // where: {
-              //     // user_id: searchID, //본인 북마크만 보여줌 
-              //     // id: posts //북마크 선택된 포스트 하나만 보여줌 
-              //     user_id 
-              // },
           }]
-     
     })
 
     if(!list){
