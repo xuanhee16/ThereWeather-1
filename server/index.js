@@ -75,7 +75,7 @@ app.post("/home", controllers.home) //홈 - Home.js
 
 //put
 app.put("/password", controllers.password) //비밀번호 수정시 - MyPage.js
-app.put("/userinfo", controllers.userinfo) //마이페이지에서 본인 정보 수정시 - MyPage.js
+app.put("/edituserinfo", controllers.edituserinfo) //마이페이지에서 본인 정보 수정시 - MyPage.js
 app.put("/userphoto", controllers.userphoto) //프로필 사진 변경시 - MyPage.js
 app.put("/editpost", controllers.editpost) //예보글 수정시 - PostRead.js
 

@@ -22,7 +22,9 @@ import FirstPage from "./pages/FirstPage"
 import Messenger from "./pages/Messenger"
 import Messenger2 from "./pages/Messenger2"
 import Loading from "./pages/Loading"
+import EditUserInfo from "./pages/EditUserInfo"
 import ChatRoom from "./pages/ChatRoom"
+
 import { changeIsLogin, changeUser } from "./actions/index"
 
 import styled from "styled-components"
@@ -75,6 +77,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/userinfo">
                     <UserInfo></UserInfo>
+                </Route>
+                <Route exact path="/edituserinfo">
+                    <EditUserInfo></EditUserInfo>
                 </Route>
                 <Route exact path="/more">
                     <More></More>

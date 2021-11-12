@@ -170,7 +170,11 @@ const Page = styled.div`
       }
     }
 `
+
+
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
+
 
 export default function MyPost() {
   const dispatch = useDispatch()
@@ -228,12 +232,14 @@ export default function MyPost() {
       </div>
 
       <GridArea className="myPostList">
+
         { /* 페이지네이션 적용 */
           slicedData(currentPosts).map((el) =>
           <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
             <PostImg src={el.post_photo} alt="posts"/>
           </div>)
         }
+
       </GridArea>
 
       {/* 페이지네이션 테스트 */}

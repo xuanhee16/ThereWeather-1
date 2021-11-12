@@ -209,11 +209,14 @@ const Button3 = styled.button`
         margin: 0.25rem;
     }
 `
+
 const Secret = styled.div`
     color: white;
 `
 
+
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
 export default function Write() {
     const dispatch = useDispatch()

@@ -12,7 +12,7 @@ module.exports = {
     signout: require("./post/signout"),
     post: require("./post/write"),
     password: require("./put/password"),
-    userinfo: require("./put/userinfo"),
+    edituserinfo: require("./put/edituserinfo"),
     userphoto: require("./put/userphoto"),
     editpost: require("./put/editpost"),
     deletepost: require("./del/deletepost"),
