@@ -36,11 +36,12 @@ const HomeContainer = styled.div`
 
 // 날짜
 const TodaysDate = styled.div`
-
   margin: 0 auto;
   height: 2rem;
   padding-top: 3px;
   padding-left: 2vw;
+  color: red;
+  display: flex;
   @media screen and (min-width: 1500px) {
     width: 90%;
   }
@@ -50,7 +51,9 @@ const TodaysDate = styled.div`
   @media screen and (max-width: 900px) {
     width: 100%;
   }
+  @media screen and (max-width: 375px) {
 
+  }
 `
 
 // 왼쪽 container
@@ -263,6 +266,7 @@ const RightNav1 = styled.nav`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -300,6 +304,8 @@ export default function Home() {
     };
   }, [])
 
+  // 현재 위치 주소
+  const [curAddress, setcurAddress] = useState('');
   // 최근 게시물(위도, 경도, 지역범위 확인)
   const [currentPosts, setcurrentPosts] = useState([])
   useEffect(() => {
@@ -339,9 +345,12 @@ export default function Home() {
           withCredentials: true
         })
         .then((res) => {
-          console.log('res : ', res);
-          console.log('게시글 데이터 : ', res.data);
-          setcurrentPosts(res.data)
+          // console.log('res : ', res.data.address);
+          console.log('address : ', res.data.address)
+          console.log('게시글 데이터 : ', res.data.curtPost);
+          setcurrentPosts(res.data.curtPost)  // 주민예보글 렌더링 부분
+          setcurAddress(res.data.address)
+
           // dispatch(homePost(res.data))
         })
       })
@@ -360,7 +369,6 @@ export default function Home() {
         }
         settodaysDate(formatDate(date))
     })
-
 
   // 날씨, 코디 가져오기, 추후 수정
   let [currentTemp, setcurrentTemp] = useState('')
@@ -464,18 +472,20 @@ export default function Home() {
         <div className="homecontainer">
             {/* <Loading /> */}
             <TopButton/>
-            <TodaysDate>날짜 : {todaysDate} &nbsp;&nbsp; 위치 : {} </TodaysDate>
+            <TodaysDate>
+              <p>날짜 : {todaysDate}</p>
+              <p>위치 : {curAddress}</p>
+            </TodaysDate>
             <HomeContainer>
                 <LeftContainer1>
                     <LeftNav1>
-                        <p>{} 주민예보</p>
+                        <p>주민예보</p>
                         <div className="weatherInfo">
                           {
                             currentTemp === undefined && currentWind === undefined && currentWeather === undefined ?
                             <p>현재 날씨 데이터가 없습니다 :(</p>
                             :
                             <ul>
-                              {/* <li>날짜: {todaysDate}</li> */}
                               <li>
                                 <span>현재위치 체감온도 </span>
                                 <img src={`${process.env.PUBLIC_URL}img/icons-write/${currentTemp}.png`} alt="온도"/>
