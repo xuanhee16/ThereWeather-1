@@ -23,18 +23,19 @@ import Messenger from "./pages/Messenger"
 import Messenger2 from "./pages/Messenger2"
 import Loading from "./pages/Loading"
 import EditUserInfo from "./pages/EditUserInfo"
+import ChatRoom from "./pages/ChatRoom"
+
 import { changeIsLogin, changeUser } from "./actions/index"
 
 import styled from "styled-components"
 import GlobalStyle from "./components/GlobalStyle"
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) {
-    url = "https://thereweather.space"
-}
-// const url = "https://thereweather.space"
 
 export default function App() {
+    if (!url) {
+        url = "https://thereweather.space"
+    }
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -119,6 +120,10 @@ export default function App() {
                 <Route exact path="/loading">
                     <Loading />
                 </Route>
+                <Route exact path="/chatroom">
+                    <ChatRoom />
+                </Route>
+
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
                         <Redirect to="/write" />

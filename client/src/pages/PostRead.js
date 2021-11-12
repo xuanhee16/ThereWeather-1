@@ -478,9 +478,7 @@ export default function PostRead(){
 
         <Profile className="userProfile">
           <div className="profileInfo">
-            {/* <ProfileImg src={"img/user-img.png"}/> */}
             <ProfileImg src={postData.user_Photo}/>
-            {/* <span className="nickName">{'김코딩'}</span> */}
             <span className="nickName">{postData.nickName}</span>
             <span className="date">
               {formatDate(postData.updatedAt)}

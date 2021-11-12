@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
-import { updateWeatherInfo, homePost } from "../actions/index"
+import { updateWeatherInfo, updatePostId } from "../actions/index"
 import TopButton from "../components/TopButton";
+import { useHistory } from "react-router-dom"
 // import Loading from "./Loading";
 
 const HomeContainer = styled.div`
@@ -261,13 +262,16 @@ const RightNav1 = styled.nav`
     }
 `
 
-const url = process.env.REACT_APP_LOCAL_URL
+let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Home() {
-
   const dispatch = useDispatch()
-  const { item, postInfo } = useSelector((state) => state.itemReducer)
+  const history = useHistory()
+  const { item, curLocation } = useSelector((state) => state.itemReducer)
   console.log(item)
+  console.log('카카오 위도 : ', curLocation.lat); // map 페이지 거쳐야함
+  console.log('카카오 경도 : ', curLocation.lon);
+
   // const { userInfo } = useSelector((state) => state.itemReducer)
   // dispatch(changeUser(axiosData))
 
@@ -296,31 +300,46 @@ export default function Home() {
     };
   }, [])
 
-
-  // const { kakao } = window
-  // 최근 게시물(위도, 경도, 지역범위 확인 필요..)
+  // 최근 게시물(위도, 경도, 지역범위 확인)
   const [currentPosts, setcurrentPosts] = useState([])
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
-        let lat = position.coords.latitude, // 위도
-            lon = position.coords.longitude // 경도
-        
-        // 위도,경도 소수점 버림
-        let lat2 = Math.floor(lat)
-        let lon2 = Math.floor(lon)
+        let lat = curLocation.lat, // 위도
+            lon = curLocation.lon // 경도
+        // 37.5525698 127.0783197
+        /*
+          소수 7째자리까지 : Math.floor(a * 10000000) /10000000
 
-      
+          남서쪽 위도, 경도는  (37.5262196, 127.0449971)이고
+          북동쪽 위도, 경도는  (37.5684781, 127.1200016)입니다 
+        */
+
+        // left(37.5262196) , right(37.5684781) : 0.0422585(0.04225850000000264), 각 0.02112925
+        // bottom(127.0449971) , top(127.1200016) : 0.0750045(0.07500449999999148), 각 0.03750225
+        // 현재 위도, 경도의 동,서,남,북 범위 설정 (소수 7째자리까지)
+        let right = lat + 0.02112925
+        let left = lat - 0.02112925
+        let top = lon + 0.03750225
+        let bottom = lon - 0.03750225
+
+        console.log(right, left, top, bottom);
 
         axios({
           url: url + "/home",
           method: "post",
           data: {
-
+            lat: lat,
+            lon: lon,
+            right: right,
+            left: left,
+            top: top,
+            bottom: bottom,
           },
           withCredentials: true
         })
         .then((res) => {
+          console.log('res : ', res);
           console.log('게시글 데이터 : ', res.data);
           setcurrentPosts(res.data)
           // dispatch(homePost(res.data))
@@ -328,7 +347,6 @@ export default function Home() {
       })
     };
   }, [])
-
 
     // 날짜
     const [todaysDate, settodaysDate] = useState("")
@@ -430,16 +448,26 @@ export default function Home() {
     console.log('currentWeather : ', currentWeather);
   })
 
+  // 게시물 사진 클릭
+  const photoClickHandler = (e) => {
+    // console.log(e.target.id); // 게시물id 전달
+    let elem = e.target;
+
+    dispatch(updatePostId(elem.id));
+    history.push({
+      pathname: '/postread',
+      state: {postId: elem.id}
+    })
+  }
 
     return (
         <div className="homecontainer">
             {/* <Loading /> */}
             <TopButton/>
-            <TodaysDate>날짜: {todaysDate} 위치 {} </TodaysDate>
+            <TodaysDate>날짜 : {todaysDate} &nbsp;&nbsp; 위치 : {} </TodaysDate>
             <HomeContainer>
                 <LeftContainer1>
                     <LeftNav1>
-
                         <p>{} 주민예보</p>
                         <div className="weatherInfo">
                           {
@@ -471,11 +499,11 @@ export default function Home() {
                         <ul>
                           {/* {console.log(weatherData.item)}  */}
                           {/* weatherData -> {item: Array(30)}, weatherData.item -> [ baseDate: '20211106',baseTime: '2130',category: 'T1H', fcstDate: '20211107', fcstTime: '0300', fcstValue: '10', nx: 59, ny: 128, ... ] */}
-                         {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] } */}
-                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>기준 예보시각: {info.baseTime}</li> })[0] }
-                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 기온: {info.fcstValue}℃</li> })[24] } {/* T1H */}
-                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } {/* WSD */}
-                         { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] } {/* PTY */}
+                          {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] } */}
+                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>기준 예보시각: {info.baseTime}</li> })[0] }
+                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 기온: {info.fcstValue}℃</li> })[24] } {/* T1H */}
+                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } {/* WSD */}
+                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] } {/* PTY */}
                         </ul> 
                         </div>
                     </LeftNav2>
@@ -496,19 +524,16 @@ export default function Home() {
                         </div>
                     </LeftNav3>
                 </LeftContainer1>
-
-                <RightContainer>
-                    <RightNav1>
-
-                      <span id="location">주민 예보글</span>
-
-                    </RightNav1>
-                    {currentPosts.map((el) => (
-                        <div className="userPost" key={el.id}>
-                            <img src={el.post_photo} />
-                        </div>
-                    ))}
-                </RightContainer>
+                  <RightContainer>
+                      <RightNav1>
+                        <span id="location">주민 예보글</span>
+                      </RightNav1>
+                      {currentPosts.map((el) => (
+                          <div className="userPost" key={el.id}>
+                            <img src={el.post_photo} id={el.id} onClick={photoClickHandler}/>
+                          </div>
+                      ))}
+                  </RightContainer>
             </HomeContainer>
         </div>
     )
