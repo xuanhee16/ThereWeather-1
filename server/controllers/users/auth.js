@@ -26,6 +26,7 @@ module.exports = {
         var smtpConfig = {
             host: process.env.EMAILHOST,
             port: process.env.EMAILPORT,
+            secure: true,
             auth: {
                 user: process.env.EMAIL,
                 pass: process.env.EMAILPW,
