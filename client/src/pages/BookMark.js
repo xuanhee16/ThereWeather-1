@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import styled from "styled-components"
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-// import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { Bookmark } from "../components/Heart";
-//import { updateCurrentPage, updateStartEndPage } from "../actions/index"
 import { updatePostId } from "../actions/index"
-// UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE
 import { useHistory } from "react-router"
 import { default as PaginationWithArrow } from "../components/Pagination"
 
@@ -17,6 +13,7 @@ import { default as PaginationWithArrow } from "../components/Pagination"
   - 주석 정리
   - 레이아웃 정리
   - 클릭이벤트
+  - import 주석 정리
 */
 
 const Outer = styled.div`
