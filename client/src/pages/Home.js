@@ -203,7 +203,6 @@ const LeftNav3 = styled.div`
 `
 // 코디 이미지
 const Codi = styled.img`
-
   width: 7rem;
   height: 7rem;
   border: purple;
@@ -211,12 +210,10 @@ const Codi = styled.img`
     width: 5rem;
     height: 5rem;
   }
-
 `
 
 // 오른쪽 container
 const RightContainer = styled.div`
-
   display: grid;
   /* height:100vh; */
   width: 80vw;
@@ -229,6 +226,11 @@ const RightContainer = styled.div`
   ;
   grid-gap:0.1rem;
   transition: all 0.01s ease-in-out;
+  .userPost{
+    &:hover{
+      border-bottom: 1px solid #FAFAFA;
+    }
+  }
   
   @media (max-width: 600px) {
     .userPost:nth-last-child(1){
