@@ -22,14 +22,13 @@ import FirstPage from "./pages/FirstPage"
 import Messenger from "./pages/Messenger"
 import Messenger2 from "./pages/Messenger2"
 import Loading from "./pages/Loading"
+import ChatRoom from "./pages/ChatRoom"
 import { changeIsLogin, changeUser } from "./actions/index"
 
 import styled from "styled-components"
 import GlobalStyle from "./components/GlobalStyle"
 
 let url = process.env.REACT_APP_LOCAL_URL
-
-// const url = "https://thereweather.space"
 
 export default function App() {
     if (!url) {
@@ -116,6 +115,10 @@ export default function App() {
                 <Route exact path="/loading">
                     <Loading />
                 </Route>
+                <Route exact path="/chatroom">
+                    <ChatRoom />
+                </Route>
+
                 <Route exact path="/writeorlogin">
                     {isLogin ? (
                         <Redirect to="/write" />

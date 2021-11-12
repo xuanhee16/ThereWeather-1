@@ -13,11 +13,23 @@ import {
     UPDATE_POST_ID,
     CHANGE_WHEATER_FILTER,
     CHANGE_MAP_PAGE,
+    CHANGE_CURROOM,
+    CHANGE_NEWMSGSECTION,
 } from "../actions/index"
 import { initialState } from "./initialState"
 
 const itemReducer = (state = initialState, action) => {
     switch (action.type) {
+        case CHANGE_NEWMSGSECTION:
+            return {
+                ...state,
+                newMsgSection: action.payload.newmsg,
+            }
+        case CHANGE_CURROOM:
+            return {
+                ...state,
+                curRoom: action.payload.room,
+            }
         case CHANGE_USER_INFO:
             return {
                 ...state,

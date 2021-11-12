@@ -6,6 +6,14 @@ export const initialState = {
     userInfo: {}, //회원 로그인시 정보 저장할 변수-hoon
     weatherFilter: "", //헤더에서 날씨 필터에서 선택된 날씨-hoon
     mapPage: false, //헤더에서 날씨필터 없애기용 변수-hoon
+    curRoom: null, //메신져에서 방입장시 사용할 변수-hoon
+    newMsgSection: [
+        // {
+        //     user_id: "",
+        //     receiver_id: "",
+        //     roomName: "",
+        // },
+    ], //메신져기능에서 새로운 메시지를 렌더링할 변수
     searchWord: "",
     selectWord: "",
     editPassword: false,

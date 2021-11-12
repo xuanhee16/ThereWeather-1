@@ -41,7 +41,7 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 },
 })
 
-//아래 내용 지우지말것
+//아래 내용 지우지말아주세요
 app.get("/2", (req, res) => {
     res.send("Hello World!!22!22222")
 })

@@ -16,8 +16,27 @@ export const UPDATE_HOME_POST = "UPDATE_HOME_POST"
 
 export const CHANGE_WHEATER_FILTER = "CHANGE_WHEATER_FILTER"
 export const CHANGE_MAP_PAGE = "CHANGE_MAP_PAGE"
+export const CHANGE_CURROOM = "CHANGE_CURROOM"
+export const CHANGE_NEWMSGSECTION = "CHANGE_NEWMSGSECTION"
 
 // actions creator functions
+
+export const changeNewMsgSection = (newmsg) => {
+    return {
+        type: CHANGE_NEWMSGSECTION,
+        payload: {
+            newmsg,
+        },
+    }
+}
+export const changeCurRoom = (room) => {
+    return {
+        type: CHANGE_CURROOM,
+        payload: {
+            room,
+        },
+    }
+}
 export const changeUser = (userinfo) => {
     return {
         type: CHANGE_USER_INFO,
