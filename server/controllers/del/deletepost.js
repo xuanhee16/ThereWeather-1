@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
         }
     })
     if(!checkUser){
-       return res.status(401).send("게시물을 삭제할 수 없습니다.")
+       res.send("게시물 작성자가 아닙니다.")
     }
     else{
         post.destroy({
@@ -25,6 +25,6 @@ module.exports = async (req, res) => {
                 id: post_id
             }
         })
-       return res.status(205).send("삭제 완료")
+       res.send("삭제 완료")
     }
 }

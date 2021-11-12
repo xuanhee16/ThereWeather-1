@@ -361,7 +361,8 @@ export default function Write() {
         })
         .then((res) => {
             console.log(res.data)
-            alert("수정 완료")
+            // alert("수정 완료")
+            alert(res.data)
             //setTitle(res.dat)
             history.push("/mypage")
         })

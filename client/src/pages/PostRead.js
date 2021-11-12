@@ -389,6 +389,23 @@ export default function PostRead(){
   // 게시물 수정
   const editPost = () => {
     console.log('수정버튼동작확인');
+    // //수정버튼 눌렀을 때 
+    // //서버로 보내서 현재접속한 유저가 쓴 포스트인지 확인
+    // //필터가 왜 안되누 
+    // axios({
+    //   url: url + "/editpost",
+    //   method: "put",
+    //   data: {
+    //     user_id: userInfo.user_id,
+    //     post_id: postIds
+    //   },
+    //   withCredentials: true
+    // })
+    // .then((res) => {
+    //   alert(res.data)
+    //   // setEdit(true);
+    //   // console.log(res.data)
+    // })
     setEdit(true);
   }
 
@@ -399,11 +416,25 @@ export default function PostRead(){
   }
 
   const editModalYes = () => {
+    axios({
+      url: url + "/editpost",
+      method: "put",
+      data: {
+        user_id: userInfo.user_id,
+        post_id: postIds
+      },
+      withCredentials: true
+    })
+    .then((res) => {
+      alert(res.data)
+      if(res.data === "게시물의 작성자가 아닙니다."){
+        history.push("/mypage");
+      }
+      else{
+        history.push("/editpost");
+      }
+    })
     setEdit(false);
-    history.push("/editpost");
-    // 여기서 회원인지 아닌지 확인을 한 뒤에 postEdit으로 넘겨야
-    // postEdit.js에 redux로 글 내용을 보내야 하는 건가?
-    // 아이디로 악시오스 요청? 어차피 똑같은 내용인데?
   }
 
   //삭제버튼 
@@ -422,9 +453,10 @@ export default function PostRead(){
       withCredentials: true
     })
     .then((res) => {
-      console.log(res)
+      console.log(res.data)
+      alert(res.data)
       // alert("삭제 완료")
-      // history.push("/mypage")
+      history.push("/mypage")
     })
     setRemovePost(false)
   }
