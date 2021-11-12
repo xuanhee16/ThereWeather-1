@@ -360,6 +360,7 @@ export default function Write() {
         setPostText(e.target.value)
     }
 
+    
     // 기존 데이터 렌더링
     useEffect(() => {
         axios({
