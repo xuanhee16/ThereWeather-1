@@ -373,17 +373,38 @@ export default function Location({ bottom }) {
                                 : null
                         }
                         ${
-                            $(data.positions)[n].top_id === "tshirts"
-                                ? "<img src='img/icons-write/tshirts.png' style='width:2rem;'/>"
-                                : $(data.positions)[n].top_id === "shirts"
-                                ? "<img src='img/icons-write/shirts.png' style='width:2rem;'/>"
+                            $(data.positions)[n].outer_id === "가디건"
+                                ? "<img src='img/codi/가디건.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].outer_id === "자켓"
+                                ? "<img src='img/codi/자켓.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].outer_id === "얇은코트"
+                                ? "<img src='img/codi/얇은코트.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].outer_id === "두꺼운코트"
+                                ? "<img src='img/codi/두꺼운코트.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].outer_id === "패딩"
+                                ? "<img src='img/codi/패딩.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].outer_id === "default"
+                                ? "<img src='img/codi/default.png' style='width:2rem;'/>"
                                 : null
                         }
                         ${
-                            $(data.positions)[n].bottom_id === "shorts"
-                                ? "<img src='img/icons-write/shorts.png' style='width:2rem;'/>"
-                                : $(data.positions)[n].bottom_id === "pants"
-                                ? "<img src='img/icons-write/pants.png' style='width:2rem;'/>"
+                            $(data.positions)[n].top_id === "반팔"
+                                ? "<img src='img/codi/반팔.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].top_id === "셔츠"
+                                ? "<img src='img/codi/셔츠.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].top_id === "민소매"
+                                ? "<img src='img/codi/민소매.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].top_id === "긴팔"
+                                ? "<img src='img/codi/긴팔.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].top_id === "니트"
+                                ? "<img src='img/codi/니트.png' style='width:2rem;'/>"
+                                : null
+                        }
+                        ${
+                            $(data.positions)[n].bottom_id === "반바지"
+                                ? "<img src='img/codi/반바지.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].bottom_id === "긴바지"
+                                ? "<img src='img/codi/긴바지.png' style='width:2rem;'/>"
                                 : null
                         }
                         </box>
@@ -658,22 +679,22 @@ export default function Location({ bottom }) {
 
     // postbox를 클릭하면 postread로 연결됩니다
     const postBoxHandler = (e) => {
-        let elem = e.target;
+        let elem = e.target
 
-        while(!elem.classList.contains("postbox")) {
-            elem = elem.parentNode;
-            if(elem.classList.contains("mapModal")) {
-                elem = null;
-                return;
+        while (!elem.classList.contains("postbox")) {
+            elem = elem.parentNode
+            if (elem.classList.contains("mapModal")) {
+                elem = null
+                return
             }
         }
 
         // console.log('**mapbox click id**',elem.id);
-        dispatch(updatePostId(elem.id));
+        dispatch(updatePostId(elem.id))
         history.push({
-            pathname: '/postread',
-            state: {postId: elem.id}
-        });
+            pathname: "/postread",
+            state: { postId: elem.id },
+        })
     }
     // postbox를 클릭하면 postread로 연결됩니다
 
@@ -706,7 +727,7 @@ export default function Location({ bottom }) {
                             <LoadingSpinner size={"100%;"} />
                         </LoadingBoxDiv>
                     ) : (
-                          <div className="mapModal">
+                        <div className="mapModal">
                             <GraphTitleDiv>현재동네 날씨정보</GraphTitleDiv>
                             <GraphTitle>
                                 <GraphTitleDiv2>
@@ -728,9 +749,15 @@ export default function Location({ bottom }) {
                             {postList.map((post) => {
                                 return (
                                     // <PostBox onClick={() => console.log(post)}>
-                                    <PostBox className="postbox" onClick={postBoxHandler} key={post.id} id={post.id}>
+                                    <PostBox
+                                        className="postbox"
+                                        onClick={postBoxHandler}
+                                        key={post.id}
+                                        id={post.id}
+                                    >
                                         <Box className="box">
-                                            <PostImg className="postImage"
+                                            <PostImg
+                                                className="postImage"
                                                 src={`${post.post_photo}`}
                                             />
                                             <EmoticonBox>
@@ -742,6 +769,9 @@ export default function Location({ bottom }) {
                                                 />
                                                 <IconImg
                                                     src={`/img/icons-write/${post.temp}.png`}
+                                                />
+                                                <IconImg
+                                                    src={`/img/codi/${post.outer_id}.png`}
                                                 />
                                                 <IconImg
                                                     src={`/img/codi/${post.top_id}.png`}

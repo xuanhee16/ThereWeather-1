@@ -12,6 +12,7 @@ import {
     faChevronLeft,
     faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons"
+import { changeCurRoom } from "../actions/index"
 
 const Container = styled.div`
     // 여기는 데스크탑
@@ -104,21 +105,7 @@ const RoomList = styled.div`
         // position: relative;
     }
 `
-const ChatList = styled.div`
-    // background-color: #f1319e;
-    // width: 100%;
-    // border: 2px solid pink;
-    // position: relative;
 
-    @media screen and (min-width: 1081px) {
-        // background-color: yellow;
-        // max-width: 100%;
-        // border: 2px solid pink;
-
-        // width: 100%;
-        // position: relative;
-    }
-`
 const Buttons = styled.button`
     display: flex;
     justify-content: center;
@@ -154,33 +141,13 @@ const FriendListDiv = styled.div`
     // vertical-align: center;
     // align-self: center;
 `
-const GoBackButton = styled.button`
-    display: none;
-
-    @media screen and (max-width: 1081px) {
-        display: inline;
-        /* top: 90vh; */
-        // top: 1.5vh;
-        // position: fixed;
-        border-radius: 50%;
-        z-index: 100;
-        .fa-fw {
-            font-size: 50px;
-        }
-    }
-    @media screen and (max-width: 375px) {
-        .fa-fw {
-            font-size: 35px;
-        }
-    }
-`
 
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 const socket = io.connect(url)
 
 export default function Messenger() {
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const [prevmsg, setprevmsg] = useState([])
     const { userInfo } = useSelector((state) => state.itemReducer)
     //새로 추가할 메시지 한줄에 대한 이벤트 타겟(onChange용)-hoon
@@ -195,6 +162,7 @@ export default function Messenger() {
     const [roomInOut, setRoomInOut] = useState(false)
 
     const [recievemessage, setrecievemessage] = useState([])
+    const history = useHistory()
     console.log(recievemessage)
     //새로 방을 개설할때 , 채팅할 상대의 아이디를 쓰는 이벤트타겟(onChange용)-hoon
     function roomNamefunc(e) {
@@ -240,29 +208,7 @@ export default function Messenger() {
             setjoinedRoom([...joinRoom])
         })
     }, [])
-    /////////////메시지를 받았을때/////
-    useEffect(() => {
-        axios({
-            url: url + `/chat/messagelist`,
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            data: {
-                user_id: userInfo.user_id,
-                receiver_id: curRoom
-                    .replace("_", "")
-                    .replace(`${userInfo.user_id}`, ""),
-                roomName: curRoom,
-            },
-            withCredentials: true,
-        }).then((res) => {
-            setprevmsg(res.data)
-        })
-        socket.on("sendmsg", (msgobj) =>
-            setNewMsgSection([...newMsgSection, msgobj])
-        )
-    }, [])
+    
 
     useState(() => {
         setNewMsgSection([...newMsgSection])
@@ -272,35 +218,40 @@ export default function Messenger() {
 
     //방을 클릭했을때 방을 입장하게 할 함수-hoon
     function roomListClick(clickRoomName) {
-        setRoomInOut(true)
-        //현재 방입장-hoon
         console.log(clickRoomName)
-        setcurRoom(clickRoomName)
-        // socket.emit("enter_room", clickRoomName)
-        //방입장시 렌더링 할 메시지를 가져와야한다.
-        axios({
-            url: url + `/chat/messagelist`,
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            data: {
-                user_id: userInfo.user_id,
-                receiver_id: curRoom
-                    .replace("_", "")
-                    .replace(`${userInfo.user_id}`, ""),
-                roomName: curRoom,
-            },
-            withCredentials: true,
-        }).then((res) => {
-            setprevmsg(res.data)
-        })
+        // setcurRoom(clickRoomName)
+        dispatch(changeCurRoom(clickRoomName))
+
+        history.push("/chatroom")
+
+        // setRoomInOut(true)
+
+        // //현재 방입장-hoon
+        // // socket.emit("enter_room", clickRoomName)
+        // //방입장시 렌더링 할 메시지를 가져와야한다.
+        // axios({
+        //     url: url + `/chat/messagelist`,
+        //     method: "post",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     data: {
+        //         user_id: userInfo.user_id,
+        //         receiver_id: curRoom
+        //             .replace("_", "")
+        //             .replace(`${userInfo.user_id}`, ""),
+        //         roomName: curRoom,
+        //     },
+        //     withCredentials: true,
+        // }).then((res) => {
+        //     setprevmsg(res.data)
+        // })
     }
+    // useEffect(() => {
+    //     console.log(curRoom)
+    // }, [curRoom])
     //채팅방 메시지 글작성 이벤트타겟용 함수
-    function msgfunc(e) {
-        console.log(e.target.value)
-        setmsgevent(e.target.value)
-    }
+   
     //채팅방 메시지 글 보내기 함수
     function msgSubmit() {
         axios({
@@ -355,107 +306,40 @@ export default function Messenger() {
         setRoomInOut(false)
     }
 
-    const MeDiv = styled.div`
-        // border-bottom: 1px solid green;
-        // margin-bottom: 1rem;
-        // margin-top: 1rem;
-        // padding-bottom: 0.5rem;
-        // vertical-align: center;
-        // align-self: center;
-        text-align: right;
-
-        overflow: auto;
-    `
-    const YouDiv = styled.div`
-        // border-bottom: 1px solid black;
-        // margin-bottom: 1rem;
-        // margin-top: 1rem;
-        // padding-bottom: 0.5rem;
-        // vertical-align: center;
-        // align-self: center;
-        text-align: left;
-
-        overflow: auto;
-    `
     return (
         <Container className="mapcontainer">
-            {!roomInOut ? (
-                <RoomChatDiv>
-                    <ProfileName>{userInfo.user_id}</ProfileName>
-                    <UserPhotoDiv>
-                        <UserPhotoImg src={userInfo.user_Photo} />
-                    </UserPhotoDiv>
-                    <FriendInputAndBtn>
-                        <FriendInput
-                            onChange={(e) => roomNamefunc(e)}
-                            placeholder="친구 ID"
-                            required
-                            type="text"
-                        />
-                        <Buttons>
-                            <Button>
-                                <FontAwesomeIcon
-                                    onClick={roomNameSubmit}
-                                    icon={faPlusSquare}
-                                />
-                            </Button>
-                        </Buttons>
-                    </FriendInputAndBtn>
-                    <RoomList>
-                        <FriendListDiv>{"개인 메시지"}</FriendListDiv>
-                        {joinedRoom.map((el) => (
-                            <FriendListDiv onClick={() => roomListClick(el)}>
-                                {el
-                                    .replace("_", "")
-                                    .replace(`${userInfo.user_id}`, "")}
-                            </FriendListDiv>
-                        ))}
-                    </RoomList>
-                </RoomChatDiv>
-            ) : (
-                <>
-                    <GoBackButton>
-                        <FontAwesomeIcon
-                            icon={faChevronLeft}
-                            className="fa-fw"
-                            color="#ACB5BD"
-                            onClick={goBackHandler}
-                        />
-                    </GoBackButton>
-                    <ChatList>
-                        <div>{"채팅창"}</div>
-                        {prevmsg.map((el) => {
-                            if (userInfo.user_id === el.user_id) {
-                                return <MeDiv>{el.chatcontent}</MeDiv>
-                            } else {
-                                return <YouDiv>{el.chatcontent}</YouDiv>
-                            }
-                        })}
-                        {newMsgSection.map((el) => {
-                            if (userInfo.user_id === el.user_id) {
-                                return <MeDiv>{el.chatcontent}</MeDiv>
-                            } else {
-                                return <YouDiv>{el.chatcontent}</YouDiv>
-                            }
-                        })}
-                    </ChatList>
-                    <input
-                        onChange={(e) => msgfunc(e)}
-                        placeholder="메시지"
+            <RoomChatDiv>
+                <ProfileName>{userInfo.user_id}</ProfileName>
+                <UserPhotoDiv>
+                    <UserPhotoImg src={userInfo.user_Photo} />
+                </UserPhotoDiv>
+                <FriendInputAndBtn>
+                    <FriendInput
+                        onChange={(e) => roomNamefunc(e)}
+                        placeholder="친구 ID"
                         required
                         type="text"
-                        value={msgevent}
                     />
                     <Buttons>
                         <Button>
                             <FontAwesomeIcon
-                                onClick={msgSubmit}
-                                icon={faPaperPlane}
+                                onClick={roomNameSubmit}
+                                icon={faPlusSquare}
                             />
                         </Button>
                     </Buttons>
-                </>
-            )}
+                </FriendInputAndBtn>
+                <RoomList>
+                    <FriendListDiv>{"개인 메시지"}</FriendListDiv>
+                    {joinedRoom.map((el) => (
+                        <FriendListDiv onClick={() => roomListClick(el)}>
+                            {el
+                                .replace("_", "")
+                                .replace(`${userInfo.user_id}`, "")}
+                        </FriendListDiv>
+                    ))}
+                </RoomList>
+            </RoomChatDiv>
         </Container>
     )
 }

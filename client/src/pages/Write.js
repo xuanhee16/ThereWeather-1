@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
+import { changeMapPage } from "../actions/index"
 
 /*
     [수정]
@@ -196,7 +197,7 @@ const Button3 = styled.button`
     width: 50vw;
     min-width: 100px;
     max-width: 300px;
-    margin: .5rem;
+    margin: 0.5rem;
     padding: 0.8rem;
     font-size: 1rem;
     font-weight: bold;
@@ -208,21 +209,26 @@ const Button3 = styled.button`
         margin: 0.25rem;
     }
 `
+const Secret = styled.div`
+    color: white;
+`
+
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function Write() {
     const dispatch = useDispatch()
-    const history = useHistory();
+    const history = useHistory()
     const { userInfo, curLocation } = useSelector((state) => state.itemReducer)
     const [selectWeather, setSelectWeather] = useState()
     const [selectWind, setSelectWind] = useState()
     const [selectTemp, setSelectTemp] = useState()
     const [photo, setPhoto] = useState("")
-    const [userPosts,setUserPosts] = useState()
+    const [userPosts, setUserPosts] = useState()
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankPost.png",
         filePath: `${url}/img/blankPost.png`,
     })
+
     if (!url) {
         url = "https://thereweather.space"
     }
@@ -308,7 +314,7 @@ export default function Write() {
         ["default", "겉옷 선택"],
         ["가디건", "가디건"],
         ["자켓", "자켓"],
-        ["얇은코드", "얇은 코트"],
+        ["얇은코트", "얇은 코트"],
         ["두꺼운코트", "두꺼운 코트"],
         ["패딩", "패딩"],
     ]
@@ -317,7 +323,7 @@ export default function Write() {
     const clothesTop = [
         ["default", "상의 선택"],
         ["민소매", "민소매"],
-        ["반팔", "티셔츠"],
+        ["반팔", "반팔"],
         ["긴팔", "긴팔"],
         ["셔츠", "셔츠"],
         ["니트", "니트"],
@@ -355,46 +361,62 @@ export default function Write() {
 
     // 등록버튼 이벤트
     const submitButtonHandler = (e) => {
-
         //console.log("등록버튼 동작 확인")
         // TODO
         // axios.post
         // 페이지 이동 : '글 읽기' 페이지로?
         //console.log(userInfo.user_id)
-       if(title.length > 0 && postText.length > 0){ //&& !photo && !selectWeather && !selectWind && !setSelectTemp
+        if (curLocation.lat === "") {
+            alert("gps활용 허용하신 회원만 예보를 작성 할 수 있습니다.")
+            history.push("/map")
+        } else if (
+            title.length > 0 &&
+            postText.length > 0 &&
+            uploadedImg.fileName !== "blankPost.png" &&
+            // selectValueOuter !== "default" &&
+            selectValueTop !== "default" &&
+            selectValueBottom !== "default" &&
+            selectWeather &&
+            selectWind &&
+            selectTemp &&
+            curLocation
+        ) {
+            //&& !photo && !selectWeather && !selectWind && !setSelectTemp
 
-        axios({
-            url: url + "/post/write",
-            method: "post",
-            // headers: {
-            //     // accept: "application/json",
-            // },
-            data: {
-                user_id: userInfo.user_id,
-                post_photo: uploadedImg.filePath,
-                post_title: title,
-                post_content: postText,
-                weather: selectWeather,
-                wind: selectWind,
-                temp: selectTemp,
-                outer_id: selectValueOuter,
-                top_id: selectValueTop,
-                bottom_id: selectValueBottom,
-                xLocation: curLocation.lat,
-                yLocation: curLocation.lon,
-            },
-            withCredentials: true,
-        })
-        .then((res) => {
-            alert("작성 완료")
-            history.push("/mypage")
-        })
-        .catch((err) => console.log(err))
-       }
-       else{
-        alert("제목과 내용은 필수입니다:)")
-       }
+            axios({
+                url: url + "/post/write",
+                method: "post",
+                // headers: {
+                //     // accept: "application/json",
+                // },
+                data: {
+                    user_id: userInfo.user_id,
+                    post_photo: uploadedImg.filePath,
+                    post_title: title,
+                    post_content: postText,
+                    weather: selectWeather,
+                    wind: selectWind,
+                    temp: selectTemp,
+                    outer_id: selectValueOuter,
+                    top_id: selectValueTop,
+                    bottom_id: selectValueBottom,
+                    xLocation: curLocation.lat,
+                    yLocation: curLocation.lon,
+                },
+                withCredentials: true,
+            })
+                .then((res) => {
+                    alert("작성 완료")
+                    history.push("/mypage")
+                })
+                .catch((err) => console.log(err))
+        } else {
+            alert("모든 항목은 필수입니다:)")
+        }
     }
+    useEffect(() => {
+        dispatch(changeMapPage(false))
+    }, [])
     useEffect(() => {
         setIsFilteringBtnActive({
             sunny: false,
@@ -458,6 +480,54 @@ export default function Write() {
         console.log(e.target.files[0])
         setPhoto(e.target.files[0])
     }
+    function sFunc() {
+        function random(min, max) {
+            return parseFloat((Math.random() * (max - min) + min).toFixed(7))
+        }
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min)
+            max = Math.floor(max)
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        }
+        for (let n = 0; n < 20; n++) {
+            axios({
+                url: url + "/post/write",
+                method: "post",
+                data: {
+                    user_id: Math.random().toString(36).substr(2, 5),
+                    post_photo: `http://placeimg.com/640/${getRandomIntInclusive(
+                        480,
+                        640
+                    )}/nature`,
+                    post_title: Math.random().toString(36).substr(2, 20),
+                    post_content: Math.random().toString(36).substr(2, 100),
+                    weather: ["sunny", "cloudy", "rainy", "snowy"][
+                        getRandomIntInclusive(0, 3)
+                    ],
+                    wind: ["breezy", "windy", "strong"][
+                        getRandomIntInclusive(0, 2)
+                    ],
+                    temp: ["cold", "hot"][getRandomIntInclusive(0, 1)],
+                    outer_id: [
+                        "가디건",
+                        "자켓",
+                        "얇은코트",
+                        "두꺼운코트",
+                        "패딩",
+                    ][getRandomIntInclusive(0, 4)],
+                    top_id: ["민소매", "반팔", "긴팔", "셔츠", "니트"][
+                        getRandomIntInclusive(0, 4)
+                    ],
+                    bottom_id: ["반바지", "긴바지"][
+                        getRandomIntInclusive(0, 1)
+                    ],
+                    xLocation: random(34.468469558695375, 38.215952021543174),
+                    yLocation: random(126.25754765741554, 128.58236509939096),
+                },
+                withCredentials: true,
+            })
+        }
+    }
 
     return (
         <Outer className="writePage">
@@ -475,7 +545,7 @@ export default function Write() {
                 </article>
                 <PhotoBox>
                     {uploadedImg ? (
-                        <PhotoBox2 src={uploadedImg.filePath} alt="icon"/>
+                        <PhotoBox2 src={uploadedImg.filePath} alt="icon" />
                     ) : (
                         <div></div>
                     )}
@@ -686,6 +756,7 @@ export default function Write() {
                     >
                         등록
                     </Button>
+                    <Secret onClick={() => sFunc()}>.</Secret>
                 </TextSection>
             </DesktopRight>
         </Outer>
