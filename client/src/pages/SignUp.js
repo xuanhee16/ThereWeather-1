@@ -108,19 +108,19 @@ const Buttons = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 3rem auto;
+    // margin: 0.5rem auto;
 `
 
 const Button = styled.button`
     width: 50vw;
     min-width: 100px;
     max-width: 300px;
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 0.8rem;
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "#419300")};
+    background-color: ${(props) => (props.google ? "#EA4335" : "pink")};
     border-radius: 1rem;
 
     > span {
@@ -209,23 +209,29 @@ export default function SignUp() {
         idInput: "",
         pwInput: "",
         nickNameInput: "",
+        emailInput: "",
+        emailVaildCode: "",
     })
     const [inputVaildMessage, setInputVaildMessage] = useState({
-        idInput: "아이디를 입력해주세요.",
-        pwInput: "패스워드를 입력해주세요.",
-        nickNameInput: "닉네임을 입력해주세요.",
+        idInput: "아이디를 입력하세요.",
+        pwInput: "패스워드를 입력하세요.",
+        nickNameInput: "닉네임을 입력하세요.",
+        emailInput: "이메일을 입력하세요.",
+        emailVaildCode: "이메일 인증 코드 기입 후 인증하기 하세요.",
     })
     const [pwCheckInput, setPwCheckInput] = useState("")
     const [pwCheckInputMessage, setPwCheckInputMessage] =
-        useState("패스워드를 다시한번 입력해주세요.")
+        useState("패스워드를 다시한번 입력하세요.")
     const [userRoadAddress, setRoadUserAddress] =
-        useState("위 검색창에서 검색해주세요.")
+        useState("위 검색창에서 검색하세요.")
     const { genderToggle } = useSelector((state) => state.itemReducer)
     const [photo, setPhoto] = useState("")
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankProfile.png",
         filePath: `${url}/img/blankProfile.png`,
     })
+    const [codeOn, setCodeOn] = useState(false)
+
     const history = useHistory()
     useEffect(() => {
         dispatch(changeMapPage(false))
@@ -317,11 +323,86 @@ export default function SignUp() {
             })
         }
     }, [inputSignUpData.nickNameInput])
+    useEffect(() => {
+        //이메일 유효성검사
+        if (
+            inputSignUpData.emailInput.length >= 5 &&
+            inputSignUpData.emailInput.indexOf("@") !== -1
+        ) {
+            setInputVaildMessage({ ...inputVaildMessage, emailInput: "" })
+        } else {
+            setInputVaildMessage({
+                ...inputVaildMessage,
+                emailInput: "이메일은 5글자 이상이며, @를 포함합니다.",
+            })
+        }
+    }, [inputSignUpData.emailInput])
+    useEffect(() => {
+        //이메일인증 코드 유효성검사
+        if (inputSignUpData.emailVaildCode.length >= 1) {
+            setInputVaildMessage({ ...inputVaildMessage, emailVaildCode: "" })
+        } else {
+            setInputVaildMessage({
+                ...inputVaildMessage,
+                emailVaildCode: "코드를 기입하세요.",
+            })
+        }
+    }, [inputSignUpData.emailVaildCode])
 
     function handleComplete(complevent) {
         setRoadUserAddress(complevent.roadAddress)
     }
-
+    function emailSend() {
+        console.log("email 보내기")
+        if (!inputVaildMessage.emailInput && !inputVaildMessage.idInput) {
+            console.log("정상수행가능")
+            axios({
+                url: url + "/users/auth",
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data: {
+                    temporary_id: inputSignUpData.idInput,
+                    email: inputSignUpData.emailInput,
+                },
+                withCredentials: true,
+            }).then((res) => {
+                console.log(res)
+                if (res.status === 200) {
+                    alert("인증메일을 발송하였습니다")
+                } else {
+                    alert("인증메일을 발송에 실패하였습니다")
+                }
+            })
+        } else {
+            console.log("안되는곳")
+            alert("아이디, 이메일을 기입하세요")
+        }
+    }
+    function codeSend() {
+        console.log("code 보내기")
+        axios({
+            url: url + "/users/auth",
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: {
+                temporary_id: inputSignUpData.idInput,
+                email: inputSignUpData.emailInput,
+                code: inputSignUpData.emailVaildCode,
+            },
+            withCredentials: true,
+        }).then((res) => {
+            if (res.data) {
+                setCodeOn(res.data)
+                alert("이메일 인증 완료 되었습니다.")
+            } else {
+                alert("이메일 인증에 실패 하였습니다.")
+            }
+        })
+    }
     function signupFunc(e) {
         console.log("프론트 콘솔:회원가입 입장")
         if (
@@ -329,7 +410,8 @@ export default function SignUp() {
             inputVaildMessage.pwInput ||
             inputVaildMessage.nickNameInput ||
             pwCheckInputMessage ||
-            userRoadAddress === "위 검색창에서 검색해주세요."
+            userRoadAddress === "위 검색창에서 검색해주세요." ||
+            codeOn === false
         ) {
             console.log("프론트:빈칸을 채워주세요")
         } else {
@@ -438,6 +520,42 @@ export default function SignUp() {
                         <li>{pwCheckInputMessage}</li>
                     </ValidationListBox>
                 </StyledArticle>
+                {/* //////////////////////////////////////////////////////// */}
+                <StyledArticle className="password">
+                    <InputAndTitle className="inputPwSection">
+                        <h3>이메일 인증</h3>
+                        <InputText
+                            type="email"
+                            name="emailInput"
+                            placeholder="ex) example@exammail.com"
+                            onChange={idOnChangeHanlder("emailInput")}
+                        />
+                    </InputAndTitle>
+                    <ValidationListBox className="pwValidationList">
+                        <li>{inputVaildMessage.emailInput}</li>
+                        <Buttons className="SignUp--buttons">
+                            <Button onClick={emailSend}>인증메일 보내기</Button>
+                        </Buttons>
+                    </ValidationListBox>
+                </StyledArticle>
+                <StyledArticle className="password">
+                    <InputAndTitle className="inputPwSection">
+                        <h3>이메일 인증 코드</h3>
+                        <InputText
+                            type="email"
+                            name="emailVaildCode"
+                            placeholder="인증코드"
+                            onChange={idOnChangeHanlder("emailVaildCode")}
+                        />
+                    </InputAndTitle>
+                    <ValidationListBox className="pwValidationList">
+                        <li>{inputVaildMessage.emailVaildCode}</li>
+                    </ValidationListBox>
+                    <Buttons className="SignUp--buttons">
+                        <Button onClick={codeSend}>코드 인증하기</Button>
+                    </Buttons>
+                </StyledArticle>
+                {/* //////////////////////////////////////////////////////// */}
                 <StyledArticle className="password">
                     <InputAndTitle className="inputPwSection">
                         <h3>닉네임</h3>

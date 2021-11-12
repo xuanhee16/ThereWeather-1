@@ -36,6 +36,7 @@ export default function FirstPage() {
     useEffect(() => {
         dispatch(changeMapPage(false))
     }, [])
+
     return (
         <>
             {!One && !Two && !Three && !Four ? (
