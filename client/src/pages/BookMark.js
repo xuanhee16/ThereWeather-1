@@ -8,6 +8,7 @@ import { Bookmark } from "../components/Heart";
 //import { updateCurrentPage, updateStartEndPage } from "../actions/index"
 import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, updatePostId } from "../actions/index"
 import { useHistory } from "react-router"
+import { default as PaginationWithArrow } from "../components/Pagination"
 
 const Outer = styled.div`
   background-color: var(--page-bg-color);
@@ -47,6 +48,7 @@ const Container = styled.div`
   }
 
   @media (max-width: 1081px) {
+    // 1081 이하일 때
     gap: 2rem;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     /* grid-template-columns: 5fr; */
@@ -232,7 +234,8 @@ export default function BookMark() {
   const postId = Number(readPostId)
   console.log(postId)
   //bookmark는 유저1이 저장해둔 포스트 목록이 나오게 
-  //일단 유저정보를 보내서, 그 유저가 북마크에 저장한 내용 싹 보여주기 
+  //일단 유저정보를 보내서, 그 유저가 북마크에 저장한 내용 싹 보여주기
+  console.log('**bookmarkList**', bookmarkList);
 
   
   useEffect(() => {
@@ -251,7 +254,7 @@ export default function BookMark() {
       withCredentials: true,
     })
     .then((res) => {
-      console.log(res.data)
+      console.log('**res.data bookmarkList**', res.data);
       setBookmarkList(res.data)
     })
   },[])
@@ -274,7 +277,7 @@ export default function BookMark() {
             break;
         }
     }
-  
+
     dispatch(updatePostId(elem.id));
     history.push({
         pathname: '/postread',
@@ -282,12 +285,9 @@ export default function BookMark() {
     });
   }
 
- 
-
-  // 페이지네이션
+  /*
   const state = useSelector(state => state.itemReducer);
   const { start, end, current } = state; 
-
   // const updateCurrentPages = dispatch(updateCurrentPage);
   // const updateStartEndPages = dispatch(updateStartEndPage);
   const updateCurrentPages = page => (dispatchs) => {
@@ -296,18 +296,28 @@ export default function BookMark() {
   const updateStartEndPages = (start, end) => (dispatchs) => {
     dispatch({ type: UPDATE_START_END_PAGE, payload: { start, end } })
   }
-
   const per = 4
   //테스트중 갯수 20개로 고정
   const total = Math.ceil(20 / per)
-
   const arr = []
   for (let i = 0; i < total; i++) {
       arr.push(i + 1)
   }
   const target = arr.slice(start, end)
-
   console.log(bookmarkList)
+  */
+
+  // 시작 - 페이지네이션 변수들
+  const [ currentPage, setCurrentPage ] = useState(1);
+    // 1페이지로 시작
+  const itemsPerPage = 6;
+    // 한 페이지에 8개씩 보여준다
+  const lastIdx = currentPage * itemsPerPage;
+  const firstIdx = lastIdx - itemsPerPage;
+  const slicedData = (dataArr) => {
+    return dataArr.slice(firstIdx, lastIdx);
+  }
+  // 끝 - 페이지네이션 변수들
 
 
   return (
@@ -316,6 +326,7 @@ export default function BookMark() {
       <Waring>"북마크가 없습니다."</Waring> : */}
       <Container>
       {bookmarkList && bookmarkList.map((el) => {
+      {/* {bookmarkList && slicedData(bookmarkList).map((el) => { */}
         return (
           <div className="BookMarkContainer" key={el.id}>
             <BookMarkPhoto>
@@ -336,9 +347,18 @@ export default function BookMark() {
       })}
       </Container>
       {/* : <Waring>"북마크가 없습니다."</Waring>} */}
-      
 
-      <Pagination>
+      {/* 시작 - 페이지네이션 새로 추가 */}
+      <PaginationWithArrow
+        // dataLength={bookmarkList.length} // 본래
+        dataLength={6} // 테스트용
+        itemsPerPage={8}
+        numberButtonClickHandler={setCurrentPage}
+      />
+      {/* 끝 - 페이지네이션 새로 추가 */}
+
+      {/* 원래 있던 페이지네이션 시작 */}
+      {/* <Pagination>
         <PrevPage>
           <li className="prevPage">
             <button className="previousPages" onClick={() => {
@@ -379,7 +399,8 @@ export default function BookMark() {
             </button>
           </li>
         </NextPage>
-      </Pagination>
+      </Pagination> */}
+      {/* 원래있던 페이지네이션 끝 */}
     </Outer>
   )
 
