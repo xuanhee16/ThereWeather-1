@@ -12,19 +12,22 @@ const Button = styled.div`
   right: 0;
   bottom: 0;
   transition: all 0.3s;
-
+  display: none;
   img{
-    width: 6rem;
-    height: 6rem;
+    width: 5rem;
+    height: 5rem;
     margin-right: 2vh;
     opacity: 0.7;
+    background-color: #FFFFFF;
+    border-radius: 50%;
   }
 
   @media screen and (max-width: 1081px) {
-    height: 200px;
+    display: block;
+    height: 170px;
     img{
-      width: 6rem;
-      height: 6rem;
+      width: 4rem;
+      height: 4rem;
       margin-right: 3vh;
     }
   }

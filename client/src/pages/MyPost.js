@@ -115,7 +115,62 @@ const PostImg = styled.img`
   }
 `
 
-const url = process.env.REACT_APP_LOCAL_URL
+//   @media screen and (max-width: 1081px) {
+//     padding: 1vh 2vw 2vh 2vw;
+//     font-size: 1.5rem;
+//   }
+//   @media screen and (max-width: 375px) {
+//     font-size: 1rem;
+//     padding-left: 3vw;
+//   }
+// `
+
+// 페이지네이션
+const Page = styled.div`
+    display: flex;
+    justify-content: center;
+    li {
+      /* margin: 3px; */
+      list-style: none;
+      padding: 3px;
+      /* border: 1px solid red; */
+    }
+    button {
+      margin: 0 1vw;
+      padding: 1rem 1.5rem;
+      border-radius: 50%;
+    }
+    button:focus{
+      background-color: var(--modal-bg-color);
+    }
+    #prev,
+    #next{
+      background: none;
+    }
+    @media screen and (max-width: 1081px) {
+      margin-top: 10rem;
+      padding-bottom: 5rem;
+
+    }
+
+    @media screen and (max-width: 375px) {
+      margin-top: 3rem;
+      padding-bottom: 3rem;
+      li {
+        /* margin: 0 1vw; */
+        /* margin: 1vh; */
+        padding: 0;
+
+      }
+      button {
+        /* margin: 0 1.5vw; */
+        font-size: 1.5rem;
+        margin: 0;
+        padding: 1px 7px;
+      }
+    }
+`
+let url = process.env.REACT_APP_LOCAL_URL
 
 export default function MyPost() {
   const dispatch = useDispatch()
