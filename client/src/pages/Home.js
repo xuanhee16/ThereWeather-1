@@ -253,8 +253,7 @@ const RightContainer = styled.div`
     margin: 0 auto;
     width: 100%;
   }
-}
-`;
+}`;
 
 
 // '00구 주민예보글'
