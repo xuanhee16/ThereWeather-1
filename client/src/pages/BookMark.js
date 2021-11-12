@@ -325,7 +325,7 @@ export default function BookMark() {
     return dataArr.slice(firstIdx, lastIdx);
   }
   // 끝 - 페이지네이션 변수들
-  const target = arr.slice(start, end)
+  // const target = arr.slice(start, end)
 
   return (
     <Outer>

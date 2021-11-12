@@ -207,7 +207,7 @@ const LeftNav3 = styled.div`
       }
 
     }
-`
+}`
 // 코디 이미지
 const Codi = styled.img`
     width: 7rem;
@@ -246,7 +246,7 @@ const RightContainer = styled.div`
     grid-template-areas:
       "nav"
       "main";
-  }
+  
   .userPost {
     text-align: center;
   }
