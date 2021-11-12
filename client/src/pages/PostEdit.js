@@ -1,8 +1,14 @@
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import React,{ useState, useEffect } from "react"
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
+import { changeMapPage } from "../actions/index"
+
+/*
+    [수정]
+    이미지 태그에 alt 추가 (없으면 콘솔에 오류 뜸)
+*/
 
 const Outer = styled.div`
     overflow: scroll;
@@ -27,7 +33,7 @@ const Button = styled.button`
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-    border-radius: ${(props) => (props.round ? "50%" : ".5rem")};
+    border-radius: ${(props) => (props.round ? "50%" : null)};
     background-color: var(--button-bg-normal);
     font-size: 1.25rem;
     padding: ${(props) => (props.round ? ".5rem .5rem" : ".5rem 2rem")};
@@ -191,7 +197,7 @@ const Button3 = styled.button`
     width: 50vw;
     min-width: 100px;
     max-width: 300px;
-    margin: .5rem;
+    margin: 0.5rem;
     padding: 0.8rem;
     font-size: 1rem;
     font-weight: bold;
@@ -204,47 +210,43 @@ const Button3 = styled.button`
     }
 `
 
+const Secret = styled.div`
+    color: white;
+`
+
+
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
 export default function Write() {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { userInfo, curLocation, postInfo, readPostId, pagePostInfo} = useSelector((state) => state.itemReducer)
-    console.log(userInfo)
-    console.log(postInfo)
-    console.log(readPostId)
-    console.log(pagePostInfo)
-  
-    const [selectWeather, setSelectWeather] = useState()
-    const [selectWind, setSelectWind] = useState()
-    const [selectTemp, setSelectTemp] = useState()
-    const [photo, setPhoto] = useState("")
+    const { userInfo, curLocation, postInfo, readPostId } = useSelector((state) => state.itemReducer)
+    // console.log('userId : ',userInfo);
+    // console.log('postInfo : ', postInfo);
+    // console.log('readPostId : ', readPostId);
     const [postId, setPostId] = useState(readPostId)
-    console.log(postId)
-    // const [uploadedImg, setUploadedImg] = useState({
-    //     fileName: "blankPost.png",
-    //     filePath: `${url}/img/blankPost.png`,
-    // })
+    const [selectWeather, setSelectWeather] = useState()    // 날씨
+    const [selectWind, setSelectWind] = useState()  // 바람
+    const [selectTemp, setSelectTemp] = useState()  // 온도
+    const [photo, setPhoto] = useState("")
+    const [userPosts, setUserPosts] = useState()
     const [uploadedImg, setUploadedImg] = useState({
-        fileName: null,
-        filePath: null,
+        fileName: "blankPost.png",
+        filePath: `${url}/img/blankPost.png`,
     })
-    
-  
-    if (!url) {
-        url = "https://thereweather.space"
-    }
+    const postIds = Number(readPostId)
+    // console.log('postIds : ', postIds)
 
     // 제목 handler
     const [title, setTitle] = useState("")
+
     const titleInputHandler = (e) => {
         setTitle((prev) => e.target.value)
     }
-    // useEffect(() => {
-    //   console.log(userInfo.user_id)
-    //   // setTitle()
-
-    // }, [])
+    useEffect(() => {
+        console.log(userInfo.user_id)
+    }, [])
 
     // 날씨 버튼
     const weathers = [
@@ -266,9 +268,13 @@ export default function Write() {
         cloudy: false,
         rainy: false,
         snowy: false,
+    })
+    const [isFilteringBtnActive2, setIsFilteringBtnActive2] = useState({
         breezy: false,
         windy: false,
         strong: false,
+    })
+    const [isFilteringBtnActive3, setIsFilteringBtnActive3] = useState({
         cold: false,
         hot: false,
     })
@@ -304,23 +310,41 @@ export default function Write() {
         }
     }
 
-    // 상의 더미데이터
+    // 겉옷 더미데이터
+    const outer = [
+        ["default", "겉옷 선택"],
+        ["가디건", "가디건"],
+        ["자켓", "자켓"],
+        ["얇은코트", "얇은 코트"],
+        ["두꺼운코트", "두꺼운 코트"],
+        ["패딩", "패딩"],
+    ]
+
+    // 상의 더미데이터 (state 변수가 필요하게 될까?)
     const clothesTop = [
         ["default", "상의 선택"],
-        ["tshirts", "티셔츠"],
-        ["shirts", "셔츠"],
+        ["민소매", "민소매"],
+        ["반팔", "반팔"],
+        ["긴팔", "긴팔"],
+        ["셔츠", "셔츠"],
+        ["니트", "니트"],
     ]
 
     // 하의 더미데이터
     const clothesBottom = [
         ["default", "하의 선택"],
-        ["shorts", "반바지"],
-        ["pants", "긴 바지"],
+        ["반바지", "반바지"],
+        ["긴바지", "긴 바지"],
     ]
 
     // select 상태 관리 & 이벤트 핸들러
+    const [selectValueOuter, setSelectValueOuter] = useState("default")
     const [selectValueTop, setSelectValueTop] = useState("default")
     const [selectValueBottom, setSelectValueBottom] = useState("default")
+
+    const selectOuterHandler = (e) => {
+        setSelectValueOuter(e.target.value)
+    }
 
     const selectTopHandler = (e) => {
         setSelectValueTop(e.target.value)
@@ -336,59 +360,124 @@ export default function Write() {
         setPostText(e.target.value)
     }
 
-    // 등록버튼 이벤트
-    const submitButtonHandler = (e) => {
-        console.log("등록버튼 동작 확인")
-
+    
+    // 기존 데이터 렌더링
+    useEffect(() => {
         axios({
-            url: url + "/editpost",
-            method: "put",
-            data: {
-                user_id: userInfo.user_id, //현재접속한 유저 
-                post_id: postId, //현재 유저가 보고있는 포스트번호 
-                post_photo: uploadedImg.filePath,
-                post_title: title,
-                post_content: postText,
-                weather: selectWeather,
-                wind: selectWind,
-                temp: selectTemp,
-                top_id: selectValueTop,
-                bottom_id: selectValueBottom,
-                xLocation: curLocation.lat,
-                yLocation: curLocation.lon,
-            },
+            url: url + `/readpost?searchID=${userInfo.postIds}`,
+            method: "get",
+            params: {id : postIds},
             withCredentials: true,
         })
         .then((res) => {
-            console.log(res.data)
-            // alert("수정 완료")
-            alert(res.data)
-            //setTitle(res.dat)
-            history.push("/mypage")
-        })
-        .catch((err) => console.log(err))
-    }
+            console.log('res : ', res.data);    // 해당 게시물 데이터 들어옴
+            // 제목
+            setTitle(res.data.post_title)
+            // 사진
+            setUploadedImg({ filePath: res.data.post_photo })
+            // 날씨
+            setIsFilteringBtnActive({ [res.data.weather]:true })
+            setIsFilteringBtnActive2({ [res.data.wind]:true })
+            setIsFilteringBtnActive3({ [res.data.temp]:true })
 
-    function weatherFunc(select) {
-        console.log("select=" + select)
-        if (
-            select === "sunny" ||
-            select === "cloudy" ||
-            select === "rainy" ||
-            select === "snowy"
-        ) {
-            setSelectWeather(select)
+            // 코디
+            setSelectValueOuter(res.data.outer_id)
+            setSelectValueTop(res.data.top_id)
+            setSelectValueBottom(res.data.bottom_id)
+            // 내용
+            setPostText(res.data.post_content)
+        })
+        .catch(err => console.log(err))
+    }, [])
+
+
+    // 등록버튼 이벤트
+    const submitButtonHandler = (e) => {
+        if (curLocation.lat === "") {
+            alert("gps활용 허용하신 회원만 예보를 작성 할 수 있습니다.")
+            history.push("/map")
         } else if (
-            select === "breezy" ||
-            select === "windy" ||
-            select === "strong"
+            title.length > 0 &&
+            postText.length > 0 &&
+            uploadedImg.fileName !== "blankPost.png" &&
+            // selectValueOuter !== "default" &&
+            selectValueTop !== "default" &&
+            selectValueBottom !== "default" &&
+            selectWeather &&
+            selectWind &&
+            selectTemp &&
+            curLocation
         ) {
-            setSelectWind(select)
-        } else if (select === "cold" || select === "hot") {
-            setSelectTemp(select)
+            //&& !photo && !selectWeather && !selectWind && !setSelectTemp
+
+            axios({
+                url: url + "/editpost",
+                method: "put",
+                data: {
+                    user_id: userInfo.user_id,
+                    post_id: postId,
+                    post_photo: uploadedImg.filePath,
+                    post_title: title,
+                    post_content: postText,
+                    weather: selectWeather,
+                    wind: selectWind,
+                    temp: selectTemp,
+                    outer_id: selectValueOuter,
+                    top_id: selectValueTop,
+                    bottom_id: selectValueBottom,
+                    xLocation: curLocation.lat,
+                    yLocation: curLocation.lon,
+                },
+                withCredentials: true,
+            })
+                .then((res) => {
+                    alert("작성 완료")
+                    history.push("/mypage")
+                })
+                .catch((err) => console.log(err))
+        } else {
+            alert("모든 항목은 필수입니다:)")
         }
     }
-
+    useEffect(() => {
+        dispatch(changeMapPage(false))
+    }, [])
+    useEffect(() => {
+        setIsFilteringBtnActive({
+            sunny: false,
+            cloudy: false,
+            rainy: false,
+            snowy: false,
+            [selectWeather]: true,
+        })
+    }, [selectWeather])
+    useEffect(() => {
+        setIsFilteringBtnActive2({
+            breezy: false,
+            windy: false,
+            strong: false,
+            [selectWind]: true,
+        })
+    }, [selectWind])
+    useEffect(() => {
+        setIsFilteringBtnActive3({
+            cold: false,
+            hot: false,
+            [selectTemp]: true,
+        })
+    }, [selectTemp])
+    function weatherFunc(select) {
+        console.log("select=" + select)
+        setSelectWeather(select)
+    }
+    function weatherFunc2(select) {
+        console.log("select=" + select)
+        setSelectWind(select)
+    }
+    function weatherFunc3(select) {
+        console.log("select=" + select)
+        setSelectTemp(select)
+    }
     const onSubmit = (e) => {
         console.log(e)
         e.preventDefault()
@@ -412,10 +501,57 @@ export default function Write() {
                 console.error(err)
             })
     }
-
     const addFile = (e) => {
         console.log(e.target.files[0])
         setPhoto(e.target.files[0])
+    }
+    function sFunc() {
+        function random(min, max) {
+            return parseFloat((Math.random() * (max - min) + min).toFixed(7))
+        }
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min)
+            max = Math.floor(max)
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        }
+        for (let n = 0; n < 20; n++) {
+            axios({
+                url: url + "/post/write",
+                method: "post",
+                data: {
+                    user_id: Math.random().toString(36).substr(2, 5),
+                    post_photo: `http://placeimg.com/640/${getRandomIntInclusive(
+                        480,
+                        640
+                    )}/nature`,
+                    post_title: Math.random().toString(36).substr(2, 20),
+                    post_content: Math.random().toString(36).substr(2, 100),
+                    weather: ["sunny", "cloudy", "rainy", "snowy"][
+                        getRandomIntInclusive(0, 3)
+                    ],
+                    wind: ["breezy", "windy", "strong"][
+                        getRandomIntInclusive(0, 2)
+                    ],
+                    temp: ["cold", "hot"][getRandomIntInclusive(0, 1)],
+                    outer_id: [
+                        "가디건",
+                        "자켓",
+                        "얇은코트",
+                        "두꺼운코트",
+                        "패딩",
+                    ][getRandomIntInclusive(0, 4)],
+                    top_id: ["민소매", "반팔", "긴팔", "셔츠", "니트"][
+                        getRandomIntInclusive(0, 4)
+                    ],
+                    bottom_id: ["반바지", "긴바지"][
+                        getRandomIntInclusive(0, 1)
+                    ],
+                    xLocation: random(34.468469558695375, 38.215952021543174),
+                    yLocation: random(126.25754765741554, 128.58236509939096),
+                },
+                withCredentials: true,
+            })
+        }
     }
 
     return (
@@ -434,7 +570,7 @@ export default function Write() {
                 </article>
                 <PhotoBox>
                     {uploadedImg ? (
-                        <PhotoBox2 src={uploadedImg.filePath} />
+                        <PhotoBox2 src={uploadedImg.filePath} alt="icon" />
                     ) : (
                         <div></div>
                     )}
@@ -445,39 +581,163 @@ export default function Write() {
                     onChange={addFile}
                     round
                 />
-                <Button3 type="submit">업로드</Button3>
+                <Button3 type="submit">업로드 </Button3>
             </PictureSection>
 
             <DesktopRight className="writePageRight">
                 <ButtonsAndSelects className="buttonsAndSelects">
                     <FlexColumnCenter className="smallSection">
                         <p>날씨를 선택하세요.</p>
-                        <FilteringButtons
-                            className="filteringButtons"
-                            onClick={weatherBtnHandler}
-                        >
-                            {weathers.map((weather, idx) => {
-                                return (
-                                    <FilteringBtn
-                                        key={idx}
-                                        name={weather}
-                                        className="weatherButton"
-                                        type="button"
-                                        active={isFilteringBtnActive[weather]}
-                                        onClick={() => weatherFunc(weather)}
-                                    >
-                                        <img
-                                            src={`${process.env.PUBLIC_URL}img/icons-write/${weather}.png`}
-                                        />
-                                    </FilteringBtn>
-                                )
-                            })}
+                        <FilteringButtons className="filteringButtons">
+                            {/* {weathers.map((weather, idx) => { */}
+                            {/* return ( */}
+                            <FilteringBtn
+                                name={"sunny"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive["sunny"]}
+                                onClick={() => weatherFunc("sunny")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"sunny"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"cloudy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive["cloudy"]}
+                                onClick={() => weatherFunc("cloudy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"cloudy"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"rainy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive["rainy"]}
+                                onClick={() => weatherFunc("rainy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"rainy"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"snowy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive["snowy"]}
+                                onClick={() => weatherFunc("snowy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"snowy"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"breezy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive2["breezy"]}
+                                onClick={() => weatherFunc2("breezy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"breezy"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"windy"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive2["windy"]}
+                                onClick={() => weatherFunc2("windy")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"windy"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"strong"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive2["strong"]}
+                                onClick={() => weatherFunc2("strong")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"strong"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"hot"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive3["hot"]}
+                                onClick={() => weatherFunc3("hot")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"hot"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            <FilteringBtn
+                                name={"cold"}
+                                className="weatherButton"
+                                type="button"
+                                active={isFilteringBtnActive3["cold"]}
+                                onClick={() => weatherFunc3("cold")}
+                            >
+                                <img
+                                    src={`${
+                                        process.env.PUBLIC_URL
+                                    }img/icons-write/${"cold"}.png`}
+                                    alt="icon"
+                                />
+                            </FilteringBtn>
+                            {/* ) */}
+                            {/* })} */}
                         </FilteringButtons>
                     </FlexColumnCenter>
 
                     <FlexColumnCenter className="smallSection">
                         <p>의상을 선택하세요.</p>
                         <SelectArea>
+                            <select
+                                className="outer"
+                                value={selectValueOuter}
+                                onChange={selectOuterHandler}
+                            >
+                                {outer.map((elem, idx) => {
+                                    return (
+                                        <option value={elem[0]} key={idx}>
+                                            {elem[1]}
+                                        </option>
+                                    )
+                                })}
+                            </select>
                             <select
                                 className="top"
                                 value={selectValueTop}
@@ -519,8 +779,9 @@ export default function Write() {
                         className="submitButton"
                         onClick={submitButtonHandler}
                     >
-                        수정
+                        등록
                     </Button>
+                    <Secret onClick={() => sFunc()}>.</Secret>
                 </TextSection>
             </DesktopRight>
         </Outer>
