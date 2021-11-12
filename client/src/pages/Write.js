@@ -214,7 +214,6 @@ const Secret = styled.div`
     color: white;
 `
 
-
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 
@@ -497,7 +496,8 @@ export default function Write() {
                 url: url + "/post/write",
                 method: "post",
                 data: {
-                    user_id: Math.random().toString(36).substr(2, 5),
+                    // user_id: Math.random().toString(36).substr(2, 5),
+                    user_id: "kimcoding",
                     post_photo: `http://placeimg.com/640/${getRandomIntInclusive(
                         480,
                         640
