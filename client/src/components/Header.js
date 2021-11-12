@@ -68,7 +68,6 @@ const TitleAndLogo = styled.div`
     display: ${(props) => (props.isMobileLogo ? "flex" : "none")};
     justify-content: center;
     align-items: center;
-
     color: #231f20;
 
     & img {
@@ -169,6 +168,47 @@ const Button = styled.button`
     padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
     margin: 0.5rem;
     border-radius: 10%;
+`
+
+const Button3 = styled.button`
+    // width: 140px;
+    // height: 45px;
+    // font-size: 11px;
+    font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
+  font-family: 'IBM Plex Sans KR', sans-serif;
+
+    padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
+    margin: 0.5rem;
+    border-radius: 10%;
+    color: ${(props) => (props.bgGrey || props.isText ? "#ff6384" : "grey")};
+    background-color: ${(props) =>
+        props.bgGrey || props.isText ? "white" : "white"};
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    // border:3px solid pink;
+    // border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+    &:hover {
+        background-color: pink;
+        box-shadow: 0px 15px 20px #f7cac9;
+        color: #fff;
+    transform: translateY(-4px);
+}
+`
+const Buttons3 = styled.button`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 // const SearchBarAndDaumPost = styled.div`
 //     // display: flex;
@@ -374,36 +414,40 @@ export default function Header({ isInput, isMobileLogo, isText }) {
             )}
 
             {isLogin ? (
-                <Wing className="loginAndSingupButtons">
+                <Buttons3 className="loginAndSingupButtons">
                     {/* className="login" isText */}
-                    <Button className="login" onClick={logoutBtnHandler} isText>
-                        로그아웃
-                    </Button>
-                    <Button
+                    <Button3
+                        className="login"
+                        onClick={logoutBtnHandler}
+                        isText
+                    >
+                        logOut
+                    </Button3>
+                    <Button3
                         onClick={() => history.push("/mypage")}
                         className="signup"
                         isText
                     >
-                        마이페이지
-                    </Button>
-                </Wing>
+                        mypage
+                    </Button3>
+                </Buttons3>
             ) : (
-                <Wing className="loginAndSingupButtons">
-                    <Button
+                <Buttons3 className="loginAndSingupButtons">
+                    <Button3
                         onClick={() => history.push("/login")}
                         className="login"
                         isText
                     >
-                        로그인
-                    </Button>
-                    <Button
+                        logIn
+                    </Button3>
+                    <Button3
                         onClick={() => history.push("/signup")}
                         className="signup"
                         isText
                     >
-                        회원가입
-                    </Button>
-                </Wing>
+                        signUp
+                    </Button3>
+                </Buttons3>
             )}
         </HeaderOuter>
     )

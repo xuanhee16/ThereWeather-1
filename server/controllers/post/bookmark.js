@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
     //저장한 내역이 있으면 삭제 
     if(mark){
         await mark.destroy(); 
-        res.status(201).send("북마크가 해제되었습니다.")
+        res.send("북마크가 해제되었습니다.")
     }
     //저장한 내역이 없으면 저장 
     else{
@@ -31,6 +31,6 @@ module.exports = async (req, res) => {
         })
         marked = marked.get({ plain: true })
         //console.log("bookmark.js ::::::",marked)
-        res.status(201).send("북마크에 저장되었습니다.")
+        res.send("북마크에 저장되었습니다.")
     }
 }
