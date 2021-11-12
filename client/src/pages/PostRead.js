@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Bookmark } from "../components/Heart";
 import ModalConfirm from "../components/ModalConfirm";
 import GoBackButton from  "../components/GoBackButton";
 import { useHistory } from "react-router-dom";
 import TopButton from "../components/TopButton";
-import { pagePostInfo } from "../actions/index"
 
 /*
   [수정사항]
@@ -307,7 +306,6 @@ let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 
 export default function PostRead(){
-  const dispatch = useDispatch() //추가
   const history = useHistory()
   const { readPostId, userInfo, postInfo } = useSelector(state => state.itemReducer);
   console.log(userInfo) //현재접속한 유저 
@@ -358,7 +356,6 @@ export default function PostRead(){
       })
       .then (res => {
         console.log(res.data);
-        dispatch(pagePostInfo(res.data)) //추가
         return setPostData(prev => res.data);
         // return res.data;
       })
@@ -392,8 +389,6 @@ export default function PostRead(){
   // 게시물 수정
   const editPost = () => {
     console.log('수정버튼동작확인');
-    //현재유저 아이디
-    //클릭한 포스트번호 
     setEdit(true);
   }
 
@@ -426,9 +421,10 @@ export default function PostRead(){
       data: { post_id: postIds },
       withCredentials: true
     })
-    .then(() => {
-      alert("삭제 완료")
-      history.push("/mypage")
+    .then((res) => {
+      console.log(res)
+      // alert("삭제 완료")
+      // history.push("/mypage")
     })
     setRemovePost(false)
   }

@@ -1,8 +1,8 @@
 const { post, user } = require("../../models")
-const { isAuthorized } = require("../tokenFunc")
+
 module.exports = async (req, res) => {
     //res.send()
-    console.log("server/editpost.js::::::",req.body)
+    //console.log("server/editpost.js::::::",req.body)
     
    const { user_id, post_id, post_photo, post_title, post_content, weather, wind, temp } = req.body;
    let posts = Number(post_id)
@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     })
     //현재 접속한 유저가 포스트에서 찾은 유저 정보가 아니면 
     if(!checkUser){
-        res.status(401).send("게시물의 작성자가 아닙니다.")
+      return res.status(401).send("게시물의 작성자가 아닙니다.")
     }
     //현재 접속한 유저가 포스트에서 찾은 유저 정보가 맞으면 
     else{
