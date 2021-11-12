@@ -111,7 +111,9 @@ const TextButton = styled.button`
   text-decoration: underline;
 `;
 
-const url = process.env.REACT_APP_LOCAL_URL
+
+let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
 
 export default function PasswordEdit() {

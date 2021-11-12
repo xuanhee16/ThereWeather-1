@@ -61,7 +61,9 @@ const InfoBox = styled.div`
     }
 `
 
+
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
 export default function UserInfo() {
     const dispatch = useDispatch()

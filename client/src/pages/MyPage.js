@@ -221,7 +221,9 @@ const GridArea = styled.div`
         }
     }
 `
-const url = process.env.REACT_APP_LOCAL_URL
+
+let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
 export default function MyPage() {
     const dispatch = useDispatch()
@@ -255,7 +257,8 @@ export default function MyPage() {
 
     // 정보수정
     const changeUserInfo = () => {
-        console.log("정보수정 클릭")
+        //console.log("정보수정 클릭")
+        history.push("/edituserinfo")
     }
 
     const removeUserInfo = () => {
