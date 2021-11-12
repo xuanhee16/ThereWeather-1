@@ -15,6 +15,7 @@ module.exports = {
     edituserinfo: require("./put/edituserinfo"),
     userphoto: require("./put/userphoto"),
     editpost: require("./put/editpost"),
+    checkuser: require("./put/checkuser"),
     deletepost: require("./del/deletepost"),
     removeuser: require("./del/removeuser"),
     sociallogin: require("./post/sociallogin"),

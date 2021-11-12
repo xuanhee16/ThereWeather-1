@@ -11,9 +11,10 @@ const HomeContainer = styled.div`
     display: flex;
     flex-direction: row;
     height: 90vh;
+    padding-right: 5vh;
     background-color: var(--page-bg-color);
     ul {
-        list-style: none;
+      list-style: none;
     }
 
     @media screen and (min-width: 1500px) {
@@ -36,13 +37,28 @@ const HomeContainer = styled.div`
 
 // 날짜
 const TodaysDate = styled.div`
-
+  background-color: var(--page-bg-color);
   margin: 0 auto;
   height: 2rem;
-  padding-top: 3px;
-  padding-left: 2vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  #curDate{
+    padding-left: 2vw;
+  }
+  #curLocation{
+    padding-right: 2vw;
+  }
+
   @media screen and (min-width: 1500px) {
     width: 90%;
+    #curDate{
+      padding-left: 0;
+    }
+    #curLocation{
+      padding-right: 0;
+    }
   }
   @media screen and (max-width: 1081px) {
     width: 85%;
@@ -50,12 +66,16 @@ const TodaysDate = styled.div`
   @media screen and (max-width: 900px) {
     width: 100%;
   }
-
+  @media screen and (max-width: 500px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 375px) {
+    font-size: 12px;
+  }
 `
 
 // 왼쪽 container
 const LeftContainer1 = styled.div`
-
 display: flex;
 gap: 0.1rem;
 flex-direction: row;
@@ -97,7 +117,7 @@ const LeftNav1 = styled.nav`
   padding: 10px;
   line-height: 3vh;
   height: 25%;
-  background-color: #FFFFFF;
+  background-color: var(--page-bg-color);
   p {
     font-size: 1.2rem;
     margin-bottom: 1vh;
@@ -106,15 +126,14 @@ const LeftNav1 = styled.nav`
     margin-top: 5px;
   }
 
-
-    @media screen and (max-width: 375px) {
-        margin-top: 10px;
-        line-height: 4vh;
-    }
+  @media screen and (max-width: 375px) {
+    margin-top: 10px;
+    line-height: 4vh;
+    border-bottom: 1px solid #8e8e8e ;
+  }
 `
 // 기상청 일기예보
 const LeftNav2 = styled.div`
-
   text-align: center;
   flex-basis: 310px;
   flex-grow: 1;
@@ -122,13 +141,14 @@ const LeftNav2 = styled.div`
   padding: 10px;
   line-height: 3vh;
   height: 35%;
-  background-color: #FFFFFF;
+  background-color: var(--page-bg-color);
   p {
     font-size: 1.2rem;
     margin-bottom: 1vh;
   }
   @media screen and (max-width: 375px) {
     line-height: 4vh;
+    border-bottom: 1px solid #8e8e8e ;
   }
 `
 // 00구 날씨 기반 추천 코디
@@ -138,7 +158,7 @@ const LeftNav3 = styled.div`
   flex-grow: 1;
   margin: 3px;
   padding: 10px;
-  background-color: #FFFFFF;
+  background-color: var(--page-bg-color);
   height: 35%;
   p {
     font-size: 1.2rem;
@@ -156,28 +176,28 @@ const LeftNav3 = styled.div`
     flex-grow: 2;
   }
   @media screen and (max-width: 375px) {
-
     p {
-        font-size: 1.2rem;
-        margin: 2vh 0;
+      font-size: 1.2rem;
+      margin: 2vh 0;
     }
     .codiInfo {
-        /* border: 1px solid hotpink; */
-        height: 80%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
+      /* border: 1px solid hotpink; */
+      height: 80%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
     }
     @media screen and (max-width: 1081px) {
-        height: 30vh;
-        flex-basis: 100vh;
-        flex-grow: 2;
+      height: 30vh;
+      flex-basis: 100vh;
+      flex-grow: 2;
     }
     @media screen and (max-width: 375px) {
-        p {
-            font-size: 1rem;
-            margin: 1vh 0;
-        }
+      border-bottom: 1px solid #8e8e8e ;
+      p {
+        font-size: 1rem;
+        margin: 1vh 0;
+      }
     }
   }
 `
@@ -222,7 +242,6 @@ const RightContainer = styled.div`
   }
   .userPost {
     text-align: center;
-    border: 1px solid #aaa;
   }
   img{
     width: 100%;
@@ -263,6 +282,7 @@ const RightNav1 = styled.nav`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
+if (!url) url = "https://thereweather.space"
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -300,6 +320,8 @@ export default function Home() {
     };
   }, [])
 
+  // 현재 위치 주소
+  const [curAddress, setcurAddress] = useState('');
   // 최근 게시물(위도, 경도, 지역범위 확인)
   const [currentPosts, setcurrentPosts] = useState([])
   useEffect(() => {
@@ -339,9 +361,12 @@ export default function Home() {
           withCredentials: true
         })
         .then((res) => {
-          console.log('res : ', res);
-          console.log('게시글 데이터 : ', res.data);
-          setcurrentPosts(res.data)
+          // console.log('res : ', res.data.address);
+          console.log('address : ', res.data.address)
+          console.log('게시글 데이터 : ', res.data.curtPost);
+          setcurrentPosts(res.data.curtPost)  // 주민예보글 렌더링 부분
+          setcurAddress(res.data.address)
+
           // dispatch(homePost(res.data))
         })
       })
@@ -360,7 +385,6 @@ export default function Home() {
         }
         settodaysDate(formatDate(date))
     })
-
 
   // 날씨, 코디 가져오기, 추후 수정
   let [currentTemp, setcurrentTemp] = useState('')
@@ -464,18 +488,20 @@ export default function Home() {
         <div className="homecontainer">
             {/* <Loading /> */}
             <TopButton/>
-            <TodaysDate>날짜 : {todaysDate} &nbsp;&nbsp; 위치 : {} </TodaysDate>
+            <TodaysDate>
+              <p id="curDate">날짜 : {todaysDate}</p>
+              <p id="curLocation">위치 : {curAddress}</p>
+            </TodaysDate>
             <HomeContainer>
                 <LeftContainer1>
                     <LeftNav1>
-                        <p>{} 주민예보</p>
+                        <p>주민예보</p>
                         <div className="weatherInfo">
                           {
                             currentTemp === undefined && currentWind === undefined && currentWeather === undefined ?
                             <p>현재 날씨 데이터가 없습니다 :(</p>
                             :
                             <ul>
-                              {/* <li>날짜: {todaysDate}</li> */}
                               <li>
                                 <span>현재위치 체감온도 </span>
                                 <img src={`${process.env.PUBLIC_URL}img/icons-write/${currentTemp}.png`} alt="온도"/>
