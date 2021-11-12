@@ -2,12 +2,8 @@ const { bookmark, post, user } = require("../../models")
 
 module.exports = async(req, res) => {
   //res.send()
-  // console.log("server/bookmarklist.js::::", req.query) 
   console.log("server/bookmarklist.js::::", req.body) 
-  // const { searchID, searchPost } = req.query;
-  // const posts = Number(searchPost)
-  // const { searchID } = req.query;
-  const { user_id, post_id, post_info } = req.body; 
+  const { user_id } = req.body; 
 
   if(!user_id){
     res.status(404).send("정보가 없습니다.")
