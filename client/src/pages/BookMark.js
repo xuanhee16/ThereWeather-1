@@ -15,7 +15,8 @@ import { default as PaginationWithArrow } from "../components/Pagination"
   [수정]
   - 페이지네이션
   - 주석 정리
-  - TODO 레이아웃 정리
+  - 레이아웃 정리
+  - 클릭이벤트
 */
 
 const Outer = styled.div`
@@ -55,11 +56,11 @@ const Container = styled.div`
   /* overflow: auto; */
 
   .BookMarkContainer{
-    border: 1px solid #dbdbdb;
+    gap: 0.2rem;
     background-color: rgba(255, 255, 255, 0.6);
     display: flex;
-    gap: 0.1rem;
     justify-content: space-around;
+    border: 1px solid #dbdbdb;
     border-radius: 3px;
   }
 
@@ -96,14 +97,14 @@ const Container = styled.div`
 // 게시물 사진
 const BookMarkPhoto = styled.div`
   // flex-basis: 30rem;
-  display: flex;
-  justify-content:center;
-  align-items: center;
-
+  .postItem {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+  }
   .postPicture{
     margin: 1rem 2rem 1rem 1rem;
     padding: 0;
-    // border: solid 1px black;
     height: 25vh;
     align-items: center;
   }
@@ -112,7 +113,10 @@ const BookMarkPhoto = styled.div`
     width: 250px;
     height: 250px;
   }
-
+  .postImg:hover {
+    transform: scale(1.05);
+    transition: .5s ease-in-out;
+  }
   @media screen and (max-width: 1081px) {
     .postPicture{
       height: 20vh;
@@ -126,12 +130,11 @@ const BookMarkPhoto = styled.div`
 `;
 // 00구,날짜,날씨이모티콘
 const BookMarkList = styled.div`
-  margin: 1rem;    
+  margin: 1rem;
   line-height: 3rem;
   flex-direction: column;
   flex-basis: 15rem;
   justify-content: flex-start;
-
   .postTitle {
     font-weight: bold;
     font-size: 2rem;
@@ -267,9 +270,7 @@ export default function BookMark() {
   console.log(postId)
   //bookmark는 유저1이 저장해둔 포스트 목록이 나오게 
   //일단 유저정보를 보내서, 그 유저가 북마크에 저장한 내용 싹 보여주기
-  console.log('**bookmarkList**', bookmarkList);
 
-  
   useEffect(() => {
     axios({
       // url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
@@ -305,7 +306,7 @@ export default function BookMark() {
     let elem = e.target;
     while(!elem.classList.contains("postItem")) {
         elem = elem.parentNode;
-        if(!elem.classList.contains("myPostList")) {
+        if(!elem.classList.contains("BookMarkContainer")) {
             break;
         }
     }
@@ -342,7 +343,7 @@ export default function BookMark() {
             <BookMarkPhoto>
             <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
               <img className="postImg" key={el.id} src={el.post_photo} alt="posts" />
-            </div> 
+            </div>
             </BookMarkPhoto>
             <BookMarkList>
               <div className="test" key={el.id}>
@@ -368,6 +369,4 @@ export default function BookMark() {
       {/* 끝 - 페이지네이션 새로 추가 */}
     </Outer>
   )
-
-
 }
