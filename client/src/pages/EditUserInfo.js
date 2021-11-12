@@ -190,7 +190,7 @@ export default function Write() {
             withCredentials: true,
         })
         .then((res) => {
-            alert("변경 완료")
+            alert("변경 완료, 로그아웃 후 확인해주세요:)")
             history.push("/home")
             console.log(res.data)
         })
@@ -205,7 +205,7 @@ export default function Write() {
         console.log(formData)
         axios
             .post(url + "/post/photo", formData, {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 withCredentials: true,
             })
             .then((res) => {

@@ -64,7 +64,7 @@ app.get("/codi", controllers.codi) //북마크에서 코디 누르면 확대해�
 app.get("/readpost", controllers.readpost) //예보글보기 - PostRead.js
 app.get("/mypage", controllers.mypage) //마이페이지 - MyPage.js
 app.get("/mypost", controllers.mypost)
-app.get("/bookmarklist", controllers.bookmarklist)
+// app.get("/bookmarklist", controllers.bookmarklist)
 
 //post
 app.post("/login", controllers.login) //로그인시 - Login.js
@@ -72,6 +72,7 @@ app.post("/signout", controllers.signout) //로그아웃시
 app.post("/map", controllers.map) //지도 - Map.js
 app.post("/bookmark", controllers.bookmark) //북마크 보는 곳 - BookMark.js
 app.post("/home", controllers.home) //홈 - Home.js
+app.post("/bookmarklist", controllers.bookmarklist)
 
 //put
 app.put("/password", controllers.password) //비밀번호 수정시 - MyPage.js
