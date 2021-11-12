@@ -9,14 +9,17 @@ module.exports = async (req, res) => {
     const accessToken = isAuthorized(req);
     // console.log(accessToken)
     const { user_id, nickName } = accessToken;
-    const { user_Photo, location } = req.body; 
-    user.update({
-        user_Photo: user_Photo, 
-        location: location
-    },{
-        where: {
-            user_id: user_id, nickName: nickName
-        }
-    })
+    const { user_photo, location } = req.body; 
+    
+    await user.update(
+       {
+          user_Photo: user_photo, 
+          location: location
+       },
+      {
+          where: {
+              user_id: user_id
+          }
+      })
     res.status(200).send("수정 완료")
 }

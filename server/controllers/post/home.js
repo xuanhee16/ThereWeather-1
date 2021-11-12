@@ -18,13 +18,11 @@ module.exports = async (req, res) => {
         limit : 9 , 
         order :  [['createdAt', 'DESC']]
     })
-    .then(async currentPost => {
+    .then(async curtPost => {
         // console.log('currentPost 들어온 데이터 : ', currentPost);
 
         // 위도, 경도 주소변환
         // console.log('lat : ',lat , 'long : ', lon);
-        // let xLocation = lat
-        // let yLocation = lon
         const {level1, level2, level4L} = await getAddress(lat, lon)
         let address = `${level1} ${level2} ${level4L}`
         if(!level1 || !level2 || !level4L) {
@@ -32,13 +30,17 @@ module.exports = async (req, res) => {
         }
         console.log('address : ', address);
         
-        if(!currentPost){
+        if(!curtPost){
             res.status(422).send("post 없음")
         }else{
             res.status(202).send(
-                currentPost.map((el) => {return el.dataValues},
-                // address,    // 주소변환부분 (다시 확인)
-            ))
+                {
+                    curtPost: curtPost,
+                    address:address
+                }
+                // currentPost.map((el) => {return el.dataValues},
+                // {data: address},    // 주소변환부분 (다시 확인)
+            )
         }
     })
 }

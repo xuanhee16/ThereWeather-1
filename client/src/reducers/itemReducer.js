@@ -112,7 +112,6 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 mapPage: action.payload,
             }
-
         default:
             return state
     }

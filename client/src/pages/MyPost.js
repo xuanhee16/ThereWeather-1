@@ -8,13 +8,6 @@ import { userPosts, updatePostId } from "../actions/index"
 import GoBackButton from "../components/GoBackButton"
 import Pagination from "../components/Pagination"
 
-/*
-  [수정]
-  - 레이아웃
-  - 페이네이션 동작
-  - 주석 제거
-*/
-
 const Outer = styled.div`
   position: relative;
   background-color: var(--page-bg-color);
@@ -34,14 +27,6 @@ const Outer = styled.div`
   button{
     font-size: 1.5rem;
   }
-  // .paginationContainer {
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   width: 100%;
-  //   height: 100%;
-  //   padding-top: 1rem;
-  // }
 
   @media screen and (min-width: 1500px) {
     // 제일 큰 사이즈
@@ -232,17 +217,14 @@ export default function MyPost() {
       </div>
 
       <GridArea className="myPostList">
-
-        { /* 페이지네이션 적용 */
+        { /* 페이지 분할 및 적용 */
           slicedData(currentPosts).map((el) =>
           <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
             <PostImg src={el.post_photo} alt="posts"/>
           </div>)
         }
-
       </GridArea>
 
-      {/* 페이지네이션 테스트 */}
       <div className="paginationContainer">
         <Pagination
           dataLength={currentPosts.length}

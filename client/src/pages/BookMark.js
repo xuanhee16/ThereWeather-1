@@ -2,75 +2,118 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import styled from "styled-components"
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-// import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { Bookmark } from "../components/Heart";
-//import { updateCurrentPage, updateStartEndPage } from "../actions/index"
-import { UPDATE_CURRENT_PAGE, UPDATE_START_END_PAGE, updatePostId } from "../actions/index"
+import { updatePostId } from "../actions/index"
 import { useHistory } from "react-router"
+import { default as PaginationWithArrow } from "../components/Pagination"
+
+/*
+  [수정]
+  - 페이지네이션
+  - 주석 정리
+  - 레이아웃 정리
+  - 클릭이벤트
+  - import 주석 정리
+*/
 
 const Outer = styled.div`
+  // 데스크탑
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   background-color: var(--page-bg-color);
   width: 100vw;
   min-height: 100vh;
-  padding-top: 100px;
+  // padding-top: 100px;
 
   @media screen and (max-width: 1081px) {
-    padding-top: 3vh;
+    // 1081 이하일 때 // 모바일
+    // padding-top: 3vh;
   }
 `
 
 // 그리드
-const Container = styled.div` 
+const Container = styled.div`
   display: grid;
-  /* height: 83vh; */
-  gap: 3rem;
-  margin-left: 3vw;
-  margin-right: 3vw;
-  
   justify-content: center;
   align-items: center;
-  grid-template-rows: 3fr 3fr;
-  grid-template-columns: 5fr 5fr;
-  grid-template-areas: 
-  "div div"
-  "div div";
-  /* overflow: auto; */
+  gap: 3rem;
+  grid-template-columns: repeat(2, 40vw);
+  margin: 5rem;
+  // grid-template-rows: 3fr 3fr;
+  // grid-template-columns: 1fr 1fr;
+  // grid-template-areas: 
+  // "div div"
+  // "div div";
+  /* height: 83vh; */
   // (max-width: 600px)
+  // margin-left: 3vw;
+  // margin-right: 3vw;
+  /* overflow: auto; */
+
+  .BookMarkContainer{
+    gap: 0.2rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+  }
 
   @media (max-width: 1081px) {
+    margin: 3rem 2rem;
     gap: 2rem;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    /* grid-template-columns: 5fr; */
+    grid-template-columns: 80vw;
+    // grid-template-rows: 1fr 1fr 1fr 1fr;
+    // grid-template-columns: 1fr;
     grid-template-areas: 
-    "div"
-    ;
+    "div";
+  }
+
+  @media (max-width: 400px) {
+    margin: 1rem;
+    grid-auto-rows: 500px;
+    gap: 0;
+    .BookMarkContainer{
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
 
-const BookMarkContainer = styled.div`
-  background-color: rgba(255, 255, 255, 0.6);
-  display: flex;
-  gap: 0.1rem;
-  justify-content: space-around;
-  border: 1px solid #dbdbdb;
-  border-radius: 3px;
-`;
+// const BookMarkContainer = styled.div`
+//   background-color: rgba(255, 255, 255, 0.6);
+//   display: flex;
+//   gap: 0.1rem;
+//   justify-content: space-around;
+//   border: 1px solid #dbdbdb;
+//   border-radius: 3px;
+// `;
 // 게시물 사진
 const BookMarkPhoto = styled.div`
-  flex-basis: 30rem;
+  // flex-basis: 30rem;
+  .postItem {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+  }
   .postPicture{
     margin: 1rem 2rem 1rem 1rem;
     padding: 0;
-    border: solid 1px black;
     height: 25vh;
     align-items: center;
   }
   .postImg {
-    width: 100%;
-    height: 100%;
+    margin: .5rem;
+    width: 250px;
+    height: 250px;
   }
-
+  .postImg:hover {
+    transform: scale(1.05);
+    transition: .5s ease-in-out;
+  }
   @media screen and (max-width: 1081px) {
     .postPicture{
       height: 20vh;
@@ -84,12 +127,11 @@ const BookMarkPhoto = styled.div`
 `;
 // 00구,날짜,날씨이모티콘
 const BookMarkList = styled.div`
-  margin: 1rem;    
+  margin: 1rem;
   line-height: 3rem;
   flex-direction: column;
   flex-basis: 15rem;
   justify-content: flex-start;
-
   .postTitle {
     font-weight: bold;
     font-size: 2rem;
@@ -215,36 +257,32 @@ if (!url) url = "https://thereweather.space"
 export default function BookMark() { 
   const dispatch = useDispatch()
   const history = useHistory()
-  const { userInfo, readPostId } = useSelector((state) => state.itemReducer)
+  const { userInfo, readPostId, postInfo } = useSelector((state) => state.itemReducer)
   const [bookmarkList, setBookmarkList] = useState()
-  const [bookmarked, setBookmarked] = useState(false)
+
   console.log(userInfo)
   console.log(readPostId)
+  console.log(postInfo)
   const postId = Number(readPostId)
   console.log(postId)
-  //bookmark는 유저1이 저장해둔 포스트 목록이 나오게 
-  //일단 유저정보를 보내서, 그 유저가 북마크에 저장한 내용 싹 보여주기 
 
-  // axios.get(`${url}/readpost`, {
-  //   headers: { "Content-Type": "application/json" },
-  //   params: { id: postId },
-  //   withCredentials: true
-  // })
-  // .then (res => {
-  //   console.log(res.data);
-  //   return setPostData(prev => res.data);
-  //   // return res.data;
-  // })
-  // .catch (err => console.log(err));
-  
   useEffect(() => {
     axios({
-      url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
-      method: "get",
+      // url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
+      // url: url + `/bookmarklist?searchID=${userInfo.user_id}`,
+      // method: "get",
+      url: url + "/bookmarklist",
+      method: "post",
+      data: {
+        user_id: userInfo.id,
+        post_id: postId,
+        post_info: postInfo,
+      },
+      headers: {  "Content-Type": "application/json" },
       withCredentials: true,
     })
     .then((res) => {
-      console.log(res.data)
+      console.log('**res.data bookmarkList**', res.data);
       setBookmarkList(res.data)
     })
   },[])
@@ -263,117 +301,68 @@ export default function BookMark() {
     let elem = e.target;
     while(!elem.classList.contains("postItem")) {
         elem = elem.parentNode;
-        if(!elem.classList.contains("myPostList")) {
+        if(!elem.classList.contains("BookMarkContainer")) {
             break;
         }
     }
-  
+
     dispatch(updatePostId(elem.id));
     history.push({
-        pathname: '/postread',
+        // pathname: '/postread',
+        pathname: '/bookmarkpost',
         state: {postId: elem.id}
     });
   }
 
- 
-
-  // 페이지네이션
-  const state = useSelector(state => state.itemReducer);
-  const { start, end, current } = state; 
-
-  // const updateCurrentPages = dispatch(updateCurrentPage);
-  // const updateStartEndPages = dispatch(updateStartEndPage);
-  const updateCurrentPages = page => (dispatchs) => {
-    dispatch({ type: UPDATE_CURRENT_PAGE, payload: page })
+  // 시작 - 페이지네이션 변수들
+  const [ currentPage, setCurrentPage ] = useState(1);
+    // 1페이지로 시작
+  const itemsPerPage = 6;
+    // 한 페이지에 8개씩 보여준다
+  const lastIdx = currentPage * itemsPerPage;
+  const firstIdx = lastIdx - itemsPerPage;
+  const slicedData = (dataArr) => {
+    return dataArr.slice(firstIdx, lastIdx);
   }
-  const updateStartEndPages = (start, end) => (dispatchs) => {
-    dispatch({ type: UPDATE_START_END_PAGE, payload: { start, end } })
-  }
-
-  const per = 4
-  //테스트중 갯수 20개로 고정
-  const total = Math.ceil(20 / per)
-
-  const arr = []
-  for (let i = 0; i < total; i++) {
-      arr.push(i + 1)
-  }
+  // 끝 - 페이지네이션 변수들
   const target = arr.slice(start, end)
-
-  console.log(bookmarkList)
-
 
   return (
     <Outer>
-      {/* {bookmarkList !== undefined ?*/}
+      {/* {bookmarkList === [] ?
+      <Waring>"북마크가 없습니다."</Waring> : */}
       <Container>
-      {bookmarkList && bookmarkList.map((el, idx) => {
+      {bookmarkList && bookmarkList.map((el) => {
+      {/* {bookmarkList && slicedData(bookmarkList).map((el) => { */}
         return (
-          <BookMarkContainer>
+          <div className="BookMarkContainer" key={el.id}>
             <BookMarkPhoto>
-            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.idx}>
-            <img className="postImg" src={el.post_photo} alt="posts" />
+            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
+              <img className="postImg" key={el.id} src={el.post_photo} alt="posts" />
             </div>
             </BookMarkPhoto>
             <BookMarkList>
-              <div className="postDate" key={el.id}>{formatDate(el.createdAt)}</div>
-              <div className="postWeather sky" key={el.id}>{el.weather}</div>
-              <div className="postWeather wind" key={el.id}>{el.wind}</div>
-              <div className="postWeather temp" key={el.id}>{el.temp}</div>
+              <div className="test" key={el.id}>
+              <p className="postDate">{formatDate(el.createdAt)}</p>
+              <p className="postWeather sky"> {el.weather} </p>
+              <p className="postWeather wind">{el.wind} </p>
+              <p className="postWeather temp">{el.temp} </p>
+              </div>
             </BookMarkList>
-            {/* <BookMarkIcon bookmarkHandler={bookmarkHandler}
-            color={bookmarked ? '#aaa' :'#ED4956'} >
-            </BookMarkIcon> */}
-          </BookMarkContainer>
+          </div>
         )
       })}
       </Container>
       {/* : <Waring>"북마크가 없습니다."</Waring>} */}
 
-      <Pagination>
-        <PrevPage>
-          <li className="prevPage">
-            <button className="previousPages" onClick={() => {
-              if(current === 1) return alert('첫번째 페이지입니다')
-              if(current % 10 === 1) {
-                const s = start - 10;
-                const e = end - 10;
-                updateStartEndPages(s, e);
-              }
-              updateCurrentPages(current - 1);
-            }}>
-              이전
-            </button>
-          </li>
-        </PrevPage>
-
-        <PageNumber>
-        {target.map(el => (
-          <li className="pageNum" key={el}>
-            <button className="pageNumbers" onClick={() => {updateCurrentPages(el)}}>
-              {el}
-            </button>
-          </li>
-        ))}
-        </PageNumber>
-        
-        <NextPage>
-        <li className="nexPage">
-            <button className="nextPages" onClick={() =>{
-              if(current % 10 === 1) {
-                const s = start - 10;
-                const e = end - 10;
-                updateStartEndPages(s, e);
-              }
-              updateCurrentPages(current + 1);
-            }}>
-              다음
-            </button>
-          </li>
-        </NextPage>
-      </Pagination>
+      {/* 시작 - 페이지네이션 새로 추가 */}
+      <PaginationWithArrow
+        // dataLength={bookmarkList.length} // 본래
+        dataLength={6} // 테스트용
+        itemsPerPage={8}
+        numberButtonClickHandler={setCurrentPage}
+      />
+      {/* 끝 - 페이지네이션 새로 추가 */}
     </Outer>
   )
-
-
 }

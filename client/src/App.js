@@ -17,6 +17,7 @@ import SignUp from "./pages/SignUp"
 import MyPost from "./pages/MyPost"
 import Write from "./pages/Write"
 import PostRead from "./pages/PostRead"
+import ReadBookMarkPost from "./pages/ReadBookMarkPost"
 import PostEdit from "./pages/PostEdit"
 import FirstPage from "./pages/FirstPage"
 import Messenger from "./pages/Messenger"
@@ -104,6 +105,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/postread">
                     <PostRead></PostRead>
+                </Route>
+                <Route exact path="/bookmarkpost">
+                    <ReadBookMarkPost></ReadBookMarkPost>
                 </Route>
                 <Route exact path="/postedit">
                     <PostEdit></PostEdit>
