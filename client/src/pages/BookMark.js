@@ -11,51 +11,77 @@ import { updatePostId } from "../actions/index"
 import { useHistory } from "react-router"
 import { default as PaginationWithArrow } from "../components/Pagination"
 
+/*
+  [수정]
+  - 페이지네이션
+  - 주석 정리
+  - TODO 레이아웃 정리
+*/
+
 const Outer = styled.div`
+  // 데스크탑
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   background-color: var(--page-bg-color);
   width: 100vw;
   min-height: 100vh;
-  padding-top: 100px;
+  // padding-top: 100px;
 
   @media screen and (max-width: 1081px) {
-    padding-top: 3vh;
+    // 1081 이하일 때 // 모바일
+    // padding-top: 3vh;
   }
 `
 
 // 그리드
-const Container = styled.div` 
+const Container = styled.div`
   display: grid;
-  /* height: 83vh; */
-  gap: 3rem;
-  margin-left: 3vw;
-  margin-right: 3vw;
-  
   justify-content: center;
   align-items: center;
-  grid-template-rows: 3fr 3fr;
-  grid-template-columns: 5fr 5fr;
-  grid-template-areas: 
-  "div div"
-  "div div";
-  /* overflow: auto; */
+  gap: 3rem;
+  grid-template-columns: repeat(2, 40vw);
+  margin: 5rem;
+  // grid-template-rows: 3fr 3fr;
+  // grid-template-columns: 1fr 1fr;
+  // grid-template-areas: 
+  // "div div"
+  // "div div";
+  /* height: 83vh; */
   // (max-width: 600px)
+  // margin-left: 3vw;
+  // margin-right: 3vw;
+  /* overflow: auto; */
+
   .BookMarkContainer{
+    border: 1px solid #dbdbdb;
     background-color: rgba(255, 255, 255, 0.6);
     display: flex;
     gap: 0.1rem;
     justify-content: space-around;
-    border: 1px solid #dbdbdb;
     border-radius: 3px;
   }
 
   @media (max-width: 1081px) {
-    // 1081 이하일 때
+    margin: 3rem 2rem;
     gap: 2rem;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    /* grid-template-columns: 5fr; */
+    grid-template-columns: 80vw;
+    // grid-template-rows: 1fr 1fr 1fr 1fr;
+    // grid-template-columns: 1fr;
     grid-template-areas: 
-    "div"
-    ;
+    "div";
+  }
+
+  @media (max-width: 400px) {
+    margin: 1rem;
+    grid-auto-rows: 500px;
+    gap: 0;
+    .BookMarkContainer{
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
 
@@ -69,17 +95,22 @@ const Container = styled.div`
 // `;
 // 게시물 사진
 const BookMarkPhoto = styled.div`
-  flex-basis: 30rem;
+  // flex-basis: 30rem;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+
   .postPicture{
     margin: 1rem 2rem 1rem 1rem;
     padding: 0;
-    border: solid 1px black;
+    // border: solid 1px black;
     height: 25vh;
     align-items: center;
   }
   .postImg {
-    width: 100%;
-    height: 100%;
+    margin: .5rem;
+    width: 250px;
+    height: 250px;
   }
 
   @media screen and (max-width: 1081px) {
