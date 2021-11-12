@@ -213,7 +213,8 @@ if (!url) url = "https://thereweather.space"
 export default function Header({ isInput, isMobileLogo, isText }) {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { isLogin } = useSelector((state) => state.itemReducer)
+    const { isLogin, mapPage } = useSelector((state) => state.itemReducer)
+    console.log(mapPage)
     const [searchEvent, setSearchEvent] = useState("")
     //검색창에 사용할 포커스변수-hoon
     const [onFocus, setOnFocus] = useState(false)
@@ -287,9 +288,10 @@ export default function Header({ isInput, isMobileLogo, isText }) {
                                 </Cancel>
                             ) : (
                                 <FontAwesomeIcon
-                                    onClick={() =>
+                                    onClick={() => {
                                         dispatch(changeSearchword(searchEvent))
-                                    }
+                                        history.push("/map")
+                                    }}
                                     icon={faSearch}
                                 />
                             )}
@@ -308,52 +310,64 @@ export default function Header({ isInput, isMobileLogo, isText }) {
                     ) : (
                         <></>
                     )}
-                    <Buttons className="headerButtons">
-                        <Button
-                            onClick={() => {
-                                if (weatherFilter === "sunny") {
-                                    return setweatherFilter("")
+                    {mapPage.mapPage ? (
+                        <Buttons className="headerButtons">
+                            <Button
+                                onClick={() => {
+                                    if (weatherFilter === "sunny") {
+                                        return setweatherFilter("")
+                                    }
+                                    return setweatherFilter("sunny")
+                                }}
+                                isText={
+                                    weatherFilter === "sunny" ? true : false
                                 }
-                                return setweatherFilter("sunny")
-                            }}
-                            isText={weatherFilter === "sunny" ? true : false}
-                        >
-                            <FontAwesomeIcon icon={faSun} />
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                if (weatherFilter === "cloudy") {
-                                    return setweatherFilter("")
+                            >
+                                <FontAwesomeIcon icon={faSun} />
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    if (weatherFilter === "cloudy") {
+                                        return setweatherFilter("")
+                                    }
+                                    return setweatherFilter("cloudy")
+                                }}
+                                isText={
+                                    weatherFilter === "cloudy" ? true : false
                                 }
-                                return setweatherFilter("cloudy")
-                            }}
-                            isText={weatherFilter === "cloudy" ? true : false}
-                        >
-                            <FontAwesomeIcon icon={faCloud} />
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                if (weatherFilter === "rainy") {
-                                    return setweatherFilter("")
+                            >
+                                <FontAwesomeIcon icon={faCloud} />
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    if (weatherFilter === "rainy") {
+                                        return setweatherFilter("")
+                                    }
+                                    return setweatherFilter("rainy")
+                                }}
+                                isText={
+                                    weatherFilter === "rainy" ? true : false
                                 }
-                                return setweatherFilter("rainy")
-                            }}
-                            isText={weatherFilter === "rainy" ? true : false}
-                        >
-                            <FontAwesomeIcon icon={faCloudRain} />
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                if (weatherFilter === "snowy") {
-                                    return setweatherFilter("")
+                            >
+                                <FontAwesomeIcon icon={faCloudRain} />
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    if (weatherFilter === "snowy") {
+                                        return setweatherFilter("")
+                                    }
+                                    return setweatherFilter("snowy")
+                                }}
+                                isText={
+                                    weatherFilter === "snowy" ? true : false
                                 }
-                                return setweatherFilter("snowy")
-                            }}
-                            isText={weatherFilter === "snowy" ? true : false}
-                        >
-                            <FontAwesomeIcon icon={faSnowflake} />
-                        </Button>
-                    </Buttons>
+                            >
+                                <FontAwesomeIcon icon={faSnowflake} />
+                            </Button>
+                        </Buttons>
+                    ) : (
+                        <div></div>
+                    )}
                 </Center>
             ) : (
                 <Center className="headerCenter" />

@@ -5,7 +5,7 @@ import ModalConfirm from "../components/ModalConfirm"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
-import GoBackButton from  "../components/GoBackButton";
+import GoBackButton from "../components/GoBackButton"
 
 /*
     [수정]
@@ -227,22 +227,23 @@ const GridArea = styled.div`
         }
     }
 `
-const url = process.env.REACT_APP_LOCAL_URL
+let url = process.env.REACT_APP_LOCAL_URL
+if (!url) {
+    url = "https://thereweather.space"
+}
 
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { isLogin, userInfo, postInfo, readPostId } = useSelector((state) => state.itemReducer)
-    console.log(userInfo) //정보잘넘어옴 
+    const { isLogin, userInfo, postInfo, readPostId } = useSelector(
+        (state) => state.itemReducer
+    )
+    console.log(userInfo) //정보잘넘어옴
     console.log(postInfo.postinfo)
     console.log(readPostId)
 
-
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [removeUser, setremoveUser] = useState(false)
-    if (!url) {
-        url = "https://thereweather.space"
-    }
 
     const [currentPosts, setcurrentPosts] = useState([])
 
@@ -255,9 +256,8 @@ export default function MyPage() {
         }).then((res) => {
             setcurrentPosts(res.data)
             dispatch(userPosts(res.data))
-        }) 
+        })
     }, [])
-
 
     // 정보수정
     const changeUserInfo = () => {
@@ -295,19 +295,19 @@ export default function MyPage() {
 
     // 게시물 클릭했을 때
     const postClickHandler = (e) => {
-        let elem = e.target;
-        while(!elem.classList.contains("postItem")) {
-            elem = elem.parentNode;
-            if(!elem.classList.contains("myPagePostList")) {
-                break;
+        let elem = e.target
+        while (!elem.classList.contains("postItem")) {
+            elem = elem.parentNode
+            if (!elem.classList.contains("myPagePostList")) {
+                break
             }
         }
 
-        dispatch(updatePostId(elem.id));
+        dispatch(updatePostId(elem.id))
         history.push({
-            pathname: '/postread',
-            state: {postId: elem.id}
-        });
+            pathname: "/postread",
+            state: { postId: elem.id },
+        })
     }
 
     // 더보기
@@ -322,9 +322,13 @@ export default function MyPage() {
                 <ProfileImg src={userInfo.user_Photo} />
                 <div className="mediaBox">
                     <p id="user-name">{userInfo.user_id}</p>
-                    <p id="user-gender">{userInfo.gender === 1 ? "남성" : "여성"}</p>
+                    <p id="user-gender">
+                        {userInfo.gender === 1 ? "남성" : "여성"}
+                    </p>
                     <p id="user-location">나의 위치 : {userInfo.location}</p>
-                    <p id="user-changeInfo" onClick={changeUserInfo}>정보수정</p>
+                    <p id="user-changeInfo" onClick={changeUserInfo}>
+                        정보수정
+                    </p>
                 </div>
                 <ButtonArea>
                     <button onClick={() => history.push("/editpassword")}>
@@ -361,7 +365,16 @@ export default function MyPage() {
                 <div className="item more">
                     <p>내가 쓴 예보</p>
                 </div>
-                {currentPosts.map((el) => <div className={["item", "postItem"]} id={el.id} onClick={postClickHandler} key={el.id}><img src={el.post_photo} alt="posts" /></div>)}
+                {currentPosts.map((el) => (
+                    <div
+                        className={["item", "postItem"]}
+                        id={el.id}
+                        onClick={postClickHandler}
+                        key={el.id}
+                    >
+                        <img src={el.post_photo} alt="posts" />
+                    </div>
+                ))}
                 <button className="moreView" onClick={moreViewHandler}>
                     더 보기
                 </button>
