@@ -241,7 +241,7 @@ const RightContainer = styled.div`
     grid-template-areas:
       "nav"
       "main";
-  }
+  
   .userPost {
     text-align: center;
   }
@@ -253,7 +253,7 @@ const RightContainer = styled.div`
     margin: 0 auto;
     width: 100%;
   }
-`;
+}`;
 
 
 // '00구 주민예보글'
