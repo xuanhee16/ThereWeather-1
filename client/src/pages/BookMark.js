@@ -37,6 +37,14 @@ const Container = styled.div`
   "div div";
   /* overflow: auto; */
   // (max-width: 600px)
+  .BookMarkContainer{
+    background-color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    gap: 0.1rem;
+    justify-content: space-around;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+  }
 
   @media (max-width: 1081px) {
     gap: 2rem;
@@ -48,14 +56,14 @@ const Container = styled.div`
   }
 `;
 
-const BookMarkContainer = styled.div`
-  background-color: rgba(255, 255, 255, 0.6);
-  display: flex;
-  gap: 0.1rem;
-  justify-content: space-around;
-  border: 1px solid #dbdbdb;
-  border-radius: 3px;
-`;
+// const BookMarkContainer = styled.div`
+//   background-color: rgba(255, 255, 255, 0.6);
+//   display: flex;
+//   gap: 0.1rem;
+//   justify-content: space-around;
+//   border: 1px solid #dbdbdb;
+//   border-radius: 3px;
+// `;
 // 게시물 사진
 const BookMarkPhoto = styled.div`
   flex-basis: 30rem;
@@ -215,32 +223,31 @@ if (!url) url = "https://thereweather.space"
 export default function BookMark() { 
   const dispatch = useDispatch()
   const history = useHistory()
-  const { userInfo, readPostId } = useSelector((state) => state.itemReducer)
+  const { userInfo, readPostId, postInfo } = useSelector((state) => state.itemReducer)
   const [bookmarkList, setBookmarkList] = useState()
   const [bookmarked, setBookmarked] = useState(false)
   console.log(userInfo)
   console.log(readPostId)
+  console.log(postInfo)
   const postId = Number(readPostId)
   console.log(postId)
   //bookmark는 유저1이 저장해둔 포스트 목록이 나오게 
   //일단 유저정보를 보내서, 그 유저가 북마크에 저장한 내용 싹 보여주기 
 
-  // axios.get(`${url}/readpost`, {
-  //   headers: { "Content-Type": "application/json" },
-  //   params: { id: postId },
-  //   withCredentials: true
-  // })
-  // .then (res => {
-  //   console.log(res.data);
-  //   return setPostData(prev => res.data);
-  //   // return res.data;
-  // })
-  // .catch (err => console.log(err));
   
   useEffect(() => {
     axios({
-      url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
-      method: "get",
+      // url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
+      // url: url + `/bookmarklist?searchID=${userInfo.user_id}`,
+      // method: "get",
+      url: url + "/bookmarklist",
+      method: "post",
+      data: {
+        user_id: userInfo.id,
+        post_id: postId,
+        post_info: postInfo,
+      },
+      headers: {  "Content-Type": "application/json" },
       withCredentials: true,
     })
     .then((res) => {
@@ -305,30 +312,31 @@ export default function BookMark() {
 
   return (
     <Outer>
-      {/* {bookmarkList !== undefined ?*/}
+      {/* {bookmarkList === [] ?
+      <Waring>"북마크가 없습니다."</Waring> : */}
       <Container>
-      {bookmarkList && bookmarkList.map((el, idx) => {
+      {bookmarkList && bookmarkList.map((el) => {
         return (
-          <BookMarkContainer>
+          <div className="BookMarkContainer" key={el.id}>
             <BookMarkPhoto>
-            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.idx}>
-            <img className="postImg" src={el.post_photo} alt="posts" />
-            </div>
+            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.id}>
+              <img className="postImg" key={el.id} src={el.post_photo} alt="posts" />
+            </div> 
             </BookMarkPhoto>
             <BookMarkList>
-              <div className="postDate" key={el.id}>{formatDate(el.createdAt)}</div>
-              <div className="postWeather sky" key={el.id}>{el.weather}</div>
-              <div className="postWeather wind" key={el.id}>{el.wind}</div>
-              <div className="postWeather temp" key={el.id}>{el.temp}</div>
+              <div className="test" key={el.id}>
+              <p className="postDate">{formatDate(el.createdAt)}</p>
+              <p className="postWeather sky"> {el.weather} </p>
+              <p className="postWeather wind">{el.wind} </p>
+              <p className="postWeather temp">{el.temp} </p>
+              </div>
             </BookMarkList>
-            {/* <BookMarkIcon bookmarkHandler={bookmarkHandler}
-            color={bookmarked ? '#aaa' :'#ED4956'} >
-            </BookMarkIcon> */}
-          </BookMarkContainer>
+          </div>
         )
       })}
       </Container>
       {/* : <Waring>"북마크가 없습니다."</Waring>} */}
+      
 
       <Pagination>
         <PrevPage>
