@@ -311,15 +311,15 @@ export default function BookMark() {
         return (
           <BookMarkContainer>
             <BookMarkPhoto>
-            <div className={["postItem"]} id={el.id} onClick={postClickHandler} key={el.idx}>
+            <div className={["postItem"]} id={el.idx} onClick={postClickHandler} key={el.idx}>
             <img className="postImg" src={el.post_photo} alt="posts" />
             </div>
             </BookMarkPhoto>
             <BookMarkList>
-              <div className="postDate" key={el.id}>{formatDate(el.createdAt)}</div>
-              <div className="postWeather sky" key={el.id}>{el.weather}</div>
-              <div className="postWeather wind" key={el.id}>{el.wind}</div>
-              <div className="postWeather temp" key={el.id}>{el.temp}</div>
+              <div className="postDate" key={el.idx}>{formatDate(el.createdAt)}</div>
+              <div className="postWeather sky" key={el.idx}>{el.weather}</div>
+              <div className="postWeather wind" key={el.idx}>{el.wind}</div>
+              <div className="postWeather temp" key={el.idx}>{el.temp}</div>
             </BookMarkList>
             {/* <BookMarkIcon bookmarkHandler={bookmarkHandler}
             color={bookmarked ? '#aaa' :'#ED4956'} >
