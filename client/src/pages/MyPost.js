@@ -155,7 +155,7 @@ const Page = styled.div`
       }
     }
 `
-const url = process.env.REACT_APP_LOCAL_URL
+let url = process.env.REACT_APP_LOCAL_URL
 
 export default function MyPost() {
   const dispatch = useDispatch()
