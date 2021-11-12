@@ -95,9 +95,10 @@ const WriteText = styled.div`
     height: ${(props) => (props.small ? "3rem" : "5vh")};
     text-align: center;
     vertical-align: center;
-    /* line-height: 1.2rem; */
+    line-height: 1.2rem;
     font-size: 1.2rem;
     /* margin: 2rem 1rem 4rem; */
+    margin: 1.5rem;
     padding: 1rem;
 
     @media screen and (min-width: 1081px) {

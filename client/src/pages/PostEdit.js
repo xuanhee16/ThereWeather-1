@@ -339,17 +339,10 @@ export default function Write() {
     // 등록버튼 이벤트
     const submitButtonHandler = (e) => {
         console.log("등록버튼 동작 확인")
-        // TODO
-        // axios.post
-        // 페이지 이동 : '글 읽기' 페이지로?
-        //console.log(userInfo.user_id)
-        const token = JSON.parse(localStorage.getItem("ATOKEN"))
+
         axios({
             url: url + "/editpost",
             method: "put",
-            // headers: { 
-            //     "Content-Type": "application/json",
-            //     "Authorization": `token ${token}` },
             data: {
                 user_id: userInfo.user_id, //현재접속한 유저 
                 post_id: postId, //현재 유저가 보고있는 포스트번호 
@@ -368,7 +361,8 @@ export default function Write() {
         })
         .then((res) => {
             console.log(res.data)
-            alert("수정 완료")
+            // alert("수정 완료")
+            alert(res.data)
             //setTitle(res.dat)
             history.push("/mypage")
         })
