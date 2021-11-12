@@ -15,6 +15,7 @@ import {
     CHANGE_MAP_PAGE,
     CHANGE_CURROOM,
     CHANGE_NEWMSGSECTION,
+    POST_INFO
 } from "../actions/index"
 import { initialState } from "./initialState"
 
@@ -112,7 +113,11 @@ const itemReducer = (state = initialState, action) => {
                 ...state,
                 mapPage: action.payload,
             }
-
+        case POST_INFO: 
+            return {
+                ...state,
+                page: action.payload,
+            }
         default:
             return state
     }

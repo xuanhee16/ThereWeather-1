@@ -3,7 +3,6 @@ import React,{ useState, useEffect } from "react"
 import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
-//import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 
 const Outer = styled.div`
     overflow: scroll;
@@ -210,16 +209,18 @@ let url = process.env.REACT_APP_LOCAL_URL
 export default function Write() {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { userInfo, curLocation, postInfo, readPostId } = useSelector((state) => state.itemReducer)
+    const { userInfo, curLocation, postInfo, readPostId, pagePostInfo} = useSelector((state) => state.itemReducer)
     console.log(userInfo)
     console.log(postInfo)
     console.log(readPostId)
+    console.log(pagePostInfo)
   
     const [selectWeather, setSelectWeather] = useState()
     const [selectWind, setSelectWind] = useState()
     const [selectTemp, setSelectTemp] = useState()
     const [photo, setPhoto] = useState("")
     const [postId, setPostId] = useState(readPostId)
+    console.log(postId)
     // const [uploadedImg, setUploadedImg] = useState({
     //     fileName: "blankPost.png",
     //     filePath: `${url}/img/blankPost.png`,
@@ -239,11 +240,11 @@ export default function Write() {
     const titleInputHandler = (e) => {
         setTitle((prev) => e.target.value)
     }
-    useEffect(() => {
-      console.log(userInfo.user_id)
-      // setTitle()
+    // useEffect(() => {
+    //   console.log(userInfo.user_id)
+    //   // setTitle()
 
-    }, [])
+    // }, [])
 
     // 날씨 버튼
     const weathers = [
@@ -342,12 +343,16 @@ export default function Write() {
         // axios.post
         // 페이지 이동 : '글 읽기' 페이지로?
         //console.log(userInfo.user_id)
+        const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios({
             url: url + "/editpost",
             method: "put",
+            // headers: { 
+            //     "Content-Type": "application/json",
+            //     "Authorization": `token ${token}` },
             data: {
-                user_id: userInfo.user_id,
-                post_id: postId, //추가 
+                user_id: userInfo.user_id, //현재접속한 유저 
+                post_id: postId, //현재 유저가 보고있는 포스트번호 
                 post_photo: uploadedImg.filePath,
                 post_title: title,
                 post_content: postText,

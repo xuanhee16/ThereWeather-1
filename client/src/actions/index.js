@@ -18,6 +18,7 @@ export const CHANGE_WHEATER_FILTER = "CHANGE_WHEATER_FILTER"
 export const CHANGE_MAP_PAGE = "CHANGE_MAP_PAGE"
 export const CHANGE_CURROOM = "CHANGE_CURROOM"
 export const CHANGE_NEWMSGSECTION = "CHANGE_NEWMSGSECTION"
+export const POST_INFO = "POST_INFO"
 
 // actions creator functions
 
@@ -150,5 +151,14 @@ export const changeMapPage = (mapPage) => {
         payload: {
             mapPage: mapPage,
         },
+    }
+}
+
+export const pagePostInfo = (page) => {
+    return {
+        type: POST_INFO,
+        payload: {
+            page: page
+        }
     }
 }
