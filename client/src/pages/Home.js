@@ -528,10 +528,10 @@ export default function Home() {
                           {/* {console.log(weatherData.item)}  */}
                           {/* weatherData -> {item: Array(30)}, weatherData.item -> [ baseDate: '20211106',baseTime: '2130',category: 'T1H', fcstDate: '20211107', fcstTime: '0300', fcstValue: '10', nx: 59, ny: 128, ... ] */}
                           {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] } */}
-                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>기준 예보시각: {info.baseTime}</li> })[0] }
-                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 기온: {info.fcstValue}℃</li> })[24] } {/* T1H */}
-                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } {/* WSD */}
-                          { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] } {/* PTY */}
+                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>기준 예보시각: {info.baseTime}</li> })[0] }
+                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 기온: {info.fcstValue}℃</li> })[24] } {/* T1H */}
+                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } {/* WSD */}
+                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] } {/* PTY */}
                         </ul> 
                         </div>
                     </LeftNav2>
