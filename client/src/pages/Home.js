@@ -472,6 +472,7 @@ export default function Home() {
     console.log('currentTemp : ', currentTemp);
     console.log('currentWind : ', currentWind);
     console.log('currentWeather : ', currentWeather);
+    console.log('outer : ', currentOuter);  // 안나옴
   })
 
   // 게시물 사진 클릭
