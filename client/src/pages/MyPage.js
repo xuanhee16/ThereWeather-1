@@ -249,6 +249,8 @@ export default function MyPage() {
 
     const [currentPosts, setcurrentPosts] = useState([])
 
+  
+    const [ noIdWarning, setNoIdWarning ] = useState('');
     // 게시물 데이터 조회
     useEffect(() => {
         axios({
@@ -260,6 +262,7 @@ export default function MyPage() {
             dispatch(userPosts(res.data))
         })
     }, [])
+
 
     // 정보수정
     const changeUserInfo = () => {
