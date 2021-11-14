@@ -6,17 +6,27 @@ const aqiUrl = require("../../config/url")
 module.exports = async (req, res) => {
     console.log("map.js 서버")
 
+    // function getCurrentDate() {
+    //     //'20211102' 형식
+    //     let date = new Date()
+    //     let year = date.getFullYear().toString()
+    //     let month = date.getMonth() + 1
+    //     month = month < 10 ? "0" + month.toString() : month.toString()
+    //     let day = date.getDate()
+    //     day = day < 10 ? "0" + day.toString() : day.toString()
+    //     return year + month + day
+    // }
+    
     function getCurrentDate() {
         //'20211102' 형식
-        let date = new Date()
-        let year = date.getFullYear().toString()
-        let month = date.getMonth() + 1
-        month = month < 10 ? "0" + month.toString() : month.toString()
-        let day = date.getDate()
-        day = day < 10 ? "0" + day.toString() : day.toString()
-        return year + month + day
+        const KR_TIME_DIFF = 9 * 60 * 60 * 1000
+        let month = new Date().getMonth() + 1
+        let curHour = new Date() + KR_TIME_DIFF
+        let hourMin = Number(
+            curHour.split(" ")[3] + month + curHour.split(" ")[2]
+        )
+        return String(hourMin)
     }
-
    
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
     // function getFormatTime() {
@@ -25,12 +35,16 @@ module.exports = async (req, res) => {
     //     hour = hour >= 10 ? hour : "0" + hour
     //     return hour + "" + "30"
     // }
+
+
     function getFormatTime() {
         const KR_TIME_DIFF = 9 * 60 * 60 * 1000
         const curHour = new Date() + KR_TIME_DIFF
         let hour = curHour.split(" ")[4].slice(0,2)
         return hour + "" + "30"
     }
+ 
+
 
     const { lat, lon } = req.body
     const toXYconvert = toXY(lat, lon)
