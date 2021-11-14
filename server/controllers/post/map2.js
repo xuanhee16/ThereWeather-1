@@ -10,14 +10,23 @@ module.exports = async (req, res) => {
 
     function getCurrentDate() {
         //'20211102' 형식
-        let date = new Date()
-        let year = date.getFullYear().toString()
-        let month = date.getMonth() + 1
-        month = month < 10 ? "0" + month.toString() : month.toString()
-        let day = date.getDate()
-        day = day < 10 ? "0" + day.toString() : day.toString()
-        return year + month + day
+        const KR_TIME_DIFF = 9 * 60 * 60 * 1000
+        let month = new Date().getMonth() + 1
+        let curHour = new Date() + KR_TIME_DIFF
+        let hourMin = Number(
+            curHour.split(" ")[3] + month + curHour.split(" ")[2]
+        )
+        return hourMin
+        // let year = date.getFullYear().toString()
+        // let date = new Date()
+        // let year = date.getFullYear().toString()
+        // let month = date.getMonth() + 1
+        // month = month < 10 ? "0" + month.toString() : month.toString()
+        // let day = date.getDate()
+        // day = day < 10 ? "0" + day.toString() : day.toString()
+        // return year + month + day
     }
+    console.log("getCurrentDate()==" + getCurrentDate())
 
     // //단기예보시간 - 예보시간은 각 3시간분
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
@@ -35,20 +44,27 @@ module.exports = async (req, res) => {
         //원래는 시간-숫자 체계를 고려하여 15분정도를 빼야했으나,기상청 데이터의 불안정성으로 2시간정도를 빼기로함.
 
         //시간이 02시 이후 일경우
-        if (hourMin - 200 > 200) return hourMin - 200
+        console.log("sssssssssss" + hourMin)
+        if (hourMin > 600) {
+            hourMin = hourMin - 300
+            console.log(hourMin)
+        }
         // //시간이 02시가 지나지 않았을경우 전날 마지막예보를 사용해야함
         else {
-            beforeDate = -1
+            beforeDate = 1
             hourMin = 2300
-            return hourMin
         }
+        console.log("hourMin=" + hourMin)
+        console.log(typeof hourMin)
+        return hourMin
     }
+    console.log("beforeDate=" + beforeDate)
+    console.log("newDate=" + new Date())
 
     const toXYconvert = toXY(lat, lon)
     const url = aqiUrl.shortForecastUrl
     const ServiceKey = decodeURIComponent(serviceKey.publicPortalkey)
     // console.log(toXYconvert.lat)
-    console.log(typeof hourMin)
     axios
         .get(url, {
             params: {
@@ -56,19 +72,22 @@ module.exports = async (req, res) => {
                 numOfRows: "14",
                 pageNo: "1",
                 dataType: "JSON",
-                base_date: String(
-                    Number(getCurrentDate()) + Number(beforeDate)
-                ),
-                base_time: getFormatTime(),
+                base_time: Number(getFormatTime()),
+                base_date: Number(Number(getCurrentDate()) - beforeDate),
                 nx: toXYconvert.x,
                 ny: toXYconvert.y,
             },
         })
         .then((res2) => {
-            // console.log(res2.data)
+            console.log(res2.data)
             //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
             //에러코드 참고  -> https://www.nanumtip.com/qa/41692/
             //console.log(res2.data.response.body.items)
-            res.send(res2.data.response.body.items.item[7])
+            if (res2.data.response.header.resultCode === "03") {
+                console.log("데이터없음")
+                res.send("50")
+            } else {
+                res.send(res2.data.response.body.items.item[7])
+            }
         })
 }
