@@ -19,10 +19,16 @@ module.exports = async (req, res) => {
 
    
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
+    // function getFormatTime() {
+    //     let hourDate = new Date(Date.now() - 45 * 60 * 1000)
+    //     let hour = hourDate.getHours()
+    //     hour = hour >= 10 ? hour : "0" + hour
+    //     return hour + "" + "30"
+    // }
     function getFormatTime() {
-        let hourDate = new Date(Date.now() - 45 * 60 * 1000)
-        let hour = hourDate.getHours()
-        hour = hour >= 10 ? hour : "0" + hour
+        const KR_TIME_DIFF = 9 * 60 * 60 * 1000
+        const curHour = new Date() + KR_TIME_DIFF
+        let hour = curHour.split(" ")[4].slice(0,2)
         return hour + "" + "30"
     }
 
