@@ -39,7 +39,8 @@ module.exports = async (req, res) => {
         // //시간이 02시가 지나지 않았을경우 전날 마지막예보를 사용해야함
         else {
             beforeDate = -1
-            return (hourMin = 2300)
+            hourMin = 2300
+            return hourMin
         }
     }
 
@@ -55,7 +56,9 @@ module.exports = async (req, res) => {
                 numOfRows: "14",
                 pageNo: "1",
                 dataType: "JSON",
-                base_date: String(getCurrentDate() + beforeDate),
+                base_date: String(
+                    Number(getCurrentDate()) + Number(beforeDate)
+                ),
                 base_time: getFormatTime(),
                 nx: toXYconvert.x,
                 ny: toXYconvert.y,
