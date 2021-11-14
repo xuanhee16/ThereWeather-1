@@ -24,8 +24,8 @@ module.exports = {
         let randomCode = String(Math.random().toString(36).slice(2)) // 랜덤문자생성
 
         var smtpConfig = {
-            service: 'gmail',
-            host: 'smtp.gmail.com',
+            service: "gmail",
+            host: "smtp.gmail.com",
             port: 587,
             // host: process.env.EMAILHOST,
             // port: process.env.EMAILPORT,

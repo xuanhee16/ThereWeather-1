@@ -5,12 +5,14 @@ import { useSelector, useDispatch } from "react-redux"
 import { updateWeatherInfo, updatePostId } from "../actions/index"
 import TopButton from "../components/TopButton";
 import { useHistory } from "react-router-dom"
+import { nanoid } from 'nanoid';
 // import Loading from "./Loading";
 
 const HomeContainer = styled.div`
     display: flex;
     flex-direction: row;
     height: 100vh;
+    padding-bottom: 1vh;
     padding-right: 5vh;
     background-color: var(--page-bg-color);
     ul {
@@ -486,6 +488,7 @@ export default function Home() {
     })
   }
 
+
     return (
         <div className="homecontainer">
             {/* <Loading /> */}
@@ -522,16 +525,34 @@ export default function Home() {
                         </div>
                     </LeftNav1>
                     <LeftNav2>
+                    {/* <p>기상청 일기예보</p>
+                      { weatherData && weatherData.item.map((info, index) => {
+                        return (
+                          <div className="weatherInfo" key={index}>
+                           <ul>
+                            <li className="weathers date">날짜: {info.baseDate[0]}</li> 
+                            <li className="weathers time">기준 예보시각: {info.baseTime[0]}</li> 
+                           </ul>
+                          </div>
+
+                        )
+                      })} */}
                         <p>기상청 일기예보</p>
                         <div className="weatherInfo">
                         <ul>
                           {/* {console.log(weatherData.item)}  */}
                           {/* weatherData -> {item: Array(30)}, weatherData.item -> [ baseDate: '20211106',baseTime: '2130',category: 'T1H', fcstDate: '20211107', fcstTime: '0300', fcstValue: '10', nx: 59, ny: 128, ... ] */}
-                          {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] } */}
+                          {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] }
                           { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>기준 예보시각: {info.baseTime}</li> })[0] }
-                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 기온: {info.fcstValue}℃</li> })[24] } {/* T1H */}
-                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } {/* WSD */}
-                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] } {/* PTY */}
+                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 기온: {info.fcstValue}℃</li> })[24] } 
+                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } 
+                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] }  */}
+
+                          { weatherData && weatherData.item.map((info) => { return <li key={nanoid()}>날짜:{info.baseDate}</li> })[0] }
+                          { weatherData && weatherData.item.map((info) => { return <li key={nanoid()}>기준 예보시각: {info.baseTime}</li> })[0] }
+                          { weatherData && weatherData.item.map((info) => { return <li key={nanoid()}>현재위치 기온: {info.fcstValue}℃</li> })[24] } 
+                          { weatherData && weatherData.item.map((info) => { return <li key={nanoid()}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } 
+                          { weatherData && weatherData.item.map((info) => { return <li key={nanoid()}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] } 
                         </ul> 
                         </div>
                     </LeftNav2>
