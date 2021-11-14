@@ -74,6 +74,7 @@ module.exports = async (req, res) => {
             //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
             //에러코드 참고  -> https://www.nanumtip.com/qa/41692/
             //console.log(res2.data.response.body.items)
-            res.send(res2.data.response.body.items.item[7])
+            // res.send(res2.data.response.body.items.item[7])
+            res.send(res.data)
         })
 }
