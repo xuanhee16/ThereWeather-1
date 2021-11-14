@@ -526,7 +526,7 @@ export default function Location({ bottom }) {
                     withCredentials: true,
                 }).then((res) => {
                     console.log(res.data)
-                    // setweatherApi(res.data.fcstValue)
+                    setweatherApi(res.data.fcstValue)
                 })
             }, 1000)
             setisLoading(true)
