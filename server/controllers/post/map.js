@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
     //     day = day < 10 ? "0" + day.toString() : day.toString()
     //     return year + month + day
     // }
-    
+
     function getCurrentDate() {
         //'20211102' 형식
         const KR_TIME_DIFF = 9 * 60 * 60 * 1000
@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
         )
         return String(hourMin)
     }
-   
+
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
     // function getFormatTime() {
     //     let hourDate = new Date(Date.now() - 45 * 60 * 1000)
@@ -36,21 +36,18 @@ module.exports = async (req, res) => {
     //     return hour + "" + "30"
     // }
 
-
     function getFormatTime() {
         const KR_TIME_DIFF = 9 * 60 * 60 * 1000
         const curHour = new Date() + KR_TIME_DIFF
-        let hour = curHour.split(" ")[4].slice(0,2)
+        let hour = curHour.split(" ")[4].slice(0, 2)
         return hour + "" + "30"
     }
- 
-
 
     const { lat, lon } = req.body
     const toXYconvert = toXY(lat, lon)
     const url = aqiUrl.dataUrl
     const ServiceKey = decodeURIComponent(serviceKey.publicPortalkey)
-    
+
     axios
         .get(url, {
             params: {
@@ -58,18 +55,17 @@ module.exports = async (req, res) => {
                 numOfRows: "60",
                 pageNo: "1",
                 dataType: "JSON",
-                base_date: getCurrentDate(),
-                base_time: getFormatTime(),
+                base_date: "20211115",
+                base_time: "0249",
                 nx: toXYconvert.x,
                 ny: toXYconvert.y,
             },
         })
         .then((res2) => {
-
-           console.log(res2.data.response) 
-           //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
-           //에러코드 참고  -> https://www.nanumtip.com/qa/41692/ 
-           //console.log(res2.data.response.body.items)
-           res.send(res2.data.response.body.items)
+            console.log(res2.data.response)
+            //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
+            //에러코드 참고  -> https://www.nanumtip.com/qa/41692/
+            //console.log(res2.data.response.body.items)
+            res.send(res2.data.response.body.items)
         })
 }

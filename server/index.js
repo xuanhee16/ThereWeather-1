@@ -43,7 +43,7 @@ const upload = multer({
 
 //아래 내용 지우지말아주세요
 app.get("/2", (req, res) => {
-    res.send("Hello World!!22!222ss222")
+    res.send("Hello World!!22!222ss3222")
 })
 app.get("/", (req, res) => {
     res.send("Hello World!!ThereWeather!!!!")

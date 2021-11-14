@@ -39,14 +39,17 @@ module.exports = async (req, res) => {
         //현재시각과 9시를 더해서 한국시간을 만든다 -hoon
         const curHour = new Date() + KR_TIME_DIFF
         //pm 2시 49을 이런식으로 변경->1459
-        let hourMin = Number(curHour.split(" ")[4].slice(0, 5).replace(":", ""))
+        let hourMin = curHour.split(" ")[4].slice(0, 5).replace(":", "")
         //각 시각 정각에서 15분 사이일경우 15분을 빼줌(데이터가 2시,5시,8... 기상청 데이터가 정각에 들어오기 때문에 데이터 안정성을 위해서)
         //원래는 시간-숫자 체계를 고려하여 15분정도를 빼야했으나,기상청 데이터의 불안정성으로 2시간정도를 빼기로함.
 
         //시간이 02시 이후 일경우
-        console.log("sssssssssss" + hourMin)
-        if (hourMin > 600) {
-            hourMin = hourMin - 300
+        console.log("sssssssssss" + typeof hourMin)
+        if (Number(hourMin) > 600) {
+            hourMin = Number(hourMin) - 300
+            if (hourMin.length === 3) {
+                hourMin = "0" + String(hourMin)
+            }
             console.log(hourMin)
         }
         // //시간이 02시가 지나지 않았을경우 전날 마지막예보를 사용해야함
@@ -72,8 +75,8 @@ module.exports = async (req, res) => {
                 numOfRows: "14",
                 pageNo: "1",
                 dataType: "JSON",
-                base_time: Number(getFormatTime()),
-                base_date: Number(Number(getCurrentDate()) - beforeDate),
+                base_time: String(getFormatTime()),
+                base_date: String(Number(getCurrentDate()) - beforeDate),
                 nx: toXYconvert.x,
                 ny: toXYconvert.y,
             },
