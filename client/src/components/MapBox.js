@@ -525,6 +525,7 @@ export default function Location({ bottom }) {
                     },
                     withCredentials: true,
                 }).then((res) => {
+                    // console.log(res.data)
                     setweatherApi(res.data.fcstValue)
                 })
             }, 1000)
@@ -727,9 +728,7 @@ export default function Location({ bottom }) {
                             <LoadingSpinner size={"100%;"} />
                         </LoadingBoxDiv>
                     ) : (
-
                         <div className="mapModal">
-
                             <GraphTitleDiv>현재동네 날씨정보</GraphTitleDiv>
                             <GraphTitle>
                                 <GraphTitleDiv2>

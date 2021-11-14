@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
     //base_date base_date	발표일자	8	1	20210628	‘21년 6월 28일발표
     //base_time base_time	발표시각	4	1	0500	05시 발표
-
+    let beforeDate = 0
     function getFormatTime() {
         //9시간에 해당하는 양-hoon
         const KR_TIME_DIFF = 9 * 60 * 60 * 1000
@@ -32,20 +32,23 @@ module.exports = async (req, res) => {
         //pm 2시 49을 이런식으로 변경->1459
         let hourMin = Number(curHour.split(" ")[4].slice(0, 5).replace(":", ""))
         //각 시각 정각에서 15분 사이일경우 15분을 빼줌(데이터가 2시,5시,8... 기상청 데이터가 정각에 들어오기 때문에 데이터 안정성을 위해서)
-        if (
-            Number(String(hourMin)[2] + String(hourMin)[3]) >= 0 &&
-            Number(String(hourMin)[2] + String(hourMin)[3]) <= 13
-        ) {
-            hourMin = String(hourMin) - 55
+        //원래는 시간-숫자 체계를 고려하여 15분정도를 빼야했으나,기상청 데이터의 불안정성으로 2시간정도를 빼기로함.
+
+        //시간이 02시 이후 일경우
+        if (hourMin - 200 > 200) return hourMin - 200
+        // //시간이 02시가 지나지 않았을경우 전날 마지막예보를 사용해야함
+        else {
+            beforeDate = -1
+            hourMin = 2300
+            return hourMin
         }
-        console.log(hourMin)
-        return String(hourMin)
     }
 
     const toXYconvert = toXY(lat, lon)
     const url = aqiUrl.shortForecastUrl
     const ServiceKey = decodeURIComponent(serviceKey.publicPortalkey)
-    console.log(toXYconvert.lat)
+    // console.log(toXYconvert.lat)
+    console.log(typeof hourMin)
     axios
         .get(url, {
             params: {
@@ -53,7 +56,9 @@ module.exports = async (req, res) => {
                 numOfRows: "14",
                 pageNo: "1",
                 dataType: "JSON",
-                base_date: getCurrentDate(),
+                base_date: String(
+                    Number(getCurrentDate()) + Number(beforeDate)
+                ),
                 base_time: getFormatTime(),
                 nx: toXYconvert.x,
                 ny: toXYconvert.y,
@@ -64,12 +69,6 @@ module.exports = async (req, res) => {
             //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
             //에러코드 참고  -> https://www.nanumtip.com/qa/41692/
             //console.log(res2.data.response.body.items)
-            if (res2.data.response.header.resultCode) {
-                res.send({ fcstValue: 50 })
-            } else if (res2.data.response.header.resultCode === "03") {
-                res.send({ fcstValue: 50 })
-            } else {
-                res.send(res2.data.response.body.items.item[7])
-            }
+            res.send(res2.data.response.body.items.item[7])
         })
 }
