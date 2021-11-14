@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom"
 const HomeContainer = styled.div`
     display: flex;
     flex-direction: row;
-    height: 90vh;
+    height: 100vh;
     padding-right: 5vh;
     background-color: var(--page-bg-color);
     ul {
