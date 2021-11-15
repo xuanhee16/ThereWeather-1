@@ -264,19 +264,25 @@ const Post = styled.div`
 
 // 삭제, 수정 버튼
 const Buttons = styled.div`
-  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
   padding-bottom: 10vh;
 
   .button{
-    width: 5rem;
+    width: 7rem;
     height: 3rem;
-    border-radius: 5px;
-    background-color: var(--button-bg-normal);
+    border-radius: 1rem;
+    background-color: #FFBFCB;
     font-size: 1.2rem;
+    font-weight: bold;
   }
   .button2{
     margin-left: 5rem;
+  }
+  .button:hover {
+    background-color: #FF7F9F;
   }
   .button:before{
     height: 0%;
