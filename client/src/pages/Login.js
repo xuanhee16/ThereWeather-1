@@ -95,6 +95,10 @@ const LoginButton = styled.button`
     color: black;
     background-color: pink;
     border-radius: 1rem;
+    &:hover {
+        background-color: #FF7F9F;
+        color: white;
+    }
     > span {
         margin: 0.25rem;
     }
