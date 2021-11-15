@@ -63,6 +63,9 @@ const Button2 = styled.input`
     color: white;
     background-color: #FEC0CB;
 
+    &:hover {
+        background-color: #FF7F9F;
+    }
     > span {
         margin: 0.25rem;
     }
@@ -211,7 +214,9 @@ const Button3 = styled.button`
     color: white;
     background-color: #FEC0CB;
     border-radius: 1rem;
-
+    &:hover {
+        background-color: #FF7F9F;
+    }
     > span {
         margin: 0.25rem;
     }
