@@ -195,13 +195,16 @@ const Button3 = styled.button`
     transition: all 0.3s ease 0s;
     cursor: pointer;
     outline: none;
-}
 
     &:hover {
         background-color: pink;
         box-shadow: 0px 15px 20px #f7cac9;
         color: #fff;
     transform: translateY(-4px);
+
+    @media screen and (max-width: 1081px) { // 임시 추가
+        display: none;
+    }
 }
 `
 const Buttons3 = styled.button`
@@ -209,6 +212,10 @@ const Buttons3 = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 1081px) { // 임시 추가
+        display: none;
+    }
 `
 // const SearchBarAndDaumPost = styled.div`
 //     // display: flex;
