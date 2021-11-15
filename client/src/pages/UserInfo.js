@@ -48,9 +48,9 @@ const InfoBox = styled.div`
     }
 
     &:hover {
-        border: 1px solid #262626;
+        border: 1px solid #FEC0CB;
         p {
-            color: #262626;
+            color: #FEC0CB;
         }
     }
 
