@@ -72,6 +72,7 @@ const Title = styled.div`
     width: 70%;
   }
   @media screen and (max-width: 375px) {
+    width: 80%; // 추가
     span{
       font-size: 1.2rem;
     }
@@ -132,7 +133,12 @@ const Profile = styled.div`
     span{
       font-size: 0.5rem;
     }
+    span.date {
+      font-size: .5rem;
+      color: #707B7C;
+    }
     .location{
+      margin-top: 0;
       font-size: 0.5rem;
     }
   }

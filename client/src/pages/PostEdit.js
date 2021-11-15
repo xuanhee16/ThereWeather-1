@@ -54,7 +54,7 @@ const Button2 = styled.input`
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #2f6ecb;
+    background-color: #FEC0CB;
 
     > span {
         margin: 0.25rem;
@@ -202,7 +202,7 @@ const Button3 = styled.button`
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #2f6ecb;
+    background-color: #FEC0CB;
     border-radius: 1rem;
 
     > span {

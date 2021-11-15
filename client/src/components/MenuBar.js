@@ -43,15 +43,18 @@ const Buttons = styled.div`
         border-top: 1px solid #dbdbdb;
         border-left: 1px solid #dbdbdb;
         position: fiexd;
-
         width: 400px;
     }
+
 `
 
 const Button = styled.button`
     padding: 0.5rem;
     margin: 0.5rem;
     font-size: 2rem;
+    /* img:hover{
+        filter: opacity(0.5) drop-shadow(0 0 0 pink);
+    } */
 `
 
 export default function MenuBar() {

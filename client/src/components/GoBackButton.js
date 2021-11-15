@@ -17,7 +17,7 @@ const Button = styled.button`
     z-index:100;
     // border-radius: 50%;
     display: none;
-    padding: 1rem;
+    padding: 1rem 1rem 1rem .3rem;
 
     .fa-fw {
         font-size: 50px;
