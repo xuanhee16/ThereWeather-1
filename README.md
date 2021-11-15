@@ -1,7 +1,7 @@
 # ThereWeather
 
 ## LOGO
-![schema](https://cdn-icons-png.flaticon.com/128/2204/2204346.png)
+![LOGO](https://user-images.githubusercontent.com/72483407/141734266-3097d834-b49e-4444-a2bd-6a1a293c2464.png)
 
 ## About
 - 사용자 간의 사진 및 정보 공유를 통해 기상청의 부정확한 날씨 예보에 대비하는 어플리케이션.
