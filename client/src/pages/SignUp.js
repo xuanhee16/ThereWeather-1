@@ -122,7 +122,9 @@ const Button = styled.button`
     color: white;
     background-color: ${(props) => (props.google ? "#EA4335" : "pink")};
     border-radius: 1rem;
-
+    &:hover {
+        background-color: #FF7F9F;
+    }
     > span {
         margin: 0.25rem;
     }
@@ -144,9 +146,12 @@ const Button3 = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")};
+    /* background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")}; */
+    background-color: #FEC0CB;
     border-radius: 1rem;
-
+    &:hover {
+        background-color: #FF7F9F;
+    }
     > span {
         margin: 0.25rem;
     }
@@ -161,9 +166,12 @@ const Button2 = styled.input`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")};
+    /* background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")}; */
     border-radius: 1rem;
-
+    background-color: #FEC0CB;
+    &:hover {
+        background-color: #FF7F9F;
+    }
     > span {
         margin: 0.25rem;
     }

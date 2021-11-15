@@ -34,11 +34,18 @@ const Button = styled.button`
     align-items: center;
     border: 1px solid black;
     border-radius: ${(props) => (props.round ? "50%" : null)};
-    background-color: var(--button-bg-normal);
+    /* background-color: var(--button-bg-normal); */
+    background-color: #FEC0CB;
     font-size: 1.25rem;
     padding: ${(props) => (props.round ? ".5rem .5rem" : ".5rem 2rem")};
     margin: ${(props) => (props.round ? ".5rem" : "1rem")};
+    border: 0;
+    outline: 0;
+    color: white;
 
+    &:hover {
+        background-color: #FF7F9F;
+    }
     & > img {
         height: 1.5rem;
         width: 1.5rem;
@@ -56,6 +63,9 @@ const Button2 = styled.input`
     color: white;
     background-color: #FEC0CB;
 
+    &:hover {
+        background-color: #FF7F9F;
+    }
     > span {
         margin: 0.25rem;
     }
@@ -204,7 +214,9 @@ const Button3 = styled.button`
     color: white;
     background-color: #FEC0CB;
     border-radius: 1rem;
-
+    &:hover {
+        background-color: #FF7F9F;
+    }
     > span {
         margin: 0.25rem;
     }
