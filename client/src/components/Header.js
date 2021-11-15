@@ -309,7 +309,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
             <TitleAndLogo className="titleAndLogo" isMobileLogo={isMobileLogo}>
                 <img
                     onClick={() => history.push("/")}
-                    src="img/img4.png"
+                    src="img/LOGO.png"
                     alt="logo"
                 />
                 <h2 onClick={() => history.push("/")}>There Weather</h2>
