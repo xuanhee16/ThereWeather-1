@@ -1,3 +1,4 @@
+import react, { useState } from "react"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
@@ -45,20 +46,58 @@ const Buttons = styled.div`
         position: fiexd;
         width: 400px;
     }
-
 `
 
-const Button = styled.button`
+const Button1 = styled.button`
     padding: 0.5rem;
     margin: 0.5rem;
     font-size: 2rem;
-    /* img:hover{
-        filter: opacity(0.5) drop-shadow(0 0 0 pink);
-    } */
+    img:hover {
+        filter: opacity(0.2) drop-shadow(0 0 0 red);
+        background: url("img/home.png");
+    }
 `
-
+const Button2 = styled.button`
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 2rem;
+    img:hover {
+        filter: opacity(0.2) drop-shadow(0 0 0 red);
+        background: url("img/like.png");
+    }
+`
+const Button3 = styled.button`
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 2rem;
+    img:hover {
+        filter: opacity(0.2) drop-shadow(0 0 0 red);
+        background: url("img/location.png");
+    }
+`
+const Button4 = styled.button`
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 2rem;
+    img:hover {
+        filter: opacity(0.2) drop-shadow(0 0 0 red);
+        background: url("img/pencil.png");
+    }
+`
+const Button5 = styled.button`
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 2rem;
+    img:hover {
+        filter: opacity(0.2) drop-shadow(0 0 0 red);
+        background: url("img/setting.png");
+    }
+`
 export default function MenuBar() {
+    const [url1, setUrl1] = useState("img/home0.png")
+    const [curClick, setCurClick] = useState("")
     const history = useHistory()
+    const [selectBtn, setSelectBtn] = useState("")
     return (
         <Outer className="menuBar">
             <Buttons>
@@ -69,17 +108,17 @@ export default function MenuBar() {
                     </Button>
                     </Link>
                 */}
-                <Button>
+                <Button1>
                     {/* <FontAwesomeIcon
                         onClick={() => history.push("/homeorlogin")}
                         icon={faHome}
                     /> */}
                     <img
-                        src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/45/000000/external-home-instagram-flatart-icons-outline-flatarticons.png"
+                        src={url1}
                         onClick={() => history.push("/homeorlogin")}
                     />
-                </Button>
-                <Button>
+                </Button1>
+                <Button2>
                     {/* <FontAwesomeIcon
                         onClick={() => history.push("/bookmarkorlogin")}
                         icon={faHeart}
@@ -88,8 +127,8 @@ export default function MenuBar() {
                         src="https://img.icons8.com/ios/45/000000/like--v1.png"
                         onClick={() => history.push("/bookmarkorlogin")}
                     />
-                </Button>
-                <Button>
+                </Button2>
+                <Button3>
                     {/* <FontAwesomeIcon
                         onClick={() => history.push("/map")}
                         icon={faMapMarkerAlt}
@@ -98,8 +137,8 @@ export default function MenuBar() {
                         src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/45/000000/external-location-map-location-flatart-icons-outline-flatarticons-13.png"
                         onClick={() => history.push("/map")}
                     />
-                </Button>
-                <Button>
+                </Button3>
+                <Button4>
                     {/* <FontAwesomeIcon
                         onClick={() => history.push("/writeorlogin")}
                         icon={faPencilAlt}
@@ -108,8 +147,8 @@ export default function MenuBar() {
                         src="https://img.icons8.com/ios/45/000000/pencil--v1.png"
                         onClick={() => history.push("/writeorlogin")}
                     />
-                </Button>
-                <Button>
+                </Button4>
+                <Button5>
                     {/* <FontAwesomeIcon
                         onClick={() => history.push("/moreoruserinfo")}
                         icon={faUserAlt}
@@ -118,7 +157,7 @@ export default function MenuBar() {
                         src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/45/000000/external-user-interface-kiranshastry-lineal-kiranshastry.png"
                         onClick={() => history.push("/moreoruserinfo")}
                     />
-                </Button>
+                </Button5>
             </Buttons>
         </Outer>
     )
