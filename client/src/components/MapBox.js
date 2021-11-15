@@ -466,7 +466,7 @@ export default function Location({ bottom }) {
                 var message =
                     "영역좌표는 남서쪽 위도, 경도는  " +
                     swLatlng.toString() +
-                    "이고 <br>"
+                    "이고"
                 message +=
                     "북동쪽 위도, 경도는  " + neLatlng.toString() + "입니다 "
 
