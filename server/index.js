@@ -43,7 +43,7 @@ const upload = multer({
 
 //아래 내용 지우지말아주세요
 app.get("/2", (req, res) => {
-    res.send("Hello World!!22!222ss222")
+    res.send("Hello World!!22!222ss33222")
 })
 app.get("/", (req, res) => {
     res.send("Hello World!!ThereWeather!!!!")
@@ -60,7 +60,7 @@ app.get("/map2", controllers.map2) //지도 - Map.js
 //인증 - App.js
 // app.get("/auth", controllers.auth) //인증 - App.js
 
-app.get("/codi", controllers.codi) //북마크에서 코디 누르면 확대해서 보는 곳 - Codi.js
+app.get("/codi", controllers.codi) //북마크에서 코디 누르면 확대해서 보는 곳 - Codi.js//없음
 app.get("/readpost", controllers.readpost) //예보글보기 - PostRead.js
 app.get("/mypage", controllers.mypage) //마이페이지 - MyPage.js
 app.get("/mypost", controllers.mypost)

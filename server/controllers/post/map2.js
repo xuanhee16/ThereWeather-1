@@ -13,9 +13,9 @@ module.exports = async (req, res) => {
         const KR_TIME_DIFF = 9 * 60 * 60 * 1000
         let month = new Date().getMonth() + 1
         let curHour = new Date() + KR_TIME_DIFF
-        let hourMin = Number(
-            curHour.split(" ")[3] + month + curHour.split(" ")[2]
-        )
+        let hourMin =
+            curHour.split(" ")[3] + String(month) + curHour.split(" ")[2]
+
         return hourMin
         // let year = date.getFullYear().toString()
         // let date = new Date()
@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
         // day = day < 10 ? "0" + day.toString() : day.toString()
         // return year + month + day
     }
-    console.log("getCurrentDate()==" + getCurrentDate())
+    // console.log("getCurrentDate()==" + getCurrentDate())
 
     // //단기예보시간 - 예보시간은 각 3시간분
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
@@ -39,32 +39,42 @@ module.exports = async (req, res) => {
         //현재시각과 9시를 더해서 한국시간을 만든다 -hoon
         const curHour = new Date() + KR_TIME_DIFF
         //pm 2시 49을 이런식으로 변경->1459
-        let hourMin = Number(curHour.split(" ")[4].slice(0, 5).replace(":", ""))
+        let hourMin = curHour.split(" ")[4].slice(0, 5).replace(":", "")
         //각 시각 정각에서 15분 사이일경우 15분을 빼줌(데이터가 2시,5시,8... 기상청 데이터가 정각에 들어오기 때문에 데이터 안정성을 위해서)
         //원래는 시간-숫자 체계를 고려하여 15분정도를 빼야했으나,기상청 데이터의 불안정성으로 2시간정도를 빼기로함.
 
         //시간이 02시 이후 일경우
-        console.log("sssssssssss" + hourMin)
-        if (hourMin > 600) {
-            hourMin = hourMin - 300
-            console.log(hourMin)
+        // console.log("sssssssssss" + typeof hourMin)
+        if (Number(hourMin) > 100) {
+            hourMin = hourMin - 100
+            if (String(hourMin).length === 3) {
+                beforeDate = 0
+                hourMin = "0" + hourMin
+            }
+            // console.log(hourMin)
         }
         // //시간이 02시가 지나지 않았을경우 전날 마지막예보를 사용해야함
         else {
             beforeDate = 1
-            hourMin = 2300
+            hourMin = "2300"
         }
-        console.log("hourMin=" + hourMin)
-        console.log(typeof hourMin)
+        // console.log("hourMin=" + hourMin)
+        // console.log(typeof hourMin)
         return hourMin
     }
-    console.log("beforeDate=" + beforeDate)
-    console.log("newDate=" + new Date())
+    // console.log("beforeDate=" + beforeDate)
+    // console.log("newDate=" + new Date())
 
     const toXYconvert = toXY(lat, lon)
     const url = aqiUrl.shortForecastUrl
     const ServiceKey = decodeURIComponent(serviceKey.publicPortalkey)
     // console.log(toXYconvert.lat)
+
+    console.log(getCurrentDate())
+    console.log(getFormatTime())
+    console.log(typeof getCurrentDate())
+    console.log(typeof getFormatTime())
+
     axios
         .get(url, {
             params: {
@@ -72,8 +82,10 @@ module.exports = async (req, res) => {
                 numOfRows: "14",
                 pageNo: "1",
                 dataType: "JSON",
-                base_time: Number(getFormatTime()),
-                base_date: Number(Number(getCurrentDate()) - beforeDate),
+                base_time: getFormatTime(),
+                base_date: String(getCurrentDate() - beforeDate), //정상
+                // base_date: "20211115",
+                // base_time: "0187",
                 nx: toXYconvert.x,
                 ny: toXYconvert.y,
             },

@@ -17,16 +17,6 @@ module.exports = async (req, res) => {
         return year + month + day
     }
     
-    // function getCurrentDate() {
-    //     //'20211102' 형식
-    //     const KR_TIME_DIFF = 9 * 60 * 60 * 1000
-    //     let month = new Date().getMonth() + 1
-    //     let curHour = new Date() + KR_TIME_DIFF
-    //     let hourMin = Number(
-    //         curHour.split(" ")[3] + month + curHour.split(" ")[2]
-    //     )
-    //     return String(hourMin)
-    // }
 
     //초단기예보시간 - 예보시간은 각 30분, api제공시간은 45분
     function getFormatTime() {
@@ -37,18 +27,11 @@ module.exports = async (req, res) => {
     }
 
 
-    // function getFormatTime() {
-    //     const KR_TIME_DIFF = 9 * 60 * 60 * 1000
-    //     const curHour = new Date() + KR_TIME_DIFF
-    //     let hour = curHour.split(" ")[4].slice(0,2)
-    //     return hour + "30"
-    // }
-
 
     const { lat, lon } = req.body
     const toXYconvert = toXY(lat, lon)
     const url = aqiUrl.dataUrl
-    const ServiceKey = decodeURIComponent(serviceKey.publicPortalkey)      
+    const ServiceKey = decodeURIComponent(serviceKey.publicPortalkey)
     axios
         .get(url, {
             params: {
@@ -63,11 +46,10 @@ module.exports = async (req, res) => {
             },
         })
         .then((res2) => {
-
-           console.log(res2.data.response) 
-           //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
-           //에러코드 참고  -> https://www.nanumtip.com/qa/41692/ 
-           //console.log(res2.data.response.body.items)
-           res.send(res2.data.response.body.items)
+            console.log(res2.data.response)
+            //기상청api 불안정함- 헤더에 { resultCode: '00', resultMsg: 'NORMAL_SERVICE' } 확인되야 정상
+            //에러코드 참고  -> https://www.nanumtip.com/qa/41692/
+            //console.log(res2.data.response.body.items)
+            res.send(res2.data.response.body.items)
         })
 }
