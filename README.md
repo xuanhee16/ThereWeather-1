@@ -13,4 +13,4 @@
 
 ## System Architecture
 
-![1](https://ifh.cc/g/aQNvCQ.png)
+![1](https://camo.githubusercontent.com/aec5d413bbcd74a19466f7e003878eaf1f01ed96795962b470da06be8b16d741/68747470733a2f2f6966682e63632f672f367a43634f372e706e67)
