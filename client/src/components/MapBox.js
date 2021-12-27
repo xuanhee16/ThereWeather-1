@@ -149,6 +149,7 @@ let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 
 export default function Location({ bottom }) {
+    console.log("mapbox임")
     const { searchWord, weatherFilter } = useSelector(
         (state) => state.itemReducer
     )
