@@ -19,7 +19,7 @@ const Container = styled.div`
 
 export default function Map() {
     const dispatch = useDispatch()
-
+    console.log("map임")
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
     // {/* <Container2 src="/img/fhd.png" /> */}
