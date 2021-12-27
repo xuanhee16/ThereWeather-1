@@ -30,7 +30,7 @@ export default function Map() {
     return (
         <Container className="mapcontainer">
             <div>나는map</div>
-            {/* <MapBox></MapBox> */}
+            <MapBox></MapBox>
             <div>나는map2</div>
         </Container>
     )

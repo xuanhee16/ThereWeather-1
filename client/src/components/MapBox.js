@@ -165,7 +165,7 @@ export default function Location({ bottom }) {
         snowy: 0,
     }) //그래프 통계용
     const [weatherApi, setweatherApi] = useState(0)
-
+    console.log(kakao)
     const [postList, setPostList] = useState([
         {
             bottom_id: "",
