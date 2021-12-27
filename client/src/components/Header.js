@@ -175,7 +175,7 @@ const Button3 = styled.button`
     // height: 45px;
     // font-size: 11px;
     font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
-  font-family: 'IBM Plex Sans KR', sans-serif;
+    font-family: "IBM Plex Sans KR", sans-serif;
 
     padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
     margin: 0.5rem;
@@ -200,12 +200,13 @@ const Button3 = styled.button`
         background-color: pink;
         box-shadow: 0px 15px 20px #f7cac9;
         color: #fff;
-    transform: translateY(-4px);
+        transform: translateY(-4px);
 
-    @media screen and (max-width: 1081px) { // 임시 추가
-        display: none;
+        @media screen and (max-width: 1081px) {
+            // 임시 추가
+            display: none;
+        }
     }
-}
 `
 const Buttons3 = styled.button`
     height: 100%;
@@ -213,7 +214,8 @@ const Buttons3 = styled.button`
     align-items: center;
     justify-content: center;
 
-    @media screen and (max-width: 1081px) { // 임시 추가
+    @media screen and (max-width: 1081px) {
+        // 임시 추가
         display: none;
     }
 `
@@ -265,7 +267,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
     const [searchEvent, setSearchEvent] = useState("")
     //검색창에 사용할 포커스변수-hoon
     const [onFocus, setOnFocus] = useState(false)
-
+    console.log("헤더는 찍히나?")
     // const [postOnFocus, setOnFocus] = useState(false)
 
     // isInput : Map 페이지 사용시 true
@@ -309,9 +311,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
             <TitleAndLogo className="titleAndLogo" isMobileLogo={isMobileLogo}>
                 <img
                     onClick={() => history.push("/")}
-
                     src="img/img6.png"
-
                     alt="logo"
                 />
                 <h2 onClick={() => history.push("/")}>There Weather</h2>
