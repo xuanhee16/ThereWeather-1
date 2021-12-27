@@ -68,9 +68,7 @@ export default function App() {
             <Header isInput={isInput} />
             <Switch>
                 <Route exact path="/map">
-                    <div>나는글씨</div>
                     <Map></Map>
-                    <div>나는글씨2</div>
                 </Route>
                 <Route exact path="/home">
                     <Home></Home>
