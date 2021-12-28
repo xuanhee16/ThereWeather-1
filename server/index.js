@@ -45,6 +45,12 @@ const upload = multer({
 app.get("/2", (req, res) => {
     res.send("Hello World!!22!222ss332222")
 })
+app.get("/api/2", (req, res) => {
+    res.send("Hello World!!22!222ss33222299")
+})
+app.get("/api/1", (req, res) => {
+    res.send("Hello World!!22!222ss33222211")
+})
 app.get("/", (req, res) => {
     res.send("Hello World!!ThereWeather!!!!")
 })
