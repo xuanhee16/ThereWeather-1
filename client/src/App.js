@@ -37,6 +37,7 @@ export default function App() {
     if (!url) {
         url = "https://thereweather.space"
     }
+    
     const dispatch = useDispatch()
     const history = useHistory()
 

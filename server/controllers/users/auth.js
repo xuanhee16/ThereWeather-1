@@ -9,6 +9,7 @@ module.exports = {
         console.log("여긴 users/auth/")
         // console.log(req.headers.authorization)
         // console.log(isAuthorized(req))
+        console.log(process.env.abc)
         const data = isAuthorized(req)
         console.log(data)
 
