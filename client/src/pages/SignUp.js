@@ -206,7 +206,9 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////
-let url = process.env.REACT_APP_LOCAL_URL
+// let url = process.env.REACT_APP_LOCAL_URL
+let url = "https://thereweather.space"
+
 // const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 
 export default function SignUp() {
