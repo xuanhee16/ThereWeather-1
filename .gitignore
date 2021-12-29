@@ -5,9 +5,9 @@ node_modules/
 /.pnp
 .pnp.js
 
-.env
-/client/.env
-/server/.env
+# .env
+# /client/.env
+# /server/.env
 /server/public
 
 # testing
