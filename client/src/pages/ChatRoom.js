@@ -133,7 +133,7 @@ export default function ChatRoom() {
     /////////////메시지를 받았을때/////
     useEffect(() => {
         axios({
-            url: url + `/chat/messagelist`,
+            url: url + `/api/chat/messagelist`,
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -166,7 +166,7 @@ export default function ChatRoom() {
 
     useEffect(() => {
         axios({
-            url: url + `/chat/messagelist`,
+            url: url + `/api/chat/messagelist`,
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -196,7 +196,7 @@ export default function ChatRoom() {
             .replace(`${userInfo.user_id}`, "")
 
         axios({
-            url: url + `/chat/messagelist`,
+            url: url + `/api/chat/messagelist`,
             method: "put",
             headers: {
                 "Content-Type": "application/json",

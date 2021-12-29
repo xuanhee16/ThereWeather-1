@@ -1,10 +1,9 @@
 import styled from "styled-components"
 import { useState } from "react"
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import axios from "axios";
+import axios from "axios"
 import DaumPostcode from "react-daum-postcode"
-
 
 const Outer = styled.div`
     overflow: scroll;
@@ -25,7 +24,6 @@ const Outer = styled.div`
     }
 `
 
-
 const Button = styled.button`
     display: flex;
     justify-content: center;
@@ -33,7 +31,7 @@ const Button = styled.button`
     border: 1px solid black;
     border-radius: ${(props) => (props.round ? "50%" : null)};
     /* background-color: var(--button-bg-normal); */
-    background-color: #FEC0CB;
+    background-color: #fec0cb;
     font-size: 1.25rem;
     padding: ${(props) => (props.round ? ".5rem .5rem" : ".5rem 2rem")};
     margin: ${(props) => (props.round ? ".5rem" : "1rem")};
@@ -42,7 +40,7 @@ const Button = styled.button`
     color: white;
 
     &:hover {
-        background-color: #FF7F9F;
+        background-color: #ff7f9f;
     }
     & > img {
         height: 1.5rem;
@@ -60,9 +58,9 @@ const Button2 = styled.input`
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #FEC0CB;
+    background-color: #fec0cb;
     &:hover {
-        background-color: #FF7F9F;
+        background-color: #ff7f9f;
     }
     > span {
         margin: 0.25rem;
@@ -96,7 +94,6 @@ const DesktopRight = styled.section`
         width: 40vw;
     }
 `
-
 
 const WriteText = styled.div`
     width: 70vw;
@@ -139,15 +136,15 @@ const Button3 = styled.button`
     width: 50vw;
     min-width: 100px;
     max-width: 300px;
-    margin: .5rem;
+    margin: 0.5rem;
     padding: 0.8rem;
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #FEC0CB;
+    background-color: #fec0cb;
     border-radius: 1rem;
     &:hover {
-        background-color: #FF7F9F;
+        background-color: #ff7f9f;
     }
     > span {
         margin: 0.25rem;
@@ -171,7 +168,7 @@ if (!url) url = "https://thereweather.space"
 
 export default function Write() {
     const dispatch = useDispatch()
-    const history = useHistory();
+    const history = useHistory()
     const { userInfo, curLocation } = useSelector((state) => state.itemReducer)
     const [userRoadAddress, setRoadUserAddress] =
         useState("위 검색창에서 검색해주세요.")
@@ -183,32 +180,31 @@ export default function Write() {
     if (!url) {
         url = "https://thereweather.space"
     }
-  
-
 
     // 등록버튼 이벤트
     const submitButtonHandler = (e) => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios({
-            url: url + "/edituserinfo",
+            url: url + "/api/edituserinfo",
             method: "put",
-            data: { 
+            data: {
                 location: userRoadAddress,
                 user_photo: uploadedImg.filePath,
             },
-            headers: { 
+            headers: {
                 "Content-Type": "application/json",
-                "Authorization": `token ${token}` },
+                Authorization: `token ${token}`,
+            },
             withCredentials: true,
         })
-        .then((res) => {
-            alert("변경 완료, 로그아웃 후 확인해주세요:)")
-            history.push("/home")
-            console.log(res.data)
-        })
-        .catch((err) => console.log(err))
+            .then((res) => {
+                alert("변경 완료, 로그아웃 후 확인해주세요:)")
+                history.push("/home")
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err))
     }
-   
+
     const onSubmit = (e) => {
         console.log(e)
         e.preventDefault()
@@ -216,7 +212,7 @@ export default function Write() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/post/photo", formData, {
+            .post(url + "/api/post/photo", formData, {
                 "Content-Type": "multipart/form-data",
                 withCredentials: true,
             })
@@ -245,11 +241,12 @@ export default function Write() {
         <Outer className="writePage">
             <PictureSection
                 className="pictureUploadSection writePageLeft"
-                onSubmit={onSubmit}>
-                    <WriteText>프로필 사진</WriteText>
+                onSubmit={onSubmit}
+            >
+                <WriteText>프로필 사진</WriteText>
                 <PhotoBox>
                     {uploadedImg ? (
-                        <PhotoBox2 src={uploadedImg.filePath} alt="icon"/>
+                        <PhotoBox2 src={uploadedImg.filePath} alt="icon" />
                     ) : (
                         <div></div>
                     )}
@@ -264,15 +261,14 @@ export default function Write() {
             </PictureSection>
 
             <DesktopRight className="writePageRight">
-              <WriteText>사는곳</WriteText>
-            <DaumPostcode onComplete={handleComplete} />
-            <ValidationListBox className="pwValidationList">
-                        {userRoadAddress}
-            </ValidationListBox>
-              <Button className="submitButton"
-                      onClick={submitButtonHandler}>
-                        등록
-                    </Button>
+                <WriteText>사는곳</WriteText>
+                <DaumPostcode onComplete={handleComplete} />
+                <ValidationListBox className="pwValidationList">
+                    {userRoadAddress}
+                </ValidationListBox>
+                <Button className="submitButton" onClick={submitButtonHandler}>
+                    등록
+                </Button>
             </DesktopRight>
         </Outer>
     )

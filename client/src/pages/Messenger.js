@@ -178,7 +178,7 @@ export default function Messenger() {
 
         //룸네임이 만들어지면 axios로 접속된 목록을 추가하여 데이터 베이스에 저장해주자-hoon
         axios({
-            url: url + "/chat/rooms",
+            url: url + "/api/chat/rooms",
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -197,7 +197,7 @@ export default function Messenger() {
     //처음에 가지고 있는 참여된 방이 있는지 조회-hoon
     useEffect(() => {
         axios({
-            url: url + `/chat/rooms?user_id=${userInfo.user_id}`,
+            url: url + `/api/chat/rooms?user_id=${userInfo.user_id}`,
             method: "get",
             headers: {
                 "Content-Type": "application/json",
@@ -208,7 +208,6 @@ export default function Messenger() {
             setjoinedRoom([...joinRoom])
         })
     }, [])
-    
 
     useState(() => {
         setNewMsgSection([...newMsgSection])
@@ -251,11 +250,11 @@ export default function Messenger() {
     //     console.log(curRoom)
     // }, [curRoom])
     //채팅방 메시지 글작성 이벤트타겟용 함수
-   
+
     //채팅방 메시지 글 보내기 함수
     function msgSubmit() {
         axios({
-            url: url + `/chat/messagelist`,
+            url: url + `/api/chat/messagelist`,
             method: "put",
             headers: {
                 "Content-Type": "application/json",

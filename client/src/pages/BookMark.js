@@ -270,7 +270,7 @@ export default function BookMark() {
             // url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
             // url: url + `/bookmarklist?searchID=${userInfo.user_id}`,
             // method: "get",
-            url: url + "/bookmarklist",
+            url: url + "/api/bookmarklist",
             method: "post",
             data: {
                 user_id: userInfo.id,

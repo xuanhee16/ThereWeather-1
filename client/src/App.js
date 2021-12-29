@@ -47,7 +47,7 @@ export default function App() {
         //auth할차례
         if (localStorage.getItem("ATOKEN")) {
             axios({
-                url: url + "/users/auth",
+                url: url + "/api/users/auth",
                 method: "get",
                 headers: {
                     authorization: `token ${JSON.parse(

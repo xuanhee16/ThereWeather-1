@@ -54,7 +54,7 @@ const Button2 = styled.input`
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #FEC0CB;
+    background-color: #fec0cb;
 
     > span {
         margin: 0.25rem;
@@ -202,7 +202,7 @@ const Button3 = styled.button`
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #FEC0CB;
+    background-color: #fec0cb;
     border-radius: 1rem;
 
     > span {
@@ -214,21 +214,22 @@ const Secret = styled.div`
     color: white;
 `
 
-
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
 
 export default function Write() {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { userInfo, curLocation, postInfo, readPostId } = useSelector((state) => state.itemReducer)
+    const { userInfo, curLocation, postInfo, readPostId } = useSelector(
+        (state) => state.itemReducer
+    )
     // console.log('userId : ',userInfo);
     // console.log('postInfo : ', postInfo);
     // console.log('readPostId : ', readPostId);
     const [postId, setPostId] = useState(readPostId)
-    const [selectWeather, setSelectWeather] = useState()    // 날씨
-    const [selectWind, setSelectWind] = useState()  // 바람
-    const [selectTemp, setSelectTemp] = useState()  // 온도
+    const [selectWeather, setSelectWeather] = useState() // 날씨
+    const [selectWind, setSelectWind] = useState() // 바람
+    const [selectTemp, setSelectTemp] = useState() // 온도
     const [photo, setPhoto] = useState("")
     const [userPosts, setUserPosts] = useState()
     const [uploadedImg, setUploadedImg] = useState({
@@ -360,36 +361,34 @@ export default function Write() {
         setPostText(e.target.value)
     }
 
-    
     // 기존 데이터 렌더링
     useEffect(() => {
         axios({
-            url: url + `/readpost?searchID=${userInfo.postIds}`,
+            url: url + `/api/readpost?searchID=${userInfo.postIds}`,
             method: "get",
-            params: {id : postIds},
+            params: { id: postIds },
             withCredentials: true,
         })
-        .then((res) => {
-            console.log('res : ', res.data);    // 해당 게시물 데이터 들어옴
-            // 제목
-            setTitle(res.data.post_title)
-            // 사진
-            setUploadedImg({ filePath: res.data.post_photo })
-            // 날씨
-            setIsFilteringBtnActive({ [res.data.weather]:true })
-            setIsFilteringBtnActive2({ [res.data.wind]:true })
-            setIsFilteringBtnActive3({ [res.data.temp]:true })
+            .then((res) => {
+                console.log("res : ", res.data) // 해당 게시물 데이터 들어옴
+                // 제목
+                setTitle(res.data.post_title)
+                // 사진
+                setUploadedImg({ filePath: res.data.post_photo })
+                // 날씨
+                setIsFilteringBtnActive({ [res.data.weather]: true })
+                setIsFilteringBtnActive2({ [res.data.wind]: true })
+                setIsFilteringBtnActive3({ [res.data.temp]: true })
 
-            // 코디
-            setSelectValueOuter(res.data.outer_id)
-            setSelectValueTop(res.data.top_id)
-            setSelectValueBottom(res.data.bottom_id)
-            // 내용
-            setPostText(res.data.post_content)
-        })
-        .catch(err => console.log(err))
+                // 코디
+                setSelectValueOuter(res.data.outer_id)
+                setSelectValueTop(res.data.top_id)
+                setSelectValueBottom(res.data.bottom_id)
+                // 내용
+                setPostText(res.data.post_content)
+            })
+            .catch((err) => console.log(err))
     }, [])
-
 
     // 등록버튼 이벤트
     const submitButtonHandler = (e) => {
@@ -411,7 +410,7 @@ export default function Write() {
             //&& !photo && !selectWeather && !selectWind && !setSelectTemp
 
             axios({
-                url: url + "/editpost",
+                url: url + "/api/editpost",
                 method: "put",
                 data: {
                     user_id: userInfo.user_id,
@@ -485,7 +484,7 @@ export default function Write() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/post/photo", formData, {
+            .post(url + "/api/post/photo", formData, {
                 "Content-Type": "application/json",
                 withCredentials: true,
             })
@@ -516,7 +515,7 @@ export default function Write() {
         }
         for (let n = 0; n < 20; n++) {
             axios({
-                url: url + "/post/write",
+                url: url + "/api/post/write",
                 method: "post",
                 data: {
                     user_id: Math.random().toString(36).substr(2, 5),

@@ -43,14 +43,14 @@ const InfoBox = styled.div`
         }
     }
 
-    &:nth-child(n+2) {
+    &:nth-child(n + 2) {
         margin-top: 3vh;
     }
 
     &:hover {
-        border: 1px solid #FEC0CB;
+        border: 1px solid #fec0cb;
         p {
-            color: #FEC0CB;
+            color: #fec0cb;
         }
     }
 
@@ -60,7 +60,6 @@ const InfoBox = styled.div`
     @media screen and (max-width: 375px) {
     }
 `
-
 
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space"
@@ -77,7 +76,7 @@ export default function UserInfo() {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios
             .post(
-                url + "/signout",
+                url + "/api/signout",
                 { data: null },
                 {
                     headers: {

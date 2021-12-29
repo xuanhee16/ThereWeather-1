@@ -123,7 +123,7 @@ const Button = styled.button`
     background-color: ${(props) => (props.google ? "#EA4335" : "pink")};
     border-radius: 1rem;
     &:hover {
-        background-color: #FF7F9F;
+        background-color: #ff7f9f;
     }
     > span {
         margin: 0.25rem;
@@ -146,11 +146,12 @@ const Button3 = styled.button`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    /* background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")}; */
-    background-color: #FEC0CB;
+    /* background-color: ${(props) =>
+        props.google ? "#EA4335" : "#2f6ecb"}; */
+    background-color: #fec0cb;
     border-radius: 1rem;
     &:hover {
-        background-color: #FF7F9F;
+        background-color: #ff7f9f;
     }
     > span {
         margin: 0.25rem;
@@ -166,11 +167,12 @@ const Button2 = styled.input`
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    /* background-color: ${(props) => (props.google ? "#EA4335" : "#2f6ecb")}; */
+    /* background-color: ${(props) =>
+        props.google ? "#EA4335" : "#2f6ecb"}; */
     border-radius: 1rem;
-    background-color: #FEC0CB;
+    background-color: #fec0cb;
     &:hover {
-        background-color: #FF7F9F;
+        background-color: #ff7f9f;
     }
     > span {
         margin: 0.25rem;
@@ -365,7 +367,7 @@ export default function SignUp() {
         if (!inputVaildMessage.emailInput && !inputVaildMessage.idInput) {
             console.log("정상수행가능")
             axios({
-                url: url + "/users/auth",
+                url: url + "/api/users/auth",
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -391,7 +393,7 @@ export default function SignUp() {
     function codeSend() {
         console.log("code 보내기")
         axios({
-            url: url + "/users/auth",
+            url: url + "/api/users/auth",
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -425,7 +427,7 @@ export default function SignUp() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: url + "/users/signup",
+                url: url + "/api/users/signup",
                 // url: url + "/signup",
                 method: "post",
                 headers: {
@@ -462,7 +464,7 @@ export default function SignUp() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/users/photo", formData, {
+            .post(url + "/api/users/photo", formData, {
                 "Content-Type": "multipart/form-data",
                 withCredentials: true,
             })

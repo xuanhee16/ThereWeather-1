@@ -233,7 +233,6 @@ if (!url) {
     url = "https://thereweather.space"
 }
 
-
 export default function MyPage() {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -249,12 +248,11 @@ export default function MyPage() {
 
     const [currentPosts, setcurrentPosts] = useState([])
 
-  
-    const [ noIdWarning, setNoIdWarning ] = useState('');
+    const [noIdWarning, setNoIdWarning] = useState("")
     // 게시물 데이터 조회
     useEffect(() => {
         axios({
-            url: url + `/mypage?searchID=${userInfo.user_id}`,
+            url: url + `/api/mypage?searchID=${userInfo.user_id}`,
             method: "get",
             withCredentials: true,
         }).then((res) => {
@@ -262,7 +260,6 @@ export default function MyPage() {
             dispatch(userPosts(res.data))
         })
     }, [])
-
 
     // 정보수정
     const changeUserInfo = () => {
@@ -277,7 +274,7 @@ export default function MyPage() {
     const modalYesButtonHandlers = () => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios
-            .delete(url + "/removeuser", {
+            .delete(url + "/api/removeuser", {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `token ${token}`,

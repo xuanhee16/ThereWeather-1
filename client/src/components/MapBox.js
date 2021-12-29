@@ -480,7 +480,7 @@ export default function Location({ bottom }) {
                 axios({
                     url:
                         url +
-                        `/post/list?top=${neLatlng.La}&bottom=${swLatlng.La}&left=${swLatlng.Ma}&right=${neLatlng.Ma}`,
+                        `/api/post/list?top=${neLatlng.La}&bottom=${swLatlng.La}&left=${swLatlng.Ma}&right=${neLatlng.Ma}`,
                     // url: url + "/signup",
                     method: "get",
                     headers: {
@@ -519,7 +519,7 @@ export default function Location({ bottom }) {
                 var latlng = map.getCenter()
 
                 axios({
-                    url: url + `/map2?lat=${latlng.Ma}&lon=${latlng.La}`,
+                    url: url + `/api/map2?lat=${latlng.Ma}&lon=${latlng.La}`,
                     // url: url + "/signup",
                     method: "get",
                     headers: {

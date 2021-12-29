@@ -398,7 +398,7 @@ export default function Write() {
             //&& !photo && !selectWeather && !selectWind && !setSelectTemp
 
             axios({
-                url: url + "/post/write",
+                url: url + "/api/post/write",
                 method: "post",
                 // headers: {
                 //     // accept: "application/json",
@@ -474,7 +474,7 @@ export default function Write() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/post/photo", formData, {
+            .post(url + "/api/post/photo", formData, {
                 "Content-Type": "application/json",
                 withCredentials: true,
             })
@@ -508,7 +508,7 @@ export default function Write() {
                 getRandomIntInclusive(0, 3)
             ]
             axios({
-                url: url + "/post/write",
+                url: url + "/api/post/write",
                 method: "post",
                 data: {
                     // user_id: Math.random().toString(36).substr(2, 5),

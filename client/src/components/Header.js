@@ -289,7 +289,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios
             .post(
-                url + "/signout",
+                url + "/api/signout",
                 { data: null },
                 {
                     headers: {

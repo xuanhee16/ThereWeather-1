@@ -334,7 +334,7 @@ export default function Login() {
                     axios({
                         url:
                             url +
-                            `/users/socialcheck?user_id=${res.data.email}`,
+                            `/api/users/socialcheck?user_id=${res.data.email}`,
                         method: "get",
                         headers: {
                             accept: "application/json",
@@ -416,7 +416,7 @@ export default function Login() {
 
         axios
             .post(
-                url + "/login",
+                url + "/api/login",
 
                 { user_id: idInput, password: pwInput },
                 {
@@ -442,7 +442,7 @@ export default function Login() {
         console.log("socialAutoLogin함수")
         console.log(inputSignUpData.idInput)
         axios({
-            url: url + "/sociallogin",
+            url: url + "/api/sociallogin",
             method: "post",
             data: {
                 user_id: id,
@@ -545,7 +545,7 @@ export default function Login() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: url + "/users/signup",
+                url: url + "/api/users/signup",
                 method: "post",
                 data: {
                     user_id: inputSignUpData.idInput,
@@ -578,7 +578,7 @@ export default function Login() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/users/photo", formData, {
+            .post(url + "/api/users/photo", formData, {
                 "Content-Type": "application/json",
                 withCredentials: true,
             })
