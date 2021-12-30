@@ -240,7 +240,7 @@ export default function SignUp() {
     const [photo, setPhoto] = useState("")
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankProfile.png",
-        filePath: `${url}/img/blankProfile.png`,
+        filePath: `${url}/api/img/blankProfile.png`,
     })
     const [codeOn, setCodeOn] = useState(false)
 
