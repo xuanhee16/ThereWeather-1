@@ -240,7 +240,7 @@ export default function SignUp() {
     const [photo, setPhoto] = useState("")
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankProfile.png",
-        filePath: `${url}/api/img/blankProfile.png`,
+        filePath: `${url}/image/blankProfile.png`,
     })
     const [codeOn, setCodeOn] = useState(false)
 
@@ -474,7 +474,7 @@ export default function SignUp() {
                 const { fileName } = res.data
                 setUploadedImg({
                     fileName,
-                    filePath: `${url}/api/img/${fileName}`,
+                    filePath: `${url}/image/${fileName}`,
                 })
                 alert("사진을 성공적으로 업로드 하였습니다!")
             })
