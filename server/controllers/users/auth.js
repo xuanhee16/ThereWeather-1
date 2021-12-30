@@ -10,6 +10,7 @@ module.exports = {
         // console.log(req.headers.authorization)
         // console.log(isAuthorized(req))
         console.log(process.env.abc)
+        console.log(process.env.qwe)
         const data = isAuthorized(req)
         console.log(data)
 
