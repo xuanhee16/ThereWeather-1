@@ -482,7 +482,7 @@ export default function Write() {
                 const { fileName } = res.data
                 setUploadedImg({
                     fileName,
-                    filePath: `${url}/img/${fileName}`,
+                    filePath: `${url}/image/${fileName}`,
                 })
                 alert("사진을 성공적으로 업로드 하였습니다!")
             })
