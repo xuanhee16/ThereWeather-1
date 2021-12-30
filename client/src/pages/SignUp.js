@@ -472,7 +472,10 @@ export default function SignUp() {
             })
             .then((res) => {
                 const { fileName } = res.data
-                setUploadedImg({ fileName, filePath: `${url}/img/${fileName}` })
+                setUploadedImg({
+                    fileName,
+                    filePath: `${url}/api/img/${fileName}`,
+                })
                 alert("사진을 성공적으로 업로드 하였습니다!")
             })
             .catch((err) => {
