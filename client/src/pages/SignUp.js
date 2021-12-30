@@ -463,7 +463,7 @@ export default function SignUp() {
         console.log(e)
         e.preventDefault()
         const formData = new FormData()
-        formData.append("img", photo)
+        formData.append("image", photo)
         console.log(formData)
         axios
             .post(url + "/api/users/photo", formData, {
