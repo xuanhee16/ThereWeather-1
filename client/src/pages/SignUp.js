@@ -242,6 +242,7 @@ export default function SignUp() {
         fileName: "blankProfile.png",
         filePath: `${url}/image/blankProfile.png`,
     })
+    console.log(uploadedImg)
     const [codeOn, setCodeOn] = useState(false)
 
     const history = useHistory()
@@ -463,7 +464,7 @@ export default function SignUp() {
         console.log(e)
         e.preventDefault()
         const formData = new FormData()
-        formData.append("image", photo)
+        formData.append("img", photo)
         console.log(formData)
         axios
             .post(url + "/api/users/photo", formData, {
