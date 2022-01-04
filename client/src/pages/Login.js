@@ -283,14 +283,18 @@ const PhotoBox2 = styled.img`
 // const url = "https://thereweather.space"
 let url = process.env.REACT_APP_LOCAL_URL
 let clientUrl = process.env.REACT_APP_CLIENTURL
+if (!url) {
+    url = "https://thereweather.space/api"
+    clientUrl = "https://thereweather.space"
+}
 
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
-    if (!url) {
-        url = "https://thereweather.space/api"
-        clientUrl = "https://thereweather.space"
-    }
+    // if (!url) {
+    //     url = "https://thereweather.space/api"
+    //     clientUrl = "https://thereweather.space"
+    // }
     console.log(url)
 
     // input 상태 관리, 유효성 검사
