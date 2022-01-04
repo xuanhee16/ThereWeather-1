@@ -241,7 +241,7 @@ export default function Write() {
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankPost.png",
         // filePath: `http://localhost:3000/img/blankPost.png`,
-        filePath: `${url}/img/blankPost.png`,
+        filePath: `${process.env.REACT_APP_CLIENTURL}/img/blankPost.png`,
     })
 
     if (!url) {
