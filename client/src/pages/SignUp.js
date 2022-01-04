@@ -332,7 +332,7 @@ export default function SignUp() {
         } else {
             setInputVaildMessage({
                 ...inputVaildMessage,
-                nickNameInput: "닉네임은 두글자 이상 입니다.",
+                nickNameInput: "닉네임은 두글자 이상 입니다..",
             })
         }
     }, [inputSignUpData.nickNameInput])
