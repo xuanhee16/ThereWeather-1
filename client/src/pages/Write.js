@@ -240,7 +240,8 @@ export default function Write() {
     const [userPosts, setUserPosts] = useState()
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankPost.png",
-        filePath: `${url}/image/blankPost.png`,
+        // filePath: `http://localhost:3000/img/blankPost.png`,
+        filePath: `${url}/img/blankPost.png`,
     })
 
     if (!url) {
