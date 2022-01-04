@@ -282,14 +282,14 @@ const PhotoBox2 = styled.img`
 ////////////////////////////////////////////////////
 // const url = "https://thereweather.space"
 let url = process.env.REACT_APP_LOCAL_URL
-let clientUrl = "http://localhost:3000"
+let clientUrl = process.env.REACT_APP_CLIENTURL
 
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     if (!url) {
         url = "https://thereweather.space/api"
-        clientUrl = "https://there-weather.vercel.app"
+        clientUrl = "https://thereweather.space"
     }
     console.log(url)
 
