@@ -182,11 +182,9 @@ export default function Location({ bottom }) {
         },
     ])
     console.log(weatherFilter)
-    let url
-    useEffect(() => {
-        url = process.env.REACT_APP_LOCAL_URL
-        if (!url) url = "https://thereweather.space/api"
-    }, [])
+    let url =
+        process.env.REACT_APP_LOCAL_URL || "https://thereweather.space/api"
+
     //---------------
     useEffect(() => {
         var container = document.getElementById("map")
