@@ -6,8 +6,10 @@ node_modules/
 .pnp.js
 
 .env
-/client/.env
+/client/.env.development
+/client/.env.production
 /server/.env
+
 # /server/public
 
 # testing
