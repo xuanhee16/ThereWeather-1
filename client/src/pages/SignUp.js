@@ -207,9 +207,6 @@ const PhotoBox2 = styled.img`
 `
 ////////////////////////
 let url = process.env.REACT_APP_LOCAL_URL
-// let url = "https://thereweather.space"
-
-// const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 
 export default function SignUp() {
     const dispatch = useDispatch()
