@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { useSelector } from "react-redux"
-import { Bookmark } from "../components/Heart"
+import { Bookmark } from "../components/BookMarks"
 import ModalConfirm from "../components/ModalConfirm"
 import GoBackButton from "../components/GoBackButton"
 import { useHistory } from "react-router-dom"
@@ -83,7 +83,7 @@ const Title = styled.div`
 const BookmarkIcon = styled(Bookmark)`
     float: right;
 
-    & .heart {
+    & .bookmark {
         cursor: pointer;
         color: #aaa;
     }
@@ -387,7 +387,7 @@ export default function PostRead() {
         }
 
         if (!id) {
-            console.log("**postread: id가 없습니다**")
+            //console.log("**postread: id가 없습니다**")
             setNoIdWarning((prev) => "잘못된 접근입니다.")
         } else {
             getOnePost(id)
@@ -405,13 +405,13 @@ export default function PostRead() {
 
     // 게시물 수정
     const editPost = () => {
-        console.log("수정버튼동작확인")
+        //console.log("수정버튼동작확인")
         setEdit(true)
     }
 
     // 게시물 삭제
     const deletePost = (e) => {
-        console.log("삭제버튼동작확인")
+        //console.log("삭제버튼동작확인")
         setRemovePost(true)
     }
 
@@ -451,7 +451,7 @@ export default function PostRead() {
             data: { post_id: postIds },
             withCredentials: true,
         }).then((res) => {
-            console.log(res.data)
+            //console.log(res.data)
             alert(res.data)
             // alert("삭제 완료")
             history.push("/mypage")
@@ -470,7 +470,7 @@ export default function PostRead() {
     }
 
     const bookmarkHandler = (e) => {
-        console.log("글 읽기 - 북마크 버튼 동작 확인")
+        //console.log("글 읽기 - 북마크 버튼 동작 확인")
         axios({
             url: url + "/bookmark",
             method: "post",
@@ -479,7 +479,7 @@ export default function PostRead() {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
         }).then((res) => {
-            console.log(res.data)
+            //console.log(res.data)
             setBookmarked((prev) => !prev)
             // history.push("/bookmark")
         })
