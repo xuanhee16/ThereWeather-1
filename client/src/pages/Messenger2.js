@@ -177,7 +177,7 @@ const GoBackButton = styled.button`
 
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) {
-    url = "https://thereweather.space"
+    url = "https://thereweather.space/api"
 }
 const socket = io.connect(url)
 
@@ -212,7 +212,7 @@ export default function Messenger2() {
         setcurRoom(`${user_id_sort[0]}_${user_id_sort[1]}`)
         //axios로 접속된 목록을 추가하여 데이터 베이스에 저장하는데, 유즈이펙트로, 변화가 있을때만 저장한다.
         axios({
-            url: url + "/api/chat/rooms",
+            url: url + "/chat/rooms",
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -231,7 +231,7 @@ export default function Messenger2() {
 
     useEffect(() => {
         axios({
-            url: url + `/api/chat/rooms?user_id=${userInfo.user_id}`,
+            url: url + `/chat/rooms?user_id=${userInfo.user_id}`,
             method: "get",
             headers: {
                 "Content-Type": "application/json",
@@ -246,7 +246,7 @@ export default function Messenger2() {
         setcurRoom(clickRoomName)
 
         axios({
-            url: url + `/api/chat/messagelist?roomlist=${clickRoomName}`,
+            url: url + `/chat/messagelist?roomlist=${clickRoomName}`,
             method: "get",
             headers: {
                 "Content-Type": "application/json",
@@ -290,7 +290,7 @@ export default function Messenger2() {
     })
     useEffect(() => {
         axios({
-            url: url + "/api/chat/messagelist",
+            url: url + "/chat/messagelist",
             method: "post",
             headers: {
                 "Content-Type": "application/json",

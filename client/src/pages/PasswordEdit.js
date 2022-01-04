@@ -120,7 +120,7 @@ const Button = styled.button`
 // `;
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function PasswordEdit() {
     // const { password } = useSelector((state) => state.itemReducer)
@@ -207,7 +207,7 @@ export default function PasswordEdit() {
         const token = JSON.parse(localStorage.getItem("ATOKEN")) //문자열벗긴 토큰
         //console.log(token) //토큰찾음
         axios({
-            url: url + "/api/password",
+            url: url + "/password",
             method: "put",
             data: { password: newPwd },
             headers: {

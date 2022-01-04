@@ -164,7 +164,7 @@ const ValidationListBox = styled.ul`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function Write() {
     const dispatch = useDispatch()
@@ -178,14 +178,14 @@ export default function Write() {
         filePath: `${url}/img/blankPost.png`,
     })
     if (!url) {
-        url = "https://thereweather.space"
+        url = "https://thereweather.space/api"
     }
 
     // 등록버튼 이벤트
     const submitButtonHandler = (e) => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios({
-            url: url + "/api/edituserinfo",
+            url: url + "/edituserinfo",
             method: "put",
             data: {
                 location: userRoadAddress,
@@ -212,7 +212,7 @@ export default function Write() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/api/post/photo", formData, {
+            .post(url + "/post/photo", formData, {
                 "Content-Type": "multipart/form-data",
                 withCredentials: true,
             })
@@ -220,7 +220,7 @@ export default function Write() {
                 const { fileName } = res.data
                 setUploadedImg({
                     fileName,
-                    filePath: `${url}/img/${fileName}`,
+                    filePath: `${url.slice(0,-4)}/image/${fileName}`,
                 })
                 alert("사진을 성공적으로 업로드 하였습니다!")
             })

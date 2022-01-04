@@ -146,7 +146,7 @@ const BarGraphchild = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function Location({ bottom }) {
     console.log("mapbox임")
@@ -296,7 +296,7 @@ export default function Location({ bottom }) {
         // 데이터를 가져오기 위해 jQuery를 사용합니다
         // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
         $.get(
-            url + `/api/post/location?weather=${weatherFilter.weatherFilter}`,
+            url + `/post/location?weather=${weatherFilter.weatherFilter}`,
             function (data) {
                 // 데이터에서 좌표 값을 가지고 마커를 표시합니다
                 // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
@@ -480,7 +480,7 @@ export default function Location({ bottom }) {
                 axios({
                     url:
                         url +
-                        `/api/post/list?top=${neLatlng.La}&bottom=${swLatlng.La}&left=${swLatlng.Ma}&right=${neLatlng.Ma}`,
+                        `/post/list?top=${neLatlng.La}&bottom=${swLatlng.La}&left=${swLatlng.Ma}&right=${neLatlng.Ma}`,
                     // url: url + "/signup",
                     method: "get",
                     headers: {
@@ -519,7 +519,7 @@ export default function Location({ bottom }) {
                 var latlng = map.getCenter()
 
                 axios({
-                    url: url + `/api/map2?lat=${latlng.Ma}&lon=${latlng.La}`,
+                    url: url + `/map2?lat=${latlng.Ma}&lon=${latlng.La}`,
                     // url: url + "/signup",
                     method: "get",
                     headers: {

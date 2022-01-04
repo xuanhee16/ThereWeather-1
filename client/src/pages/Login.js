@@ -288,9 +288,10 @@ export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     if (!url) {
-        url = "https://thereweather.space"
+        url = "https://thereweather.space/api"
         clientUrl = "https://there-weather.vercel.app"
     }
+    console.log(url)
 
     // input 상태 관리, 유효성 검사
     const [idInput, setIdInput] = useState("")
@@ -334,7 +335,7 @@ export default function Login() {
                     axios({
                         url:
                             url +
-                            `/api/users/socialcheck?user_id=${res.data.email}`,
+                            `/users/socialcheck?user_id=${res.data.email}`,
                         method: "get",
                         headers: {
                             accept: "application/json",
@@ -416,7 +417,7 @@ export default function Login() {
 
         axios
             .post(
-                url + "/api/login",
+                url + "/login",
 
                 { user_id: idInput, password: pwInput },
                 {
@@ -442,7 +443,7 @@ export default function Login() {
         console.log("socialAutoLogin함수")
         console.log(inputSignUpData.idInput)
         axios({
-            url: url + "/api/sociallogin",
+            url: url + "/sociallogin",
             method: "post",
             data: {
                 user_id: id,
@@ -545,7 +546,7 @@ export default function Login() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: url + "/api/users/signup",
+                url: url + "/users/signup",
                 method: "post",
                 data: {
                     user_id: inputSignUpData.idInput,
@@ -578,13 +579,16 @@ export default function Login() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/api/users/photo", formData, {
+            .post(url + "/users/photo", formData, {
                 "Content-Type": "application/json",
                 withCredentials: true,
             })
             .then((res) => {
                 const { fileName } = res.data
-                setUploadedImg({ fileName, filePath: `${url}/img/${fileName}` })
+                setUploadedImg({
+                    fileName,
+                    filePath: `${url.slice(0, -4)}/image/${fileName}`,
+                })
                 alert("사진을 성공적으로 업로드 하였습니다.")
             })
             .catch((err) => {

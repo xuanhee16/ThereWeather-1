@@ -206,8 +206,8 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 ////////////////////////
-// let url = process.env.REACT_APP_LOCAL_URL
-let url = "https://thereweather.space"
+let url = process.env.REACT_APP_LOCAL_URL
+// let url = "https://thereweather.space"
 
 // const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 
@@ -215,7 +215,7 @@ export default function SignUp() {
     const dispatch = useDispatch()
     // input 상태 관리, 유효성 검사
     if (!url) {
-        url = "https://thereweather.space"
+        url = "https://thereweather.space/api"
     }
     const [inputSignUpData, setInputSignUpData] = useState({
         idInput: "",
@@ -370,7 +370,7 @@ export default function SignUp() {
         if (!inputVaildMessage.emailInput && !inputVaildMessage.idInput) {
             console.log("정상수행가능")
             axios({
-                url: url + "/api/users/auth",
+                url: url + "/users/auth",
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -396,7 +396,7 @@ export default function SignUp() {
     function codeSend() {
         console.log("code 보내기")
         axios({
-            url: url + "/api/users/auth",
+            url: url + "/users/auth",
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -430,7 +430,7 @@ export default function SignUp() {
         } else {
             console.log("프론트:빈칸 채우기 완료")
             axios({
-                url: url + "/api/users/signup",
+                url: url + "/users/signup",
                 // url: url + "/signup",
                 method: "post",
                 headers: {
@@ -467,7 +467,7 @@ export default function SignUp() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/api/users/photo", formData, {
+            .post(url + "/users/photo", formData, {
                 "Content-Type": "multipart/form-data",
                 withCredentials: true,
             })
@@ -475,7 +475,7 @@ export default function SignUp() {
                 const { fileName } = res.data
                 setUploadedImg({
                     fileName,
-                    filePath: `${url}/image/${fileName}`,
+                    filePath: `${url.slice(0, -4)}/image/${fileName}`,
                 })
                 alert("사진을 성공적으로 업로드 하였습니다!")
             })

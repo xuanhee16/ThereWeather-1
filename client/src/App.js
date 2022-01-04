@@ -35,9 +35,9 @@ let url = process.env.REACT_APP_LOCAL_URL
 
 export default function App() {
     if (!url) {
-        url = "https://thereweather.space"
+        url = "https://thereweather.space/api"
     }
-    
+
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -48,7 +48,7 @@ export default function App() {
         //auth할차례
         if (localStorage.getItem("ATOKEN")) {
             axios({
-                url: url + "/api/users/auth",
+                url: url + "/users/auth",
                 method: "get",
                 headers: {
                     authorization: `token ${JSON.parse(

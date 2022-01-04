@@ -215,7 +215,7 @@ const Secret = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function Write() {
     const dispatch = useDispatch()
@@ -364,7 +364,7 @@ export default function Write() {
     // 기존 데이터 렌더링
     useEffect(() => {
         axios({
-            url: url + `/api/readpost?searchID=${userInfo.postIds}`,
+            url: url + `/readpost?searchID=${userInfo.postIds}`,
             method: "get",
             params: { id: postIds },
             withCredentials: true,
@@ -410,7 +410,7 @@ export default function Write() {
             //&& !photo && !selectWeather && !selectWind && !setSelectTemp
 
             axios({
-                url: url + "/api/editpost",
+                url: url + "/editpost",
                 method: "put",
                 data: {
                     user_id: userInfo.user_id,
@@ -484,7 +484,7 @@ export default function Write() {
         formData.append("img", photo)
         console.log(formData)
         axios
-            .post(url + "/api/post/photo", formData, {
+            .post(url + "/post/photo", formData, {
                 "Content-Type": "application/json",
                 withCredentials: true,
             })
@@ -492,7 +492,7 @@ export default function Write() {
                 const { fileName } = res.data
                 setUploadedImg({
                     fileName,
-                    filePath: `${url}/img/${fileName}`,
+                    filePath: `${url.slice(0, -4)}/image/${fileName}`,
                 })
                 alert("사진을 성공적으로 업로드 하였습니다!")
             })
@@ -515,7 +515,7 @@ export default function Write() {
         }
         for (let n = 0; n < 20; n++) {
             axios({
-                url: url + "/api/post/write",
+                url: url + "/post/write",
                 method: "post",
                 data: {
                     user_id: Math.random().toString(36).substr(2, 5),

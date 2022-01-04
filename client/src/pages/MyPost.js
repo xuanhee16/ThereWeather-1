@@ -155,7 +155,7 @@ const Page = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function MyPost() {
     const dispatch = useDispatch()
@@ -167,7 +167,7 @@ export default function MyPost() {
 
     useEffect(() => {
         axios({
-            url: url + `/api/mypost?searchID=${userInfo.user_id}`,
+            url: url + `/mypost?searchID=${userInfo.user_id}`,
             method: "get",
             withCredentials: true,
         }).then((res) => {

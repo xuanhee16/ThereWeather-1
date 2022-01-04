@@ -143,7 +143,7 @@ const FriendListDiv = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 const socket = io.connect(url)
 
 export default function Messenger() {
@@ -178,7 +178,7 @@ export default function Messenger() {
 
         //룸네임이 만들어지면 axios로 접속된 목록을 추가하여 데이터 베이스에 저장해주자-hoon
         axios({
-            url: url + "/api/chat/rooms",
+            url: url + "/chat/rooms",
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -197,7 +197,7 @@ export default function Messenger() {
     //처음에 가지고 있는 참여된 방이 있는지 조회-hoon
     useEffect(() => {
         axios({
-            url: url + `/api/chat/rooms?user_id=${userInfo.user_id}`,
+            url: url + `/chat/rooms?user_id=${userInfo.user_id}`,
             method: "get",
             headers: {
                 "Content-Type": "application/json",
@@ -254,7 +254,7 @@ export default function Messenger() {
     //채팅방 메시지 글 보내기 함수
     function msgSubmit() {
         axios({
-            url: url + `/api/chat/messagelist`,
+            url: url + `/chat/messagelist`,
             method: "put",
             headers: {
                 "Content-Type": "application/json",

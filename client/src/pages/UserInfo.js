@@ -62,21 +62,21 @@ const InfoBox = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function UserInfo() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { isLogin } = useSelector((state) => state.itemReducer)
     if (!url) {
-        url = "https://thereweather.space"
+        url = "https://thereweather.space/api"
     }
 
     const logoutBtnHandler = (e) => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios
             .post(
-                url + "/api/signout",
+                url + "/signout",
                 { data: null },
                 {
                     headers: {

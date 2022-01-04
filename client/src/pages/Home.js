@@ -284,7 +284,7 @@ const RightNav1 = styled.nav`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -307,7 +307,7 @@ export default function Home() {
                     lon = position.coords.longitude // 경도
                 console.log(lat, lon) //브라우저에 찍힘
                 axios({
-                    url: url + "/api/map",
+                    url: url + "/map",
                     method: "post",
                     data: { lat: lat, lon: lon },
                     withCredentials: true,
@@ -349,7 +349,7 @@ export default function Home() {
                 console.log(right, left, top, bottom)
 
                 axios({
-                    url: url + "/api/home",
+                    url: url + "/home",
                     method: "post",
                     data: {
                         lat: lat,

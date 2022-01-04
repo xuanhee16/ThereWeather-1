@@ -100,7 +100,7 @@ const YouDiv = styled.div`
     overflow: auto;
 `
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 const socket = io.connect(url)
 
 export default function ChatRoom() {
@@ -133,7 +133,7 @@ export default function ChatRoom() {
     /////////////메시지를 받았을때/////
     useEffect(() => {
         axios({
-            url: url + `/api/chat/messagelist`,
+            url: url + `/chat/messagelist`,
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -166,7 +166,7 @@ export default function ChatRoom() {
 
     useEffect(() => {
         axios({
-            url: url + `/api/chat/messagelist`,
+            url: url + `/chat/messagelist`,
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -196,7 +196,7 @@ export default function ChatRoom() {
             .replace(`${userInfo.user_id}`, "")
 
         axios({
-            url: url + `/api/chat/messagelist`,
+            url: url + `/chat/messagelist`,
             method: "put",
             headers: {
                 "Content-Type": "application/json",

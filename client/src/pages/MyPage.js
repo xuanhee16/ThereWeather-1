@@ -230,7 +230,7 @@ const GridArea = styled.div`
 
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) {
-    url = "https://thereweather.space"
+    url = "https://thereweather.space/api"
 }
 
 export default function MyPage() {
@@ -252,7 +252,7 @@ export default function MyPage() {
     // 게시물 데이터 조회
     useEffect(() => {
         axios({
-            url: url + `/api/mypage?searchID=${userInfo.user_id}`,
+            url: url + `/mypage?searchID=${userInfo.user_id}`,
             method: "get",
             withCredentials: true,
         }).then((res) => {
@@ -274,7 +274,7 @@ export default function MyPage() {
     const modalYesButtonHandlers = () => {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios
-            .delete(url + "/api/removeuser", {
+            .delete(url + "/removeuser", {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `token ${token}`,

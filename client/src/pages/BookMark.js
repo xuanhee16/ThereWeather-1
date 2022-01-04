@@ -249,7 +249,7 @@ const PageNumber = styled.div`
 const NextPage = styled.div``
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function BookMark() {
     const dispatch = useDispatch()
@@ -270,7 +270,7 @@ export default function BookMark() {
             // url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
             // url: url + `/bookmarklist?searchID=${userInfo.user_id}`,
             // method: "get",
-            url: url + "/api/bookmarklist",
+            url: url + "/bookmarklist",
             method: "post",
             data: {
                 user_id: userInfo.id,

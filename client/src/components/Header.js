@@ -257,7 +257,7 @@ const Buttons2 = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function Header({ isInput, isMobileLogo, isText }) {
     const dispatch = useDispatch()
@@ -289,7 +289,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         axios
             .post(
-                url + "/api/signout",
+                url + "/signout",
                 { data: null },
                 {
                     headers: {

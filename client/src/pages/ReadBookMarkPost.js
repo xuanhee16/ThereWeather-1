@@ -303,7 +303,7 @@ const Buttons = styled.div`
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space"
+if (!url) url = "https://thereweather.space/api"
 
 export default function PostRead() {
     const history = useHistory()
@@ -354,7 +354,7 @@ export default function PostRead() {
     useEffect(() => {
         function getOnePost(postId) {
             axios
-                .get(`${url}/api/readpost`, {
+                .get(`${url}/readpost`, {
                     headers: { "Content-Type": "application/json" },
                     params: { id: postId },
                     withCredentials: true,
@@ -406,7 +406,7 @@ export default function PostRead() {
     //게시물 수정 yse버튼
     const editModalYes = () => {
         axios({
-            url: url + "/api/editpost",
+            url: url + "/editpost",
             method: "put",
             data: {
                 user_id: userInfo.user_id,
@@ -430,7 +430,7 @@ export default function PostRead() {
         const token = JSON.parse(localStorage.getItem("ATOKEN"))
         //console.log(token)
         axios({
-            url: url + "/api/deletepost",
+            url: url + "/deletepost",
             method: "delete",
             headers: {
                 "Content-Type": "application/json",
@@ -462,7 +462,7 @@ export default function PostRead() {
         //눌렀을 때 북마크에 저장
         //다시 누르면 해제
         axios({
-            url: url + "/api/bookmark",
+            url: url + "/bookmark",
             method: "post",
             data: { user_id: userInfo.id, post_id: postIds },
             // data: { post_id: postId },
