@@ -222,7 +222,7 @@ export default function SignUp() {
         emailVaildCode: "",
     })
     const [inputVaildMessage, setInputVaildMessage] = useState({
-        idInput: "아이디를 입력하세요.",
+        idInput: "아이디를 입력하세요..",
         pwInput: "패스워드를 입력하세요.",
         nickNameInput: "닉네임을 입력하세요.",
         emailInput: "이메일을 입력하세요.",
