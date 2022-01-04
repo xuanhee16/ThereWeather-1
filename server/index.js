@@ -12,10 +12,8 @@ const multer = require("multer")
 const logger = require("morgan")
 const userRouter = require("./routes/user")
 const postRouter = require("./routes/post")
-const { isAuthorized } = require("./controllers/tokenFunc/index")
-const { user } = require("./models/index")
-const { encrypto } = require("./controllers/get/setpw")
 const chatRouter = require("./routes/chat")
+const helmet = require("helmet")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -29,6 +27,7 @@ app.use(
 app.use(logger("dev")) //서버요청 로그
 app.use(cookieParser())
 app.use(express.static("public"))
+app.use(helmet())
 
 const storage = multer.diskStorage({
     destination: "./public/img/",
@@ -80,6 +79,7 @@ app.post("/api/bookmark", controllers.bookmark) //북마크 보는 곳 - BookMar
 app.post("/api/home", controllers.home) //홈 - Home.js
 app.post("/api/bookmarklist", controllers.bookmarklist)
 app.post("/api/readbookmark", controllers.readbookmark)
+app.post("/api/kakaologin", controllers.kakaologin)
 
 //put
 app.put("/api/password", controllers.password) //비밀번호 수정시 - MyPage.js
