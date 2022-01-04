@@ -79,6 +79,7 @@ app.post("/api/map", controllers.map) //지도 - Map.js
 app.post("/api/bookmark", controllers.bookmark) //북마크 보는 곳 - BookMark.js
 app.post("/api/home", controllers.home) //홈 - Home.js
 app.post("/api/bookmarklist", controllers.bookmarklist)
+app.post("/api/readbookmark", controllers.readbookmark)
 
 //put
 app.put("/api/password", controllers.password) //비밀번호 수정시 - MyPage.js

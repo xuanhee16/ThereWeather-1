@@ -11,6 +11,7 @@ module.exports = {
     login: require("./post/login"),
     signout: require("./post/signout"),
     post: require("./post/write"),
+    readbookmark: require("./post/readbookmark"),
     password: require("./put/password"),
     edituserinfo: require("./put/edituserinfo"),
     userphoto: require("./put/userphoto"),
