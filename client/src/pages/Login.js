@@ -8,6 +8,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { changeIsLogin, changeMapPage } from "../actions/index"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
+import KakaoIcon from "../../src/KakaoIcon/kakao_login.png"
 
 /*
   TODO
@@ -82,6 +83,10 @@ const LoginButtons = styled.div`
     justify-content: center;
     align-items: center;
     margin: 3rem auto;
+    img {
+      width: 20px;
+      height: 20px;
+    }
 `
 
 const LoginButton = styled.button`
@@ -279,6 +284,7 @@ const PhotoBox2 = styled.img`
     width: 30vh;
     height: 30vh;
 `
+
 ////////////////////////////////////////////////////
 // const url = "https://thereweather.space"
 let url = process.env.REACT_APP_LOCAL_URL
@@ -313,8 +319,9 @@ export default function Login() {
         pwInput: "",
         nickNameInput: "",
     })
+
     useEffect(() => {
-        console.log("나는 login.js")
+        // console.log("나는 login.js")
         dispatch(changeMapPage(false))
         const urlinfo = new URL(window.location.href)
         const hash = urlinfo.hash
@@ -391,7 +398,7 @@ export default function Login() {
             })
         }
     }, [])
-    console.log(isLogin)
+    //console.log(isLogin)
     const loginidOnChangeHanlder = (e) => {
         setIdInput((prevInput) => e.target.value)
 
@@ -432,7 +439,7 @@ export default function Login() {
                 }
             )
             .then((res) => {
-                console.log(res.data.data)
+                //console.log(res.data.data)
                 localStorage.setItem(
                     "ATOKEN",
                     JSON.stringify(res.data.data.accessToken)
@@ -560,7 +567,7 @@ export default function Login() {
                     user_photo: uploadedImg.filePath,
                 },
             }).then((res) => {
-                console.log(res)
+                //console.log(res)
                 if (res.status === 211) {
                     alert("아이디 중복입니다.")
                 } else if (res.status === 212) {
@@ -575,13 +582,23 @@ export default function Login() {
             })
         }
     }
+
+    
+    //카카오 로그인 
+    const KAKAO_LOGIN_URL=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_URL}&response_type=code`
+    function kakaoLoginHandler() {
+        window.location.assign(KAKAO_LOGIN_URL)
+    } 
+
+
+
     ////////////////////////////////////////////////
     const onSubmit = (e) => {
-        console.log(e)
+        //console.log(e)
         e.preventDefault()
         const formData = new FormData()
         formData.append("img", photo)
-        console.log(formData)
+        //console.log(formData)
         axios
             .post(url + "/users/photo", formData, {
                 "Content-Type": "application/json",
@@ -601,7 +618,7 @@ export default function Login() {
     }
 
     const addFile = (e) => {
-        console.log(e.target.files[0])
+        //console.log(e.target.files[0])
         setPhoto(e.target.files[0])
     }
     ////////////////////////////////
@@ -756,10 +773,15 @@ export default function Login() {
                             로그인
                         </LoginButton>
 
-                        {/* 소셜로그인 */}
+                        {/* 구글 소셜로그인 */}
                         <LoginButton onClick={googleLoginButtonHandler} google>
                             <FontAwesomeIcon icon={faGoogle} />
                             <span>구글 로그인</span>
+                        </LoginButton>
+                         {/* 카카오 소셜로그인 */}
+                         <LoginButton onClick={kakaoLoginHandler}>
+                            <img src={KakaoIcon}></img>
+                            <span> 카카오 로그인</span>
                         </LoginButton>
                     </LoginButtons>
                 </LoginOuter>
