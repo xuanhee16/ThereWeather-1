@@ -7,6 +7,7 @@ import ModalConfirm from "../components/ModalConfirm"
 import GoBackButton from "../components/GoBackButton"
 import { useHistory } from "react-router-dom"
 import TopButton from "../components/TopButton"
+import Comment from "../components/PostRead-comment"
 
 /*
   [수정사항]
@@ -314,6 +315,21 @@ const Buttons = styled.div`
     }
 `
 
+// 댓글
+const CommentSection = styled.div`
+    border: 1px solid red;
+`
+const PostComment = styled.div`
+    border: 1px solid blue;
+
+    button {
+        border: 1px solid black;
+    }
+`
+const CommentList = styled.ul`
+    border: 1px solid purple;
+`
+
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space/api"
 
@@ -415,7 +431,7 @@ export default function PostRead() {
         setRemovePost(true)
     }
 
-    //게시물 수정 yse버튼
+    //게시물 수정 yes버튼
     const editModalYes = () => {
         axios({
             url: url + "/editpost",
@@ -486,6 +502,26 @@ export default function PostRead() {
         // console.log(e.currentTarget);
     }
 
+    // 댓글작성
+    const [contentMsg, setContentMsg] = useState(null)
+    const commentBtnClick = () => {
+        console.log("clcik : ", userInfo);
+
+        axios({
+            url: url + "/sendComment",
+            method:  "post",
+            data: {
+                post_id: postData.id,
+                comment_user_id: userInfo.user_id,
+                comment_content: contentMsg,
+            },
+            withCredentials: true,
+        })
+
+
+        
+    }
+
     useEffect(() => {
         axios({
             url: url + "/readbookmark",
@@ -504,7 +540,6 @@ export default function PostRead() {
             }
         })
     }, [])
-
 
     return (
         <Outer>
@@ -650,6 +685,20 @@ export default function PostRead() {
                     </ModalConfirm>
                 )}
             </Buttons>
+
+            <CommentSection>
+                {/* 댓글작성 */}
+                <PostComment>
+                    <input type="text" placeholder="댓글을 작성해주세요."/>
+                    <button onClick={commentBtnClick}>작성</button>
+                </PostComment>
+                {/* 댓글목록 */}
+                <CommentList>
+                    {/* map */}
+                    <Comment/>
+                </CommentList>
+            </CommentSection>
+
         </Outer>
     )
 }

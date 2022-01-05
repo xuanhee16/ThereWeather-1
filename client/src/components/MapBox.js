@@ -145,9 +145,6 @@ const BarGraphchild = styled.div`
     // }
 `
 
-let url = process.env.REACT_APP_LOCAL_URL
-if (!url) url = "https://thereweather.space/api"
-
 export default function Location({ bottom }) {
     console.log("mapbox임")
     const { searchWord, weatherFilter } = useSelector(
@@ -185,6 +182,9 @@ export default function Location({ bottom }) {
         },
     ])
     console.log(weatherFilter)
+    let url =
+        process.env.REACT_APP_LOCAL_URL || "https://thereweather.space/api"
+
     //---------------
     useEffect(() => {
         var container = document.getElementById("map")
