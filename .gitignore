@@ -6,9 +6,9 @@ node_modules/
 .pnp.js
 
 # .env
-# /client/.env
-# /server/.env
-# /server/public
+/client/.env
+/server/.env
+/server/public
 
 # testing
 /coverage
