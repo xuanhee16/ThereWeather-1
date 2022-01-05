@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { useSelector } from "react-redux"
-import { Bookmark } from "../components/Heart"
+import { Bookmark } from "../components/BookMarks"
 import ModalConfirm from "../components/ModalConfirm"
 import GoBackButton from "../components/GoBackButton"
 import { useHistory } from "react-router-dom"
@@ -84,7 +84,7 @@ const Title = styled.div`
 const BookmarkIcon = styled(Bookmark)`
     float: right;
 
-    & .heart {
+    & .bookmark {
         cursor: pointer;
         color: #aaa;
     }
@@ -338,12 +338,12 @@ export default function PostRead() {
     const { readPostId, userInfo, postInfo } = useSelector(
         (state) => state.itemReducer
     )
-    console.log(userInfo) //현재접속한 유저
-    console.log(readPostId) //포스트번호
-    console.log(postInfo) //본인것만 보임
-    // console.log(pagePostInfo)
+    //console.log(userInfo) //현재접속한 유저
+    //console.log(readPostId) //포스트번호
+    //console.log(postInfo) //본인것만 보임
+    //console.log(pagePostInfo)
     const postIds = Number(readPostId)
-    console.log(postIds)
+    //console.log(postIds)
 
     // postData state 변수
     const [postData, setPostData] = useState({
@@ -388,7 +388,7 @@ export default function PostRead() {
                     withCredentials: true,
                 })
                 .then((res) => {
-                    console.log(res.data)
+                    //console.log(res.data)
                     return setPostData((prev) => res.data)
                     // return res.data;
                 })
@@ -403,7 +403,7 @@ export default function PostRead() {
         }
 
         if (!id) {
-            console.log("**postread: id가 없습니다**")
+            //console.log("**postread: id가 없습니다**")
             setNoIdWarning((prev) => "잘못된 접근입니다.")
         } else {
             getOnePost(id)
@@ -421,13 +421,13 @@ export default function PostRead() {
 
     // 게시물 수정
     const editPost = () => {
-        console.log("수정버튼동작확인")
+        //console.log("수정버튼동작확인")
         setEdit(true)
     }
 
     // 게시물 삭제
     const deletePost = (e) => {
-        console.log("삭제버튼동작확인")
+        //console.log("삭제버튼동작확인")
         setRemovePost(true)
     }
 
@@ -467,7 +467,7 @@ export default function PostRead() {
             data: { post_id: postIds },
             withCredentials: true,
         }).then((res) => {
-            console.log(res.data)
+            //console.log(res.data)
             alert(res.data)
             // alert("삭제 완료")
             history.push("/mypage")
@@ -486,9 +486,7 @@ export default function PostRead() {
     }
 
     const bookmarkHandler = (e) => {
-        console.log("글 읽기 - 북마크 버튼 동작 확인")
-        //눌렀을 때 북마크에 저장
-        //다시 누르면 해제
+        //console.log("글 읽기 - 북마크 버튼 동작 확인")
         axios({
             url: url + "/bookmark",
             method: "post",
@@ -497,7 +495,7 @@ export default function PostRead() {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
         }).then((res) => {
-            console.log(res.data)
+            //console.log(res.data)
             setBookmarked((prev) => !prev)
             // history.push("/bookmark")
         })
@@ -523,6 +521,25 @@ export default function PostRead() {
 
         
     }
+
+    useEffect(() => {
+        axios({
+            url: url + "/readbookmark",
+            method: "post", 
+            data: {
+                user_id: userInfo.id, 
+                post_id: postIds
+            }, 
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true
+        })
+        .then((res) => {
+            //console.log(res.data)
+            if(res.data !== "북마크없음"){
+              setBookmarked(!bookmarked)
+            }
+        })
+    }, [])
 
     return (
         <Outer>

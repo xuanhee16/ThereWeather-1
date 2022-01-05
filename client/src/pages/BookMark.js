@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import styled from "styled-components"
-import { Bookmark } from "../components/Heart"
+import { Bookmark } from "../components/BookMarks"
 import { updatePostId } from "../actions/index"
 import { useHistory } from "react-router"
 import { default as PaginationWithArrow } from "../components/Pagination"
@@ -259,11 +259,11 @@ export default function BookMark() {
     )
     const [bookmarkList, setBookmarkList] = useState()
 
-    console.log(userInfo)
-    console.log(readPostId)
-    console.log(postInfo)
+    // console.log(userInfo)
+    // console.log(readPostId)
+    // console.log(postInfo)
     const postId = Number(readPostId)
-    console.log(postId)
+    //console.log(postId)
 
     useEffect(() => {
         axios({
@@ -280,7 +280,7 @@ export default function BookMark() {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
         }).then((res) => {
-            console.log("**res.data bookmarkList**", res.data)
+           // console.log("**res.data bookmarkList**", res.data)
             setBookmarkList(res.data)
         })
     }, [])

@@ -13,6 +13,7 @@ module.exports = {
     signout: require("./post/signout"),
     post: require("./post/write"),
     sendComment: require("./post/sendComment"),
+    readbookmark: require("./post/readbookmark"),
     password: require("./put/password"),
     edituserinfo: require("./put/edituserinfo"),
     userphoto: require("./put/userphoto"),
@@ -21,6 +22,7 @@ module.exports = {
     deletepost: require("./del/deletepost"),
     removeuser: require("./del/removeuser"),
     sociallogin: require("./post/sociallogin"),
+    kakaologin: require("./post/kakaologin"),
     ////////
     map2: require("./post/map2"),
     usersController: require("./users"),
