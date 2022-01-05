@@ -481,7 +481,7 @@ export default function Home() {
 
         dispatch(updatePostId(elem.id))
         history.push({
-            pathname: "/postread",
+            pathname: "/readpost",
             state: { postId: elem.id },
         })
     }

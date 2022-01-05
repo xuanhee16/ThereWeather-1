@@ -102,7 +102,7 @@ export default function App() {
                 <Route exact path="/mypost">
                     <MyPost></MyPost>
                 </Route>
-                <Route exact path="/postread">
+                <Route exact path="/readpost">
                     <PostRead></PostRead>
                 </Route>
                 <Route exact path="/bookmarkpost">

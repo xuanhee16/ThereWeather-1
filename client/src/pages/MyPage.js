@@ -308,7 +308,7 @@ export default function MyPage() {
 
         dispatch(updatePostId(elem.id))
         history.push({
-            pathname: "/postread",
+            pathname: "/readpost",
             state: { postId: elem.id },
         })
     }
