@@ -15,10 +15,10 @@ const FirstPageContainer = styled.div`
 
 export default function FirstPage() {
     const dispatch = useDispatch()
-    console.log(One)
-    console.log(Two)
-    console.log(Three)
-    console.log(Four)
+    // console.log(One)
+    // console.log(Two)
+    // console.log(Three)
+    // console.log(Four)
 
     // let assignedHeight = window.innerHeight * 0.95;
     // const [ locationY, setLocationY ] = useState(0);

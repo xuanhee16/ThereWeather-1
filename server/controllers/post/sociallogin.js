@@ -2,7 +2,7 @@ const { getAccessToken, getRefreshToken, sendToken } = require("../tokenFunc")
 const { user } = require("../../models")
 
 module.exports = async (req, res) => {
-    console.log(req.body)
+    //console.log(req.body)
     const { user_id } = req.body
 
     try {

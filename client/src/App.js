@@ -44,7 +44,7 @@ export default function App() {
     const isInput = true
     const { isLogin } = useSelector((state) => state.itemReducer)
     useEffect(() => {
-        console.log(JSON.parse(localStorage.getItem("ATOKEN")))
+        //console.log(JSON.parse(localStorage.getItem("ATOKEN")))
         //auth할차례
         if (localStorage.getItem("ATOKEN")) {
             axios({
@@ -56,7 +56,7 @@ export default function App() {
                     )}`,
                 },
             }).then((res) => {
-                console.log(res.data.data)
+                //console.log(res.data.data)
                 dispatch(changeUser(res.data.data))
                 dispatch(changeIsLogin(res.data.login))
             })
