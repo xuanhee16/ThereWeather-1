@@ -505,7 +505,24 @@ export default function PostRead() {
     }
 
     // 댓글작성
+    const [contentMsg, setContentMsg] = useState(null)
+    const commentBtnClick = () => {
+        console.log("clcik : ", userInfo);
 
+        axios({
+            url: url + "/sendComment",
+            method:  "post",
+            data: {
+                post_id: postData.id,
+                comment_user_id: userInfo.user_id,
+                comment_content: contentMsg,
+            },
+            withCredentials: true,
+        })
+
+
+        
+    }
 
     return (
         <Outer>
@@ -656,7 +673,7 @@ export default function PostRead() {
                 {/* 댓글작성 */}
                 <PostComment>
                     <input type="text" placeholder="댓글을 작성해주세요."/>
-                    <button>작성</button>
+                    <button onClick={commentBtnClick}>작성</button>
                 </PostComment>
                 {/* 댓글목록 */}
                 <CommentList>
