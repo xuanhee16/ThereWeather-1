@@ -4,14 +4,14 @@ require("dotenv").config()
 module.exports = {
     //액세스 토큰 발급
     getAccessToken: (data) => {
-        return sign(data, process.env.ACCESS_SECRET, {
+        return sign(data, process.env.ACCESS_SECRET || "s1e0c2r6e0t", {
             expiresIn: "1h",
         })
     },
 
     //리프레시 토큰 발급
     getRefreshToken: (data) => {
-        return sign(data, process.env.REFRESH_SECRET, {
+        return sign(data, process.env.REFRESH_SECRET || "s21u10g2a6r", {
             expiresIn: "1days",
         })
     },
@@ -42,7 +42,10 @@ module.exports = {
     //리프레시 토큰 유효성검사, 해독
     checkAuthRefreshToken: (refreshToken) => {
         try {
-            return verify(refreshToken, process.env.REFRESH_SECRET)
+            return verify(
+                refreshToken,
+                process.env.REFRESH_SECRET || "s21u10g2a6r"
+            )
         } catch (err) {
             return null
         }
@@ -56,9 +59,8 @@ module.exports = {
         const atoken = authorization.split(" ")[1]
         //console.log("server/tokenfunc/index.js:", atoken) //토큰값 잘 찍힘
         try {
-            return verify(atoken, process.env.ACCESS_SECRET)
-        } 
-        catch (err) {
+            return verify(atoken, process.env.ACCESS_SECRET || "s1e0c2r6e0t")
+        } catch (err) {
             return null
         }
     },

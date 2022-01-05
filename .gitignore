@@ -5,10 +5,12 @@ node_modules/
 /.pnp
 .pnp.js
 
-# .env
-/client/.env
+.env
+/client/.env.development
+/client/.env.production
 /server/.env
-/server/public
+
+# /server/public
 
 # testing
 /coverage

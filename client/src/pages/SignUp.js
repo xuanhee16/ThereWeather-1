@@ -207,9 +207,6 @@ const PhotoBox2 = styled.img`
 `
 ////////////////////////
 let url = process.env.REACT_APP_LOCAL_URL
-// let url = "https://thereweather.space"
-
-// const url = process.env.REACT_APP_LOCAL_URL || process.env.REACT_APP_URL
 
 export default function SignUp() {
     const dispatch = useDispatch()
@@ -225,7 +222,7 @@ export default function SignUp() {
         emailVaildCode: "",
     })
     const [inputVaildMessage, setInputVaildMessage] = useState({
-        idInput: "아이디를 입력하세요.",
+        idInput: "아이디를 입력하세요..",
         pwInput: "패스워드를 입력하세요.",
         nickNameInput: "닉네임을 입력하세요.",
         emailInput: "이메일을 입력하세요.",
@@ -332,7 +329,7 @@ export default function SignUp() {
         } else {
             setInputVaildMessage({
                 ...inputVaildMessage,
-                nickNameInput: "닉네임은 두글자 이상 입니다.",
+                nickNameInput: "닉네임은 두글자 이상 입니다..",
             })
         }
     }, [inputSignUpData.nickNameInput])

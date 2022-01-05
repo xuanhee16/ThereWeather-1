@@ -32,14 +32,14 @@ module.exports = {
             // host: process.env.EMAILHOST,
             // port: process.env.EMAILPORT,
             auth: {
-                user: process.env.EMAIL,
-                pass: process.env.EMAILPW,
+                user: process.env.EMAIL || "thereweather17@gmail.com",
+                pass: process.env.EMAILPW || "s2e0c2r1e1tw0ea2ther71",
             },
         }
         var transporter = nodemailer.createTransport(smtpConfig)
 
         const mailOptions = {
-            from: process.env.EMAIL,
+            from: process.env.EMAIL || "thereweather17@gmail.com",
             to: req.body.email,
             subject: "There Weather 인증 코드 메일",
             html: `<div>아래 코드를 회원가입 창에 기입 후 인증 버튼을 클릭하세요.</div>
