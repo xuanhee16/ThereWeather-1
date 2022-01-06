@@ -29,6 +29,7 @@ app.use(cookieParser())
 app.use(express.static("public"))
 app.use(helmet())
 
+
 const storage = multer.diskStorage({
     destination: "./public/image/",
     filename: function (req, file, cb) {
