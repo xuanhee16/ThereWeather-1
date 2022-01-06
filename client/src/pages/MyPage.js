@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
 import { changeIsLogin, userPosts, updatePostId } from "../actions/index"
 import GoBackButton from "../components/GoBackButton"
-
+import Footer from "../components/Footer"
 /*
     [수정]
     - 페이지네이션 추가
@@ -24,6 +24,15 @@ const Outer = styled.div`
     @media screen and (max-width: 1081px) {
         flex-direction: column;
         min-height: calc(100vh - 125px - 70px);
+    }
+`
+const FooterDiv = styled.div`
+    //모바일
+    display: none;
+
+    @media screen and (min-width: 1081px) {
+        //pc
+        display: block;
     }
 `
 /* 프로필 정보 */
@@ -319,69 +328,76 @@ export default function MyPage() {
     }
 
     return (
-        <Outer>
-            <GoBackButton />
-            <ProfileArea>
-                <ProfileImg src={userInfo.user_Photo} />
-                <div className="mediaBox">
-                    <p id="user-name">{userInfo.user_id}</p>
-                    <p id="user-gender">
-                        {userInfo.gender === 1 ? "남성" : "여성"}
-                    </p>
-                    <p id="user-location">나의 위치 : {userInfo.location}</p>
-                    <p id="user-changeInfo" onClick={changeUserInfo}>
-                        정보수정
-                    </p>
-                </div>
-                <ButtonArea>
-                    <button onClick={() => history.push("/editpassword")}>
-                        비밀번호 수정
-                    </button>
-                    <button onClick={removeUserInfo}>회원탈퇴</button>
-                    {isModalOpen === false ? null : (
-                        <ModalConfirm
-                            yesHandler={modalYesButtonHandlers}
-                            noHandler={modalNoButtonHandler}
-                            closeHandler={modalCloseButtonHandler}
-                        >
-                            <p>탈퇴하시겠습니까?</p>
-                            <p>이유를 선택해 주세요</p>
-                            <select name="pets" id="pet-select">
-                                <option value="">선택</option>
-                                <option value="notUseful">
-                                    사용을 많이 하지 않음
-                                </option>
-                                <option value="inconvenientDesign">
-                                    디자인이 불편함
-                                </option>
-                                <option value="otherOptions">
-                                    다른 앱을 이용하기 위해
-                                </option>
-                                <option value="andSoForth">기타</option>
-                            </select>
-                        </ModalConfirm>
-                    )}
-                </ButtonArea>
-            </ProfileArea>
-
-            <GridArea className="myPagePostList">
-                <div className="item more">
-                    <p>내가 쓴 예보</p>
-                </div>
-                {currentPosts.map((el) => (
-                    <div
-                        className={["item", "postItem"]}
-                        id={el.id}
-                        onClick={postClickHandler}
-                        key={el.id}
-                    >
-                        <img src={el.post_photo} alt="posts" />
+        <>
+            <Outer>
+                <GoBackButton />
+                <ProfileArea>
+                    <ProfileImg src={userInfo.user_Photo} />
+                    <div className="mediaBox">
+                        <p id="user-name">{userInfo.user_id}</p>
+                        <p id="user-gender">
+                            {userInfo.gender === 1 ? "남성" : "여성"}
+                        </p>
+                        <p id="user-location">
+                            나의 위치 : {userInfo.location}
+                        </p>
+                        <p id="user-changeInfo" onClick={changeUserInfo}>
+                            정보수정
+                        </p>
                     </div>
-                ))}
-                <button className="moreView" onClick={moreViewHandler}>
-                    더 보기
-                </button>
-            </GridArea>
-        </Outer>
+                    <ButtonArea>
+                        <button onClick={() => history.push("/editpassword")}>
+                            비밀번호 수정
+                        </button>
+                        <button onClick={removeUserInfo}>회원탈퇴</button>
+                        {isModalOpen === false ? null : (
+                            <ModalConfirm
+                                yesHandler={modalYesButtonHandlers}
+                                noHandler={modalNoButtonHandler}
+                                closeHandler={modalCloseButtonHandler}
+                            >
+                                <p>탈퇴하시겠습니까?</p>
+                                <p>이유를 선택해 주세요</p>
+                                <select name="pets" id="pet-select">
+                                    <option value="">선택</option>
+                                    <option value="notUseful">
+                                        사용을 많이 하지 않음
+                                    </option>
+                                    <option value="inconvenientDesign">
+                                        디자인이 불편함
+                                    </option>
+                                    <option value="otherOptions">
+                                        다른 앱을 이용하기 위해
+                                    </option>
+                                    <option value="andSoForth">기타</option>
+                                </select>
+                            </ModalConfirm>
+                        )}
+                    </ButtonArea>
+                </ProfileArea>
+
+                <GridArea className="myPagePostList">
+                    <div className="item more">
+                        <p>내가 쓴 예보</p>
+                    </div>
+                    {currentPosts.map((el) => (
+                        <div
+                            className={["item", "postItem"]}
+                            id={el.id}
+                            onClick={postClickHandler}
+                            key={el.id}
+                        >
+                            <img src={el.post_photo} alt="posts" />
+                        </div>
+                    ))}
+                    <button className="moreView" onClick={moreViewHandler}>
+                        더 보기
+                    </button>
+                </GridArea>
+            </Outer>
+            <FooterDiv>
+                <Footer></Footer>
+            </FooterDiv>
+        </>
     )
 }

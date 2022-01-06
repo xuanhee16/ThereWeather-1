@@ -317,16 +317,16 @@ const Buttons = styled.div`
 
 // 댓글
 const CommentSection = styled.div`
-    border: 1px solid red;
 `
 const PostComment = styled.div`
     border: 1px solid blue;
-
+    height: 50px;
     button {
         border: 1px solid black;
     }
 `
 const CommentList = styled.ul`
+    height: 50px;
     border: 1px solid purple;
 `
 
@@ -339,7 +339,7 @@ export default function PostRead() {
         (state) => state.itemReducer
     )
     //console.log(userInfo) //현재접속한 유저
-    console.log(readPostId) //포스트번호
+    console.log("포스트번호 : ",readPostId) //포스트번호
     //console.log(postInfo) //본인것만 보임
     //console.log(pagePostInfo)
     const postIds = Number(readPostId)
@@ -503,24 +503,55 @@ export default function PostRead() {
         // console.log(e.currentTarget);
     }
 
+    // 댓글목록 불러오기
+    useEffect(() => {
+        getCommentList()
+    }, [])
+
     // 댓글작성
-    const [contentMsg, setContentMsg] = useState(null)
+    const [commentMsg, setCommentMsg] = useState(null)
+    const [commentList, setCommentList] = useState([])
+
     const commentBtnClick = () => {
         console.log("clcik : ", userInfo);
-
-        axios({
-            url: url + "/sendComment",
-            method:  "post",
-            data: {
-                post_id: postData.id,
-                comment_user_id: userInfo.user_id,
-                comment_content: contentMsg,
-            },
-            withCredentials: true,
-        })
-
-
+        if(commentMsg === null) {
+            alert("댓글을 입력해주세요.")
+        }else{
+            axios({
+                url: url + "/sendcomment",
+                method:  "post",
+                data: {
+                    post_id: postData.id,
+                    comment_user_id: userInfo.user_id,
+                    comment_content: commentMsg,
+                },
+                withCredentials: true,
+            })
+            .then(() => {
+                getCommentList()
+            })
+        }
+    }
+    
+    function getCommentList() {
+        console.log("getCommentList 실행")
+        console.log("getCommentList postData.id : ", readPostId);
         
+        axios({
+            url: url + "/commentlist",
+            method: "get",
+            params: {
+                post_id: postIds,
+            }
+        })
+        .then((res) => {
+            console.log("댓글목록 : ", res.data);
+            setCommentList(res.data)
+        })
+    }
+
+    const inputHandle = (e) => {
+        setCommentMsg(e.target.value)
     }
 
     useEffect(() => {
@@ -537,7 +568,7 @@ export default function PostRead() {
         .then((res) => {
             //console.log(res.data)
             if(res.data !== "북마크없음"){
-              setBookmarked(!bookmarked)
+              setCommentList(!bookmarked)
             }
         })
     }, [])
@@ -690,13 +721,17 @@ export default function PostRead() {
             <CommentSection>
                 {/* 댓글작성 */}
                 <PostComment>
-                    <input type="text" placeholder="댓글을 작성해주세요."/>
+                    <input type="text" placeholder="댓글을 작성해주세요." onChange={inputHandle}/>
                     <button onClick={commentBtnClick}>작성</button>
                 </PostComment>
                 {/* 댓글목록 */}
                 <CommentList>
-                    {/* map */}
-                    <Comment/>
+                    {commentList.map((content) => (
+                        <Comment
+                            key={content.id}
+                            content={content}
+                        />
+                    ))}
                 </CommentList>
             </CommentSection>
 
