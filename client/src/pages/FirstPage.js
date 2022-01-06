@@ -8,9 +8,20 @@ import { changeMapPage } from "../actions/index"
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import Loading from "../pages/Loading"
+import Footer from "../components/Footer"
 
 const FirstPageContainer = styled.div`
     background: linear-gradient(#fff, #fef9ef, #fff5dc, #d7f9ff, #aaf2ff);
+`
+
+const FooterDiv = styled.div`
+    //모바일
+    display: none;
+
+    @media screen and (min-width: 1081px) {
+        //pc
+        display: block;
+    }
 `
 
 export default function FirstPage() {
@@ -65,6 +76,9 @@ export default function FirstPage() {
                         delayFour={"6.0s"}
                         delayFive={"6.1s"}
                     />
+                    <FooterDiv>
+                        <Footer></Footer>
+                    </FooterDiv>
                 </FirstPageContainer>
             )}
         </>

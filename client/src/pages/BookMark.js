@@ -6,7 +6,7 @@ import { Bookmark } from "../components/BookMarks"
 import { updatePostId } from "../actions/index"
 import { useHistory } from "react-router"
 import { default as PaginationWithArrow } from "../components/Pagination"
-
+import Footer from "../components/Footer"
 /*
   [수정]
   - 페이지네이션
@@ -30,6 +30,15 @@ const Outer = styled.div`
     @media screen and (max-width: 1081px) {
         // 1081 이하일 때 // 모바일
         // padding-top: 3vh;
+    }
+`
+const FooterDiv = styled.div`
+    //모바일
+    display: none;
+
+    @media screen and (min-width: 1081px) {
+        //pc
+        display: block;
     }
 `
 
@@ -280,7 +289,7 @@ export default function BookMark() {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
         }).then((res) => {
-           // console.log("**res.data bookmarkList**", res.data)
+            // console.log("**res.data bookmarkList**", res.data)
             setBookmarkList(res.data)
         })
     }, [])
@@ -383,6 +392,9 @@ export default function BookMark() {
                 numberButtonClickHandler={setCurrentPage}
             />
             {/* 끝 - 페이지네이션 새로 추가 */}
+            <FooterDiv>
+                <Footer></Footer>
+            </FooterDiv>
         </Outer>
     )
 }

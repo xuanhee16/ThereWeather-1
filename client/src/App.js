@@ -25,6 +25,7 @@ import Messenger2 from "./pages/Messenger2"
 import Loading from "./pages/Loading"
 import EditUserInfo from "./pages/EditUserInfo"
 import ChatRoom from "./pages/ChatRoom"
+import Footer from "../src/components/Footer"
 
 import { changeIsLogin, changeUser } from "./actions/index"
 

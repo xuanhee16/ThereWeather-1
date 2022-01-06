@@ -7,6 +7,7 @@ import TopButton from "../components/TopButton"
 import { useHistory } from "react-router-dom"
 import { nanoid } from "nanoid"
 // import Loading from "./Loading";
+import Footer from "../components/Footer"
 
 const HomeContainer = styled.div`
     display: flex;
@@ -37,6 +38,16 @@ const HomeContainer = styled.div`
     }
     @media screen and (max-width: 900px) {
         width: 100%;
+    }
+`
+
+const FooterDiv = styled.div`
+    //모바일
+    display: none;
+
+    @media screen and (min-width: 1081px) {
+        //pc
+        display: block;
     }
 `
 
@@ -655,6 +666,9 @@ export default function Home() {
                     ))}
                 </RightContainer>
             </HomeContainer>
+            <FooterDiv>
+                <Footer></Footer>
+            </FooterDiv>
         </div>
     )
 }
