@@ -6,6 +6,7 @@ module.exports = {
     mypost: require("./get/mypost"),
     readpost: require("./get/readpost"),
     commentList: require("./get/commentList"),
+    authKakao: require("./get/authKakao"),
     bookmarklist: require("./post/bookmarklist"),
     home: require("./post/home"),
     map: require("./post/map"),

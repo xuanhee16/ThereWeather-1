@@ -6,7 +6,7 @@ const kakao_id = process.env.KAKAO_ID;
 
 module.exports = async (req, res) => {
     // res.send()
-    console.log(req.body)
+    // console.log(req.body)
     const { user_id, nickName, gender, user_Photo } = req.body;
      try{
       const kakakoUser = await user.findOne({
@@ -28,5 +28,6 @@ module.exports = async (req, res) => {
      catch(err){
        console.log(err)
      }
+
     // res.status(201).send("카카오 로그인 성공")
 }

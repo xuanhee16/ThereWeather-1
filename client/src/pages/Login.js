@@ -585,56 +585,82 @@ export default function Login() {
         }
     }
 
+
+    // const KAKAO_LOGIN_URL=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_URL}&response_type=code`
+    // function kakaoLoginHandler() {
+    //     // window.location.assign(KAKAO_LOGIN_URL)  
+    //     window.location.href = `${url}/authKakao`;
+    // } 
     
-    //카카오 로그인
-    // useEffect(())
+    
 
+    //  function kakaoLoginHandler() {
+    //     const scope = "profile_image, gender, profile_nickname, account_email"  
+    //     Kakao.Auth.login({
+    //     scope,
+    //     success: function(response) {
+    //         console.log(response);
+    //         Kakao.Auth.setAccessToken(response.access_token)
+    //         //console.log(`get accesstoken: ${Kakao.Auth.getAccessToken()}`)
+    //         let ACCESS_TOKEN = Kakao.Auth.getAccessToken();
 
-     function kakaoLoginHandler() {
-        const scope = "profile_image, gender, profile_nickname, account_email"  
-        Kakao.Auth.login({
-        scope,
-        success: function(response) {
-            //console.log(response);
-            Kakao.Auth.setAccessToken(response.access_token)
-            console.log(`get accesstoken: ${Kakao.Auth.getAccessToken()}`)
-
-            //사용자 정보가져오기
-            Kakao.API.request({
-                url: '/v2/user/me',
-                success: function({ kakao_account }){
-                   //console.log(kakao_account)
-                   const { email, profile } = kakao_account
-                   let gender = kakao_account.gender !== "female" ? 1 : 2
-                   //console.log(gender)
-                  axios({
-                      url: url + "/kakaologin",
-                      method: "post",
-                      data: {
-                        user_id: email,
-                        nickName: profile.nickname,
-                        gender: gender,
-                        user_Photo: profile.profile_image_url
-                      },
+    //         //사용자 정보가져오기
+    //         Kakao.API.request({
+    //             url: '/v2/user/me',
+    //             success: function({ kakao_account }){
+    //                //console.log(kakao_account)
+    //                const { email, profile } = kakao_account
+    //                let gender = kakao_account.gender !== "female" ? 1 : 2
+    //                //console.log(gender)
+    //               axios({
+    //                   url: url + "/kakaologin",
+    //                   method: "post",
+    //                   data: {
+    //                     user_id: email,
+    //                     nickName: profile.nickname,
+    //                     gender: gender,
+    //                     user_Photo: profile.profile_image_url
+    //                   },
                       
-                  })
-                  .then((res) => {
-                      console.log(res.data)
-                      alert("카카오 로그인 성공")
-                      //history.push("/")
-                  })
-                  .catch((err) => {
-                      console.log(err)
-                      alert("카카오 로그인 에러")
-                  })
-                }
-            });
-        },
-        fail: function(error) {
-            console.log(error);
-        }
-     })
-    };
+    //               })
+    //               .then((res) => {
+    //                 console.log(res.data)
+    //                 alert("카카오 로그인 성공")
+    //                 history.push("/")
+    //               })
+    //               .catch((err) => {
+    //                   console.log(err)
+    //                   alert("카카오 로그인 에러")
+    //               })
+    //             }
+    //         });
+    //     },
+    //     fail: function(error) {
+    //         console.log(error);
+    //     }
+    //  })
+    // };
+
+    // useEffect(() => {
+    //     Kakao.Auth.login({
+    //         success: (response) => {
+    //             axios.get(`${url}/authKakao`, {
+    //                 headers: {
+    //                     "Content-Type" : "application/json",
+    //                     authorization: response.access_token
+    //                 }
+    //             })
+    //             .then((res) => {
+    //                 console.log(res.data)
+    //                 localStorage.setItem("token", res.data.data.accessToken)
+    //                 dispatch(changeIsLogin(true))
+    //                 alert("환영합니다")
+    //                 history.push("/")
+    //             })
+    //         }
+    //     })
+    // }, [])
+
     
 
 

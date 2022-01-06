@@ -73,6 +73,7 @@ app.get("/api/mypost", controllers.mypost)
 // app.get("/bookmarklist", controllers.bookmarklist)
 // app.get("/api/like", controllers.like) //댓글좋아요기능
 app.get("/api/commentList", controllers.commentList) //댓글목록불러오기 - PostRead.js
+// app.get("/api/authKakao", controllers.authKakao)
 
 //post
 app.post("/api/login", controllers.login) //로그인시 - Login.js
