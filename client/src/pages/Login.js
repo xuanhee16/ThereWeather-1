@@ -586,11 +586,11 @@ export default function Login() {
     }
 
 
-    // const KAKAO_LOGIN_URL=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_URL}&response_type=code`
-    // function kakaoLoginHandler() {
-    //     // window.location.assign(KAKAO_LOGIN_URL)  
-    //     window.location.href = `${url}/authKakao`;
-    // } 
+    const KAKAO_LOGIN_URL=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_URL}&response_type=code`
+    function kakaoLoginHandler() {
+        window.location.assign(KAKAO_LOGIN_URL)  
+        //window.location.href = `${url}/authKakao`;
+    } 
     
     
 
