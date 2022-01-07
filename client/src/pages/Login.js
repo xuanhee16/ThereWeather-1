@@ -299,10 +299,6 @@ if (!url) {
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
-    // if (!url) {
-    //     url = "https://thereweather.space/api"
-    //     clientUrl = "https://thereweather.space"
-    // }
     console.log(url)
 
     // input 상태 관리, 유효성 검사
