@@ -591,6 +591,7 @@ export default function Login() {
     
 
      function kakaoLoginHandler() {
+        alert("카카오 로그인시 원활한 접속을 위해 전체수신 동의 부탁드립니다:) ")
         const scope = "profile_image, gender, profile_nickname, account_email"  
         Kakao.Auth.login({
         scope,
@@ -629,7 +630,7 @@ export default function Login() {
                         JSON.stringify(res.data.data.accessToken)
                     )
                     dispatch(changeIsLogin(true))
-                    alert("카카오 로그인 성공")
+                    alert("환영합니다")
                     history.push("/")
                   })
                   .catch((err) => {
