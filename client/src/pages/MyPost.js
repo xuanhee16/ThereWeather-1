@@ -82,6 +82,11 @@ const GridArea = styled.div`
         height: auto;
     }
 `
+const FlexArea = styled.div``
+const FlexArea2 = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 
 // 게시물 사진
 const PostImg = styled.img`
@@ -153,6 +158,10 @@ const Page = styled.div`
         }
     }
 `
+const CurPage = styled.button`
+    color: red;
+    // width: 30px;
+`
 
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) url = "https://thereweather.space/api"
@@ -164,6 +173,7 @@ export default function MyPost() {
         useSelector((state) => state.itemReducer)
 
     const [currentPosts, setcurrentPosts] = useState([])
+    const [curPage, setCurPage] = useState(1)
 
     useEffect(() => {
         axios({
@@ -177,17 +187,26 @@ export default function MyPost() {
         })
     }, [])
 
-    // 페이지네이션 시작
-    const [currentPage, setCurrentPage] = useState(1)
-    // 1페이지로 시작
-    const itemsPerPage = 8
-    // 한 페이지에 8개씩 보여준다
-    const lastIdx = currentPage * itemsPerPage
-    const firstIdx = lastIdx - itemsPerPage
-    const slicedData = (dataArr) => {
-        return dataArr.slice(firstIdx, lastIdx)
-    }
-    // 페이지네이션 끝
+    // // 페이지네이션 시작
+    // const [currentPage, setCurrentPage] = useState(1)
+    // // 1페이지로 시작
+    // const itemsPerPage = 8
+    // // 한 페이지에 8개씩 보여준다
+    // const lastIdx = currentPage * itemsPerPage
+    // const firstIdx = lastIdx - itemsPerPage
+    // const slicedData = (dataArr) => {
+    //     return dataArr.slice(firstIdx, lastIdx)
+    // }
+    // // 페이지네이션 끝
+
+    //게시물의 총 수량
+    console.log(currentPosts.length)
+    // 총 페이지 수 = Math.ceil(전체 개수/ 한 페이지에 나타낼 데이터 수);
+    console.log(Math.ceil(currentPosts.length / 2))
+    // 화면에 보여질 페이지 그룹 = Math.ceil(현재 페이지/ 한 화면에 나타낼 페이지 수);
+    // const curPage = Math.ceil(1 / 10)
+    // 화면에 보여질 첫번째 페이지
+    // 화면에 보여질 마지막 페이지
 
     // 게시물사진 클릭했을 때
     const postClickHandler = (e) => {
@@ -201,11 +220,11 @@ export default function MyPost() {
 
         dispatch(updatePostId(elem.id))
         history.push({
-            pathname: "/postread",
+            pathname: "/readpost",
             state: { postId: elem.id },
         })
     }
-
+    console.log(currentPosts)
     return (
         <Outer className="MyPostPage">
             <div>
@@ -213,29 +232,49 @@ export default function MyPost() {
                 <h2>내가 쓴 게시물</h2>
             </div>
 
-            <GridArea className="myPostList">
-                {
-                    /* 페이지 분할 및 적용 */
-                    slicedData(currentPosts).map((el) => (
-                        <div
-                            className={["postItem"]}
-                            id={el.id}
-                            onClick={postClickHandler}
-                            key={el.id}
-                        >
-                            <PostImg src={el.post_photo} alt="posts" />
-                        </div>
-                    ))
-                }
-            </GridArea>
+            {/* <GridArea className="myPostList">
+                {slicedData(currentPosts).map((el) => (
+                    <div
+                        className={["postItem"]}
+                        id={el.id}
+                        onClick={postClickHandler}
+                        key={el.id}
+                    >
+                        <PostImg src={el.post_photo} alt="posts" />
+                    </div>
+                ))}
+            </GridArea> */}
+            <FlexArea>
+                {currentPosts.map((el) => (
+                    <div
+                        className={["postItem"]}
+                        id={el.id}
+                        key={el.id}
+                        onClick={postClickHandler}
+                    >
+                        <PostImg src={el.post_photo} alt="posts" />
+                    </div>
+                ))}
+            </FlexArea>
+            <FlexArea2>
+                <div>{"<<"}</div>
+                <div>{"⬅️"}</div>
 
-            <div className="paginationContainer">
-                <Pagination
-                    dataLength={currentPosts.length}
-                    itemsPerPage={itemsPerPage}
-                    numberButtonClickHandler={setCurrentPage}
-                />
-            </div>
+                {currentPosts.map((number, idx) =>
+                    idx + 1 === curPage ? (
+                        <CurPage onClick={() => setCurPage(idx + 1)}>
+                            {idx + 1}
+                        </CurPage>
+                    ) : (
+                        <button onClick={() => setCurPage(idx + 1)}>
+                            {idx + 1}
+                        </button>
+                    )
+                )}
+
+                <div>{"➡️"}</div>
+                <div>{">>"}</div>
+            </FlexArea2>
         </Outer>
     )
 }

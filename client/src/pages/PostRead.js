@@ -346,7 +346,7 @@ export default function PostRead() {
     // console.log("포스트번호 : ",readPostId) //포스트번호
     // console.log(postInfo) //본인것만 보임
     const postIds = Number(readPostId)
-    console.log("postIds : ", postIds);
+    console.log(postIds)
 
     // postData state 변수
     const [postData, setPostData] = useState({
@@ -505,6 +505,7 @@ export default function PostRead() {
             //console.log(res.data)
             setBookmarked((prev) => !prev)
             // history.push("/bookmark")
+            // window.location.replace("/readpost")
         })
         // console.log(e.currentTarget);
     }

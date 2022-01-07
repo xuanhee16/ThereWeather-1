@@ -25,6 +25,7 @@ import Messenger2 from "./pages/Messenger2"
 import Loading from "./pages/Loading"
 import EditUserInfo from "./pages/EditUserInfo"
 import ChatRoom from "./pages/ChatRoom"
+import Footer from "../src/components/Footer"
 
 import { changeIsLogin, changeUser } from "./actions/index"
 
@@ -102,7 +103,7 @@ export default function App() {
                 <Route exact path="/mypost">
                     <MyPost></MyPost>
                 </Route>
-                <Route exact path="/postread">
+                <Route exact path="/readpost">
                     <PostRead></PostRead>
                 </Route>
                 <Route exact path="/bookmarkpost">
