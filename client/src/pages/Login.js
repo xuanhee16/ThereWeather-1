@@ -9,6 +9,8 @@ import { changeIsLogin, changeMapPage } from "../actions/index"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
 import KakaoIcon from "../../src/KakaoIcon/kakao_login.png"
+// import kakaologin from "../../../server/controllers/get/kakaologin"
+const { Kakao } = window; 
 
 /*
   TODO
@@ -297,10 +299,6 @@ if (!url) {
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
-    // if (!url) {
-    //     url = "https://thereweather.space/api"
-    //     clientUrl = "https://thereweather.space"
-    // }
     console.log(url)
 
     // input 상태 관리, 유효성 검사
@@ -583,13 +581,69 @@ export default function Login() {
         }
     }
 
-    
-    //카카오 로그인 
-    const KAKAO_LOGIN_URL=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_URL}&response_type=code`
-    function kakaoLoginHandler() {
-        window.location.assign(KAKAO_LOGIN_URL)
-    } 
 
+    // const KAKAO_LOGIN_URL=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=900d07591842ea31ab64a97cb7d5f8be&redirect_uri=http://localhost:3000/kakaologin&response_type=code`
+    //function kakaoLoginHandler() {
+        // window.location.assign(KAKAO_LOGIN_URL)  
+        // window.location.assign(`${url}/authKakao`);
+    //} 
+    
+    
+
+     function kakaoLoginHandler() {
+        const scope = "profile_image, gender, profile_nickname, account_email"  
+        Kakao.Auth.login({
+        scope,
+        success: function(response) {
+            //console.log(response);
+            //Kakao.Auth.setAccessToken(response.access_token)
+            //console.log(`get accesstoken: ${Kakao.Auth.getAccessToken()}`)
+            //let ACCESS_TOKEN = Kakao.Auth.getAccessToken();
+            //사용자 정보가져오기
+            Kakao.API.request({
+                url: '/v2/user/me',
+                success: function({ kakao_account }){
+                   //console.log(kakao_account)
+                   const { email, profile } = kakao_account
+                   let gender = kakao_account.gender !== "female" ? 1 : 2
+                   //console.log(gender)
+                  axios({
+                      url: url + "/kakaologin",
+                      method: "post",
+                      headers: {  
+                        "Content-Type": "application/json",
+                        authorization: response.access_token
+                      },
+                      data: {
+                        user_id: email,
+                        nickName: profile.nickname,
+                        gender: gender,
+                        user_Photo: profile.profile_image_url,
+                      },
+                    //   withCredentials: true
+                  })
+                  .then((res) => {
+                    // console.log(res)
+                    localStorage.setItem(
+                        "ATOKEN",
+                        JSON.stringify(res.data.data.accessToken)
+                    )
+                    dispatch(changeIsLogin(true))
+                    alert("카카오 로그인 성공")
+                    history.push("/")
+                  })
+                  .catch((err) => {
+                      console.log(err)
+                      alert("카카오 로그인 에러")
+                  })
+                }
+            });
+        },
+        fail: function(error) {
+            console.log(error);
+        }
+     })
+    };
 
 
     ////////////////////////////////////////////////

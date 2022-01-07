@@ -19,7 +19,7 @@ import Comment from "../components/PostRead-comment"
 */
 
 const Outer = styled.div`
-    width: 100vw;
+    width: 100%;
     background-color: var(--page-bg-color);
 
     // 오늘의 코디
@@ -317,16 +317,20 @@ const Buttons = styled.div`
 
 // 댓글
 const CommentSection = styled.div`
-    border: 1px solid red;
+    height: auto;
+    width: 100%;
 `
+// 댓글작성
 const PostComment = styled.div`
     border: 1px solid blue;
-
+    height: 50px;
     button {
         border: 1px solid black;
     }
 `
+// 댓글목록
 const CommentList = styled.ul`
+    height: 50px;
     border: 1px solid purple;
 `
 
@@ -338,12 +342,11 @@ export default function PostRead() {
     const { readPostId, userInfo, postInfo } = useSelector(
         (state) => state.itemReducer
     )
-    //console.log(userInfo) //현재접속한 유저
-    //console.log(readPostId) //포스트번호
-    //console.log(postInfo) //본인것만 보임
-    //console.log(pagePostInfo)
+    // console.log(userInfo) //현재접속한 유저
+    // console.log("포스트번호 : ",readPostId) //포스트번호
+    // console.log(postInfo) //본인것만 보임
     const postIds = Number(readPostId)
-    //console.log(postIds)
+    console.log(postIds)
 
     // postData state 변수
     const [postData, setPostData] = useState({
@@ -378,6 +381,7 @@ export default function PostRead() {
         return `${dateOnly} ${hourAndMin}`
     }
 
+    let getPostid = 0
     // 글 불러오기
     useEffect(() => {
         function getOnePost(postId) {
@@ -388,9 +392,8 @@ export default function PostRead() {
                     withCredentials: true,
                 })
                 .then((res) => {
-                    //console.log(res.data)
+                    console.log("글 불러오기 : ",res.data)
                     return setPostData((prev) => res.data)
-                    // return res.data;
                 })
                 .catch((err) => console.log(err))
         }
@@ -407,7 +410,11 @@ export default function PostRead() {
             setNoIdWarning((prev) => "잘못된 접근입니다.")
         } else {
             getOnePost(id)
+            getPostid = id
         }
+
+        console.log("글 불러오기 id : ", id)
+        console.log("getpostid : ", getPostid);
     }, [])
 
     // 북마크 상태
@@ -498,29 +505,60 @@ export default function PostRead() {
             //console.log(res.data)
             setBookmarked((prev) => !prev)
             // history.push("/bookmark")
+            // window.location.replace("/readpost")
         })
         // console.log(e.currentTarget);
     }
 
+    // 처음 댓글목록 불러오기
+    useEffect(() => {
+        getCommentList()
+    }, [])
+
     // 댓글작성
-    const [contentMsg, setContentMsg] = useState(null)
+    const [commentMsg, setCommentMsg] = useState(null)
+    const [commentList, setCommentList] = useState([])
+
     const commentBtnClick = () => {
-        console.log("clcik : ", userInfo);
-
-        axios({
-            url: url + "/sendComment",
-            method:  "post",
-            data: {
-                post_id: postData.id,
-                comment_user_id: userInfo.user_id,
-                comment_content: contentMsg,
-            },
-            withCredentials: true,
-        })
-
-
-        
+        if(commentMsg === null) {
+            alert("댓글을 입력해주세요.")
+        }else{
+            axios({
+                url: url + "/sendcomment",
+                method:  "post",
+                data: {
+                    post_id: postData.id,
+                    comment_user_id: userInfo.user_id,
+                    comment_content: commentMsg,
+                },
+                withCredentials: true,
+            })
+            .then(() => {
+                getCommentList()
+            })
+        }
     }
+    // 댓글목록 불러오기
+    function getCommentList() {
+        axios({
+            url: url + "/commentlist",
+            headers: { "Content-Type": "application/json" },
+            method: "get",
+            params: {
+                post_id: getPostid,
+            },
+            withCredentials:true,
+        })
+        .then((res) => {
+            // console.log("댓글목록 : ", res.data);
+            setCommentList(res.data)
+        })
+    }
+
+    const inputHandle = (e) => {
+        setCommentMsg(e.target.value)
+    }
+
 
     useEffect(() => {
         axios({
@@ -689,13 +727,17 @@ export default function PostRead() {
             <CommentSection>
                 {/* 댓글작성 */}
                 <PostComment>
-                    <input type="text" placeholder="댓글을 작성해주세요."/>
+                    <input type="text" placeholder="댓글을 작성해주세요." onChange={inputHandle}/>
                     <button onClick={commentBtnClick}>작성</button>
                 </PostComment>
                 {/* 댓글목록 */}
                 <CommentList>
-                    {/* map */}
-                    <Comment/>
+                    {commentList.map((content) => (
+                        <Comment
+                            key={content.id}
+                            content={content}
+                        />
+                    ))}
                 </CommentList>
             </CommentSection>
 

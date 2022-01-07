@@ -262,6 +262,7 @@ export default function MyPost() {
   // 화면에 보여질 첫번째 페이지
   // 화면에 보여질 마지막 페이지
 
+
   // 게시물사진 클릭했을 때
   const postClickHandler = (e) => {
     let elem = e.target;
@@ -270,6 +271,7 @@ export default function MyPost() {
       if (!elem.classList.contains("myPostList")) {
         break;
       }
+
     }
 
     dispatch(updatePostId(elem.id));

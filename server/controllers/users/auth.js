@@ -6,13 +6,13 @@ const nodemailer = require("nodemailer")
 
 module.exports = {
     get: async (req, res) => {
-        console.log("여긴 users/auth/")
+        //console.log("여긴 users/auth/")
         // console.log(req.headers.authorization)
         // console.log(isAuthorized(req))
-        console.log(process.env.abc)
-        console.log(process.env.qwe)
+        //console.log(process.env.abc)
+        //console.log(process.env.qwe)
         const data = isAuthorized(req)
-        console.log(data)
+        //console.log(data)
 
         if (data) {
             res.status(213).send({ login: true, data: data })

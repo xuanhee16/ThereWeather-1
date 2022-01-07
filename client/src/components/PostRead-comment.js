@@ -3,16 +3,40 @@ import styled from "styled-components"
 import axios from "axios"
 
 const Outer = styled.div`
-  background-color: yellowgreen;
-`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 
-// 아이디, 댓글내용, 날짜, 좋아요하트, 삭제버튼
-export default function Comment() {
+`
+const LeftDiv = styled.div`
+  
+`
+const RightDiv = styled.div`
+  border: 1px solid blueviolet;
+`
+const DeleteBtn = styled.button`
+  display: block;
+  border: 1px solid black;
+`
+const LikeBtn = styled.button`
+  display: block;
+  border: 1px solid red;
+`
+// 아이디, 댓글내용, 날짜 / 좋아요하트, 삭제버튼
+export default function Comment({content}) {
+  // console.log("content : ", content);
   return (
     <Outer>
-      <li>댓글1</li>
-      <li>댓글2</li>
-      <li>댓글3</li>
+      <LeftDiv>
+        <p>{content.comment_user_id}</p>
+        <p>{content.comment_content}</p>
+        <p>{content.createdAt}</p>
+      </LeftDiv>
+
+      <RightDiv>
+        <DeleteBtn>삭제</DeleteBtn>
+        <LikeBtn>하투</LikeBtn>
+      </RightDiv>
     </Outer>
   )
 }

@@ -696,7 +696,7 @@ export default function Location({ bottom }) {
         // console.log('**mapbox click id**',elem.id);
         dispatch(updatePostId(elem.id))
         history.push({
-            pathname: "/postread",
+            pathname: "/readpost",
             state: { postId: elem.id },
         })
     }
