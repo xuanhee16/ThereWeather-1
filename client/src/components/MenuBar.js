@@ -14,9 +14,10 @@ const Outer = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     z-index: 100;
-    position: sticky;
+    /* position: sticky; */
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
