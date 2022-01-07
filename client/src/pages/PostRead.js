@@ -568,7 +568,7 @@ export default function PostRead() {
         .then((res) => {
             //console.log(res.data)
             if(res.data !== "북마크없음"){
-              setCommentList(!bookmarked)
+              setBookmarked(!bookmarked)
             }
         })
     }, [])

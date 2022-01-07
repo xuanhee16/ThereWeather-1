@@ -73,7 +73,6 @@ app.get("/api/mypost", controllers.mypost)
 app.get("/bookmarklist", controllers.bookmarklist)
 // app.get("/api/like", controllers.like) //댓글좋아요기능
 app.get("/api/commentlist", controllers.commentlist) //댓글목록불러오기 - PostRead.js
-app.get("/api/authKakao", controllers.authKakao)
 
 //post
 app.post("/api/login", controllers.login) //로그인시 - Login.js
@@ -84,7 +83,7 @@ app.post("/api/home", controllers.home) //홈 - Home.js
 app.post("/api/bookmarklist", controllers.bookmarklist)
 app.post("/api/sendcomment", controllers.sendcomment) //댓글 - Comment.js
 app.post("/api/readbookmark", controllers.readbookmark)
-// app.post("/api/kakaologin", controllers.kakaologin)
+app.post("/api/kakaologin", controllers.kakaologin)
 
 //put
 app.put("/api/password", controllers.password) //비밀번호 수정시 - MyPage.js
