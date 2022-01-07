@@ -3,15 +3,25 @@ import styled from "styled-components"
 import axios from "axios"
 
 const Outer = styled.div`
-height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
 `
 const LeftDiv = styled.div`
-  border: 1px solid brown;
+  
 `
 const RightDiv = styled.div`
-  border: 1px solid blue;
+  border: 1px solid blueviolet;
 `
-
+const DeleteBtn = styled.button`
+  display: block;
+  border: 1px solid black;
+`
+const LikeBtn = styled.button`
+  display: block;
+  border: 1px solid red;
+`
 // 아이디, 댓글내용, 날짜 / 좋아요하트, 삭제버튼
 export default function Comment({content}) {
   // console.log("content : ", content);
@@ -23,7 +33,10 @@ export default function Comment({content}) {
         <p>{content.createdAt}</p>
       </LeftDiv>
 
-      <RightDiv></RightDiv>
+      <RightDiv>
+        <DeleteBtn>삭제</DeleteBtn>
+        <LikeBtn>하투</LikeBtn>
+      </RightDiv>
     </Outer>
   )
 }
