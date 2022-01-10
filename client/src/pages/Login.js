@@ -621,7 +621,6 @@ export default function Login() {
                         gender: gender,
                         user_Photo: profile.profile_image_url,
                       },
-                    //   withCredentials: true
                   })
                   .then((res) => {
                     // console.log(res)
