@@ -70,7 +70,7 @@ app.get("/api/codi", controllers.codi) //북마크에서 코디 누르면 확대
 app.get("/api/readpost", controllers.readpost) //예보글보기 - PostRead.js
 app.get("/api/mypage", controllers.mypage) //마이페이지 - MyPage.js
 app.get("/api/mypost", controllers.mypost)
-app.get("/bookmarklist", controllers.bookmarklist)
+app.get("/api/bookmarklist", controllers.bookmarklist)
 // app.get("/api/like", controllers.like) //댓글좋아요기능
 app.get("/api/commentlist", controllers.commentlist) //댓글목록불러오기 - PostRead.js
 
@@ -95,6 +95,7 @@ app.put("/api/checkuser", controllers.checkuser)
 //delete
 app.delete("/api/deletepost", controllers.deletepost) //예보글 삭제 - PostRead.js
 app.delete("/api/removeuser", controllers.removeuser) //회원탈퇴 - MyPage.js
+app.delete("/api/deletecomment", controllers.deletecomment) //댓글삭제 - PostRead.js
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000
 

@@ -342,11 +342,11 @@ export default function PostRead() {
     const { readPostId, userInfo, postInfo } = useSelector(
         (state) => state.itemReducer
     )
-    // console.log(userInfo) //현재접속한 유저
+    // console.log("현재 접속한 유저",userInfo) //현재접속한 유저
     // console.log("포스트번호 : ",readPostId) //포스트번호
     // console.log(postInfo) //본인것만 보임
     const postIds = Number(readPostId)
-    console.log(postIds)
+    // console.log(postIds)
 
     // postData state 변수
     const [postData, setPostData] = useState({
@@ -381,7 +381,7 @@ export default function PostRead() {
         return `${dateOnly} ${hourAndMin}`
     }
 
-    let getPostid = 0
+    let currentPostId = 0   // post id 저장
     // 글 불러오기
     useEffect(() => {
         function getOnePost(postId) {
@@ -410,11 +410,11 @@ export default function PostRead() {
             setNoIdWarning((prev) => "잘못된 접근입니다.")
         } else {
             getOnePost(id)
-            getPostid = id
+            currentPostId = id
         }
 
         console.log("글 불러오기 id : ", id)
-        console.log("getpostid : ", getPostid);
+        console.log("currentPostId : ", currentPostId);
     }, [])
 
     // 북마크 상태
@@ -515,7 +515,7 @@ export default function PostRead() {
         getCommentList()
     }, [])
 
-    // 댓글작성
+    // 댓글작성, 입력부분 초기화
     const [commentMsg, setCommentMsg] = useState(null)
     const [commentList, setCommentList] = useState([])
 
@@ -535,6 +535,7 @@ export default function PostRead() {
             })
             .then(() => {
                 getCommentList()
+                window.location.replace("/readpost")
             })
         }
     }
@@ -545,7 +546,7 @@ export default function PostRead() {
             headers: { "Content-Type": "application/json" },
             method: "get",
             params: {
-                post_id: getPostid,
+                post_id: currentPostId,
             },
             withCredentials:true,
         })
@@ -554,11 +555,28 @@ export default function PostRead() {
             setCommentList(res.data)
         })
     }
-
     const inputHandle = (e) => {
         setCommentMsg(e.target.value)
     }
 
+    // 댓글삭제
+    const commentDelete = (commentId) => {
+        const token = JSON.parse(localStorage.getItem("ATOKEN"))
+        axios({
+            url: url + "/deletecomment",
+            method: "delete",
+            headers: { 
+                "Content-Type": "application/json", Authorization: `token ${token}`, 
+            },
+            data: {
+                comment_id: commentId, // 댓글 아이디
+            },
+            withCredentials: true,
+        })
+        .then((res) => {
+            window.location.replace("/readpost")
+        })
+    }
 
     useEffect(() => {
         axios({
@@ -736,6 +754,7 @@ export default function PostRead() {
                         <Comment
                             key={content.id}
                             content={content}
+                            commentDelete={commentDelete}
                         />
                     ))}
                 </CommentList>
