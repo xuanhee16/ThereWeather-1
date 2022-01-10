@@ -3,25 +3,13 @@ import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { changeIsLogin, changeMapPage } from "../actions/index"
 import { Toggle } from "../components/Toggle"
 import DaumPostcode from "react-daum-postcode"
-import KakaoIcon from "../../src/KakaoIcon/kakao_login.png"
-// import kakaologin from "../../../server/controllers/get/kakaologin"
+import kakaoIcon from "../../src/LoginIcon/kakaoIcon.png"
+import googleIcon from "../../src/LoginIcon/googleIcon.png"
 const { Kakao } = window; 
 
-/*
-  TODO
-  [] 유효성 검사
-    - [x] ul, li 추가
-    - [] 함수로 구현
-      - [x] input이 없는 경우
-      - [] 등록되지 않은 정보인 경우 (버튼과 연결?)
-        - [] 악시오스
-        - [] 모달? alert? 페이지에 렌더링?
-*/
 
 const LoginOuter = styled.section`
     position: relative;
@@ -47,6 +35,12 @@ const LoginStyledArticle = styled.article`
     display: flex;
     flex-direction: column;
     justify-content: center;
+`
+
+const FindBtn = styled.button`
+    font-size: 1rem;
+    margin: 1rem 14.5rem;
+    padding: 1rem;
 `
 
 const LoginInputAndTitle = styled.div`
@@ -86,8 +80,9 @@ const LoginButtons = styled.div`
     align-items: center;
     margin: 3rem auto;
     img {
-      width: 20px;
-      height: 20px;
+      margin: 1rem;
+      width: 3.5rem;
+      height: 3.5rem;
     }
 `
 
@@ -287,6 +282,8 @@ const PhotoBox2 = styled.img`
     height: 30vh;
 `
 
+
+
 ////////////////////////////////////////////////////
 // const url = "https://thereweather.space"
 let url = process.env.REACT_APP_LOCAL_URL
@@ -299,7 +296,7 @@ if (!url) {
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
-    console.log(url)
+    // console.log(url)
 
     // input 상태 관리, 유효성 검사
     const [idInput, setIdInput] = useState("")
@@ -582,14 +579,6 @@ export default function Login() {
     }
 
 
-    // const KAKAO_LOGIN_URL=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=900d07591842ea31ab64a97cb7d5f8be&redirect_uri=http://localhost:3000/kakaologin&response_type=code`
-    //function kakaoLoginHandler() {
-        // window.location.assign(KAKAO_LOGIN_URL)  
-        // window.location.assign(`${url}/authKakao`);
-    //} 
-    
-    
-
      function kakaoLoginHandler() {
         alert("카카오 로그인시 원활한 접속을 위해 전체수신 동의 부탁드립니다:) ")
         const scope = "profile_image, gender, profile_nickname, account_email"  
@@ -644,7 +633,22 @@ export default function Login() {
         }
      })
     };
-
+    
+    //아이디 찾기
+    function findIdBtn() {
+      console.log("아이디 찾기 버튼")
+      
+    }
+    
+    //비밀번호 찾기
+    function findPwBtn() {
+      console.log("비밀번호 찾기 버튼")
+    }
+    
+    //회원가입 바로가기 
+    function signupShortcut() {
+      history.push("/signup")
+    }
 
     ////////////////////////////////////////////////
     const onSubmit = (e) => {
@@ -819,24 +823,28 @@ export default function Login() {
                             <LoginValidationListBox className="pwValidationList">
                                 <li>{pwInputMessage}</li>
                             </LoginValidationListBox>
-                        </LoginStyledArticle>
+                            <FindBtn>
+                              <span onClick={findIdBtn}>아이디 찾기  |  </span>
+                              <span onClick={findPwBtn}>비밀번호 찾기  |  </span>
+                              <span onClick={signupShortcut}>회원가입</span>  
+                            </FindBtn>
+                            </LoginStyledArticle>
                     </div>
 
                     <LoginButtons className="login--Loginbuttons">
                         <LoginButton onClick={loginButtonHandler}>
                             로그인
                         </LoginButton>
-
+                        <div>
                         {/* 구글 소셜로그인 */}
-                        <LoginButton onClick={googleLoginButtonHandler} google>
-                            <FontAwesomeIcon icon={faGoogle} />
-                            <span>구글 로그인</span>
-                        </LoginButton>
+                        <button onClick={googleLoginButtonHandler}>
+                          <img src={googleIcon}></img>
+                        </button>
                          {/* 카카오 소셜로그인 */}
-                         <LoginButton onClick={kakaoLoginHandler}>
-                            <img src={KakaoIcon}></img>
-                            <span> 카카오 로그인</span>
-                        </LoginButton>
+                         <button onClick={kakaoLoginHandler}>
+                          <img src={kakaoIcon}></img>
+                         </button>
+                        </div>
                     </LoginButtons>
                 </LoginOuter>
             )}
