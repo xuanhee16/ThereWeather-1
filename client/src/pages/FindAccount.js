@@ -59,8 +59,32 @@ const Button = styled.button`
     }
 `
 
+let url = process.env.REACT_APP_LOCAL_URL
 
 export default function FindAccount(){
+   
+    if (!url) {
+        url = "https://thereweather.space/api"
+    }
+
+    const [inputFindInfo, setInputFindInfo] =  useState({
+        findNickName: "",
+        authEmail: "",
+        authCode: ""
+    })
+
+    function sendEmail() {
+      console.log("이메일 전송 버튼")
+    }
+
+    function verification() {
+      console.log("인증코드 버튼")
+    }
+
+    function findAccountId() {
+      console.log("아이디 찾기 버튼")
+    }
+
     return (
         <Outer>
             <Form>
