@@ -157,7 +157,7 @@ export default function App() {
                 <Route exact path="/">
                     <Redirect to="/first" />
                 </Route>
-                <Route exact path="findaccount">
+                <Route exact path="/findaccount">
                     <FindAccount></FindAccount>
                 </Route>
             </Switch>
