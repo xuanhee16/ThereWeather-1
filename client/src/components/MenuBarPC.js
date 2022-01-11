@@ -17,13 +17,15 @@ const Outer = styled.div`
   width: 100%;
   z-index: 100;
   /* position: sticky; */
-  position: fixed;
-  left: 0;
+  // position: fixed;
+  left: ;
   right: 0;
   bottom: 0;
 
+  display: none;
   @media screen and (min-width: 1081px) {
     width: 1080px;
+    display: block;
   }
 `;
 
@@ -37,22 +39,24 @@ const Buttons = styled.div`
   justify-content: space-around;
   align-items: center;
   z-index: 101;
-  border-top: 1px solid #dbdbdb;
+  // border-top: 1px solid #dbdbdb;
 
   @media screen and (min-width: 1081px) {
     // position: fixed;
-    // background-color: white;
+    background-color: white;
     // border-top: 1px solid #dbdbdb;
     // border-left: 1px solid #dbdbdb;
     // position: fiexd;
-    // width: 400px;
-    display: none;
+    width: 400px;
+    margin-left: 20px;
+    // display: none;
   }
 `;
 
 const Button1 = styled.button`
   padding: 0.5rem;
-  margin: 0.5rem;
+  // margin: 0.5rem;
+  margin: 1rem;
   font-size: 2rem;
   img:hover {
     filter: opacity(0.2) drop-shadow(0 0 0 red);
@@ -61,7 +65,8 @@ const Button1 = styled.button`
 `;
 const Button2 = styled.button`
   padding: 0.5rem;
-  margin: 0.5rem;
+  // margin: 0.5rem;
+  margin: 1rem;
   font-size: 2rem;
   img:hover {
     filter: opacity(0.2) drop-shadow(0 0 0 red);
@@ -70,7 +75,8 @@ const Button2 = styled.button`
 `;
 const Button3 = styled.button`
   padding: 0.5rem;
-  margin: 0.5rem;
+  // margin: 0.5rem;
+  margin: 1rem;
   font-size: 2rem;
   img:hover {
     filter: opacity(0.2) drop-shadow(0 0 0 red);
@@ -79,7 +85,8 @@ const Button3 = styled.button`
 `;
 const Button4 = styled.button`
   padding: 0.5rem;
-  margin: 0.5rem;
+  // margin: 0.5rem;
+  margin: 1rem;
   font-size: 2rem;
   img:hover {
     filter: opacity(0.2) drop-shadow(0 0 0 red);
@@ -88,14 +95,15 @@ const Button4 = styled.button`
 `;
 const Button5 = styled.button`
   padding: 0.5rem;
-  margin: 0.5rem;
+  // margin: 0.5rem;
+  margin: 1rem;
   font-size: 2rem;
   img:hover {
     filter: opacity(0.2) drop-shadow(0 0 0 red);
     background: url("img/setting.png");
   }
 `;
-export default function MenuBar() {
+export default function MenuBarPC() {
   const [url1, setUrl1] = useState("img/home0.png");
   const [curClick, setCurClick] = useState("");
   const history = useHistory();
