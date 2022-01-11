@@ -23,7 +23,7 @@ const LikeBtn = styled.button`
   border: 1px solid red;
 `
 // 아이디, 댓글내용, 날짜 / 좋아요하트, 삭제버튼
-export default function Comment({content}) {
+export default function Comment({content, commentDelete}) {
   // console.log("content : ", content);
   return (
     <Outer>
@@ -34,7 +34,7 @@ export default function Comment({content}) {
       </LeftDiv>
 
       <RightDiv>
-        <DeleteBtn>삭제</DeleteBtn>
+        <DeleteBtn onClick={() => commentDelete(content.id)}>삭제</DeleteBtn>
         <LikeBtn>하투</LikeBtn>
       </RightDiv>
     </Outer>

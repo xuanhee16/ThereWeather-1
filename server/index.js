@@ -92,8 +92,9 @@ app.put("/api/editpost", controllers.editpost); //예보글 수정시 - PostRead
 app.put("/api/checkuser", controllers.checkuser);
 
 //delete
-app.delete("/api/deletepost", controllers.deletepost); //예보글 삭제 - PostRead.js
-app.delete("/api/removeuser", controllers.removeuser); //회원탈퇴 - MyPage.js
+app.delete("/api/deletepost", controllers.deletepost) //예보글 삭제 - PostRead.js
+app.delete("/api/removeuser", controllers.removeuser) //회원탈퇴 - MyPage.js
+app.delete("/api/deletecomment", controllers.deletecomment) //댓글삭제 - PostRead.js
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
