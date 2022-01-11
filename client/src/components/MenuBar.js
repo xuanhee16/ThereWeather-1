@@ -65,7 +65,7 @@ const Button2 = styled.button`
   font-size: 2rem;
   img:hover {
     filter: opacity(0.2) drop-shadow(0 0 0 red);
-    background: url("img/like.png");
+    background: url("img/bookmark.png");
   }
 `;
 const Button3 = styled.button`
@@ -103,55 +103,28 @@ export default function MenuBar() {
   return (
     <Outer className="menuBar">
       <Buttons>
-        {/*
-                    <Link to='/mainpage'>
-                    <Button>
-                        <FontAwesomeIcon icon={faHome} />
-                    </Button>
-                    </Link>
-                */}
         <Button1>
-          {/* <FontAwesomeIcon
-                        onClick={() => history.push("/homeorlogin")}
-                        icon={faHome}
-                    /> */}
           <img src={url1} onClick={() => history.push("/homeorlogin")} />
         </Button1>
         <Button2>
-          {/* <FontAwesomeIcon
-                        onClick={() => history.push("/bookmarkorlogin")}
-                        icon={faHeart}
-                    /> */}
           <img
-            src="https://img.icons8.com/ios/45/000000/like--v1.png"
+            src="https://img.icons8.com/ios/45/000000/bookmark-ribbon--v1.png"
             onClick={() => history.push("/bookmarkorlogin")}
           />
         </Button2>
         <Button3>
-          {/* <FontAwesomeIcon
-                        onClick={() => history.push("/map")}
-                        icon={faMapMarkerAlt}
-                    /> */}
           <img
             src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/45/000000/external-location-map-location-flatart-icons-outline-flatarticons-13.png"
             onClick={() => history.push("/map")}
           />
         </Button3>
         <Button4>
-          {/* <FontAwesomeIcon
-                        onClick={() => history.push("/writeorlogin")}
-                        icon={faPencilAlt}
-                    /> */}
           <img
             src="https://img.icons8.com/ios/45/000000/pencil--v1.png"
             onClick={() => history.push("/writeorlogin")}
           />
         </Button4>
         <Button5>
-          {/* <FontAwesomeIcon
-                        onClick={() => history.push("/moreoruserinfo")}
-                        icon={faUserAlt}
-                    /> */}
           <img
             src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/45/000000/external-user-interface-kiranshastry-lineal-kiranshastry.png"
             onClick={() => history.push("/moreoruserinfo")}
