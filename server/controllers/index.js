@@ -23,6 +23,7 @@ module.exports = {
   removeuser: require("./del/removeuser"),
   sociallogin: require("./post/sociallogin"),
   kakaologin: require("./post/kakaologin"),
+  deletecomment: require("./del/deletecomment"),
   ////////
   map2: require("./post/map2"),
   usersController: require("./users"),
