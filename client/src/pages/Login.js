@@ -636,8 +636,8 @@ export default function Login() {
     
     //아이디 찾기
     function findIdBtn() {
-      console.log("아이디 찾기 버튼")
-      
+    //   console.log("아이디 찾기 버튼")
+      history.push("/findaccount")
     }
     
     //비밀번호 찾기

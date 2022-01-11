@@ -26,11 +26,10 @@ import Loading from "./pages/Loading"
 import EditUserInfo from "./pages/EditUserInfo"
 import ChatRoom from "./pages/ChatRoom"
 import Footer from "../src/components/Footer"
-
+import FindAccount from "./pages/FindAccount"
 import { changeIsLogin, changeUser } from "./actions/index"
-
-import styled from "styled-components"
 import GlobalStyle from "./components/GlobalStyle"
+
 
 let url = process.env.REACT_APP_LOCAL_URL
 if (!url) {
@@ -38,8 +37,6 @@ if (!url) {
 }
 export default function App() {
     const dispatch = useDispatch()
-    const history = useHistory()
-
     const isInput = true
     const { isLogin } = useSelector((state) => state.itemReducer)
     useEffect(() => {
@@ -109,9 +106,6 @@ export default function App() {
                 <Route exact path="/bookmarkpost">
                     <ReadBookMarkPost></ReadBookMarkPost>
                 </Route>
-                <Route exact path="/postedit">
-                    <PostEdit></PostEdit>
-                </Route>
                 <Route exact path="/first">
                     <FirstPage />
                 </Route>
@@ -161,6 +155,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/">
                     <Redirect to="/first" />
+                </Route>
+                <Route exact path="findaccount">
+                    <FindAccount></FindAccount>
                 </Route>
             </Switch>
             <MenuBar></MenuBar>
