@@ -20,6 +20,7 @@ module.exports = {
   editpost: require("./put/editpost"),
   checkuser: require("./put/checkuser"),
   deletepost: require("./del/deletepost"),
+  deletecomment:require("./del/deletepost"),
   removeuser: require("./del/removeuser"),
   sociallogin: require("./post/sociallogin"),
   kakaologin: require("./post/kakaologin"),
