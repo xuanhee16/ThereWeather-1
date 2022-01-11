@@ -430,6 +430,7 @@ export default function SignUp() {
                     gender: genderToggle,
                     location: userRoadAddress,
                     user_photo: uploadedImg.filePath,
+                    email: inputSignUpData.emailInput
                 },
                 withCredentials: true,
             }).then((res) => {
