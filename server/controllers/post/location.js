@@ -23,6 +23,10 @@ module.exports = {
       const postAll = await post.findAll({
         where: {
           weather: req.query.weather,
+          createdAt: {
+            [Op.lt]: new Date(),
+            [Op.gt]: new Date(new Date() - 12 * 60 * 60 * 1000),
+          },
         },
       });
       positions = postAll.map((el) => el.dataValues);

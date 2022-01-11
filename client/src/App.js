@@ -30,11 +30,12 @@ import FindAccount from "./pages/FindAccount"
 import { changeIsLogin, changeUser } from "./actions/index"
 import GlobalStyle from "./components/GlobalStyle"
 
-
 let url = process.env.REACT_APP_LOCAL_URL
+
 if (!url) {
-    url = "https://thereweather.space/api"
+  url = "https://thereweather.space/api";
 }
+
 export default function App() {
     const dispatch = useDispatch()
     const isInput = true
