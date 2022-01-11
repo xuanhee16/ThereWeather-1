@@ -392,7 +392,7 @@ export default function PostRead() {
                     withCredentials: true,
                 })
                 .then((res) => {
-                    console.log("글 불러오기 : ",res.data)
+                    // console.log("글 불러오기 : ",res.data)
                     return setPostData((prev) => res.data)
                 })
                 .catch((err) => console.log(err))
