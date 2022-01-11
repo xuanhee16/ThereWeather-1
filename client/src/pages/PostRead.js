@@ -319,19 +319,28 @@ const Buttons = styled.div`
 const CommentSection = styled.div`
     height: auto;
     width: 100%;
+    text-align: center;
+    
+    input {
+        height: 2rem;
+        width: 70%;
+        margin-right: 1rem;
+    }
+    button {
+        height: 2rem;
+        width: 3rem;
+    }
 `
 // 댓글작성
 const PostComment = styled.div`
-    border: 1px solid blue;
-    height: 50px;
+    margin-bottom: 2rem;
     button {
         border: 1px solid black;
     }
 `
 // 댓글목록
 const CommentList = styled.ul`
-    height: 50px;
-    border: 1px solid purple;
+    padding: 0 2rem;
 `
 
 let url = process.env.REACT_APP_LOCAL_URL
