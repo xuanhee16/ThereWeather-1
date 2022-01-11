@@ -14,6 +14,7 @@ const Form = styled.div`
 
     #title {
         font-size: 1.5rem;
+
     }
 `
 
@@ -49,7 +50,7 @@ const Div2 = styled.div`
 const Button = styled.button`
     display: block;
     margin: 2rem auto 0 auto;
-    width: 7rem;
+    width: 8rem;
     height: 2rem;
     font-size: 1rem;
     background-color: pink;
@@ -60,19 +61,19 @@ const Button = styled.button`
 `
 
 
-export default function FindAccount(){
+export default function FindPassword(){
     return (
         <Outer>
             <Form>
                 <Div1>
-                    <p id="title">아이디 찾기</p>
+                    <p id="title">비밀번호 찾기</p>
                     <p>이메일 인증</p>
                 </Div1>
 
                 <Div2>
                     <ul>
                         <li>
-                            <p>닉네임</p>
+                            <p>아이디</p>
                             <input type="text"></input>
                         </li>
                         <li>
@@ -87,7 +88,7 @@ export default function FindAccount(){
                         </li>
                     </ul>
                 </Div2>
-                <Button>아이디 찾기</Button>
+                <Button>비밀번호 재설정</Button>
             </Form>
         </Outer>
     )

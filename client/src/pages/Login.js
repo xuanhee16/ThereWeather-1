@@ -643,6 +643,7 @@ export default function Login() {
     //비밀번호 찾기
     function findPwBtn() {
       console.log("비밀번호 찾기 버튼")
+      history.push("/findpassword")
     }
     
     //회원가입 바로가기 

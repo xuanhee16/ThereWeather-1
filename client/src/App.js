@@ -27,6 +27,7 @@ import EditUserInfo from "./pages/EditUserInfo"
 import ChatRoom from "./pages/ChatRoom"
 import Footer from "../src/components/Footer"
 import FindAccount from "./pages/FindAccount"
+import FindPassword from "./pages/FindPassword"
 import { changeIsLogin, changeUser } from "./actions/index"
 import GlobalStyle from "./components/GlobalStyle"
 
@@ -159,6 +160,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/findaccount">
                     <FindAccount></FindAccount>
+                </Route>
+                <Route exact path="/findpassword">
+                    <FindPassword></FindPassword>
                 </Route>
             </Switch>
             <MenuBar></MenuBar>
