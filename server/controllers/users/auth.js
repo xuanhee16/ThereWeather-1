@@ -60,7 +60,7 @@ module.exports = {
                     temporary_id: req.body.temporary_id,
                 },
             })
-        }, 60000) //1분
+        }, 180000) //1분은(60*1000)
 
         transporter.sendMail(mailOptions, (err, data) => {
             if (err) {
@@ -70,32 +70,10 @@ module.exports = {
                 res.status(200).json({ status: "success" })
             }
         })
-        //--------------------
-        // let transporter = nodemailer.createTransport({
-        //     service: "gmail",
-        //    auth: {
-        //      user: process.env.EMAIL,
-        //      pass: process.env.EMAILPW, 
-        //    }
-        // })
-        // let mailOptions = {
-        //   from: process.env.EMAIL,
-        //   to: req.body.email,
-        //   subject: "there weather 이메일 인증 메일",
-        //   text: "이메일 인증 test"
-        // }
-        // await transporter.sendMail(mailOptions, (err, res) => {
-        //     if(err){
-        //         res.json(err)
-        //     }else{
-        //         res.json(res)
-        //     }
-        //     transporter.close();
-        // })
     },
     put: async (req, res) => {
-        console.log("여긴 users/auth/ put")
-        console.log(req.body)
+        // console.log("여긴 users/auth/ put")
+        // console.log(req.body)
 
         let findCode = await emailauth.findOne({
             where: {
@@ -104,7 +82,7 @@ module.exports = {
                 code: req.body.code,
             },
         })
-        console.log(findCode)
+        // console.log(findCode)
 
         if (findCode) {
             res.send(true)
