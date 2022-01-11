@@ -84,6 +84,13 @@ export default function FindAccount(){
     function findAccountId() {
       console.log("아이디 찾기 버튼")
     }
+    
+    
+    // 아이디 찾기 버튼
+    const submitBtn = () => {
+
+    }
+
 
     return (
         <Outer>
@@ -107,7 +114,7 @@ export default function FindAccount(){
                         <li>
                             <p>인증코드</p>
                             <input type="text"></input>
-                            <button>인증하기</button>
+                            <button onClick={submitBtn}>인증하기</button>
                         </li>
                     </ul>
                 </Div2>
