@@ -262,7 +262,6 @@ export default function MyPost() {
   // 화면에 보여질 첫번째 페이지
   // 화면에 보여질 마지막 페이지
 
-
   // 게시물사진 클릭했을 때
   const postClickHandler = (e) => {
     let elem = e.target;
@@ -271,7 +270,6 @@ export default function MyPost() {
       if (!elem.classList.contains("myPostList")) {
         break;
       }
-
     }
 
     dispatch(updatePostId(elem.id));
@@ -316,7 +314,8 @@ export default function MyPost() {
         <FlexArea3>
           {currentPosts.slice(3, 7).map((el) => (
             <PhotoArea
-              className={["postItem"]}
+              // className={["postItem"]}
+              className={["item", "postItem"]}
               id={el.id}
               key={el.id}
               onClick={postClickHandler}
