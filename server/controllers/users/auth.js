@@ -20,26 +20,26 @@ module.exports = {
             res.status(420).send("토큰이 유효하지 않다")
         }
     },
+    
     post: async (req, res) => {
-        console.log("여긴 users/auth/ post")
-        console.log(req.body)
+        // console.log("여긴 users/auth/ post")
+        // console.log(req.body)
         let randomCode = String(Math.random().toString(36).slice(2)) // 랜덤문자생성
 
         var smtpConfig = {
             service: "gmail",
             host: "smtp.gmail.com",
             port: 587,
-            // host: process.env.EMAILHOST,
-            // port: process.env.EMAILPORT,
+            secure:true, 
             auth: {
-                user: process.env.EMAIL || "thereweather17@gmail.com",
-                pass: process.env.EMAILPW || "s2e0c2r1e1tw0ea2ther71",
+                user: process.env.EMAIL,
+                pass: process.env.EMAILPW,
             },
         }
         var transporter = nodemailer.createTransport(smtpConfig)
 
         const mailOptions = {
-            from: process.env.EMAIL || "thereweather17@gmail.com",
+            from: process.env.EMAIL,
             to: req.body.email,
             subject: "There Weather 인증 코드 메일",
             html: `<div>아래 코드를 회원가입 창에 기입 후 인증 버튼을 클릭하세요.</div>
@@ -60,7 +60,7 @@ module.exports = {
                     temporary_id: req.body.temporary_id,
                 },
             })
-        }, 25000)
+        }, 60000) //1분
 
         transporter.sendMail(mailOptions, (err, data) => {
             if (err) {
@@ -70,6 +70,28 @@ module.exports = {
                 res.status(200).json({ status: "success" })
             }
         })
+        //--------------------
+        // let transporter = nodemailer.createTransport({
+        //     service: "gmail",
+        //    auth: {
+        //      user: process.env.EMAIL,
+        //      pass: process.env.EMAILPW, 
+        //    }
+        // })
+        // let mailOptions = {
+        //   from: process.env.EMAIL,
+        //   to: req.body.email,
+        //   subject: "there weather 이메일 인증 메일",
+        //   text: "이메일 인증 test"
+        // }
+        // await transporter.sendMail(mailOptions, (err, res) => {
+        //     if(err){
+        //         res.json(err)
+        //     }else{
+        //         res.json(res)
+        //     }
+        //     transporter.close();
+        // })
     },
     put: async (req, res) => {
         console.log("여긴 users/auth/ put")
