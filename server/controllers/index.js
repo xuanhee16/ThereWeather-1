@@ -24,6 +24,7 @@ module.exports = {
   removeuser: require("./del/removeuser"),
   sociallogin: require("./post/sociallogin"),
   kakaologin: require("./post/kakaologin"),
+  findaccount: require("./post/findaccount"),
   ////////
   map2: require("./post/map2"),
   usersController: require("./users"),

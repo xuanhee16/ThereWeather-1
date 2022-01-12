@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
+import { useSelector, useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
+import { changeMapPage } from "../actions/index"
+
 
 const Outer = styled.div`
     width: 100%;
@@ -62,7 +66,7 @@ const Button = styled.button`
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function FindAccount(){
-   
+    const dispatch = useDispatch()
     if (!url) {
         url = "https://thereweather.space/api"
     }
@@ -70,19 +74,78 @@ export default function FindAccount(){
     const [inputFindInfo, setInputFindInfo] =  useState({
         findNickName: "",
         authEmail: "",
-        authCode: ""
+        authCode: "",
     })
+    
+    useEffect(() => {
+        dispatch(changeMapPage(false))
+    }, [])
+
+    const ChangeHanlder = (key) => (e) => {
+        setInputFindInfo({
+            ...inputFindInfo,
+            [key]: e.target.value,
+        })
+    }
 
     function sendEmail() {
-      console.log("이메일 전송 버튼")
+      //console.log("이메일 전송 버튼")
+      if(inputFindInfo.findNickName && !inputFindInfo.authCode){
+        axios({
+          url: url + "/users/auth",
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: {
+            temporary_id: inputFindInfo.findNickName,
+            email: inputFindInfo.authEmail
+          },
+          withCredentials: true
+        })
+        .then((res) => {
+            console.log(res.data.status)
+            if(res.data.status === "success"){
+                alert("인증메일을 발송하였습니다. 3분내로 확인해주세요:)")
+            }else{
+                alert("인증메일 발송에 실패하였습니다.")
+            }   
+        })
+      }else{
+        alert("닉네임과 이메일을 입력해주세요.")
+      }
     }
 
     function verification() {
-      console.log("인증코드 버튼")
+      //console.log("인증코드 버튼")
+      axios({
+        url: url + "/users/auth",
+        method: "put",
+        headers: {
+          "Content-Type": "application/json", 
+        },
+        data: {
+          temporary_id: inputFindInfo.findNickName,
+          email: inputFindInfo.authEmail,
+          code: inputFindInfo.authCode
+        },
+        withCredentials: true
+      })
+      .then((res) => {
+        // console.log(res.data)
+        if(res.data.status === "true"){ 
+            alert("메일 인증 되었습니다.")
+        }else{
+            alert("인증코드가 맞지 않습니다. 다시 확인해주세요:)")
+        }
+      })
     }
 
     function findAccountId() {
       console.log("아이디 찾기 버튼")
+      //닉네임, 이메일, 인증코드가 모두 채워져 있으면 함수를 실행하게함
+      //악시오스 요청으로 아이디찾기 백엔드로 보내서 -> 닉네임, 이메일, 인증코드 확인하기
+       
     }
     
     
@@ -104,21 +167,21 @@ export default function FindAccount(){
                     <ul>
                         <li>
                             <p>닉네임</p>
-                            <input type="text"></input>
+                            <input type="text" onChange={ChangeHanlder("findNickName")}></input>
                         </li>
                         <li>
                             <p>이메일</p>
-                            <input type="text"></input>
-                            <button>인증요청</button>
+                            <input type="text" onChange={ChangeHanlder("authEmail")}></input>
+                            <button onClick={sendEmail}>이메일요청</button>
                         </li>
                         <li>
                             <p>인증코드</p>
-                            <input type="text"></input>
-                            <button onClick={submitBtn}>인증하기</button>
+                            <input type="text" onChange={ChangeHanlder("authCode")}></input>
+                            <button onClick={verification}>인증하기</button>
                         </li>
                     </ul>
                 </Div2>
-                <Button>아이디 찾기</Button>
+                <Button onClick={findAccountId}>아이디 찾기</Button>
             </Form>
         </Outer>
     )
