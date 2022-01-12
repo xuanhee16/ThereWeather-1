@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import styled from "styled-components";
-import TwoChoiceModal from "./TwoChoiceModal";
+import OneChoiceModal from "./OneChoiceModal";
 
 const Outer = styled.div`
   /* margin: 1.5rem; */
@@ -132,22 +132,22 @@ export default function Footer(props) {
             <button
               onClick={() => setalertState(true)}
             >{`개인정보처리방침 `}</button>
-            <TwoChoiceModal
+            <OneChoiceModal
               boolean={alertState}
               message={"개인정보처리방침은 준비중입니다"}
               yesMessage={"확인"}
               alertFunc={() => setalertState(false)}
-            ></TwoChoiceModal>
+            ></OneChoiceModal>
             <div>&nbsp;</div>
             <DivTag1>{"|"}</DivTag1>
             <div>&nbsp;</div>
             <button onClick={() => setalertState2(true)}> 이용약관</button>
-            <TwoChoiceModal
+            <OneChoiceModal
               boolean={alertState2}
               message={"이용약관은 준비중입니다"}
               yesMessage={"확인"}
               alertFunc={() => setalertState2(false)}
-            ></TwoChoiceModal>
+            ></OneChoiceModal>
           </FlexRow2>
           <FlexCenter1>
             <DivTag1>Copyright © For Real. All Rights Reserved.</DivTag1>

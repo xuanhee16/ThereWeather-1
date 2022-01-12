@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; //리액트에
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons"; //내가 사용할 아이콘을 불러오기
 
 const True = styled.div`
-  border-radius: 10%;
+  border-radius: 20px;
   display: block;
   background-color: pink;
   width: 500px;
   height: 100px;
-  z-index: 100;
+  z-index: 999999;
   position: fixed;
   transform: translate(-50%, -50%);
 
@@ -19,13 +19,13 @@ const False = styled.div`
   display: none;
 `;
 const BackgroundView = styled.div`
-  //   background-color: blue;
+  // background-color: black;
   width: 100vw;
   height: 100vh;
-  z-index: 9999999999;
+  z-index: 199;
   position: fixed;
   transform: translate(-50%, -50%);
-
+  // opacity: 0.8;
   left: 50%;
   top: 50%;
 `;
@@ -45,11 +45,7 @@ const FlexArea3 = styled.div`
   flex-direction: column;
   justify-content: center;
 `;
-const FlexArea4 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+
 const DivTag1 = styled.div`
   font-size: 20px;
 `;
@@ -62,7 +58,7 @@ const BtnTag1 = styled.button`
   }
 `;
 
-export default function TwoChoiceModal({
+export default function OneChoiceModal({
   boolean,
   message,
   yesMessage,
