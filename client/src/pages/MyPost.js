@@ -264,6 +264,7 @@ export default function MyPost() {
 
   // 게시물사진 클릭했을 때
   const postClickHandler = (e) => {
+    console.log("클릭은되나");
     let elem = e.target;
     while (!elem.classList.contains("postItem")) {
       elem = elem.parentNode;
