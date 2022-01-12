@@ -22,8 +22,8 @@ module.exports = {
     },
     
     post: async (req, res) => {
-        // console.log("여긴 users/auth/ post")
-        // console.log(req.body)
+        //console.log("여긴 users/auth/ post")
+        //console.log(req.body)
         let randomCode = String(Math.random().toString(36).slice(2)) // 랜덤문자생성
 
         var smtpConfig = {
@@ -48,19 +48,30 @@ module.exports = {
             </div>
             `,
         }
-        await emailauth.create({
+       
+        const userInfo = await user.findOne({
+          where: {
+            nickName: req.body.temporary_id,
+            email: req.body.email,
+          }
+        })
+        if(!userInfo){
+            return res.send("no results")
+        }else{
+            await emailauth.create({
             temporary_id: req.body.temporary_id,
             email: req.body.email,
             code: randomCode,
-        })
+           })
+            setTimeout(async () => {
+                await emailauth.destroy({
+                    where: {
+                        temporary_id: req.body.temporary_id,
+                    },
+                })
+            }, 50000) //50초, 1분은(60*1000)
+        }
 
-        setTimeout(async () => {
-            await emailauth.destroy({
-                where: {
-                    temporary_id: req.body.temporary_id,
-                },
-            })
-        }, 180000) //1분은(60*1000)
 
         transporter.sendMail(mailOptions, (err, data) => {
             if (err) {
@@ -73,7 +84,7 @@ module.exports = {
     },
     put: async (req, res) => {
         // console.log("여긴 users/auth/ put")
-        // console.log(req.body)
+        console.log(req.body)
 
         let findCode = await emailauth.findOne({
             where: {
