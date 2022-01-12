@@ -1,4 +1,4 @@
-// 아이디, 비밀번호 찾기 모달
+// 비밀번호 찾기 모달
 import React from 'react';
 import styled from "styled-components"
 
@@ -71,6 +71,11 @@ const Button = styled.button`
 export default function FindPwModal({closeBtn}) {
   const closeButtonClick = () => {
     closeBtn();
+  }
+
+  // 비밀번호 입력 같은지 확인
+  function isMatch (pwd1, pwd2) {
+    return pwd1 === pwd2
   }
 
   return (

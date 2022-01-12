@@ -1,4 +1,4 @@
-// 아이디, 비밀번호 찾기 모달
+// 아이디 찾기 모달
 import React from 'react';
 import styled from "styled-components"
 
