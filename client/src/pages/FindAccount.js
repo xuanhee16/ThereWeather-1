@@ -147,6 +147,13 @@ export default function FindAccount(){
       //악시오스 요청으로 아이디찾기 백엔드로 보내서 -> 닉네임, 이메일, 인증코드 확인하기
        
     }
+    
+    
+    // 아이디 찾기 버튼
+    const submitBtn = () => {
+
+    }
+
 
     return (
         <Outer>
