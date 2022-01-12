@@ -523,9 +523,10 @@ export default function Login() {
       setInputVaildMessage({
         ...inputVaildMessage,
         nickNameInput: "닉네임은 두글자 이상 입니다.",
-      });    
+      });
    
-  }, [inputSignUpData.nickNameInput]);
+  }}, [inputSignUpData.nickNameInput]);
+
 
   function handleComplete(complevent) {
     setRoadUserAddress(complevent.roadAddress);
@@ -634,7 +635,7 @@ export default function Login() {
  //비밀번호 찾기
     function findPwBtn() {
       console.log("비밀번호 찾기 버튼")
-      history.push("/findpassword"
+      history.push("/findpassword")
    }
   //회원가입 바로가기
   function signupShortcut() {
