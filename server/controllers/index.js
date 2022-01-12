@@ -25,7 +25,7 @@ module.exports = {
   sociallogin: require("./post/sociallogin"),
   kakaologin: require("./post/kakaologin"),
   findaccount: require("./post/findaccount"),
-  findaccount: require("./post/findpassword"),
+  findpassword: require("./post/findpassword"),
   ////////
   map2: require("./post/map2"),
   usersController: require("./users"),

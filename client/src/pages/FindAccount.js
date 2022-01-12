@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { changeMapPage } from "../actions/index"
 import FindAccountModal from "../components/FindAccountModal"
@@ -151,7 +151,7 @@ export default function FindAccount(){
     function findAccountId() {
       //console.log("아이디 찾기 버튼")
 
-      if(inputFindInfo.findNickName, inputFindInfo.authEmail, inputFindInfo.authCode){
+      if(inputFindInfo.findNickName && inputFindInfo.authEmail && inputFindInfo.authCode){
         //console.log("두둥")
         axios({
             url: url + "/findaccount",
@@ -162,7 +162,6 @@ export default function FindAccount(){
             data: {
               nickName: inputFindInfo.findNickName,
               email: inputFindInfo.authEmail,
-              authCode: inputFindInfo.authCode
             },
             withCredentials: true
         })
@@ -171,17 +170,14 @@ export default function FindAccount(){
             console.log("헤이헤이",res.data)
             alert(res.data.nickName)
         })
+        setIsOpen(true)
+       }else{
+           alert("위 모두 사항을 입력해주세요.")
        }
 
-      setIsOpen(true)
       //닉네임, 이메일, 인증코드가 모두 채워져 있으면 함수를 실행하게함
       //악시오스 요청으로 아이디찾기 백엔드로 보내서 -> 닉네임, 이메일, 인증코드 확인하기
        
-    }
-    
-    // 아이디 찾기 버튼
-    const submitBtn = () => {
-
     }
 
     const closeModal = () => {
@@ -208,7 +204,7 @@ export default function FindAccount(){
                         <li>
                             <p>이메일</p>
                             <input type="text" onChange={ChangeHanlder("authEmail")}></input>
-                            <button onClick={sendEmail}>이메일요청</button>
+                            <button onClick={sendEmail}>인증요청</button>
                         </li>
                         <li>
                             <p>인증코드</p>
