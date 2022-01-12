@@ -69,6 +69,7 @@ const LoginValidationListBox = styled.ul`
     height: 1.2rem;
     padding: 0 1.5rem;
     color: var(--font-validation-negative);
+    text-align: center;
   }
 `;
 
