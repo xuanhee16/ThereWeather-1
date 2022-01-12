@@ -49,10 +49,11 @@ const FlexArea3 = styled.div`
 const DivTag1 = styled.div`
   font-size: 20px;
 `;
+
 const BtnTag1 = styled.button`
   font-size: 20px;
 
-  &: hover {
+  &:hover {
     background-color: blue;
     color: red;
   }
