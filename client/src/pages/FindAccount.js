@@ -4,7 +4,7 @@ import axios from "axios"
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { changeMapPage } from "../actions/index"
-
+import FindAccountModal from "../components/FindAccountModal"
 
 const Outer = styled.div`
     width: 100%;
@@ -66,6 +66,7 @@ const Button = styled.button`
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function FindAccount(){
+    const history = useHistory()
     const dispatch = useDispatch()
     if (!url) {
         url = "https://thereweather.space/api"
@@ -76,6 +77,9 @@ export default function FindAccount(){
         authEmail: "",
         authCode: "",
     })
+    
+    // 모달창
+    const [isOpen, setIsOpen] = useState(false)
     
     useEffect(() => {
         dispatch(changeMapPage(false))
@@ -168,14 +172,24 @@ export default function FindAccount(){
             alert(res.data.user_id)
         })
        }
+
+      setIsOpen(true)
+      //닉네임, 이메일, 인증코드가 모두 채워져 있으면 함수를 실행하게함
+      //악시오스 요청으로 아이디찾기 백엔드로 보내서 -> 닉네임, 이메일, 인증코드 확인하기
+       
     }
-    
     
     // 아이디 찾기 버튼
     const submitBtn = () => {
 
     }
 
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+    const loginBtn = () => {
+        history.push("/login")
+    }
 
     return (
         <Outer>
@@ -204,6 +218,15 @@ export default function FindAccount(){
                     </ul>
                 </Div2>
                 <Button onClick={findAccountId}>아이디 찾기</Button>
+                { isOpen? 
+                    (<FindAccountModal
+                        closeBtn={closeModal}
+                        loginBtn={loginBtn}
+                    />
+                    ) 
+                    : null
+                }
+                
             </Form>
         </Outer>
     )

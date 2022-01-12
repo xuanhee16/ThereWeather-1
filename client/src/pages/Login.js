@@ -523,10 +523,10 @@ export default function Login() {
       setInputVaildMessage({
         ...inputVaildMessage,
         nickNameInput: "닉네임은 두글자 이상 입니다.",
-      });    
+      });
    
   }}, [inputSignUpData.nickNameInput]);
-  
+
 
   function handleComplete(complevent) {
     setRoadUserAddress(complevent.roadAddress);

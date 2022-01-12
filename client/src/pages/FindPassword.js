@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
+import FindPwModal from "../components/FindPwModal"
 
 const Outer = styled.div`
     width: 100%;
@@ -62,6 +63,14 @@ const Button = styled.button`
 
 
 export default function FindPassword(){
+    const [isOpen, setIsOpen] = useState(false)
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+    const setNewPassword = () => {
+        setIsOpen(true)
+    }
+
     return (
         <Outer>
             <Form>
@@ -88,7 +97,13 @@ export default function FindPassword(){
                         </li>
                     </ul>
                 </Div2>
-                <Button>비밀번호 재설정</Button>
+                <Button onClick={setNewPassword}>비밀번호 재설정</Button>
+                {isOpen?
+                    <FindPwModal
+                        closeBtn={closeModal}
+                    />
+                    : null                    
+                }
             </Form>
         </Outer>
     )
