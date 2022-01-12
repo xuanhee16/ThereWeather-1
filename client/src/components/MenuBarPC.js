@@ -70,7 +70,7 @@ const Button2 = styled.button`
   font-size: 2rem;
   img:hover {
     filter: opacity(0.2) drop-shadow(0 0 0 red);
-    background: url("img/like.png");
+    background: url("img/bookmark.png");
   }
 `;
 const Button3 = styled.button`
@@ -131,7 +131,7 @@ export default function MenuBarPC() {
                         icon={faHeart}
                     /> */}
           <img
-            src="https://img.icons8.com/ios/45/000000/like--v1.png"
+            src="https://img.icons8.com/ios/45/000000/bookmark-ribbon--v1.png"
             onClick={() => history.push("/bookmarkorlogin")}
           />
         </Button2>

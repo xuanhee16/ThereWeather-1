@@ -83,6 +83,7 @@ app.post("/api/bookmarklist", controllers.bookmarklist);
 app.post("/api/sendcomment", controllers.sendcomment); //댓글 - Comment.js
 app.post("/api/readbookmark", controllers.readbookmark);
 app.post("/api/kakaologin", controllers.kakaologin);
+app.post("/api/findaccount", controllers.findaccount);
 
 //put
 app.put("/api/password", controllers.password); //비밀번호 수정시 - MyPage.js

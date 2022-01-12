@@ -20,10 +20,11 @@ module.exports = {
   editpost: require("./put/editpost"),
   checkuser: require("./put/checkuser"),
   deletepost: require("./del/deletepost"),
-  deletecomment:require("./del/deletepost"),
+  deletecomment:require("./del/deletecomment"),
   removeuser: require("./del/removeuser"),
   sociallogin: require("./post/sociallogin"),
   kakaologin: require("./post/kakaologin"),
+  findaccount: require("./post/findaccount"),
   ////////
   map2: require("./post/map2"),
   usersController: require("./users"),

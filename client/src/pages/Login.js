@@ -512,6 +512,7 @@ export default function Login() {
         idInput: "사용 불가능한 아이디 입니다.",
       });
     }
+
   }, [inputSignUpData.idInput]);
 
   useEffect(() => {
@@ -522,8 +523,8 @@ export default function Login() {
       setInputVaildMessage({
         ...inputVaildMessage,
         nickNameInput: "닉네임은 두글자 이상 입니다.",
-      });
-    }
+      });    
+   
   }, [inputSignUpData.nickNameInput]);
 
   function handleComplete(complevent) {
@@ -630,11 +631,11 @@ export default function Login() {
     history.push("/findaccount");
   }
 
-  //비밀번호 찾기
-  function findPwBtn() {
-    console.log("비밀번호 찾기 버튼");
-  }
-
+ //비밀번호 찾기
+    function findPwBtn() {
+      console.log("비밀번호 찾기 버튼")
+      history.push("/findpassword"
+   }
   //회원가입 바로가기
   function signupShortcut() {
     history.push("/signup");

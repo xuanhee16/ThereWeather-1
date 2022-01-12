@@ -446,6 +446,7 @@ export default function SignUp() {
           gender: genderToggle,
           location: userRoadAddress,
           user_photo: uploadedImg.filePath,
+          email: inputSignUpData.emailInput
         },
         withCredentials: true,
       }).then((res) => {
@@ -506,6 +507,7 @@ export default function SignUp() {
         if (res.status === 212) {
           setalertState(true);
         } else {
+
           setInputSignUpData({
             ...inputSignUpData,
             idInput: "",
