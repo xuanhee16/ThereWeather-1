@@ -167,9 +167,9 @@ export default function FindAccount(){
             withCredentials: true
         })
         .then((res) => {
-            // console.log("헤이헤이",res.data.user_id)
-            // 닉네임 연동해야될듯
-            alert(res.data.user_id)
+            //닉네임, 아이디가 콘솔에 찍힙니닷 
+            console.log("헤이헤이",res.data)
+            alert(res.data.nickName)
         })
        }
 

@@ -14,8 +14,9 @@ const { nickName, email } = req.body
         .then(res => res.dataValues)
         .then((res2) => {
             // console.log("res2",res2)
-            const { user_id } = res2
+            const { nickName, user_id } = res2
             return{
+                nickName: nickName,
                 user_id: user_id
             }
         })
