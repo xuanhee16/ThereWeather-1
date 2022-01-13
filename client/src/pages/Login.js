@@ -52,7 +52,7 @@ const LoginInputAndTitle = styled.div`
     margin: 1rem;
     font-weight: bold;
   }
-`;
+`;  
 
 const LoginInputText = styled.input`
   min-width: 150px;
