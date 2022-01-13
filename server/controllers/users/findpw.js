@@ -31,29 +31,37 @@ module.exports = {
             `,
         }
        
-        const userInfo = await user.findOne({
+        //유저가 입력한 아이디와 이메일이 디비에 존재하는지 체크
+        await user.findOne({
           where: {
             user_id: req.body.temporary_id,
             email: req.body.email,
           }
         })
-        if(!userInfo){
+        .then((res) => 
+            // console.log("findpw.js",res)
+            res.dataValues)
+        .then( async userinfo => {
+            // console.log(userinfo)
+          const { user_id, email } = userinfo
+          if(!userinfo){
             return res.send("no results")
-        }else{
+          }else{
             await emailauth.create({
             temporary_id: req.body.temporary_id,
             email: req.body.email,
             code: randomCode,
            })
-            setTimeout(async () => {
-                await emailauth.destroy({
+           .then(userdata => { res.send({ user_id, email }) })
+            setTimeout(() => {
+                 emailauth.destroy({
                     where: {
                         temporary_id: req.body.temporary_id,
                     },
                 })
             }, 50000) //50초, 1분은(60*1000)
-        }
-
+           }
+        })
 
         transporter.sendMail(mailOptions, (err, data) => {
             if (err) {

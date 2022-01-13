@@ -1,5 +1,5 @@
 // 비밀번호 찾기 모달
-import React from 'react';
+import React, { useState } from "react"
 import styled from "styled-components"
 
 
@@ -68,7 +68,9 @@ const Button = styled.button`
   }
 `
 
+
 export default function FindPwModal({closeBtn}) {
+
   const closeButtonClick = () => {
     closeBtn();
   }
@@ -88,8 +90,8 @@ export default function FindPwModal({closeBtn}) {
         </Div2>
         <Div3>
         {/* 최소 6자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함 */}
-          <input placeholder="비밀번호 입력"></input>
-          <input placeholder="비밀번호 재입력"></input>
+          <input type="password" placeholder="비밀번호 입력"></input>
+          <input type="password" placeholder="비밀번호 재입력"></input>
           <p>6자 이상, 알파벳과 숫자 포합, 특수문자(@$!%*#?&) 하나 이상 포함</p>
         </Div3>
         <Div4>

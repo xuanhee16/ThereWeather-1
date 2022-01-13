@@ -1,24 +1,11 @@
 import styled from "styled-components"
 import { useState } from "react"
 import { useHistory } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import ModalConfirm from "../components/ModalConfirm"
 import axios from "axios"
 import { changeUserPw } from "../actions/index"
 
-/*
-  TODO - 비밀번호 수정 페이지
-  [x] 여러개의 Input 상태 관리
-  [] 유효성 검사
-    - [x] ul, li 추가
-    - [x] 함수로 구현
-      - [x] (둘 다) input이 없는 경우 - li
-      - [x] (새 비밀번호) 조건에 안 맞는 경우 - li
-      - [] (현재 비밀번호) 등록되지 않은 정보인 경우
-        - [] 악시오스
-        - [] 모달? alert? 페이지에 렌더링?
-  [] 최종 결과 모아서 악시오스 요청
-*/
 
 const Outer = styled.section`
     position: relative;
