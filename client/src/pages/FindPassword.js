@@ -64,6 +64,77 @@ const Button = styled.button`
     }
 `
 
+
+//모달창 
+const ModalOuter = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-bg-color);
+  z-index: 200;
+`
+const ModalPopup = styled.div`
+  align-items: center;
+  width: 50vw;
+  min-width: 300px;
+  max-width: 500px;
+  height: 40vw;
+  min-height: 200px;
+  max-height: 300px;
+  background-color: var(--modal-confirm-bg);
+  font-size: 1.5rem;
+  border-radius: 1.5rem;
+  text-align: center;
+
+`
+const ModalDiv1 = styled.div`
+  margin: 1rem auto 0 auto;
+  height: 2rem;
+  width: 90%;
+  text-align: end;
+`
+const ModalDiv2 = styled.div`
+  p {
+    font-size: 1.3rem;
+  }
+
+  #info {
+    font-size: 1rem;
+  }
+`
+const ModalDiv3 = styled.div`
+  margin: 1rem 0;
+  input {
+    margin: 0 auto 1rem auto;
+    display: block;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+`
+const ModalDiv4 = styled.div`
+`
+
+const ModalButton = styled.button`
+  font-size: 1.2rem;
+  height: 3rem;
+  padding: 0 1rem;
+  background-color: pink;
+  border-radius: 10px;
+  &:hover {
+    background-color: #ff7f9f;
+    color: white;
+  }
+`
+
+
+//모달창
+
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function FindPassword(){
@@ -86,6 +157,11 @@ export default function FindPassword(){
         findId: "",
         authEmail: "",
         authCode: "",
+    })
+
+    const [userData, setUserData] = useState({
+        user_id: "",
+        email: ""
     })
     
     const ChangeHanlder = (key) => (e) => {
@@ -111,13 +187,15 @@ export default function FindPassword(){
             withCredentials: true
           })
           .then((res) => {
-              console.log(res)
+            //   console.log("이메일전송버튼 누르면",res.data.user_id)
               if(res.data === "no results"){
                   alert("가입된 정보가 아닙니다.")
               }
-              else if(res.data.status === "success"){
+              else if(res.status === 200){
                   alert("인증메일을 발송하였습니다. 50초내로 확인해주세요:)")
-              }else{
+                  return setUserData((prev) => res.data)
+              }
+              else{
                   alert("인증메일 발송에 실패하였습니다.")
               }   
           })
@@ -142,7 +220,7 @@ export default function FindPassword(){
           withCredentials: true
         })
         .then((res) => {
-          console.log(res.data)
+        //   console.log(res.data)
           if(res.data === true){ 
               alert("메일 인증 되었습니다.")
           }else{
@@ -161,6 +239,39 @@ export default function FindPassword(){
         }
     }
 
+    //모달창 
+    const [inputNewPw, setInputNewPw] = useState({
+        newPw: "",
+        againPw: "",
+      })
+    
+      const ChangeHanlderPw = (key) => (e) => {
+        setInputNewPw({
+          ...inputNewPw,
+          [key]: e.target.value
+        })
+      }
+    
+    function findAccountPw() {
+        axios({
+            url: url + "/findpassword",
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: {
+              user_id: userData.user_id,
+              email: userData.email,
+              password: inputNewPw.againPw
+            },
+              withCredentials: true
+            })
+            .then((res) => {
+              //닉네임, 아이디가 콘솔에 찍힙니닷 
+                console.log("헤이헤이",res.data)
+              //   alert(res.data.nickName)
+            })
+    }
 
 
     return (
@@ -190,12 +301,6 @@ export default function FindPassword(){
                     </ul>
                 </Div2>
                 <Button onClick={setNewPassword}>비밀번호 재설정</Button>
-                {isOpen?
-                    <FindPwModal
-                        closeBtn={closeModal}
-                    />
-                    : null                    
-                }
             </Form>
         </Outer>
     )
