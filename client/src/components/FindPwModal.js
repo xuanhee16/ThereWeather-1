@@ -2,6 +2,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
+import { useHistory } from "react-router-dom"
 
 const Outer = styled.div`
   position: fixed;
@@ -71,6 +72,7 @@ const Button = styled.button`
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function FindPwModal({closeBtn, userId, userEmail}) {
+  const history = useHistory()
   if (!url) {
     url = "https://thereweather.space/api"
   }
@@ -114,8 +116,9 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
         })
         .then((res) => {
           //닉네임, 아이디가 콘솔에 찍힙니닷 
-            console.log("헤이헤이",res.data)
-          //   alert(res.data.nickName)
+          console.log("헤이헤이",res.data)
+          alert("변경되었습니다. 다시 로그인해주세요:)")
+          history.push("/login")
         })
 }
 
