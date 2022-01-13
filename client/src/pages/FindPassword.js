@@ -166,7 +166,7 @@ export default function FindPassword(){
           alert("위 사항을 모두 입력해주세요.")
         }else{
           setIsOpen(true)   
-          console.log("userData : ",userData)
+          //console.log("userData : ",userData)
         }
     }
 

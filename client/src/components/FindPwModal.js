@@ -1,8 +1,9 @@
 // 비밀번호 찾기 모달
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const Outer = styled.div`
   position: fixed;
@@ -69,6 +70,21 @@ const Button = styled.button`
   }
 `
 
+const StyledArticle = styled.article`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const ValidationMsg = styled.ul`
+  list-style: none;
+  font-size: 0.7rem;
+  
+  li{
+    color: red;
+  }
+`
+
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function FindPwModal({closeBtn, userId, userEmail}) {
@@ -83,15 +99,20 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
     closeBtn();
   }
 
-  // 비밀번호 입력 같은지 확인
-  function isMatch (pwd1, pwd2) {
-    return pwd1 === pwd2
-  }
-
   const [inputNewPw, setInputNewPw] = useState({
     newPw: "",
     againPw: "",
-  })
+  });
+
+  const [pwCheckInput, setPwCheckInput] = useState("");
+
+  const [inputVaildMessage, setInputVaildMessage] = useState({
+    newPw: "변경할 패스워드를 입력하세요.",
+    again: "패스워드를 재입력해주세요.",
+  });
+
+  const [pwCheckInputMessage, setPwCheckInputMessage] =
+  useState("패스워드를 다시 입력하세요.");
 
   const ChangeHanlderPw = (key) => (e) => {
     setInputNewPw({
@@ -114,13 +135,43 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
         },
           withCredentials: true
         })
-        .then((res) => {
-          //닉네임, 아이디가 콘솔에 찍힙니닷 
-          console.log("헤이헤이",res.data)
+        .then((res) => { 
+          // console.log("헤이헤이",res.data)
           alert("변경되었습니다. 다시 로그인해주세요:)")
           history.push("/login")
         })
-}
+    }
+
+  //비밀번호 유효성 검사 추가 -> 최소 6자 이상 및 알파벳과 숫자 및 특수문자(@$!%*#?&)는 한 개 이상 포함
+   function strongPassword(str) {
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(str);
+   }
+   // 비밀번호 입력 같은지 확인
+   function isMatch (pwd1, pwd2) {
+    return pwd1 === pwd2
+   }
+  
+   useEffect(() => {
+     if(strongPassword(inputNewPw.newPw)){
+      console.log("new password")
+      setInputVaildMessage({...inputVaildMessage, newPwMsg: ""})
+     }
+     else {
+      setInputVaildMessage({...inputVaildMessage, newPwMsg: "알파벳, 숫자 포함, 특수문자(@$!%*#?&) 1개 이상 포함하는 6글자입니다."})
+     }
+ 
+     if(isMatch(inputNewPw.newPw, pwCheckInput) && pwCheckInput.length === 0){
+      setPwCheckInputMessage("패스워드를 재입력해주세요.")
+     }else if(isMatch(inputNewPw.newPw, pwCheckInput)){
+      setPwCheckInputMessage("")
+     }else{
+       setPwCheckInputMessage("비밀번호가 일치하지 않습니다.")
+     }
+   }, [inputNewPw.newPw, inputNewPw.againPw, pwCheckInput]);
+  
+   const ChangeHanlderAgainPw = (e) => {
+    setPwCheckInput(e.target.value);
+  };
 
   return (
     <Outer>
@@ -131,16 +182,22 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
           <p id="info">새로운 비밀번호를 입력해주세요.</p>
         </Div2>
         <Div3>
+        <StyledArticle>
+          <ValidationMsg>
         {/* 최소 6자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함 */}
           <input type="password" placeholder="비밀번호 입력" onChange={ChangeHanlderPw("newPw")}></input>
-          <input type="password" placeholder="비밀번호 재입력" onChange={ChangeHanlderPw("againPw")}></input>
-          <p>6자 이상, 알파벳과 숫자 포합, 특수문자(@$!%*#?&) 하나 이상 포함</p>
+          <li>{inputVaildMessage.newPwMsg}</li>
+          <input type="password" placeholder="비밀번호 재입력" onChange={ChangeHanlderAgainPw}></input>
+          <li>{pwCheckInputMessage}</li> 
+          </ValidationMsg>
+        </StyledArticle>
         </Div3>
         <Div4>
           <Button
             onClick={findAccountPw}
           >비밀번호 변경</Button>
         </Div4>
+      
       </Popup>
     </Outer>
   )
