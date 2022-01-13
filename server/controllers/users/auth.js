@@ -85,7 +85,7 @@ module.exports = {
     
     put: async (req, res) => {
         // console.log("여긴 users/auth/ put")
-        console.log(req.body)
+        //console.log(req.body)
 
         let findCode = await emailauth.findOne({
             where: {
