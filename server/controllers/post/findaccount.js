@@ -3,7 +3,7 @@ const { user } = require("../../models")
 module.exports = async(req, res) => {
 // res.send()
 //console.log(req.body)
-const { nickName, email } = req.body
+const { nickName, email } = req.body;
 
   await user.findOne({
           where: {
@@ -12,15 +12,15 @@ const { nickName, email } = req.body
           }
         })
         .then(res => res.dataValues)
-        .then((res2) => {
+        .then((userinfo) => {
             // console.log("res2",res2)
-            const { nickName, user_id } = res2
+            const { nickName, user_id } = userinfo
             return{
                 nickName: nickName,
                 user_id: user_id
             }
         })
-        .then((res3) => {
-          res.send(res3) 
+        .then((userdata) => {
+          res.send(userdata) 
         })
 }
