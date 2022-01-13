@@ -620,7 +620,7 @@ export default function Location({ bottom }) {
       justify-content: center;
       align-item: center;
       width: 100%;
-      border: 1px solid black;
+      // border: 1px solid black;
       flex-direction: column;
     }
   `;
@@ -717,9 +717,9 @@ export default function Location({ bottom }) {
       )}
       {isOnOff ? (
         <PostListModal>
-          {!isLoading ? (
+          {isLoading ? (
             <LoadingBoxDiv>
-              <LoadingSpinner size={"100%;"} />
+              <LoadingSpinner size={"15%;"} />
             </LoadingBoxDiv>
           ) : (
             <div className="mapModal">
