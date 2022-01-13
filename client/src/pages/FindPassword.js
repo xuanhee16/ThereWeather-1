@@ -94,18 +94,6 @@ export default function FindPassword(){
             [key]: e.target.value
         })
     }
-
-    const [inputNewPw, setInputNewPw] = useState({
-        newPw: "",
-        againPw: "",
-    })
-
-    const ChangeHanlderPw = (key) => (e) => {
-        setInputNewPw({
-          ...inputNewPw,
-          [key]: e.target.value
-        })
-    }
     
     function sendEmail() {
         //console.log("이메일 전송 버튼")
@@ -164,58 +152,13 @@ export default function FindPassword(){
       }
       
 
-    //   function findAccountPw() {
-    //     //console.log("비밀번호 찾기 버튼")
-    //     if(inputFindInfo.findId && inputFindInfo.authEmail && inputFindInfo.authCode){
-    //       //console.log("두둥탁")
-    //       axios({
-    //           url: url + "/findpassword",
-    //           method: "post",
-    //           headers: {
-    //               "Content-Type": "application/json",
-    //             },
-    //           data: {
-    //             user_id: inputFindInfo.findId,
-    //             email: inputFindInfo.authEmail,
-    //           },
-    //           withCredentials: true
-    //       })
-    //       .then((res) => {
-    //           //닉네임, 아이디가 콘솔에 찍힙니닷 
-    //           console.log("헤이헤이",res.data)
-    //         //   alert(res.data.nickName)
-    //       })
-    //      }else{
-    //          alert("위 모두 사항을 입력해주세요.")
-    //      }
-    //   }
-
       function setNewPassword() {
-        console.log("비밀번호 찾기 버튼")
-        setIsOpen(true)
-        if(inputFindInfo.findId && inputFindInfo.authEmail && inputFindInfo.authCode){
-            //console.log("두둥탁")
-            axios({
-                url: url + "/findpassword",
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                  },
-                data: {
-                  newPw: inputNewPw.newPw,
-                  againPw: inputNewPw.againPw,
-                },
-                withCredentials: true
-            })
-            .then((res) => {
-                //닉네임, 아이디가 콘솔에 찍힙니닷 
-                console.log("헤이헤이",res.data)
-              //   alert(res.data.nickName)
-            })
-           }else{
-               alert("위 모두 사항을 입력해주세요.")
-           }
-
+        // console.log("비밀번호 찾기 버튼")
+        if(!inputFindInfo.findId && !inputFindInfo.authEmail && !inputFindInfo.authCode){
+          alert("위 사항을 모두 입력해주세요.")
+        }else{
+          setIsOpen(true)    
+        }
     }
 
 

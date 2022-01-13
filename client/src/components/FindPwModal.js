@@ -1,6 +1,11 @@
 // 비밀번호 찾기 모달
-import React from 'react';
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
+import axios from "axios"
+import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
+import { changeMapPage } from "../actions/index"
+
 
 
 const Outer = styled.div`
@@ -68,7 +73,15 @@ const Button = styled.button`
   }
 `
 
+let url = process.env.REACT_APP_LOCAL_URL
+
 export default function FindPwModal({closeBtn}) {
+  const history = useHistory()
+  const dispatch = useDispatch()
+  if (!url) {
+      url = "https://thereweather.space/api"
+  }
+
   const closeButtonClick = () => {
     closeBtn();
   }
@@ -77,6 +90,38 @@ export default function FindPwModal({closeBtn}) {
   function isMatch (pwd1, pwd2) {
     return pwd1 === pwd2
   }
+
+  const [inputNewPw, setInputNewPw] = useState({
+    newPw: "",
+    againPw: "",
+  })
+
+  const ChangeHanlderPw = (key) => (e) => {
+    setInputNewPw({
+      ...inputNewPw,
+      [key]: e.target.value
+    })
+  }
+
+      function findAccountPw() {
+          axios({
+              url: url + "/findpassword",
+              method: "post",
+              headers: {
+                  "Content-Type": "application/json",
+                },
+              data: {
+                user_id: inputNewPw.newPw,
+                email: inputNewPw.againPw,
+              },
+              withCredentials: true
+          })
+          .then((res) => {
+              //닉네임, 아이디가 콘솔에 찍힙니닷 
+              console.log("헤이헤이",res.data)
+            //   alert(res.data.nickName)
+          })
+      }
 
   return (
     <Outer>
@@ -88,12 +133,12 @@ export default function FindPwModal({closeBtn}) {
         </Div2>
         <Div3>
         {/* 최소 6자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함 */}
-          <input placeholder="비밀번호 입력"></input>
-          <input placeholder="비밀번호 재입력"></input>
+          <input type="password" placeholder="비밀번호 입력"></input>
+          <input type="password" placeholder="비밀번호 재입력"></input>
           <p>6자 이상, 알파벳과 숫자 포합, 특수문자(@$!%*#?&) 하나 이상 포함</p>
         </Div3>
         <Div4>
-          <Button>비밀번호 변경</Button>
+          <Button onClick={findAccountPw}>비밀번호 변경</Button>
         </Div4>
       </Popup>
     </Outer>
