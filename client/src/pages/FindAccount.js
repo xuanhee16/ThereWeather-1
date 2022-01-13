@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { changeMapPage } from "../actions/index"
-
+import FindAccountModal from "../components/FindAccountModal"
 
 const Outer = styled.div`
     width: 100%;
@@ -66,6 +66,7 @@ const Button = styled.button`
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function FindAccount(){
+    const history = useHistory()
     const dispatch = useDispatch()
     if (!url) {
         url = "https://thereweather.space/api"
@@ -76,6 +77,9 @@ export default function FindAccount(){
         authEmail: "",
         authCode: "",
     })
+    
+    // 모달창
+    const [isOpen, setIsOpen] = useState(false)
     
     useEffect(() => {
         dispatch(changeMapPage(false))
@@ -104,9 +108,12 @@ export default function FindAccount(){
           withCredentials: true
         })
         .then((res) => {
-            console.log(res.data.status)
-            if(res.data.status === "success"){
-                alert("인증메일을 발송하였습니다. 3분내로 확인해주세요:)")
+            //console.log(res)
+            if(res.data === "no results"){
+                alert("가입된 정보가 아닙니다.")
+            }
+            else if(res.data.status === "success"){
+                alert("인증메일을 발송하였습니다. 50초내로 확인해주세요:)")
             }else{
                 alert("인증메일 발송에 실패하였습니다.")
             }   
@@ -132,8 +139,8 @@ export default function FindAccount(){
         withCredentials: true
       })
       .then((res) => {
-        // console.log(res.data)
-        if(res.data.status === "true"){ 
+        console.log(res.data)
+        if(res.data === true){ 
             alert("메일 인증 되었습니다.")
         }else{
             alert("인증코드가 맞지 않습니다. 다시 확인해주세요:)")
@@ -142,18 +149,43 @@ export default function FindAccount(){
     }
 
     function findAccountId() {
-      console.log("아이디 찾기 버튼")
+      //console.log("아이디 찾기 버튼")
+
+      if(inputFindInfo.findNickName && inputFindInfo.authEmail && inputFindInfo.authCode){
+        //console.log("두둥")
+        axios({
+            url: url + "/findaccount",
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+              },
+            data: {
+              nickName: inputFindInfo.findNickName,
+              email: inputFindInfo.authEmail,
+            },
+            withCredentials: true
+        })
+        .then((res) => {
+            //닉네임, 아이디가 콘솔에 찍힙니닷 
+            console.log("헤이헤이",res.data)
+            alert(res.data.nickName)
+        })
+        setIsOpen(true)
+       }else{
+           alert("위 모두 사항을 입력해주세요.")
+       }
+
       //닉네임, 이메일, 인증코드가 모두 채워져 있으면 함수를 실행하게함
       //악시오스 요청으로 아이디찾기 백엔드로 보내서 -> 닉네임, 이메일, 인증코드 확인하기
        
     }
-    
-    
-    // 아이디 찾기 버튼
-    const submitBtn = () => {
 
+    const closeModal = () => {
+        setIsOpen(false)
     }
-
+    const loginBtn = () => {
+        history.push("/login")
+    }
 
     return (
         <Outer>
@@ -172,7 +204,7 @@ export default function FindAccount(){
                         <li>
                             <p>이메일</p>
                             <input type="text" onChange={ChangeHanlder("authEmail")}></input>
-                            <button onClick={sendEmail}>이메일요청</button>
+                            <button onClick={sendEmail}>인증요청</button>
                         </li>
                         <li>
                             <p>인증코드</p>
@@ -182,6 +214,15 @@ export default function FindAccount(){
                     </ul>
                 </Div2>
                 <Button onClick={findAccountId}>아이디 찾기</Button>
+                { isOpen? 
+                    (<FindAccountModal
+                        closeBtn={closeModal}
+                        loginBtn={loginBtn}
+                    />
+                    ) 
+                    : null
+                }
+                
             </Form>
         </Outer>
     )

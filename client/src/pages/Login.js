@@ -52,7 +52,7 @@ const LoginInputAndTitle = styled.div`
     margin: 1rem;
     font-weight: bold;
   }
-`;
+`;  
 
 const LoginInputText = styled.input`
   min-width: 150px;
@@ -69,6 +69,7 @@ const LoginValidationListBox = styled.ul`
     height: 1.2rem;
     padding: 0 1.5rem;
     color: var(--font-validation-negative);
+    text-align: center;
   }
 `;
 
@@ -523,8 +524,11 @@ export default function Login() {
         ...inputVaildMessage,
         nickNameInput: "닉네임은 두글자 이상 입니다.",
       });
-    }
-  }, [inputSignUpData.nickNameInput]);
+
+   
+  }}, [inputSignUpData.nickNameInput]);
+
+
 
   function handleComplete(complevent) {
     setRoadUserAddress(complevent.roadAddress);
@@ -630,11 +634,13 @@ export default function Login() {
     history.push("/findaccount");
   }
 
-  //비밀번호 찾기
-  function findPwBtn() {
-    console.log("비밀번호 찾기 버튼");
-    history.push("/findpassword");
-  }
+
+ //비밀번호 찾기
+    function findPwBtn() {
+      console.log("비밀번호 찾기 버튼")
+      history.push("/findpassword")
+   }
+
   //회원가입 바로가기
   function signupShortcut() {
     history.push("/signup");
