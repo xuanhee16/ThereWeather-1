@@ -234,44 +234,9 @@ export default function FindPassword(){
           alert("위 사항을 모두 입력해주세요.")
         }else{
           setIsOpen(true)   
-          console.log("userData : ",userData)
+          console.log("userData : ", userData)
         }
     }
-
-    //모달창 
-    const [inputNewPw, setInputNewPw] = useState({
-        newPw: "",
-        againPw: "",
-      })
-    
-      const ChangeHanlderPw = (key) => (e) => {
-        setInputNewPw({
-          ...inputNewPw,
-          [key]: e.target.value
-        })
-      }
-    
-    function findAccountPw() {
-        axios({
-            url: url + "/findpassword",
-            method: "post",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            data: {
-              user_id: userData.user_id,
-              email: userData.email,
-              password: inputNewPw.againPw
-            },
-              withCredentials: true
-            })
-            .then((res) => {
-              //닉네임, 아이디가 콘솔에 찍힙니닷 
-                console.log("헤이헤이",res.data)
-              //   alert(res.data.nickName)
-            })
-    }
-
 
     return (
         <Outer>
