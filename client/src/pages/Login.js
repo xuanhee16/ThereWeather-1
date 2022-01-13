@@ -43,10 +43,10 @@ const FindBtn = styled.button`
 `;
 
 const LoginInputAndTitle = styled.div`
+  border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
   h3 {
     font-size: 1.4rem;
     margin: 1rem;
@@ -62,10 +62,14 @@ const LoginInputText = styled.input`
 `;
 
 const LoginValidationListBox = styled.ul`
+  border: 1px solid yellowgreen;
   list-style: none;
   padding: 0 1.5rem;
+  margin-top: 1rem;
   font-size: 1rem;
+
   li {
+    border: 1px solid purple;
     height: 1.2rem;
     padding: 0 1.5rem;
     color: var(--font-validation-negative);
@@ -795,9 +799,10 @@ export default function Login() {
                   value={idInput}
                   onChange={loginidOnChangeHanlder}
                 />
+                <li>{idInputMessage}</li>
               </LoginInputAndTitle>
               <LoginValidationListBox className="idValidationList">
-                <li>{idInputMessage}</li>
+                {/* <li>{idInputMessage}</li> */}
               </LoginValidationListBox>
             </LoginStyledArticle>
 
@@ -811,9 +816,10 @@ export default function Login() {
                   value={pwInput}
                   onChange={pwOnChangeHandler}
                 />
+                <li>{pwInputMessage}</li>
               </LoginInputAndTitle>
               <LoginValidationListBox className="pwValidationList">
-                <li>{pwInputMessage}</li>
+                {/* <li>{pwInputMessage}</li> */}
               </LoginValidationListBox>
               <FindBtn>
                 <span onClick={findIdBtn}>아이디 찾기 | </span>
