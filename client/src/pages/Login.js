@@ -52,7 +52,7 @@ const LoginInputAndTitle = styled.div`
     margin: 1rem;
     font-weight: bold;
   }
-`;
+`;  
 
 const LoginInputText = styled.input`
   min-width: 150px;
@@ -69,6 +69,7 @@ const LoginValidationListBox = styled.ul`
     height: 1.2rem;
     padding: 0 1.5rem;
     color: var(--font-validation-negative);
+    text-align: center;
   }
 `;
 
