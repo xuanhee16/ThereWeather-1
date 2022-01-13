@@ -15,6 +15,7 @@ const postRouter = require("./routes/post");
 const chatRouter = require("./routes/chat");
 const helmet = require("helmet");
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
