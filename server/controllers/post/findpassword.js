@@ -3,8 +3,8 @@ const { encrypto } = require("../get/setpw")
 
 module.exports = async(req, res) => {
     // res.send()
-    //console.log("findpassword",req.body)
-const { user_id, email, password } = req.body;
+  console.log("findpassword",req.body)
+  const { user_id, email, password } = req.body;
 
     const checkUser = await user.findOne({
       where: {
@@ -17,12 +17,12 @@ const { user_id, email, password } = req.body;
     }
     else{
       const enPw = encrypto(password);
-      await user.updata({
+      await user.update({
         password: enPw
       },
       { 
         where: { user_id: user_id, email: email }
        }
       )}
-      res.status(201).send()
+      res.status(201).send("success")
 }
