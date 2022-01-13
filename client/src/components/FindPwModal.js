@@ -1,7 +1,7 @@
 // 비밀번호 찾기 모달
 import React, { useState } from "react"
 import styled from "styled-components"
-
+import axios from "axios"
 
 const Outer = styled.div`
   position: fixed;
@@ -68,9 +68,15 @@ const Button = styled.button`
   }
 `
 
+let url = process.env.REACT_APP_LOCAL_URL
 
-export default function FindPwModal({closeBtn}) {
-
+export default function FindPwModal({closeBtn, userId, userEmail}) {
+  if (!url) {
+    url = "https://thereweather.space/api"
+  }
+  // console.log("userId : ", userId);
+  // console.log("userEmail : ", userEmail);
+  // 모달창 닫기
   const closeButtonClick = () => {
     closeBtn();
   }
@@ -79,6 +85,39 @@ export default function FindPwModal({closeBtn}) {
   function isMatch (pwd1, pwd2) {
     return pwd1 === pwd2
   }
+
+  const [inputNewPw, setInputNewPw] = useState({
+    newPw: "",
+    againPw: "",
+  })
+
+  const ChangeHanlderPw = (key) => (e) => {
+    setInputNewPw({
+      ...inputNewPw,
+      [key]: e.target.value
+    })
+  }
+
+  function findAccountPw() {
+    axios({
+        url: url + "/findpassword",
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: {
+          user_id: userId,
+          email: userEmail,
+          password: inputNewPw.againPw
+        },
+          withCredentials: true
+        })
+        .then((res) => {
+          //닉네임, 아이디가 콘솔에 찍힙니닷 
+            console.log("헤이헤이",res.data)
+          //   alert(res.data.nickName)
+        })
+}
 
   return (
     <Outer>
@@ -90,12 +129,14 @@ export default function FindPwModal({closeBtn}) {
         </Div2>
         <Div3>
         {/* 최소 6자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함 */}
-          <input type="password" placeholder="비밀번호 입력"></input>
-          <input type="password" placeholder="비밀번호 재입력"></input>
+          <input type="password" placeholder="비밀번호 입력" onChange={ChangeHanlderPw("newPw")}></input>
+          <input type="password" placeholder="비밀번호 재입력" onChange={ChangeHanlderPw("againPw")}></input>
           <p>6자 이상, 알파벳과 숫자 포합, 특수문자(@$!%*#?&) 하나 이상 포함</p>
         </Div3>
         <Div4>
-          <Button>비밀번호 변경</Button>
+          <Button
+            onClick={findAccountPw}
+          >비밀번호 변경</Button>
         </Div4>
       </Popup>
     </Outer>

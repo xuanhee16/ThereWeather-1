@@ -132,9 +132,6 @@ const ModalButton = styled.button`
   }
 `
 
-
-//모달창
-
 let url = process.env.REACT_APP_LOCAL_URL
 
 export default function FindPassword(){
@@ -187,13 +184,14 @@ export default function FindPassword(){
             withCredentials: true
           })
           .then((res) => {
-            //   console.log("이메일전송버튼 누르면",res.data.user_id)
+              // console.log("이메일전송버튼 누르면",res.data.user_id)
+              console.log(res); // user id, email 들어옴
               if(res.data === "no results"){
                   alert("가입된 정보가 아닙니다.")
               }
               else if(res.status === 200){
                   alert("인증메일을 발송하였습니다. 50초내로 확인해주세요:)")
-                  return setUserData((prev) => res.data)
+                  return setUserData((prev) => res.data)  // setState
               }
               else{
                   alert("인증메일 발송에 실패하였습니다.")
@@ -235,7 +233,8 @@ export default function FindPassword(){
         if(!inputFindInfo.findId && !inputFindInfo.authEmail && !inputFindInfo.authCode){
           alert("위 사항을 모두 입력해주세요.")
         }else{
-          setIsOpen(true)    
+          setIsOpen(true)   
+          console.log("userData : ",userData)
         }
     }
 
@@ -300,7 +299,17 @@ export default function FindPassword(){
                         </li>
                     </ul>
                 </Div2>
-                <Button onClick={setNewPassword}>비밀번호 재설정</Button>
+                <Button 
+                  onClick={setNewPassword}  /* 모달창열기 */
+                >비밀번호 재설정</Button>
+                {isOpen? 
+                  <FindPwModal 
+                    closeBtn={closeModal}
+                    userId={userData.user_id}
+                    userEmail={userData.email}
+                  />
+                : null
+                }
             </Form>
         </Outer>
     )
