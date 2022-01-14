@@ -209,7 +209,7 @@ export default function FindAccount(){
                         </li>
                         <li>
                             <p>이메일</p>
-                            <input type="text" onChange={ChangeHanlder("authEmail")}></input>
+                            <input type="text" placeholder="ex) kimcoding@gmail.com" onChange={ChangeHanlder("authEmail")}></input>
                             <button onClick={sendEmail}>인증요청</button>
                         </li>
                         <li>
