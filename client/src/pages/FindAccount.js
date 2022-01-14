@@ -81,6 +81,11 @@ export default function FindAccount(){
     // 모달창
     const [isOpen, setIsOpen] = useState(false)
     
+    const [userData, setUserData] = useState({
+        nickName: "",
+        user_id: ""
+    })
+
     useEffect(() => {
         dispatch(changeMapPage(false))
     }, [])
@@ -168,7 +173,8 @@ export default function FindAccount(){
         .then((res) => {
             //닉네임, 아이디가 콘솔에 찍힙니닷 
             console.log("헤이헤이",res.data)
-            alert(res.data.nickName)
+            return setUserData((prev) => res.data) 
+            // alert(res.data.nickName)
         })
         setIsOpen(true)
        }else{
@@ -218,6 +224,8 @@ export default function FindAccount(){
                     (<FindAccountModal
                         closeBtn={closeModal}
                         loginBtn={loginBtn}
+                        userId={userData.user_id}
+                        userNickName={userData.nickName}
                     />
                     ) 
                     : null

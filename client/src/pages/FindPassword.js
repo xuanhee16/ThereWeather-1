@@ -117,7 +117,7 @@ export default function FindPassword(){
           })
           .then((res) => {
               // console.log("이메일전송버튼 누르면",res.data.user_id)
-              console.log(res); // user id, email 들어옴
+              // console.log(res); // user id, email 들어옴
               if(res.data === "no results"){
                   alert("가입된 정보가 아닙니다.")
               }

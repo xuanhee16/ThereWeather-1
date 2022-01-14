@@ -65,7 +65,7 @@ const Div3 = styled.div`
   }
 `
 
-export default function FindAccountModal({closeBtn, loginBtn}) {
+export default function FindAccountModal({closeBtn, loginBtn, userId, userNickName}) {
   const loginButtonClick = () => {
     loginBtn();
   }
@@ -80,7 +80,7 @@ export default function FindAccountModal({closeBtn, loginBtn}) {
         <Div2>
           <p>인증이 완료되었습니다.</p>
           <p id="info">
-            {}님의 아이디는 {} 입니다.
+            {userNickName}님의 아이디는 {userId} 입니다.
           </p>
         </Div2>
         <Div3 >
