@@ -101,7 +101,7 @@ export default function FindAccount(){
       //console.log("이메일 전송 버튼")
       if(inputFindInfo.findNickName && !inputFindInfo.authCode){
         axios({
-          url: url + "/users/auth",
+          url: url + "/findid",
           method: "post",
           headers: {
             "Content-Type": "application/json",

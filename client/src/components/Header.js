@@ -264,11 +264,11 @@ export default function Header({ isInput, isMobileLogo, isText }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { isLogin, mapPage } = useSelector((state) => state.itemReducer);
-  console.log(mapPage);
+  //console.log(mapPage);
   const [searchEvent, setSearchEvent] = useState("");
   //검색창에 사용할 포커스변수-hoon
   const [onFocus, setOnFocus] = useState(false);
-  console.log("헤더는 찍히나?");
+  //console.log("헤더는 찍히나?");
   // const [postOnFocus, setOnFocus] = useState(false)
 
   // isInput : Map 페이지 사용시 true
