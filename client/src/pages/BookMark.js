@@ -298,7 +298,7 @@ export default function BookMark() {
       // console.log("**res.data bookmarkList**", res.data)
       setBookmarkList(res.data);
     });
-  }, []);
+  }, [userInfo]);
 
   //console.log(bookmarkList)
 
