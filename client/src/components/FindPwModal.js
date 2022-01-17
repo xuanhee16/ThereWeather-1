@@ -76,8 +76,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
   if (!url) {
     url = "https://thereweather.space/api"
   }
-  // console.log("userId : ", userId);
-  // console.log("userEmail : ", userEmail);
+
   // 모달창 닫기
   const closeButtonClick = () => {
     closeBtn();
@@ -102,25 +101,26 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
 
   function findAccountPw() {
     axios({
-        url: url + "/findpassword",
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: {
-          user_id: userId,
-          email: userEmail,
-          password: inputNewPw.againPw
-        },
-          withCredentials: true
-        })
-        .then((res) => {
-          //닉네임, 아이디가 콘솔에 찍힙니닷 
-          console.log("헤이헤이",res.data)
-          alert("변경되었습니다. 다시 로그인해주세요:)")
-          history.push("/login")
-        })
-}
+      url: url + "/findpassword",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        user_id: userId,
+        email: userEmail,
+        password: inputNewPw.againPw
+      },
+        withCredentials: true
+      })
+      .then((res) => {
+        //닉네임, 아이디가 콘솔에 찍힙니닷 
+        console.log("헤이헤이",res.data)
+        alert("변경되었습니다. 다시 로그인해주세요:)")
+        closeBtn()
+        history.push("/login")
+      })
+  }
 
   return (
     <Outer>
@@ -137,9 +137,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
           <p>6자 이상, 알파벳과 숫자 포합, 특수문자(@$!%*#?&) 하나 이상 포함</p>
         </Div3>
         <Div4>
-          <Button
-            onClick={findAccountPw}
-          >비밀번호 변경</Button>
+          <Button onClick={findAccountPw}>비밀번호 변경</Button>
         </Div4>
       </Popup>
     </Outer>
