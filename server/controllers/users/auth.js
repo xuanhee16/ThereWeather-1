@@ -49,28 +49,18 @@ module.exports = {
             `,
         }
        
-        const userInfo = await user.findOne({
-          where: {
-            nickName: req.body.temporary_id,
-            email: req.body.email,
-          }
-        })
-        if(!userInfo){
-            return res.send("no results")
-        }else{
-            await emailauth.create({
+        await emailauth.create({
             temporary_id: req.body.temporary_id,
             email: req.body.email,
             code: randomCode,
-           })
-            setTimeout(async () => {
-                await emailauth.destroy({
-                    where: {
-                        temporary_id: req.body.temporary_id,
-                    },
-                })
-            }, 50000) //50초, 1분은(60*1000)
-        }
+        })
+        setTimeout(async () => {
+            await emailauth.destroy({
+                where: {
+                    temporary_id: req.body.temporary_id,
+                },
+            })
+        }, 50000) //50초, 1분은(60*1000)
 
 
         transporter.sendMail(mailOptions, (err, data) => {

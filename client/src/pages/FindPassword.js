@@ -117,7 +117,7 @@ export default function FindPassword(){
           })
           .then((res) => {
               // console.log("이메일전송버튼 누르면",res.data.user_id)
-              console.log(res); // user id, email 들어옴
+              // console.log(res); // user id, email 들어옴
               if(res.data === "no results"){
                   alert("가입된 정보가 아닙니다.")
               }
@@ -166,7 +166,6 @@ export default function FindPassword(){
           alert("위 사항을 모두 입력해주세요.")
         }else{
           setIsOpen(true)   
-          console.log("userData : ", userData)
         }
     }
 
@@ -182,11 +181,11 @@ export default function FindPassword(){
                     <ul>
                         <li>
                             <p>아이디</p>
-                            <input type="text" onChange={ChangeHanlder("findId")}></input>
+                            <input type="text" placeholder="ex) kimcoding" onChange={ChangeHanlder("findId")}></input>
                         </li>
                         <li>
                             <p>이메일</p>
-                            <input type="text" onChange={ChangeHanlder("authEmail")}></input>
+                            <input type="text" placeholder="ex) kimcoding@gmail.com" onChange={ChangeHanlder("authEmail")}></input>
                             <button onClick={sendEmail}>인증요청</button>
                         </li>
                         <li>
