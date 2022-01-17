@@ -10,14 +10,6 @@ import TopButton from "../components/TopButton";
 import Comment from "../components/PostRead-comment";
 import { changeUser } from "../actions/index";
 
-/*
-  [수정사항]
-  - 옷차림 아이콘 경로 수정
-  - select 태그용 배열 테스트
-  - 게시물 작성 위치를 기준으로 주소 렌더링
-  - 하단의 주석 제거
-  - '잘못된 요청입니다' 메시지 h2에 margin 추가
-*/
 
 const Outer = styled.div`
   width: 100%;

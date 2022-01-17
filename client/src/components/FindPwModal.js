@@ -120,8 +120,14 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
     })
   }
 
+  // console.log(inputNewPw.newPw)
+  // console.log(inputNewPw.againPw)
   function findAccountPw() {
-    axios({
+    if(!inputNewPw.newPw && !inputNewPw.againPw){
+      alert("비밀번호를 입력해주세요.")
+    }
+    else{
+      axios({
         url: url + "/findpassword",
         method: "post",
         headers: {
@@ -139,6 +145,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
           alert("변경되었습니다. 다시 로그인해주세요:)")
           history.push("/login")
         })
+    }
     }
 
   //비밀번호 유효성 검사 추가 -> 최소 6자 이상 및 알파벳과 숫자 및 특수문자(@$!%*#?&)는 한 개 이상 포함
