@@ -9,5 +9,6 @@ router.get("/auth", usersController.auth.get);
 router.post("/auth", usersController.auth.post);
 router.put("/auth", usersController.auth.put);
 router.get("/socialcheck", usersController.socialcheck.get);
+router.post("/findpw", usersController.findpw.post);
 
 module.exports = router;

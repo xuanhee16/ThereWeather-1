@@ -43,16 +43,16 @@ const FindBtn = styled.button`
 `;
 
 const LoginInputAndTitle = styled.div`
+  border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
   h3 {
     font-size: 1.4rem;
     margin: 1rem;
     font-weight: bold;
   }
-`;
+`;  
 
 const LoginInputText = styled.input`
   min-width: 150px;
@@ -62,13 +62,18 @@ const LoginInputText = styled.input`
 `;
 
 const LoginValidationListBox = styled.ul`
+  border: 1px solid yellowgreen;
   list-style: none;
   padding: 0 1.5rem;
+  margin-top: 1rem;
   font-size: 1rem;
+
   li {
+    border: 1px solid purple;
     height: 1.2rem;
     padding: 0 1.5rem;
     color: var(--font-validation-negative);
+    text-align: center;
   }
 `;
 
@@ -523,8 +528,11 @@ export default function Login() {
         ...inputVaildMessage,
         nickNameInput: "닉네임은 두글자 이상 입니다.",
       });
-    }
-  }, [inputSignUpData.nickNameInput]);
+
+   
+  }}, [inputSignUpData.nickNameInput]);
+
+
 
   function handleComplete(complevent) {
     setRoadUserAddress(complevent.roadAddress);
@@ -630,11 +638,13 @@ export default function Login() {
     history.push("/findaccount");
   }
 
-  //비밀번호 찾기
-  function findPwBtn() {
-    console.log("비밀번호 찾기 버튼");
-    history.push("/findpassword");
-  }
+
+ //비밀번호 찾기
+    function findPwBtn() {
+      console.log("비밀번호 찾기 버튼")
+      history.push("/findpassword")
+   }
+
   //회원가입 바로가기
   function signupShortcut() {
     history.push("/signup");
@@ -789,9 +799,10 @@ export default function Login() {
                   value={idInput}
                   onChange={loginidOnChangeHanlder}
                 />
+                <li>{idInputMessage}</li>
               </LoginInputAndTitle>
               <LoginValidationListBox className="idValidationList">
-                <li>{idInputMessage}</li>
+                {/* <li>{idInputMessage}</li> */}
               </LoginValidationListBox>
             </LoginStyledArticle>
 
@@ -805,9 +816,10 @@ export default function Login() {
                   value={pwInput}
                   onChange={pwOnChangeHandler}
                 />
+                <li>{pwInputMessage}</li>
               </LoginInputAndTitle>
               <LoginValidationListBox className="pwValidationList">
-                <li>{pwInputMessage}</li>
+                {/* <li>{pwInputMessage}</li> */}
               </LoginValidationListBox>
               <FindBtn>
                 <span onClick={findIdBtn}>아이디 찾기 | </span>
