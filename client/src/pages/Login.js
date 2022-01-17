@@ -12,13 +12,15 @@ const { Kakao } = window;
 
 const LoginOuter = styled.section`
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-height: calc(var(--mobile-page-height) - 70px);
   background-color: var(--page-bg-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+
   h2 {
     text-align: center;
     font-size: 2rem;
@@ -27,6 +29,13 @@ const LoginOuter = styled.section`
   }
   @media screen and (min-width: 1081px) {
     height: calc(100vh - 125px);
+  }
+
+  @media screen and (max-width: 711px) {
+    h2 {
+      font-size: 1.5rem;
+      margin: 1rem auto;
+    }
   }
 `;
 
@@ -38,12 +47,18 @@ const LoginStyledArticle = styled.article`
 
 const FindBtn = styled.button`
   font-size: 1rem;
-  margin: 1rem 14.5rem;
-  padding: 1rem;
+  margin: 3rem 14.5rem 0 14.5rem;
+
+  @media screen and (max-width: 711px) {
+    margin: 3rem 0 0 0;
+    span {
+      display: block;
+      margin: 0.5rem;
+    }
+  }
 `;
 
 const LoginInputAndTitle = styled.div`
-  border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,6 +66,10 @@ const LoginInputAndTitle = styled.div`
     font-size: 1.4rem;
     margin: 1rem;
     font-weight: bold;
+    
+    @media screen and (max-width: 711px) {
+      font-size: 1rem;
+    }
   }
 `;  
 
@@ -62,18 +81,19 @@ const LoginInputText = styled.input`
 `;
 
 const LoginValidationListBox = styled.ul`
-  border: 1px solid yellowgreen;
   list-style: none;
-  padding: 0 1.5rem;
-  margin-top: 1rem;
   font-size: 1rem;
-
+  margin-top: 1.5rem;
   li {
-    border: 1px solid purple;
-    height: 1.2rem;
-    padding: 0 1.5rem;
-    color: var(--font-validation-negative);
     text-align: center;
+    &:nth-child(3) {
+      margin-top: 1rem;
+    }
+
+    p {
+      margin: 0 auto;
+      color: var(--font-validation-negative);
+    }
   }
 `;
 
@@ -108,13 +128,16 @@ const LoginButton = styled.button`
   > span {
     margin: 0.25rem;
   }
+
+  @media screen and (max-width: 711px) {
+    margin: 0 0 1rem 0;
+  }
 `;
 /////////////////socialSignup스타일/////////////////////////////////
 
 const Outer = styled.section`
   position: relative;
   width: 100vw;
-  // height: var(--mobile-page-height);
   background-color: var(--page-bg-color);
   display: flex;
   flex-direction: column;
@@ -142,7 +165,6 @@ const StyledArticle = styled.article`
 `;
 
 const InputAndTitle = styled.div`
-  // display: flex;
   justify-content: flex-end;
   align-items: center;
   margin: 1rem;
@@ -154,12 +176,8 @@ const InputAndTitle = styled.div`
   }
 `;
 const InputAndTitle2 = styled.div`
-  // border: 1px solid blue;
-
   display: flex;
   flex-direction: row;
-  // margin-top: -7rem;
-  // padding-top: -5rem;
 
   align-items: center;
   h3,
@@ -260,8 +278,6 @@ const Button2 = styled.input`
 `;
 ////////////////////////
 const PhotoUploadSection = styled.form`
-  // border: 2px solid yellow;
-  // margin: auto 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -276,8 +292,6 @@ const PhotoBox = styled.div`
   font-size: 30px;
   color: palevioletred;
   border: 1px solid #b5b5b5;
-  /* width: 300px;
-height: 150px; */
   object-fit: cover;
 `;
 const PhotoBox2 = styled.img`
@@ -317,7 +331,6 @@ export default function Login() {
   });
 
   useEffect(() => {
-    // console.log("나는 login.js")
     dispatch(changeMapPage(false));
     const urlinfo = new URL(window.location.href);
     const hash = urlinfo.hash;
@@ -696,34 +709,6 @@ export default function Login() {
                 <li>{inputVaildMessage.idInput}</li>
               </ValidationListBox>
             </StyledArticle>
-            {/* <StyledArticle className="password">
-                            <InputAndTitle className="inputPwSection">
-                                <h3>비밀번호</h3>
-                                <InputText
-                                    type="password"
-                                    name="pwInput"
-                                    placeholder="비밀번호"
-                                    onChange={idOnChangeHanlder("pwInput")}
-                                />
-                            </InputAndTitle>
-                            <ValidationListBox className="pwValidationList">
-                                <li>{inputVaildMessage.pwInput}</li>
-                            </ValidationListBox>
-                        </StyledArticle>
-                        <StyledArticle className="password">
-                            <InputAndTitle className="inputPwSection">
-                                <h3>비밀번호 확인</h3>
-                                <InputText
-                                    type="password"
-                                    name="pwCheckInput"
-                                    placeholder="비밀번호 확인"
-                                    onChange={idOnChangeHanlder2}
-                                />
-                            </InputAndTitle>
-                            <ValidationListBox className="pwValidationList">
-                                <li>{pwCheckInputMessage}</li>
-                            </ValidationListBox>
-                        </StyledArticle> */}
             <StyledArticle className="password">
               <InputAndTitle className="inputPwSection">
                 <h3>닉네임</h3>
@@ -787,46 +772,52 @@ export default function Login() {
         </Outer>
       ) : (
         <LoginOuter className="loginPageComponent">
-          <h2>로그인</h2>
           <div className="Login--center">
-            <LoginStyledArticle className="id">
-              <LoginInputAndTitle className="inputIdSection">
-                <h3>아이디</h3>
-                <LoginInputText
-                  type="text"
-                  name="idInput"
-                  placeholder="아이디를 입력하세요"
-                  value={idInput}
-                  onChange={loginidOnChangeHanlder}
-                />
-                <li>{idInputMessage}</li>
-              </LoginInputAndTitle>
-              <LoginValidationListBox className="idValidationList">
-                {/* <li>{idInputMessage}</li> */}
-              </LoginValidationListBox>
-            </LoginStyledArticle>
+            <LoginValidationListBox>
+              <li>
+                <h2>로그인</h2>
+                <LoginStyledArticle className="id">
+                  <LoginInputAndTitle className="inputIdSection">
+                    <h3>아이디</h3>
+                    <LoginInputText
+                      type="text"
+                      name="idInput"
+                      placeholder="아이디를 입력하세요"
+                      value={idInput}
+                      onChange={loginidOnChangeHanlder}
+                    />
+                  </LoginInputAndTitle>
+                </LoginStyledArticle>
+              </li> 
+              <li>
+                  <p>{idInputMessage}</p>
+              </li>
 
-            <LoginStyledArticle className="password">
-              <LoginInputAndTitle className="inputPwSection">
-                <h3>비밀번호</h3>
-                <LoginInputText
-                  type="password"
-                  name="pwInput"
-                  placeholder="비밀번호를 입력하세요"
-                  value={pwInput}
-                  onChange={pwOnChangeHandler}
-                />
-                <li>{pwInputMessage}</li>
-              </LoginInputAndTitle>
-              <LoginValidationListBox className="pwValidationList">
-                {/* <li>{pwInputMessage}</li> */}
-              </LoginValidationListBox>
-              <FindBtn>
-                <span onClick={findIdBtn}>아이디 찾기 | </span>
-                <span onClick={findPwBtn}>비밀번호 찾기 | </span>
-                <span onClick={signupShortcut}>회원가입</span>
-              </FindBtn>
-            </LoginStyledArticle>
+              <li>
+                <LoginStyledArticle className="password">
+                <LoginInputAndTitle className="inputPwSection">
+                  <h3>비밀번호</h3>
+                  <LoginInputText
+                    type="password"
+                    name="pwInput"
+                    placeholder="비밀번호를 입력하세요"
+                    value={pwInput}
+                    onChange={pwOnChangeHandler}
+                  />
+                </LoginInputAndTitle>
+              </LoginStyledArticle>
+              </li>
+              <li>
+                  <p>{pwInputMessage}</p>
+              </li>
+            </LoginValidationListBox>
+
+            <FindBtn>
+              <span onClick={findIdBtn}>아이디 찾기 | </span>
+              <span onClick={findPwBtn}>비밀번호 찾기 | </span>
+              <span onClick={signupShortcut}>회원가입</span>
+            </FindBtn>
+            
           </div>
 
           <LoginButtons className="login--Loginbuttons">
