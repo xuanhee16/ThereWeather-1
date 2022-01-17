@@ -17,6 +17,7 @@ module.exports = async(req, res) => {
     }
     else{
       const enPw = encrypto(password);
+      console.log("encrypto:::",enPw)
       await user.update({
         password: enPw
       },
