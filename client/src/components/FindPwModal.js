@@ -92,8 +92,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
   if (!url) {
     url = "https://thereweather.space/api"
   }
-  // console.log("userId : ", userId);
-  // console.log("userEmail : ", userEmail);
+
   // 모달창 닫기
   const closeButtonClick = () => {
     closeBtn();
@@ -173,6 +172,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
     setPwCheckInput(e.target.value);
   };
 
+
   return (
     <Outer>
       <Popup>
@@ -193,9 +193,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
         </StyledArticle>
         </Div3>
         <Div4>
-          <Button
-            onClick={findAccountPw}
-          >비밀번호 변경</Button>
+          <Button onClick={findAccountPw}>비밀번호 변경</Button>
         </Div4>
       
       </Popup>
