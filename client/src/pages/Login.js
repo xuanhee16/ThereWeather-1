@@ -27,16 +27,27 @@ const LoginOuter = styled.section`
     font-weight: bold;
     margin: 2rem auto;
   }
+
+
   @media screen and (min-width: 1081px) {
     height: calc(100vh - 125px);
   }
 
   @media screen and (max-width: 711px) {
+    .Login--center {
+      width: 70%;
+    }
     h2 {
       font-size: 1.5rem;
       margin: 1rem auto;
     }
   }
+  @media screen and (max-width: 711px) {
+    .Login--center {
+      width: 100%;
+    }
+  }
+
 `;
 
 const LoginStyledArticle = styled.article`
@@ -59,9 +70,12 @@ const FindBtn = styled.button`
 `;
 
 const LoginInputAndTitle = styled.div`
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 70%;
+
   h3 {
     font-size: 1.4rem;
     margin: 1rem;
@@ -75,7 +89,7 @@ const LoginInputAndTitle = styled.div`
 
 const LoginInputText = styled.input`
   min-width: 150px;
-  width: 30vw;
+  width: 70%;
   font-size: 1.2rem;
   padding: 0.5rem;
 `;
@@ -92,7 +106,10 @@ const LoginValidationListBox = styled.ul`
 
     p {
       margin: 0 auto;
+      padding-left: 1rem;
       color: var(--font-validation-negative);
+      width: 70%;
+      text-align: left;
     }
   }
 `;
@@ -795,17 +812,17 @@ export default function Login() {
 
               <li>
                 <LoginStyledArticle className="password">
-                <LoginInputAndTitle className="inputPwSection">
-                  <h3>비밀번호</h3>
-                  <LoginInputText
-                    type="password"
-                    name="pwInput"
-                    placeholder="비밀번호를 입력하세요"
-                    value={pwInput}
-                    onChange={pwOnChangeHandler}
-                  />
-                </LoginInputAndTitle>
-              </LoginStyledArticle>
+                  <LoginInputAndTitle className="inputPwSection">
+                    <h3>비밀번호</h3>
+                    <LoginInputText
+                      type="password"
+                      name="pwInput"
+                      placeholder="비밀번호를 입력하세요"
+                      value={pwInput}
+                      onChange={pwOnChangeHandler}
+                    />
+                  </LoginInputAndTitle>
+                </LoginStyledArticle>
               </li>
               <li>
                   <p>{pwInputMessage}</p>
