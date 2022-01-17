@@ -225,6 +225,21 @@ export default function MyPost() {
   //현재 페이지
   const [dividNum, setDividNum] = useState(6);
   //한페이지에 보여줄 포스트의 개수
+  console.log(userInfo);
+  useEffect(() => {
+    axios({
+      url:
+        url +
+        `/mypost?searchID=${userInfo.user_id}&page=${curPage}&capa=${dividNum}`,
+      method: "get",
+      withCredentials: true,
+    }).then((res) => {
+      //console.log(res.data)
+      setListLength(res.data.length);
+      setcurrentPosts(res.data.data);
+      dispatch(userPosts(res.data));
+    });
+  }, [userInfo]);
 
   useEffect(() => {
     axios({

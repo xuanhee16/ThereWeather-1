@@ -25,7 +25,7 @@ const ImgContainer = styled.div`
 `;
 const PostListModal = styled.div`
   // border: 1px solid black;
-
+  // position: relative;
   background-color: white;
   z-index: 999;
   // position: absolute;
@@ -607,21 +607,14 @@ export default function Location({ bottom }) {
     }
   `;
   const LoadingBoxDiv = styled.div`
-    // margin-top: 50%;
-    display: flex;
-    justify-content: center;
-    align-item: center;
-    width: 100%;
-    // border: 1px solid black;
-    flex-direction: column;
+    position: relative;
+    transform: translate(-0%, -50%);
+    top: 50%;
+
     @media screen and (min-width: 1081px) {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-item: center;
-      width: 100%;
-      // border: 1px solid black;
-      flex-direction: column;
+      position: relative;
+      transform: translate(-0%, -50%);
+      top: 50%;
     }
   `;
   const Button = styled.button`
@@ -717,10 +710,17 @@ export default function Location({ bottom }) {
       )}
       {isOnOff ? (
         <PostListModal>
-          {isLoading ? (
-            <LoadingBoxDiv>
-              <LoadingSpinner size={"15%;"} />
-            </LoadingBoxDiv>
+          {!isLoading ? (
+            <>
+              <GraphTitleDiv>현재동네 날씨정보</GraphTitleDiv>
+              <GraphTitle>
+                <GraphTitleDiv2>동네 예보 날씨 비율</GraphTitleDiv2>
+                <GraphTitleDiv2>동네 예보 vs 기상청예보</GraphTitleDiv2>
+              </GraphTitle>
+              <LoadingBoxDiv>
+                <LoadingSpinner size={"15%;"} />
+              </LoadingBoxDiv>
+            </>
           ) : (
             <div className="mapModal">
               <GraphTitleDiv>현재동네 날씨정보</GraphTitleDiv>
