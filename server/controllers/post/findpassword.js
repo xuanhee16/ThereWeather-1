@@ -3,7 +3,7 @@ const { encrypto } = require("../get/setpw")
 
 module.exports = async(req, res) => {
     // res.send()
-  console.log("findpassword",req.body)
+  //console.log("findpassword",req.body)
   const { user_id, email, password } = req.body;
 
     const checkUser = await user.findOne({

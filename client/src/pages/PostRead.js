@@ -9,7 +9,8 @@ import { useHistory } from "react-router-dom";
 import TopButton from "../components/TopButton";
 import Comment from "../components/PostRead-comment";
 import { changeUser } from "../actions/index";
-
+import kakaoIcon from "../../src/LoginIcon/kakaoIcon.png";
+const { Kakao } = window;
 
 const Outer = styled.div`
   width: 100%;
@@ -49,7 +50,7 @@ const PostHeader = styled.div`
     padding-top: 5vh;
   }
 `;
-// 제목 // 제목글자수 제한 필요?
+// 제목
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
@@ -60,6 +61,12 @@ const Title = styled.div`
 
   span {
     font-size: 2rem;
+  }
+  img {
+    margin: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    float: right;
   }
 
   @media screen and (max-width: 1081px) {
@@ -620,6 +627,18 @@ export default function PostRead() {
 
   useEffect(() => {}, []);
 
+  
+  //카카오 공유 
+  // useEffect(()=> {
+  //   Kakao.Link.createDefaultButton({
+  //     container: "#kakao-share",
+  //     objectType: "feed",
+  //     requestUrl:window.location.href
+  //   })
+  // }, [])
+
+
+
   return (
     <Outer>
       {noIdWarning.length !== 0 ? (
@@ -632,6 +651,10 @@ export default function PostRead() {
       <PostHeader className="postHeader">
         <Title className="title">
           <span>{postData.post_title}</span>
+          {/* 카카오 아이콘 자리  */}
+            <button id="kakao-share">
+                <img src={kakaoIcon}></img>
+            </button>
           <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
             color={bookmarked ? "#3b5fd9" : "#aaa"}
