@@ -104,6 +104,9 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
   });
 
   const [pwCheckInput, setPwCheckInput] = useState("");
+  // const [pwCheckInput, setPwCheckInput] = useState({
+  //   checkPw: "", DoubleCheckPw:""
+  // });
 
   const [inputVaildMessage, setInputVaildMessage] = useState({
     newPw: "변경할 패스워드를 입력하세요.",
@@ -121,7 +124,11 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
   }
 
   function findAccountPw() {
-    axios({
+    if(!inputNewPw.newPw && !inputNewPw.againPw){
+      alert("비밀번호를 입력해주세요.")
+    }
+    else{
+      axios({
         url: url + "/findpassword",
         method: "post",
         headers: {
@@ -139,6 +146,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
           alert("변경되었습니다. 다시 로그인해주세요:)")
           history.push("/login")
         })
+    }
     }
 
   //비밀번호 유효성 검사 추가 -> 최소 6자 이상 및 알파벳과 숫자 및 특수문자(@$!%*#?&)는 한 개 이상 포함
@@ -159,18 +167,23 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
       setInputVaildMessage({...inputVaildMessage, newPwMsg: "알파벳, 숫자 포함, 특수문자(@$!%*#?&) 1개 이상 포함하는 6글자입니다."})
      }
  
-     if(isMatch(inputNewPw.newPw, pwCheckInput) && pwCheckInput.length === 0){
+     if(isMatch(inputNewPw.newPw, inputNewPw.againPw) && inputNewPw.againPw.length === 0){
       setPwCheckInputMessage("패스워드를 재입력해주세요.")
-     }else if(isMatch(inputNewPw.newPw, pwCheckInput)){
+     }else if(isMatch(inputNewPw.newPw, inputNewPw.againPw)){
       setPwCheckInputMessage("")
      }else{
        setPwCheckInputMessage("비밀번호가 일치하지 않습니다.")
      }
-   }, [inputNewPw.newPw, inputNewPw.againPw, pwCheckInput]);
+   }, [inputNewPw.newPw, inputNewPw.againPw]);
   
-   const ChangeHanlderAgainPw = (e) => {
-    setPwCheckInput(e.target.value);
-  };
+  //  const ChangeHanlderAgainPw = (e) => {
+  //   setPwCheckInput(e.target.value);
+  // };
+
+  // const ChangeHanlderAgainPw = (key) =>(e) => {
+  //   setPwCheckInput({ ...pwCheckInput, [key]: e.target.value });
+  // };
+  
 
 
   return (
@@ -187,7 +200,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
         {/* 최소 6자 이상하면서, 알파벳과 숫자 및 특수문자(@$!%*#?&) 는 하나 이상 포함 */}
           <input type="password" placeholder="비밀번호 입력" onChange={ChangeHanlderPw("newPw")}></input>
           <li>{inputVaildMessage.newPwMsg}</li>
-          <input type="password" placeholder="비밀번호 재입력" onChange={ChangeHanlderAgainPw}></input>
+          <input type="password" placeholder="비밀번호 재입력" onChange={ChangeHanlderPw("againPw")}></input>
           <li>{pwCheckInputMessage}</li> 
           </ValidationMsg>
         </StyledArticle>
