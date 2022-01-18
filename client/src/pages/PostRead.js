@@ -626,6 +626,15 @@ export default function PostRead() {
     });
   };
 
+  const commentLike = () => {
+    // 
+    axios({
+      url: url + "/likecomment",
+      method: "post",
+      
+    })
+  }
+
   useEffect(() => {}, []);
 
   return (
@@ -774,6 +783,7 @@ export default function PostRead() {
               key={content.id}
               content={content}
               commentDelete={commentDelete}
+              commentLike= {commentLike}
             />
           ))}
         </CommentList>

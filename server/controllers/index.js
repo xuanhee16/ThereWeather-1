@@ -13,6 +13,7 @@ module.exports = {
   signout: require("./post/signout"),
   post: require("./post/write"),
   sendcomment: require("./post/sendcomment"),
+  likecomment: require("./post/likecomment"),
   readbookmark: require("./post/readbookmark"),
   password: require("./put/password"),
   edituserinfo: require("./put/edituserinfo"),

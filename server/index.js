@@ -71,7 +71,6 @@ app.get("/api/readpost", controllers.readpost);
 app.get("/api/mypage", controllers.mypage);
 app.get("/api/mypost", controllers.mypost);
 app.get("/bookmarklist", controllers.bookmarklist);
-// app.get("/api/like", controllers.like) //댓글좋아요기능
 app.get("/api/commentlist", controllers.commentlist); 
 
 //post
@@ -83,6 +82,7 @@ app.post("/api/home", controllers.home);
 app.post("/api/bookmarklist", controllers.bookmarklist);
 app.post("/api/sendcomment", controllers.sendcomment); 
 app.post("/api/readbookmark", controllers.readbookmark);
+app.post("/api/likecomment", controllers.likecomment) //댓글좋아요기능
 app.post("/api/kakaologin", controllers.kakaologin);
 app.post("/api/findaccount", controllers.findaccount);
 app.post("/api/findpassword", controllers.findpassword);
