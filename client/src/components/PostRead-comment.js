@@ -40,21 +40,20 @@ export default function Comment({content, commentDelete}) {
 
 
   // 댓글 좋아요 클릭
-  const commentLike = (commentId) => {
-    
+  const commentLike = () => {
+
     // axios({
     //   url: url + "/likecomment",
     //   method: "post",
     //   data: {
     //     user_id: userInfo.user_id,
     //     post_id: postData.id,
-    //     comment_id: commentId,
-    //     like_count: 1,
+    //     comment_id: commentId
     //   },
     //   withCredentials: true,
     // })
     // .then(() => {
-    //   if(click !== true) {
+    //   if(click === false){
     //     setClick(true)
     //   }else{
     //     setClick(false)
@@ -81,12 +80,12 @@ export default function Comment({content, commentDelete}) {
               <FontAwesomeIcon 
               icon={faHeart}
               className="heart"
-              color="#aaa"
+              color="red"
               /> :
               <FontAwesomeIcon 
               icon={faHeart}
               className="heart"
-              color="red"
+              color="#aaa"
               />
           }
           <span>{0}</span>
