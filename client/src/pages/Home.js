@@ -12,9 +12,10 @@ import { compose } from "redux";
 
 const HomeContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  height: 100vh;
-  padding-right: 5vh;
+  flex-direction: column;
+  height: auto;
+  // height: 100vh;
+  // padding-right: 5vh;
   background-color: var(--page-bg-color);
   ul {
     list-style: none;
@@ -95,8 +96,11 @@ const TodaysDate = styled.div`
 const LeftContainer1 = styled.div`
   display: flex;
   gap: 0.1rem;
+  // flex-direction: column;
   flex-direction: row;
-  width: 40vw;
+  // justify-content: center;
+
+  // width: 80vw;
   flex-wrap: wrap;
   .weatherInfo {
     text-align: center;
@@ -239,6 +243,8 @@ const RightContainer = styled.div`
   grid-area: "nav nav" "main main" "main main";
   grid-gap: 0.1rem;
   transition: all 0.01s ease-in-out;
+  margin: 0 auto;
+
   .userPost {
     &:hover {
       border-bottom: 1px solid #fafafa;
@@ -521,7 +527,7 @@ export default function Home() {
         <p id="curLocation">위치 : {curAddress}</p>
       </TodaysDate>
       <HomeContainer>
-        <LeftContainer1>
+        <LeftContainer1 className="LeftContainer1">
           <LeftNav1>
             <p>주민예보</p>
             <div className="weatherInfo">
@@ -532,21 +538,21 @@ export default function Home() {
               ) : (
                 <ul>
                   <li>
-                    <span>현재위치 체감온도 </span>
+                    <span>체감온도 </span>
                     <img
                       src={`${process.env.PUBLIC_URL}img/icons-write/${currentTemp}.png`}
                       alt="온도"
                     />
                   </li>
                   <li>
-                    <span>현재위치 바람세기 </span>
+                    <span>체감바람 </span>
                     <img
                       src={`${process.env.PUBLIC_URL}img/icons-write/${currentWind}.png`}
                       alt="바람"
                     />
                   </li>
                   <li>
-                    <span>현재위치 날씨상태 </span>
+                    <span>날씨 </span>
                     <img
                       src={`${process.env.PUBLIC_URL}img/icons-write/${currentWeather}.png`}
                       alt="날씨"
@@ -569,7 +575,7 @@ export default function Home() {
 
                         )
                       })} */}
-            <p>기상청 일기예보</p>
+            <p>기상청 예보</p>
             <div className="weatherInfo">
               <ul>
                 {/* {console.log(weatherData.item)}  */}
@@ -580,32 +586,44 @@ export default function Home() {
                           { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } 
                           { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] }  */}
 
-                {weatherData &&
+                {/* {weatherData &&
                   weatherData.item.map((info) => {
                     return <li key={nanoid()}>날짜:{info.baseDate}</li>;
-                  })[0]}
+                  })[0]} */}
                 {weatherData &&
                   weatherData.item.map((info) => {
                     return (
-                      <li key={nanoid()}>기준 예보시각: {info.baseTime}</li>
+                      <li key={nanoid()}>
+                        예보시각: {info.baseTime.substring(0, 2)}시
+                        {info.baseTime.substring(2)}분
+                      </li>
                     );
                   })[0]}
                 {weatherData &&
                   weatherData.item.map((info) => {
-                    return (
-                      <li key={nanoid()}>현재위치 기온: {info.fcstValue}℃</li>
-                    );
+                    return <li key={nanoid()}>기온: {info.fcstValue}℃</li>;
                   })[24]}
                 {weatherData &&
                   weatherData.item.map((info) => {
                     return (
                       <li key={nanoid()}>
-                        현재위치 바람세기:{" "}
-                        {info.fcstValue < "9"
-                          ? "바람세기 약하거나 약간 강함"
-                          : info.fcstValue < "14"
-                          ? "바람세기 강함"
-                          : "바람세기 매우 강함"}
+                        바람:{" "}
+                        {info.fcstValue < "9" ? (
+                          <img
+                            src={`${process.env.PUBLIC_URL}img/icons-write/breezy.png`}
+                            alt="온도"
+                          />
+                        ) : info.fcstValue < "14" ? (
+                          <img
+                            src={`${process.env.PUBLIC_URL}img/icons-write/windy.png`}
+                            alt="온도"
+                          />
+                        ) : (
+                          <img
+                            src={`${process.env.PUBLIC_URL}img/icons-write/strong.png`}
+                            alt="온도"
+                          />
+                        )}
                       </li>
                     );
                   })[54]}
@@ -613,7 +631,7 @@ export default function Home() {
                   weatherData.item.map((info) => {
                     return (
                       <li key={nanoid()}>
-                        현재위치 날씨상태:{" "}
+                        날씨:{" "}
                         {info.fcstValue === "0"
                           ? "맑음"
                           : info.fcstValue === "1"
