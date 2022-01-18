@@ -2,7 +2,7 @@ const { like, comment } = require("../../models")
 
 module.exports = async(req, res) => {
   // console.log("likecomment : ", req.body);
-  const {user_id, post_id, comment_id} = req.body;
+  const {user_id, post_id, comment_id, like_count} = req.body;
   console.log("likecommnet : ", req.body);
 
   const liked = await like.findOne({

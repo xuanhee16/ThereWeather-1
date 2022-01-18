@@ -16,7 +16,11 @@ module.exports = (sequelize, DataTypes) => {
   like.init({
     user_id: DataTypes.STRING,
     post_id: DataTypes.INTEGER,
-    comment_id: DataTypes.STRING
+    comment_id: DataTypes.STRING,
+    like_count: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    }
   }, {
     sequelize,
     modelName: 'like',
