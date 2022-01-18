@@ -17,10 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     post_id: DataTypes.INTEGER,
     comment_user_id: DataTypes.STRING,
     comment_content: DataTypes.STRING,
-    like_count: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    }
   }, {
     sequelize,
     modelName: 'comment',

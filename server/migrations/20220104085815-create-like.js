@@ -17,6 +17,10 @@ module.exports = {
       comment_id: {
         type: Sequelize.STRING
       },
+      like_count: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
