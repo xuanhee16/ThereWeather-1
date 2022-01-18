@@ -601,7 +601,6 @@ export default function PostRead() {
       },
       withCredentials: true,
     }).then((res) => {
-      // console.log("댓글목록 : ", res.data);
       setCommentList(res.data);
     });
   }
@@ -627,23 +626,6 @@ export default function PostRead() {
       window.location.replace("/readpost");
     });
   };
-
-  // 댓글 좋아요 클릭
-  const commentLike = (commentId) => {
-    axios({
-      url: url + "/likecomment",
-      method: "post",
-      data: {
-        user_id: userInfo.user_id,
-        post_id: postData.id,
-        comment_id: commentId,
-        like_count: 1,
-      },
-      withCredentials: true,
-    })
-    
-  }
-
 
 
   useEffect(() => {}, []);
@@ -827,7 +809,7 @@ export default function PostRead() {
               key={content.id}
               content={content}
               commentDelete={commentDelete}
-              commentLike= {commentLike}
+              // commentLike= {commentLike}
             />
           ))}
         </CommentList>
