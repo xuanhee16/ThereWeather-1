@@ -29,11 +29,39 @@ const LikeBtn = styled.button`
   margin-top: 0.3rem;
   border: 1px solid black;
 `
+
+let url = process.env.REACT_APP_LOCAL_URL;
+if (!url) url = "https://thereweather.space/api";
+
 // 아이디, 댓글내용, 날짜 / 좋아요하트, 삭제버튼
-export default function Comment({content, commentDelete, commentLike}) {
+export default function Comment({content, commentDelete}) {
   console.log("content : ", content);
   const [click, setClick] = useState(false);
 
+
+  // 댓글 좋아요 클릭
+  const commentLike = (commentId) => {
+    
+    // axios({
+    //   url: url + "/likecomment",
+    //   method: "post",
+    //   data: {
+    //     user_id: userInfo.user_id,
+    //     post_id: postData.id,
+    //     comment_id: commentId,
+    //     like_count: 1,
+    //   },
+    //   withCredentials: true,
+    // })
+    // .then(() => {
+    //   if(click !== true) {
+    //     setClick(true)
+    //   }else{
+    //     setClick(false)
+    //   }
+    // })
+    
+  }
   return (
     <Outer>
       <LeftDiv>
@@ -45,13 +73,22 @@ export default function Comment({content, commentDelete, commentLike}) {
       <RightDiv>
         <DeleteBtn onClick={() => commentDelete(content.id)}>삭제</DeleteBtn>
         <LikeBtn 
-          onClick={() => commentLike(content.id)}
+          onClick={commentLike}
+          // onClick={() => commentLike(content.id)}
         >
-          <FontAwesomeIcon 
-            icon={faHeart}
-            className="heart"
-            color="#aaa"
-          />
+          {
+            click? 
+              <FontAwesomeIcon 
+              icon={faHeart}
+              className="heart"
+              color="#aaa"
+              /> :
+              <FontAwesomeIcon 
+              icon={faHeart}
+              className="heart"
+              color="red"
+              />
+          }
           <span>{0}</span>
         </LikeBtn>
       </RightDiv>
