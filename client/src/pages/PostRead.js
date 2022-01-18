@@ -62,14 +62,7 @@ const Title = styled.div`
   span {
     font-size: 2rem;
   }
-  /* 카카오아이콘 */
-  img {
-    margin: 1rem;
-    width: 3.5rem;
-    height: 3.5rem;
-    
-  }
-
+ 
   @media screen and (max-width: 1081px) {
     width: 70%;
   }
@@ -81,15 +74,23 @@ const Title = styled.div`
   }
 `;
 
+const IconDiv = styled.div`
+display:flex;
+justify-content:flex-end;
+`
+
 // 북마크 아이콘
 const BookmarkIcon = styled(Bookmark)`
-  float: right;
-
-  & .bookmark {
-    cursor: pointer;
-    color: #aaa;
-  }
 `;
+// 카카오 공유 아이콘 
+const KakaoBtn = styled.button`
+  img {
+    margin-right: 10rem;
+    padding: 0.2rem;
+    width: 3rem;
+    height: 3rem;
+  }
+`
 
 // 프로필
 const Profile = styled.div`
@@ -410,8 +411,6 @@ export default function PostRead() {
         //console.log(res.data.data)
         dispatch(changeUser(res.data.data));
 
-        console.log(userInfo.id);
-        console.log(res.data.data);
         axios({
           url: url + "/readbookmark",
           method: "post",
@@ -445,7 +444,7 @@ export default function PostRead() {
     }
 
     let id;
-    console.log(history.location.state);
+    // console.log(history.location.state);
     if (history.location.state) {
       id = history.location.state.postId;
     } else {
@@ -460,8 +459,8 @@ export default function PostRead() {
       currentPostId = id;
     }
 
-    console.log("글 불러오기 id : ", id);
-    console.log("currentPostId : ", currentPostId);
+    // console.log("글 불러오기 id : ", id);
+    // console.log("currentPostId : ", currentPostId);
     ////////////////////////
   }, []);
 
@@ -548,16 +547,12 @@ export default function PostRead() {
       url: url + "/bookmark",
       method: "post",
       data: { user_id: userInfo.id, post_id: postIds },
-      // data: { post_id: postId },
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     }).then((res) => {
       //console.log(res.data)
       setBookmarked((prev) => !prev);
-      // history.push("/bookmark")
-      // window.location.replace("/readpost")
     });
-    // console.log(e.currentTarget);
   };
 
   // 처음 댓글목록 불러오기
@@ -674,16 +669,18 @@ export default function PostRead() {
       <GoBackButton />
       <PostHeader className="postHeader">
         <Title className="title">
-          <span>{postData.post_title}</span>
-          {/* 카카오 아이콘 자리  */}
-            <button onClick={shareKakao}>
-                <img src={kakaoIcon}></img>
-            </button>
-          <BookmarkIcon
+        <span>{postData.post_title}</span>
+        </Title>
+        <IconDiv>
+        <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
             color={bookmarked ? "#3b5fd9" : "#aaa"}
-          />
-        </Title>
+          />    
+          {/* 카카오 아이콘 자리  */}
+          <KakaoBtn onClick={shareKakao}>
+            <img src={kakaoIcon}></img>
+          </KakaoBtn>
+          </IconDiv>
 
         <Profile className="userProfile">
           <div className="profileInfo">
