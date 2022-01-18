@@ -354,11 +354,11 @@ export default function PostRead() {
     (state) => state.itemReducer
   );
 
-  // console.log("현재 접속한 유저",userInfo) //현재접속한 유저
-  // console.log("포스트번호 : ",readPostId) //포스트번호
-  // console.log(postInfo) //본인것만 보임
+  console.log("현재 접속한 유저",userInfo) //현재접속한 유저
+  console.log("포스트번호 : ",readPostId) //포스트번호
+  console.log(postInfo) //본인것만 보임
   const postIds = Number(readPostId);
-  // console.log(postIds)
+  console.log(postIds)
 
   // postData state 변수
   const [postData, setPostData] = useState({
@@ -437,7 +437,7 @@ export default function PostRead() {
           withCredentials: true,
         })
         .then((res) => {
-          // console.log("글 불러오기 : ",res.data)
+          console.log("글 불러오기 : ",res.data)
           return setPostData((prev) => res.data);
         })
         .catch((err) => console.log(err));
@@ -638,14 +638,28 @@ export default function PostRead() {
 
   
   //카카오 공유 
-  // useEffect(()=> {
-  //   Kakao.Link.createDefaultButton({
-  //     container: "#kakao-share",
-  //     objectType: "feed",
-  //     requestUrl:window.location.href
-  //   })
-  // }, [])
-
+  const shareKakao = () => {
+      Kakao.Link.sendDefault({
+        objectType: "feed",
+        content: {
+          title: postData.post_title,
+          description: "거기 날씨",
+          imageUrl: postData.post_photo,
+          link:{
+            mobileWebUrl: 'https://thereweather.space',
+            androidExecutionParams: 'test',
+          },
+        },
+        buttons: [
+          {
+            title: '거기날씨로 이동',
+            link: {
+              mobileWebUrl: 'https://thereweather.space',
+            },
+          },
+        ]
+      })
+  }
 
 
   return (
@@ -661,7 +675,7 @@ export default function PostRead() {
         <Title className="title">
           <span>{postData.post_title}</span>
           {/* 카카오 아이콘 자리  */}
-            <button id="kakao-share">
+            <button onClick={shareKakao}>
                 <img src={kakaoIcon}></img>
             </button>
           <BookmarkIcon
