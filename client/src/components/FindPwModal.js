@@ -127,7 +127,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
     if(!inputNewPw.newPw && !inputNewPw.againPw){
       alert("비밀번호를 입력해주세요.")
     }
-    else{
+    else if(inputNewPw.newPw && inputNewPw.againPw){
       axios({
         url: url + "/findpassword",
         method: "post",
