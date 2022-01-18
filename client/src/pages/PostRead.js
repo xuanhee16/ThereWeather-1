@@ -75,20 +75,26 @@ const Title = styled.div`
 `;
 
 const IconDiv = styled.div`
-display:flex;
-justify-content:flex-end;
+/* display:flex;
+justify-content:flex-end; */
 `
 
 // 북마크 아이콘
 const BookmarkIcon = styled(Bookmark)`
+/* float: right;
+  & .bookmark {
+    cursor: pointer;
+    color: #aaa;
+  } */
 `;
 // 카카오 공유 아이콘 
 const KakaoBtn = styled.button`
   img {
-    margin-right: 10rem;
-    padding: 0.2rem;
-    width: 3rem;
-    height: 3rem;
+    margin-left: 1rem;
+    padding: 0.25rem;
+    margin-bottom: 0.01rem;
+    width: 2.7rem;
+    height: 2.5rem;
   }
 `
 
@@ -670,7 +676,6 @@ export default function PostRead() {
       <PostHeader className="postHeader">
         <Title className="title">
         <span>{postData.post_title}</span>
-        </Title>
         <IconDiv>
         <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
@@ -681,6 +686,9 @@ export default function PostRead() {
             <img src={kakaoIcon}></img>
           </KakaoBtn>
           </IconDiv>
+        </Title>
+
+        
 
         <Profile className="userProfile">
           <div className="profileInfo">
