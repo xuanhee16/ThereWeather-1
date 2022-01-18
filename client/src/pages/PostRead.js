@@ -587,6 +587,7 @@ export default function PostRead() {
       });
     }
   };
+
   // 댓글목록 불러오기
   function getCommentList() {
     axios({
@@ -625,17 +626,25 @@ export default function PostRead() {
     });
   };
 
-  const commentLike = () => {
-    // 
+  // 댓글 좋아요 클릭
+  const commentLike = (commentId) => {
     axios({
       url: url + "/likecomment",
       method: "post",
-      
+      data: {
+        user_id: userInfo.user_id,
+        post_id: postData.id,
+        comment_id: commentId,
+        like_count: 1,
+      },
+      withCredentials: true,
     })
+    
   }
 
-  useEffect(() => {}, []);
 
+
+  useEffect(() => {}, []);
   
   //카카오 공유 
   // useEffect(()=> {
