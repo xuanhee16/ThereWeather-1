@@ -45,7 +45,7 @@ export default function Comment({content, commentDelete, commentLike}) {
       <RightDiv>
         <DeleteBtn onClick={() => commentDelete(content.id)}>삭제</DeleteBtn>
         <LikeBtn 
-          onClick={() => commentLike()}
+          onClick={() => commentLike(content.id)}
         >
           <FontAwesomeIcon 
             icon={faHeart}
