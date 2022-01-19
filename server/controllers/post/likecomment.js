@@ -4,28 +4,30 @@ module.exports = async(req, res) => {
   // console.log("likecomment : ", req.body);
   const {user_id, post_id, comment_id, like_count} = req.body;
   console.log("likecommnet : ", req.body);
+  const test = like_count + 1; 
+  console.log("like count",test)
+  // const liked = await like.findOne({
+  //   where: {
+  //     user_id: user_id,
+  //     post_id: post_id,
+  //     comment_id: comment_id,
+  //   }
+  // })
 
-  const liked = await like.findOne({
-    where: {
-      user_id: user_id,
-      post_id: post_id,
-      comment_id: comment_id,
-    }
-  })
+  // if(liked){
+  //   await liked.destroy()
+  //   res.send("좋아요 해제")
+  // }else{
+  //   // like 테이블에 좋아요 기록
 
-  if(liked){
-    await liked.destroy()
-    res.send("좋아요 해제")
-  }else{
-    // like 테이블에 좋아요 기록
-    await like.create({
-      user_id: user_id,
-      post_id: post_id,
-      comment_id:  comment_id
-    })
+  //   await like.create({
+  //     user_id: user_id,
+  //     post_id: post_id,
+  //     comment_id: comment_id,
+  //   })
 
-    res.status(200).send({message: "ok"})
-  }
+  //   res.status(200).send({message: "ok"})
+  // }
 
   // comment table에 해당 댓글에 +1
   // let user = comment.findOne({

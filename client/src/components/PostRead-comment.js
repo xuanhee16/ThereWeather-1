@@ -46,9 +46,9 @@ export default function Comment({content, commentDelete, userInfo}) {
       url: url + "/likecomment",
       method: "post",
       data: {
+        user_id: content.comment_user_id,
         post_id: content.post_id,
-        comment_id: comment_user_id,
-        // user_id: userInfo.
+        comment_id: content.id
       },
       withCredentials: true,
     })
