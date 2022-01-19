@@ -85,6 +85,7 @@ app.post("/api/likecomment", controllers.likecomment) //댓글좋아요기능
 app.post("/api/kakaologin", controllers.kakaologin);
 app.post("/api/findaccount", controllers.findaccount);
 app.post("/api/findpassword", controllers.findpassword);
+app.post("/api/readlike", controllers.readlike);
 
 //put
 app.put("/api/password", controllers.password); 
