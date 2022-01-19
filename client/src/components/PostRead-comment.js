@@ -42,23 +42,23 @@ export default function Comment({content, commentDelete}) {
   // 댓글 좋아요 클릭
   const commentLike = () => {
 
-    // axios({
-    //   url: url + "/likecomment",
-    //   method: "post",
-    //   data: {
-    //     user_id: userInfo.user_id,
-    //     post_id: postData.id,
-    //     comment_id: commentId
-    //   },
-    //   withCredentials: true,
-    // })
-    // .then(() => {
-    //   if(click === false){
-    //     setClick(true)
-    //   }else{
-    //     setClick(false)
-    //   }
-    // })
+    axios({
+      url: url + "/likecomment",
+      method: "post",
+      data: {
+        user_id: content.comment_user_id,
+        post_id: content.post_id,
+        comment_id: content.id
+      },
+      withCredentials: true,
+    })
+    .then(() => {
+      if(click === false){
+        setClick(true)
+      }else{
+        setClick(false)
+      }
+    })
     
   }
   return (
