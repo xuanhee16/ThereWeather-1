@@ -809,6 +809,7 @@ export default function PostRead() {
               key={content.id}
               content={content}
               commentDelete={commentDelete}
+              userInfo={userInfo}
               // commentLike= {commentLike}
             />
           ))}
