@@ -62,13 +62,7 @@ const Title = styled.div`
   span {
     font-size: 2rem;
   }
-  img {
-    margin: 1rem;
-    width: 3.5rem;
-    height: 3.5rem;
-    float: right;
-  }
-
+ 
   @media screen and (max-width: 1081px) {
     width: 70%;
   }
@@ -80,15 +74,29 @@ const Title = styled.div`
   }
 `;
 
+const IconDiv = styled.div`
+/* display:flex;
+justify-content:flex-end; */
+`
+
 // 북마크 아이콘
 const BookmarkIcon = styled(Bookmark)`
-  float: right;
-
+/* float: right;
   & .bookmark {
     cursor: pointer;
     color: #aaa;
-  }
+  } */
 `;
+// 카카오 공유 아이콘 
+const KakaoBtn = styled.button`
+  img {
+    margin-left: 1rem;
+    padding: 0.25rem;
+    margin-bottom: 0.01rem;
+    width: 2.7rem;
+    height: 2.5rem;
+  }
+`
 
 // 프로필
 const Profile = styled.div`
@@ -409,8 +417,6 @@ export default function PostRead() {
         //console.log(res.data.data)
         dispatch(changeUser(res.data.data));
 
-        console.log(userInfo.id);
-        console.log(res.data.data);
         axios({
           url: url + "/readbookmark",
           method: "post",
@@ -444,7 +450,7 @@ export default function PostRead() {
     }
 
     let id;
-    console.log(history.location.state);
+    // console.log(history.location.state);
     if (history.location.state) {
       id = history.location.state.postId;
     } else {
@@ -459,8 +465,8 @@ export default function PostRead() {
       currentPostId = id;
     }
 
-    console.log("글 불러오기 id : ", id);
-    console.log("currentPostId : ", currentPostId);
+    // console.log("글 불러오기 id : ", id);
+    // console.log("currentPostId : ", currentPostId);
     ////////////////////////
   }, []);
 
@@ -547,16 +553,12 @@ export default function PostRead() {
       url: url + "/bookmark",
       method: "post",
       data: { user_id: userInfo.id, post_id: postIds },
-      // data: { post_id: postId },
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     }).then((res) => {
       //console.log(res.data)
       setBookmarked((prev) => !prev);
-      // history.push("/bookmark")
-      // window.location.replace("/readpost")
     });
-    // console.log(e.currentTarget);
   };
 
   // 처음 댓글목록 불러오기
@@ -587,6 +589,7 @@ export default function PostRead() {
       });
     }
   };
+
   // 댓글목록 불러오기
   function getCommentList() {
     axios({
@@ -598,7 +601,6 @@ export default function PostRead() {
       },
       withCredentials: true,
     }).then((res) => {
-      // console.log("댓글목록 : ", res.data);
       setCommentList(res.data);
     });
   }
@@ -625,27 +627,32 @@ export default function PostRead() {
     });
   };
 
-  const commentLike = () => {
-    // 
-    axios({
-      url: url + "/likecomment",
-      method: "post",
-      
-    })
-  }
 
   useEffect(() => {}, []);
-
   
   //카카오 공유 
-  // useEffect(()=> {
-  //   Kakao.Link.createDefaultButton({
-  //     container: "#kakao-share",
-  //     objectType: "feed",
-  //     requestUrl:window.location.href
-  //   })
-  // }, [])
-
+  const shareKakao = () => {
+      Kakao.Link.sendDefault({
+        objectType: "feed",
+        content: {
+          title: postData.post_title,
+          description: "거기 날씨",
+          imageUrl: postData.post_photo,
+          link:{
+            mobileWebUrl: 'https://thereweather.space',
+            androidExecutionParams: 'test',
+          },
+        },
+        buttons: [
+          {
+            title: '거기날씨로 이동',
+            link: {
+              mobileWebUrl: 'https://thereweather.space',
+            },
+          },
+        ]
+      })
+  }
 
 
   return (
@@ -659,16 +666,20 @@ export default function PostRead() {
       <GoBackButton />
       <PostHeader className="postHeader">
         <Title className="title">
-          <span>{postData.post_title}</span>
-          {/* 카카오 아이콘 자리  */}
-            <button id="kakao-share">
-                <img src={kakaoIcon}></img>
-            </button>
-          <BookmarkIcon
+        <span>{postData.post_title}</span>
+        <IconDiv>
+        <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
             color={bookmarked ? "#3b5fd9" : "#aaa"}
-          />
+          />    
+          {/* 카카오 아이콘 자리  */}
+          <KakaoBtn onClick={shareKakao}>
+            <img src={kakaoIcon}></img>
+          </KakaoBtn>
+          </IconDiv>
         </Title>
+
+        
 
         <Profile className="userProfile">
           <div className="profileInfo">
@@ -798,7 +809,8 @@ export default function PostRead() {
               key={content.id}
               content={content}
               commentDelete={commentDelete}
-              commentLike= {commentLike}
+              userInfo={userInfo}
+              // commentLike= {commentLike}
             />
           ))}
         </CommentList>

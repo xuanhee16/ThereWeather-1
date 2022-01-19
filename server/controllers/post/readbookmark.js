@@ -2,8 +2,8 @@ const { bookmark } = require("../../models");
 
 module.exports = async (req, res) => {
   //res.send()
-  console.log("readbookmark");
-  console.log(req.body);
+  // console.log("readbookmark");
+  // console.log(req.body);
   const { user_id, post_id } = req.body;
   const postbook = await bookmark.findOne({
     where: {
