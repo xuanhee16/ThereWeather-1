@@ -427,11 +427,11 @@ export default function PostRead() {
     (state) => state.itemReducer
   );
 
-  // console.log("현재 접속한 유저",userInfo) //현재접속한 유저
-  // console.log("포스트번호 : ",readPostId) //포스트번호
-  // console.log(postInfo) //본인것만 보임
+  console.log("현재 접속한 유저",userInfo) //현재접속한 유저
+  console.log("포스트번호 : ",readPostId) //포스트번호
+  console.log(postInfo) //본인것만 보임
   const postIds = Number(readPostId);
-  // console.log(postIds)
+  console.log(postIds)
 
   // postData state 변수
   const [postData, setPostData] = useState({

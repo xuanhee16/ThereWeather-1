@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
@@ -44,7 +44,7 @@ if (!url) url = "https://thereweather.space/api";
 
 // 아이디, 댓글내용, 날짜 / 좋아요하트, 삭제버튼
 export default function Comment({content, commentDelete, userInfo}) {
-  // console.log("content : ", content);
+  console.log("댓글 작성한 유저", content);
   const [click, setClick] = useState(false);
   
   let date = new Date(`${content.createdAt}`)
@@ -76,8 +76,31 @@ export default function Comment({content, commentDelete, userInfo}) {
     //     setClick(false)
     //   }
     // })
-    
   }
+
+  // useEffect(() => {    
+  //   axios({
+  //     url: url + "/readlike",
+  //     method: "post",
+  //     data:{
+  //       user_id: userInfo.user_id,//현재 접속중인 유저 Id
+  //       post_id: content.post_id,
+  //       comment_id: content.id, //댓글 작성한 유저 Id
+  //     },
+  //     headers: { "Content-Type": "application/json" },
+  //     withCredentials: true,
+  //   })
+  //   .then((res) => {
+  //     setClick(!click)
+  //     console.log(res.data)
+  //     const totalCounts = res.data.length
+  //     setLikeCount(totalCounts)
+  //   })
+  // }, [])
+
+  // useEffect(() => {}, []);
+
+
   return (
     <Outer>
       <LeftDiv>

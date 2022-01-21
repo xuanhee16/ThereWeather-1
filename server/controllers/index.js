@@ -15,6 +15,7 @@ module.exports = {
   sendcomment: require("./post/sendcomment"),
   likecomment: require("./post/likecomment"),
   readbookmark: require("./post/readbookmark"),
+  readlike: require("./post/readlike"),
   password: require("./put/password"),
   edituserinfo: require("./put/edituserinfo"),
   userphoto: require("./put/userphoto"),
