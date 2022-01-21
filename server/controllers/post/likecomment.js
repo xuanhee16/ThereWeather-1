@@ -2,7 +2,7 @@ const { like, comment } = require("../../models");
 const user = require("../../models/user");
 
 module.exports = async(req, res) => {
-  console.log("likecomment : ", req.body);
+  // console.log("likecomment : ", req.body);
   const {user_id, post_id, comment_id, like_count} = req.body;
   const checkLike = await like.findOne({
     where: {
@@ -17,6 +17,21 @@ module.exports = async(req, res) => {
       post_id: post_id,
       comment_id: comment_id,
       like_count: like_count + 1
+    })
+    .then((res1) => 
+    //console.log(res1)
+    res1.dataValues
+    )
+    .then(async(res2) => {
+      //console.log(res2)
+      const { like_count } = res2
+      //res2.like_count
+        if(like_count){
+          const totalCount = await like.findAll({
+            attributes: ['like_count']
+          })
+          res.send(totalCount)
+        }
     })
   }
   //좋아요가 있으면 해제하고, like count - 1하고 삭제하기?
