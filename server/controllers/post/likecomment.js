@@ -1,4 +1,4 @@
-const { like, comment } = require("../../models");
+const { like } = require("../../models");
 const user = require("../../models/user");
 
 module.exports = async(req, res) => {
@@ -23,18 +23,19 @@ module.exports = async(req, res) => {
     res1.dataValues
     )
     .then(async(res2) => {
-      //console.log(res2)
-      const { like_count } = res2
+      console.log(res2)
+      const { user_id, comment_id, like_count } = res2
+      // res.send({user_id, comment_id, like_count})
       //res2.like_count
-        if(like_count){
+        if(user_id){
           const totalCount = await like.findAll({
-            attributes: ['like_count']
+            attributes: [ 'like_count']
           })
-          res.send(totalCount)
+          res.send({totalCount, user_id, comment_id, like_count})
         }
     })
   }
-  //좋아요가 있으면 해제하고, like count - 1하고 삭제하기?
+  // 좋아요가 있으면 해제하고, like count - 1하고 삭제하기?
   // else{
     
   // }
@@ -52,12 +53,12 @@ module.exports = async(req, res) => {
   // //좋아요 해제 하면 그 수만 -1 
   // if(liked){
   //     await liked.destroy()   
-  //     // const totalCount = await like.findAll({
-  //     //   attributes: ['like_count'] - 1
-  //     // })
-  //     // await liked.destroy()   
-  //     // console.log(totalCount)
-  //   //  res.send(totalCount)  
+  //     const totalCount = await like.findAll({
+  //       attributes: ['like_count'] - 1
+  //     })
+  //     await liked.destroy()   
+  //     //console.log(totalCount)
+  //    res.send(totalCount)  
   // }
   // else{
   //   // like 테이블에 좋아요 기록
@@ -67,13 +68,13 @@ module.exports = async(req, res) => {
   //     comment_id: comment_id,
   //     like_count: like_count + 1
   //   })
-  //   // if(newLike){ //좋아요가 기록됐다면 갯수만 뽑기 
-  //   //   const totalCount = await like.findAll({
-  //   //     attributes: ['like_count']
-  //   //   })
-  //   //   // console.log(totalCount)
-  //   //  res.send(totalCount)
-  //   // }
+  //   if(newLike){ //좋아요가 기록됐다면 갯수만 뽑기 
+  //     const totalCount = await like.findAll({
+  //       attributes: ['like_count']
+  //     })
+  //     // console.log(totalCount)
+  //    res.send(totalCount)
+  //   }
 
   // }
 

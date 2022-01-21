@@ -58,21 +58,24 @@ export default function Comment({content, commentDelete, userInfo}) {
       url: url + "/likecomment",
       method: "post",
       data: {
-        user_id: userInfo.user_id,
+        user_id: userInfo.user_id, //좋아요를 누른 현재 접속중인 유저 
         post_id: content.post_id,
-        comment_id: content.id,
+        comment_id: content.comment_user_id, //현재 접속중인 유저가 좋아요를 누른 댓글을 작성한 유저
         like_count: 0
       },
       withCredentials: true,
     })
     .then((res) => {
-      console.log(res.data) 
-      console.log(res.data.length) 
-
+      console.log(res.data.totalCount)
+      console.log(res.data.user_id)//현재접속중인유저인데 좋아요 누름
+      console.log(res.data.comment_id)//댓글 작성유저 
+      console.log(res.data.like_count) 
+      // console.log(res.data.length) 
       // const count = res.data
       // const totalCounts = count.map(el => el.like_count).reduce((pre, cur) => pre + cur, 0); 
 
-      const totalCounts = res.data.length
+      const totalCounts = res.data.totalCount.length
+      
       setLikeCount(totalCounts)
       setClick(!click)     
       // if(click === false){
@@ -91,16 +94,16 @@ export default function Comment({content, commentDelete, userInfo}) {
   //     data:{
   //       user_id: userInfo.user_id,//현재 접속중인 유저 Id
   //       post_id: content.post_id,
-  //       comment_id: content.id, //댓글 작성한 유저 Id
+  //       comment_id: content.comment_user_id, //댓글 작성한 유저 Id
   //     },
   //     headers: { "Content-Type": "application/json" },
   //     withCredentials: true,
   //   })
   //   .then((res) => {
-  //     setClick(!click)
   //     console.log(res.data)
   //     const totalCounts = res.data.length
   //     setLikeCount(totalCounts)
+  //      setClick(!click)
   //   })
   // }, [])
 
