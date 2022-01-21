@@ -48,6 +48,7 @@ export default function Comment({content, commentDelete, userInfo}) {
       method: "post",
       data: {
         user_id: userInfo.user_id,//현재 접속중인 유저 Id
+        // user_id:content.comment_user_id,
         post_id: content.post_id,
         comment_id: content.id, //댓글 작성한 유저 Id
         like_count: 0
@@ -56,41 +57,38 @@ export default function Comment({content, commentDelete, userInfo}) {
     })
     .then((res) => {
       console.log(res.data) 
-      console.log(res.data.length) 
+      // console.log(res.data.length) 
       
-      // const count = res.data
-      // const totalCounts = count.map(el => el.like_count).reduce((pre, cur) => pre + cur, 0); 
-      // setClick(!click)
-      const totalCounts = res.data.length
-      setLikeCount(totalCounts)
+      // const totalCounts = res.data.length
+      // setLikeCount(totalCounts)
 
-      if(click === false){
-        setClick(true)
-      }else{
-        setClick(false)
-      }
+      // if(click === false){
+      //   setClick(true)
+      // }else{
+      //   setClick(false)
+      // }
     })
   }
 
-  useEffect(() => {    
-    axios({
-      url: url + "/readlike",
-      method: "post",
-      data:{
-        user_id: userInfo.user_id,//현재 접속중인 유저 Id
-        post_id: content.post_id,
-        comment_id: content.id, //댓글 작성한 유저 Id
-      },
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    })
-    .then((res) => {
-      setClick(!click)
-      console.log(res.data)
-      const totalCounts = res.data.length
-      setLikeCount(totalCounts)
-    })
-  }, [])
+  // useEffect(() => {    
+  //   axios({
+  //     url: url + "/readlike",
+  //     method: "post",
+  //     data:{
+  //       user_id: userInfo.user_id,//현재 접속중인 유저 Id
+  //       post_id: content.post_id,
+  //       comment_id: content.id, //댓글 작성한 유저 Id
+  //     },
+  //     headers: { "Content-Type": "application/json" },
+  //     withCredentials: true,
+  //   })
+  //   .then((res) => {
+  //     setClick(!click)
+  //     console.log(res.data)
+  //     const totalCounts = res.data.length
+  //     setLikeCount(totalCounts)
+  //   })
+  // }, [])
 
   // useEffect(() => {}, []);
 
@@ -122,7 +120,7 @@ export default function Comment({content, commentDelete, userInfo}) {
               color="#aaa"
               />
           }
-          <span>{likeCount}</span>
+          <span>{0}</span>
         </LikeBtn>
       </RightDiv>
     </Outer>
