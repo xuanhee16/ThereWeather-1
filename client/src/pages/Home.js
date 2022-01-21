@@ -222,7 +222,9 @@ const LeftNav3 = styled.div`
 const Codi = styled.img`
   width: 7rem;
   height: 7rem;
-  border: purple;
+  filter: opacity(.5) drop-shadow(0 0 0 #aaa);
+
+
   @media screen and (max-width: 400px) {
     width: 5rem;
     height: 5rem;
