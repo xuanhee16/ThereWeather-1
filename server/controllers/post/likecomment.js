@@ -25,6 +25,7 @@ module.exports = async(req, res) => {
   // }
   
   //------------------------
+
   // const liked = await like.findOne({
   //   where: {
   //     user_id: user_id,

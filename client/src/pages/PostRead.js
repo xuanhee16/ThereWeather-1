@@ -23,7 +23,6 @@ const Outer = styled.div`
     text-align: center;
     color: #2e2e2e;
     padding-top: 2vh;
-    border-top: 1px solid #aaa;
   }
 
   h2.warning--nodata {
@@ -66,38 +65,24 @@ const Title = styled.div`
   @media screen and (max-width: 1081px) {
     width: 70%;
   }
+  @media screen and (max-width: 700px) {
+    span {
+      font-size: 1.5rem;
+    }
+  }
   @media screen and (max-width: 375px) {
     width: 80%; // 추가
     span {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 `;
 
-const IconDiv = styled.div`
-/* display:flex;
-justify-content:flex-end; */
-`
+const IconDiv = styled.div``
 
 // 북마크 아이콘
 const BookmarkIcon = styled(Bookmark)`
-/* float: right;
-  & .bookmark {
-    cursor: pointer;
-    color: #aaa;
-  } */
 `;
-// 카카오 공유 아이콘 
-const KakaoBtn = styled.button`
-  img {
-    margin-left: 1rem;
-    padding: 0.25rem;
-    margin-bottom: 0.01rem;
-    width: 2.7rem;
-    height: 2.5rem;
-  }
-`
-
 // 프로필
 const Profile = styled.div`
   width: 60rem;
@@ -110,13 +95,10 @@ const Profile = styled.div`
   justify-content: space-between;
   flex-flow: wrap;
 
-  .profileInfo {
+  .profileLeft {
     display: flex;
     align-items: center;
     /* margin-left: 1vh; */
-  }
-  .location {
-    font-size: 1.2rem;
   }
   span {
     margin-left: 1vh;
@@ -126,13 +108,26 @@ const Profile = styled.div`
     color: #707b7c;
   }
 
+  .profileRight {
+    border: 1px solid red;
+    display: block;
+  }
+  .location {
+    font-size: 1.2rem;
+  }
+
+
   @media screen and (max-width: 1081px) {
     width: 70%;
+  }
+  @media screen and (max-width: 768px) {
+    .location {
+      font-size: 1rem;
+    }
   }
   @media screen and (max-width: 594px) {
     .location {
       margin-top: 1.2vh;
-      font-size: 1.2rem;
     }
   }
   @media screen and (max-width: 375px) {
@@ -151,6 +146,70 @@ const Profile = styled.div`
     }
   }
 `;
+
+const SelectIcon = styled.div`
+  width: 100%;
+  ul {
+    list-style: none;
+
+  }
+  li {
+    color: #444444;
+    text-align: center;
+    padding: 0.3rem 0.5rem;
+    vertical-align: middle;
+  }
+  li:hover {
+    background-color: #ffbfcb;
+  }
+  li > img {
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+  }
+
+  .selectBtn {
+    width: 1.4rem;
+    height: 1.6rem;
+    vertical-align: middle;
+    float: right;
+
+    .selectIcon {
+      width: 100%;
+      height: 100%;
+      filter: opacity(.5) drop-shadow(0 0 0 #c4c4c4);
+    }
+  }
+  .menu {
+    width: 100px;
+    float: right;
+    background: #ffffff;
+    border-radius: 5px;
+  }
+  .menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    border: 1px solid #aaa;
+  }
+  .menu.inactive {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    display: none;
+  }
+
+`
+// 카카오 공유 아이콘 
+// const KakaoBtn = styled.div`
+//   width: 1rem;
+//   height: 1rem;
+//   .kakaoImg {
+//     width: 100%;
+//     height: 100%;
+//   }
+// `
+
 // 프로필 이미지
 const ProfileImg = styled.img`
   border: 1px solid #aaa;
@@ -174,11 +233,13 @@ const PostImg = styled.img`
 
   @media screen and (max-width: 1081px) {
     width: 70%;
-    height: 30rem;
+    /* height: 30rem; */
+    height: auto;
   }
   @media screen and (max-width: 375px) {
     width: 80%;
-    height: 18rem;
+    /* height: 18rem; */
+    height: auto;
   }
 `;
 
@@ -190,24 +251,26 @@ const WeatherInfo = styled.div`
   margin: 0 auto;
   margin-bottom: 2vh;
   justify-content: space-between;
+  border: 1px solid red;
 
   @media screen and (max-width: 1081px) {
+    width: 50%;
     margin-top: 1vh;
     margin-bottom: 1vw;
     justify-content: space-around;
   }
   @media screen and (max-width: 375px) {
-    width: 50%;
     margin-bottom: 3vh;
   }
 `;
 
 const Icon = styled.img`
   @media screen and (max-width: 1081px) {
-    width: 4rem;
+    width: 3rem;
   }
   @media screen and (max-width: 375px) {
-    width: 3rem;
+    width: 2rem;
+    border: 1px solid red;
   }
 `;
 
@@ -338,6 +401,9 @@ const CommentSection = styled.div`
     height: 2rem;
     width: 3rem;
   }
+  @media screen and (max-width: 1081px) {
+    margin-bottom: 6rem;
+  }
 `;
 // 댓글작성
 const PostComment = styled.div`
@@ -356,7 +422,6 @@ if (!url) url = "https://thereweather.space/api";
 
 export default function PostRead() {
   const dispatch = useDispatch();
-
   const history = useHistory();
   const { readPostId, userInfo, postInfo } = useSelector(
     (state) => state.itemReducer
@@ -387,6 +452,16 @@ export default function PostRead() {
     address: "",
   });
   const [noIdWarning, setNoIdWarning] = useState("");
+  
+  // 삭제, 수정, 공유하기 select list
+  const [selectList, setSelectList] = useState(false);
+  const selectListHandle = () => {
+    if(selectList === false) {
+      setSelectList(true);
+    }else{
+      setSelectList(false);
+    }
+  }
 
   // 날짜 처리
   const formatDate = (dateString) => {
@@ -627,7 +702,6 @@ export default function PostRead() {
     });
   };
 
-
   useEffect(() => {}, []);
   
   //카카오 공유 
@@ -666,32 +740,46 @@ export default function PostRead() {
       <GoBackButton />
       <PostHeader className="postHeader">
         <Title className="title">
-        <span>{postData.post_title}</span>
+          <span>{postData.post_title}</span>
         <IconDiv>
-        <BookmarkIcon
+          <BookmarkIcon
             bookmarkHandler={bookmarkHandler}
             color={bookmarked ? "#3b5fd9" : "#aaa"}
-          />    
+          />
           {/* 카카오 아이콘 자리  */}
-          <KakaoBtn onClick={shareKakao}>
-            <img src={kakaoIcon}></img>
-          </KakaoBtn>
-          </IconDiv>
+        </IconDiv>
         </Title>
 
-        
-
         <Profile className="userProfile">
-          <div className="profileInfo">
+          <div className="profileLeft">
             <ProfileImg src={postData.user_Photo} />
             <span className="nickName">{postData.nickName}</span>
             <span className="date">{formatDate(postData.updatedAt)}</span>
           </div>
-          <div>
-            <p className="location">{postData.address}</p>
-            {/* <p className="location">{postData.xLocation.slice(0, -8)}</p>
-            <p className="location">{postData.yLocation.slice(0, -8)}</p> */}
-          </div>
+
+          <SelectIcon>
+            <span className="location">{postData.address}</span>
+
+            <div className="selectBtn">
+              <img className="selectIcon" onClick={selectListHandle} src={`${process.env.PUBLIC_URL}img/menu-vertical-100.png`}/>
+              <div className={`menu ${selectList? "active" : "inactive"}`}>
+                <ul>
+                  <li value="delete" onClick={deletePost}>
+                    <img src={`${process.env.PUBLIC_URL}img/bin.png`} alt="삭제하기"/>
+                    &nbsp;삭제하기
+                    </li>
+                    <li onClick={editPost}>
+                      <img src={`${process.env.PUBLIC_URL}img/edit-120.png`} alt="수정하기"/>                    
+                      &nbsp;수정하기
+                    </li>
+                  <li onClick={shareKakao}>
+                    <img className="kakaoImg" src={kakaoIcon}></img>
+                    &nbsp;공유하기
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </SelectIcon>
         </Profile>
       </PostHeader>
       <PostImg src={postData.post_photo} alt="post picture" />
@@ -765,32 +853,32 @@ export default function PostRead() {
         <p>{postData.post_content}</p>
       </Post>
 
-      <Buttons>
+      {removePost === false ? null : (
+        <ModalConfirm
+          yesHandler={removeModalYes}
+          noHandler={modalNoButtonHandler}
+          closeHandler={modalCloseButtonHandler}
+        >
+          삭제하시겠습니까?
+        </ModalConfirm>
+      )}
+      {edit === false ? null : (
+        <ModalConfirm
+          yesHandler={editModalYes}
+          noHandler={modalNoButtonHandler}
+          closeHandler={modalCloseButtonHandler}
+        >
+          수정하시겠습니까?
+        </ModalConfirm>
+      )}
+      {/* <Buttons>
         <button className="button button1" value="delete" onClick={deletePost}>
           삭제
         </button>
-        {removePost === false ? null : (
-          <ModalConfirm
-            yesHandler={removeModalYes}
-            noHandler={modalNoButtonHandler}
-            closeHandler={modalCloseButtonHandler}
-          >
-            삭제하시겠습니까?
-          </ModalConfirm>
-        )}
         <button className="button button2" onClick={editPost}>
           수정
         </button>
-        {edit === false ? null : (
-          <ModalConfirm
-            yesHandler={editModalYes}
-            noHandler={modalNoButtonHandler}
-            closeHandler={modalCloseButtonHandler}
-          >
-            수정하시겠습니까?
-          </ModalConfirm>
-        )}
-      </Buttons>
+      </Buttons> */}
 
       <CommentSection>
         {/* 댓글작성 */}

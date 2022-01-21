@@ -7,14 +7,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 const Outer = styled.div`
   width: 100%;
   margin: 1rem 0;
+  padding-bottom: 1rem;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #E0E0E0;
 
 `
 const LeftDiv = styled.div`
   text-align: left;
-  #userid {
-    font-weight: bold;
+  .userid {
+    font-size: 1.1rem;
+  }
+  .comment {
+    font-size: 1rem;
+  }
+  .date {
+    font-size: 0.8rem;
+    color: #777;
   }
 `
 const RightDiv = styled.div`
@@ -37,37 +46,36 @@ if (!url) url = "https://thereweather.space/api";
 export default function Comment({content, commentDelete, userInfo}) {
   console.log("댓글 작성한 유저", content);
   const [click, setClick] = useState(false);
-  const [likeCount, setLikeCount] = useState("");
-  // const [readLike, setReadLike] = useState({ like_count: "" });
-  console.log("현재 접속중인유저", userInfo);
+  
+  let date = new Date(`${content.createdAt}`)
+  let dateForm = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}. ${date.getHours()}:${date.getMinutes()}`
+  console.log("date format : ", dateForm);
 
   // 댓글 좋아요 클릭
   const commentLike = () => {
-    axios({
-      url: url + "/likecomment",
-      method: "post",
-      data: {
-        user_id: userInfo.user_id,//현재 접속중인 유저 Id
-        // user_id:content.comment_user_id,
-        post_id: content.post_id,
-        comment_id: content.id, //댓글 작성한 유저 Id
-        like_count: 0
-      },
-      withCredentials: true,
-    })
-    .then((res) => {
-      console.log(res.data) 
-      // console.log(res.data.length) 
-      
-      // const totalCounts = res.data.length
-      // setLikeCount(totalCounts)
+    // if(click === false){
+    //   setClick(true)
+    // }else{
+    //   setClick(false)
+    // }
 
-      // if(click === false){
-      //   setClick(true)
-      // }else{
-      //   setClick(false)
-      // }
-    })
+    // axios({
+    //   url: url + "/likecomment",
+    //   method: "post",
+    //   data: {
+    //     user_id: content.comment_user_id,
+    //     post_id: content.post_id,
+    //     comment_id: content.id
+    //   },
+    //   withCredentials: true,
+    // })
+    // .then(() => {
+    //   if(click === false){
+    //     setClick(true)
+    //   }else{
+    //     setClick(false)
+    //   }
+    // })
   }
 
   // useEffect(() => {    
@@ -96,9 +104,9 @@ export default function Comment({content, commentDelete, userInfo}) {
   return (
     <Outer>
       <LeftDiv>
-        <p id="userid">{content.comment_user_id}</p>
-        <p>{content.comment_content}</p>
-        <p>{content.createdAt}</p>
+        <p className="userid">{content.comment_user_id}</p>
+        <p className="comment">{content.comment_content}</p>
+        <p className="date">{dateForm}</p>
       </LeftDiv>
 
       <RightDiv>
