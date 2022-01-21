@@ -3,9 +3,10 @@ const { like, comment } = require("../../models")
 module.exports = async(req, res) => {
   // console.log("likecomment : ", req.body);
   const {user_id, post_id, comment_id, like_count} = req.body;
-  console.log("likecommnet : ", req.body);
+  // console.log("likecommnet : ", req.body);
   const test = like_count + 1; 
-  console.log("like count",test)
+  // console.log("like count",test)
+  
   // const liked = await like.findOne({
   //   where: {
   //     user_id: user_id,

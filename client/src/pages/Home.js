@@ -96,11 +96,7 @@ const TodaysDate = styled.div`
 const LeftContainer1 = styled.div`
   display: flex;
   gap: 0.1rem;
-  // flex-direction: column;
   flex-direction: row;
-  // justify-content: center;
-
-  // width: 80vw;
   flex-wrap: wrap;
   .weatherInfo {
     text-align: center;
@@ -394,8 +390,8 @@ export default function Home() {
           withCredentials: true,
         }).then((res) => {
           // console.log('res : ', res.data.address);
-          console.log("address : ", res.data.address);
-          console.log("게시글 데이터 : ", res.data.curtPost);
+          // console.log("address : ", res.data.address);
+          // console.log("게시글 데이터 : ", res.data.curtPost);
           setcurrentPosts(res.data.curtPost); // 주민예보글 렌더링 부분
           setcurAddress(res.data.address);
 
