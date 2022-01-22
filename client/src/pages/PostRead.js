@@ -23,8 +23,10 @@ const Outer = styled.div`
     text-align: center;
     color: #2e2e2e;
     padding-top: 2vh;
+    font-size: 1.5rem;
   }
 
+  // 잘못된 접근입니다.
   h2.warning--nodata {
     color: #c60239;
     font-size: 3rem;
@@ -34,7 +36,6 @@ const Outer = styled.div`
   @media screen and (max-width: 1081px) {
     .todayCodi {
       margin-top: 2vh;
-      font-weight: bold;
     }
   }
   @media screen and (max-width: 375px) {
@@ -98,7 +99,6 @@ const Profile = styled.div`
   .profileLeft {
     display: flex;
     align-items: center;
-    /* margin-left: 1vh; */
   }
   span {
     margin-left: 1vh;
@@ -187,28 +187,14 @@ const SelectIcon = styled.div`
     border-radius: 5px;
   }
   .menu.active {
-    opacity: 1;
-    visibility: visible;
     transform: translateY(0);
     border: 1px solid #aaa;
   }
   .menu.inactive {
-    opacity: 1;
-    visibility: visible;
     transform: translateY(0);
     display: none;
   }
-
 `
-// 카카오 공유 아이콘 
-// const KakaoBtn = styled.div`
-//   width: 1rem;
-//   height: 1rem;
-//   .kakaoImg {
-//     width: 100%;
-//     height: 100%;
-//   }
-// `
 
 // 프로필 이미지
 const ProfileImg = styled.img`
@@ -233,31 +219,40 @@ const PostImg = styled.img`
 
   @media screen and (max-width: 1081px) {
     width: 70%;
-    /* height: 30rem; */
     height: auto;
   }
   @media screen and (max-width: 375px) {
     width: 80%;
-    /* height: 18rem; */
     height: auto;
   }
 `;
 
 // 날씨,바람세기,온도 이모티콘 부분
 const WeatherInfo = styled.div`
-  width: 330px;
-  margin-top: 4vh;
-  display: flex;
-  margin: 0 auto;
+  margin: 3rem auto;
   margin-bottom: 2vh;
-  justify-content: space-between;
-  border: 1px solid red;
+  text-align: center;
+
+  p {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  img {
+    width: 5rem;
+    align-items: center;
+    margin: 0 1rem;
+  }
 
   @media screen and (max-width: 1081px) {
-    width: 50%;
     margin-top: 1vh;
     margin-bottom: 1vw;
-    justify-content: space-around;
+
+  }
+  @media screen and (max-width: 769px) {
+    img {
+      width: 3rem;
+      margin: 0 0.5rem;
+    }
   }
   @media screen and (max-width: 375px) {
     margin-bottom: 3vh;
@@ -265,25 +260,25 @@ const WeatherInfo = styled.div`
 `;
 
 const Icon = styled.img`
+
   @media screen and (max-width: 1081px) {
     width: 3rem;
   }
   @media screen and (max-width: 375px) {
     width: 2rem;
-    border: 1px solid red;
   }
 `;
 
 // 오늘의 코디 (있을 때, 없을 때)
 const TodayCodi = styled.div`
-  width: 20%;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: auto;
-  margin-top: 3vh;
+  margin-top: 1rem;
   margin-bottom: 3vh;
+
   .warning {
     display: none;
   }
@@ -295,12 +290,18 @@ const TodayCodi = styled.div`
   }
 
   img {
-    width: 4rem;
+    width: 5rem;
     height: auto;
+    margin: 0 1rem;
+    filter: opacity(.5) drop-shadow(0 0 0 #aaa);
   }
 
-  @media screen and (max-width: 1081px) {
-    width: 50%;
+  @media screen and (max-width: 769px) {
+    img {
+      width: 3rem;
+      margin: 0 0.5rem;
+    }
+    
   }
   @media screen and (max-width: 375px) {
     width: 50vw;
@@ -333,59 +334,6 @@ const Post = styled.div`
   }
 `;
 
-// 삭제, 수정 버튼
-const Buttons = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  padding-bottom: 10vh;
-
-  .button {
-    width: 7rem;
-    height: 3rem;
-    border-radius: 1rem;
-    background-color: #ffbfcb;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  .button2 {
-    margin-left: 5rem;
-  }
-  .button:hover {
-    background-color: #ff7f9f;
-  }
-  .button:before {
-    height: 0%;
-    width: 2px;
-  }
-  .button:active {
-    border: none;
-    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
-      inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
-      inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
-  }
-
-  @media screen and (max-width: 1081px) {
-    .button2 {
-      margin-left: 80px;
-    }
-  }
-  @media screen and (max-width: 375px) {
-    width: 40%;
-    display: flex;
-    justify-content: space-between;
-    .button {
-      width: 3rem;
-      height: 2rem;
-      font-size: 1rem;
-    }
-    .button2 {
-      margin-left: 0;
-    }
-  }
-`;
-
 // 댓글
 const CommentSection = styled.div`
   height: auto;
@@ -402,7 +350,7 @@ const CommentSection = styled.div`
     width: 3rem;
   }
   @media screen and (max-width: 1081px) {
-    margin-bottom: 6rem;
+    padding-bottom: 6rem;
   }
 `;
 // 댓글작성
@@ -415,6 +363,9 @@ const PostComment = styled.div`
 // 댓글목록
 const CommentList = styled.ul`
   padding: 0 2rem;
+  @media screen and (max-width: 769px) {
+    padding: 0 1rem;
+  }
 `;
 
 let url = process.env.REACT_APP_LOCAL_URL;
@@ -746,7 +697,6 @@ export default function PostRead() {
             bookmarkHandler={bookmarkHandler}
             color={bookmarked ? "#3b5fd9" : "#aaa"}
           />
-          {/* 카카오 아이콘 자리  */}
         </IconDiv>
         </Title>
 
@@ -785,30 +735,33 @@ export default function PostRead() {
       <PostImg src={postData.post_photo} alt="post picture" />
 
       <WeatherInfo>
-        {!postData.weather ? (
-          ""
-        ) : (
-          <Icon
-            src={`${process.env.PUBLIC_URL}img/icons-write/${postData.weather}.png`}
-            alt="날씨아이콘"
-          />
-        )}
-        {!postData.wind ? (
-          ""
-        ) : (
-          <Icon
-            src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`}
-            alt="바람아이콘"
-          />
-        )}
-        {!postData.temp ? (
-          ""
-        ) : (
-          <Icon
-            src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`}
-            alt="날씨아이콘"
-          />
-        )}
+        <p>현재 날씨</p>
+        <>
+          {!postData.weather ? (
+            ""
+          ) : (
+            <Icon
+              src={`${process.env.PUBLIC_URL}img/icons-write/${postData.weather}.png`}
+              alt="날씨아이콘"
+            />
+          )}
+          {!postData.wind ? (
+            ""
+          ) : (
+            <Icon
+              src={`${process.env.PUBLIC_URL}img/icons-write/${postData.wind}.png`}
+              alt="바람아이콘"
+            />
+          )}
+          {!postData.temp ? (
+            ""
+          ) : (
+            <Icon
+              src={`${process.env.PUBLIC_URL}img/icons-write/${postData.temp}.png`}
+              alt="날씨아이콘"
+            />
+          )}
+        </>
       </WeatherInfo>
 
       {/* 코디가 있을 때, 없을 때 */}
@@ -818,7 +771,7 @@ export default function PostRead() {
         (!postData.top_id || postData.top_id === "default") &&
         (!postData.bottom_id || postData.top_id === "default") ? null : (
           <>
-            <h2 className="todayCodi">오늘의 코디</h2>
+            <p className="todayCodi">오늘의 코디</p>
             <TodayCodi>
               {!postData.outer_id || postData.outer_id === "default" ? (
                 <p className="warning">겉옷 데이터가 없습니다</p>
@@ -871,14 +824,6 @@ export default function PostRead() {
           수정하시겠습니까?
         </ModalConfirm>
       )}
-      {/* <Buttons>
-        <button className="button button1" value="delete" onClick={deletePost}>
-          삭제
-        </button>
-        <button className="button button2" onClick={editPost}>
-          수정
-        </button>
-      </Buttons> */}
 
       <CommentSection>
         {/* 댓글작성 */}
@@ -898,7 +843,6 @@ export default function PostRead() {
               content={content}
               commentDelete={commentDelete}
               userInfo={userInfo}
-              // commentLike= {commentLike}
             />
           ))}
         </CommentList>

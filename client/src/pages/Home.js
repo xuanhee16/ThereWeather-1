@@ -13,9 +13,7 @@ import { compose } from "redux";
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: auto;
-  // height: 100vh;
-  // padding-right: 5vh;
+  height: 100%;
   background-color: var(--page-bg-color);
   ul {
     list-style: none;
@@ -143,10 +141,13 @@ const LeftNav1 = styled.nav`
     margin-top: 5px;
   }
 
+  @media screen and (max-width: 687px) {
+    border-bottom: 1px solid #8e8e8e;
+  }
   @media screen and (max-width: 375px) {
     margin-top: 10px;
     line-height: 4vh;
-    border-bottom: 1px solid #8e8e8e;
+    
   }
 `;
 // 기상청 일기예보
@@ -163,9 +164,11 @@ const LeftNav2 = styled.div`
     font-size: 1.2rem;
     margin-bottom: 1vh;
   }
+  @media screen and (max-width: 687px) {
+    border-bottom: 1px solid #8e8e8e;
+  }
   @media screen and (max-width: 375px) {
     line-height: 4vh;
-    border-bottom: 1px solid #8e8e8e;
   }
 `;
 // 00구 날씨 기반 추천 코디
@@ -220,12 +223,13 @@ const LeftNav3 = styled.div`
 `;
 // 코디 이미지
 const Codi = styled.img`
-  width: 7rem;
-  height: 7rem;
-  border: purple;
+  width: 5rem;
+  height: auto;
+  filter: opacity(.5) drop-shadow(0 0 0 #aaa);
+
+
   @media screen and (max-width: 400px) {
-    width: 5rem;
-    height: 5rem;
+    height: auto;
   }
 `;
 
