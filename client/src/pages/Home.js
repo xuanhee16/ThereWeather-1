@@ -317,13 +317,13 @@ export default function Home() {
 
   const [weatherData, setWeatherData] = useState();
 
-  useEffect(async () => {
-    console.log(curLocation);
-    if (curLocation.lat.length === 0) {
-      await history.push("/map");
-      history.push("/home");
-    }
-  }, []);
+//   useEffect(async () => {
+//     console.log(curLocation);
+//     if (curLocation.lat.length === 0) {
+//       await history.push("/map");
+//       history.push("/home");
+//     }
+//   }, []);
 
   useEffect(async () => {
     // await history.push("/map");
