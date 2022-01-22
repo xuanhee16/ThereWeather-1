@@ -5,10 +5,10 @@ node_modules/
 /.pnp
 .pnp.js
 
-.env
+# .env
 /client/.env.development
 /client/.env.production
-/server/.env
+# /server/.env
 
 /server/public
 
