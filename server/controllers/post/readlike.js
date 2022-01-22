@@ -1,21 +1,17 @@
-const { like } = require("../../models")
+const { like, comment } = require("../../models")
 
 module.exports = async(req, res) => {
     const { user_id, post_id, comment_id } = req.body;
-
-    const checkLike = await like.findOne({
-      where: {
-        user_id: user_id,
-        post_id: post_id,
-        comment_id: comment_id,
-      }
+    const list = await like.findOne({
+        where: {
+            user_id: user_id,
+            comment_id: comment_id,
+            post_id: post_id,
+        },
     })
-  
-      if(checkLike){ 
-        const totalCount = await like.findAll({
-          attributes: ['like_count']
-        })
-        // console.log(totalCount)
-       res.send(totalCount)
-      }
+    if (!list) {
+        res.send("댓글 좋아요 없음")
+    } else {
+        res.send(list)
+    }
 }

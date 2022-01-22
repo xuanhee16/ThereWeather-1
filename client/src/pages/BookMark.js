@@ -7,14 +7,7 @@ import { updatePostId } from "../actions/index";
 import { useHistory } from "react-router";
 import { default as PaginationWithArrow } from "../components/Pagination";
 import Footer from "../components/Footer";
-/*
-  [수정]
-  - 페이지네이션
-  - 주석 정리
-  - 레이아웃 정리
-  - 클릭이벤트
-  - import 주석 정리
-*/
+
 
 const Outer = styled.div`
   // 데스크탑
