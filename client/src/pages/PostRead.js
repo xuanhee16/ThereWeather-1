@@ -607,6 +607,7 @@ export default function PostRead() {
           post_id: postData.id,
           comment_user_id: userInfo.user_id,
           comment_content: commentMsg,
+          comment_like: 0
         },
         withCredentials: true,
       }).then(() => {

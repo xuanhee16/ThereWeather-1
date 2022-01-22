@@ -44,61 +44,53 @@ if (!url) url = "https://thereweather.space/api";
 
 // 아이디, 댓글내용, 날짜 / 좋아요하트, 삭제버튼
 export default function Comment({content, commentDelete, userInfo}) {
-  console.log("댓글 작성한 유저", content);
+  // console.log("댓글작성한 유저", content);
   const [click, setClick] = useState(false);
-  
+  // const [likeCount, setLikeCount] = useState(0);
   let date = new Date(`${content.createdAt}`)
   let dateForm = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}. ${date.getHours()}:${date.getMinutes()}`
-  console.log("date format : ", dateForm);
+  // console.log("date format : ", dateForm);
+  // console.log("현재 접속중인유저", userInfo);
 
   // 댓글 좋아요 클릭
   const commentLike = () => {
-    // if(click === false){
-    //   setClick(true)
-    // }else{
-    //   setClick(false)
-    // }
-
-    // axios({
-    //   url: url + "/likecomment",
-    //   method: "post",
-    //   data: {
-    //     user_id: content.comment_user_id,
-    //     post_id: content.post_id,
-    //     comment_id: content.id
-    //   },
-    //   withCredentials: true,
-    // })
-    // .then(() => {
-    //   if(click === false){
-    //     setClick(true)
-    //   }else{
-    //     setClick(false)
-    //   }
-    // })
+    axios({
+      url: url + "/likecomment",
+      method: "post",
+      data: {
+        user_id: content.comment_user_id,
+        comment_id: content.id,
+        post_id: content.post_id,
+      },
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    })
+    .then((res) => {
+      // console.log(res.data)
+      setClick((data) => !data)
+    })
   }
 
-  // useEffect(() => {    
-  //   axios({
-  //     url: url + "/readlike",
-  //     method: "post",
-  //     data:{
-  //       user_id: userInfo.user_id,//현재 접속중인 유저 Id
-  //       post_id: content.post_id,
-  //       comment_id: content.id, //댓글 작성한 유저 Id
-  //     },
-  //     headers: { "Content-Type": "application/json" },
-  //     withCredentials: true,
-  //   })
-  //   .then((res) => {
-  //     setClick(!click)
-  //     console.log(res.data)
-  //     const totalCounts = res.data.length
-  //     setLikeCount(totalCounts)
-  //   })
-  // }, [])
+  useEffect(() => {    
+    axios({
+      url: url + "/readlike",
+      method: "post",
+      data:{
+        user_id: content.comment_user_id,
+        comment_id: content.id,
+        post_id: content.post_id
+      },
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    })
+    .then((res) => {
+      // console.log(res.data)  
+      if (res.data !== "댓글 좋아요 없음") {
+        setClick(!click)
+      }
+    })
+  }, [])
 
-  // useEffect(() => {}, []);
 
 
   return (
@@ -128,7 +120,7 @@ export default function Comment({content, commentDelete, userInfo}) {
               color="#aaa"
               />
           }
-          <span>{0}</span>
+          <span>{click}</span>
         </LikeBtn>
       </RightDiv>
     </Outer>
