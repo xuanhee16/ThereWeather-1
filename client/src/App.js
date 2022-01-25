@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import "./App.css"
 import Map from "./pages/Map"
 import Home from "./pages/Home"
 import BookMark from "./pages/BookMark"
@@ -34,7 +33,7 @@ import GlobalStyle from "./components/GlobalStyle"
 let url = process.env.REACT_APP_LOCAL_URL
 
 if (!url) {
-  url = "https://thereweather.space/api";
+    url = "https://thereweather.space/api"
 }
 
 export default function App() {
