@@ -49,13 +49,12 @@ const HeaderOuter = styled.div`
     justify-content: space-around;
   }
   @media screen and (max-width: 375px) {
-    /* border: 1px solid red;  // 확인용 */
   }
 `;
 
+// 검색창
 const Wing = styled.div`
   display: none;
-
   @media screen and (min-width: 1081px) {
     display: flex;
     flex-growth: 1;
@@ -70,6 +69,7 @@ const TitleAndLogo = styled.div`
   justify-content: center;
   align-items: center;
   color: #231f20;
+  border: 1px solid red;
 
   & img {
     width: 20%;
@@ -101,6 +101,11 @@ const Center = styled.div`
     width: 60vw;
   }
 `;
+
+// 메뉴버튼
+const MenuButtons = styled.div`
+  border: 1px solid purple;
+`
 
 const InputAndSubmit = styled.div`
   display: flex;
@@ -173,9 +178,6 @@ const Button = styled.button`
 `;
 
 const Button3 = styled.button`
-  // width: 140px;
-  // height: 45px;
-  // font-size: 11px;
   font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
   font-family: "IBM Plex Sans KR", sans-serif;
 
@@ -206,7 +208,7 @@ const Button3 = styled.button`
 
     @media screen and (max-width: 1081px) {
       // 임시 추가
-      display: none;
+      /* display: none; */
     }
   }
 `;
@@ -221,17 +223,7 @@ const Buttons3 = styled.button`
     display: none;
   }
 `;
-// const SearchBarAndDaumPost = styled.div`
-//     // display: flex;
-//     // flex-direction: row;
-//     position: relative;
-//     margin: "100px solid green";
-// `
-// const DaumPostcodeWrap = styled.div`
-//     height: 3.5rem;
-//     width: 100%;
-//     // padding-right: 2.5rem;
-// `
+
 const Cancel = styled.button`
   // height: 3.5rem;
   // width: 100%;
@@ -413,7 +405,28 @@ export default function Header({ isInput, isMobileLogo, isText }) {
       )} */}
       {/* 검색창 끝 */}
 
-      <MenuBarPC></MenuBarPC>
+      {/* <MenuBarPC></MenuBarPC> */}
+      <Center>
+        <MenuButtons>
+          <button onClick={() => history.push("/homeorlogin")}>
+            <p>Home</p>
+          </button>
+          <button onClick={() => history.push("/bookmarkorlogin")}>
+            <p>Bookmark</p>
+          </button>
+          <button onClick={() => history.push("/map")}>
+            <p>Map</p>
+          </button>
+          <button>
+            <p>Write</p>
+          </button>
+          <button>
+            <p onClick={() => history.push("/moreoruserinfo")}>Settings</p>
+          </button>
+
+        </MenuButtons>
+      </Center>
+
       {isLogin ? (
         <Buttons3 className="loginAndSingupButtons">
           {/* className="login" isText */}
