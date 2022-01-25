@@ -3,41 +3,30 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 
 const Button = styled.div`
-    /* width: 100%; */
-    height: 200px;
     position: fixed;
     z-index: 100;
     display: flex;
     justify-content: flex-end;
-    right: 0;
     bottom: 0;
     transition: all 0.3s;
     display: none;
+    
     img {
-        width: 5rem;
-        height: 5rem;
-        margin-right: 2vh;
+        width: 3rem;
+        height: 3rem;
+        margin: 0 auto;
         opacity: 0.7;
-        background-color: #ffffff;
-        border-radius: 50%;
+        background-color: var(--page-bg-color);
     }
 
     @media screen and (max-width: 1081px) {
         display: block;
-        height: 170px;
-        img {
-            width: 4rem;
-            height: 4rem;
-            margin-right: 3vh;
-        }
+        height: 120px;
+        right: 45%;
     }
     @media screen and (max-width: 375px) {
-        height: 130px;
-        img {
-            width: 3rem;
-            height: 3rem;
-            margin-right: 2vh;
-        }
+        height: 110px;
+        right: 42%;
     }
 `
 
@@ -79,7 +68,7 @@ export default function TopButton() {
         <Button>
             {btnStatus ? (
                 <img
-                    src={`${process.env.PUBLIC_URL}img/scroll-up.png`}
+                    src={`${process.env.PUBLIC_URL}img/scroll-up2.png`}
                     alt="top"
                     onClick={scrollToTop}
                 />
