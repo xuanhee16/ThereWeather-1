@@ -22,7 +22,10 @@ const Button = styled.div`
     @media screen and (max-width: 1081px) {
         display: block;
         height: 120px;
-        right: 45%;
+        right: 47%;
+    }
+    @media screen and (max-width: 761px) {
+        right: 46%;
     }
     @media screen and (max-width: 375px) {
         height: 110px;
