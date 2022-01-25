@@ -609,9 +609,11 @@ export default function PostRead() {
           comment_content: commentMsg,
         },
         withCredentials: true,
-      }).then(() => {
+      }).then((res) => {
+        console.log("res.data : ",res.data);
         getCommentList();
-        window.location.replace("/readpost");
+        // window.location.replace("/readpost");
+
       });
     }
   };
