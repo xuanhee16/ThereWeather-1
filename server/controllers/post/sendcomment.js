@@ -9,5 +9,5 @@ module.exports = async(req, res) => {
     comment_content: comment_content
   });
 
-  res.status(205).send("OK");
+  res.status(205).send({message: "OK", data: [comment_user_id, comment_content]});
 }
