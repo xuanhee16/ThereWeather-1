@@ -495,56 +495,7 @@ export default function Write() {
         console.log(e.target.files[0])
         setPhoto(e.target.files[0])
     }
-    function sFunc() {
-        function random(min, max) {
-            return parseFloat((Math.random() * (max - min) + min).toFixed(7))
-        }
-        function getRandomIntInclusive(min, max) {
-            min = Math.ceil(min)
-            max = Math.floor(max)
-            return Math.floor(Math.random() * (max - min + 1)) + min
-        }
-        for (let n = 0; n < 20; n++) {
-            let content = ["sunny", "cloudy", "rainy", "snowy"][
-                getRandomIntInclusive(0, 3)
-            ]
-            axios({
-                url: url + "/post/write",
-                method: "post",
-                data: {
-                    // user_id: Math.random().toString(36).substr(2, 5),
-                    user_id: "kimcoding",
-                    post_photo: `http://placeimg.com/640/${getRandomIntInclusive(
-                        480,
-                        640
-                    )}/nature`,
-                    post_title: "안녕하세요~이곳의 날씨는 이렇답니다~~~",
-                    post_content: `이곳의 날씨는 현재 ${content}랍니다~`,
-                    weather: content,
-                    wind: ["breezy", "windy", "strong"][
-                        getRandomIntInclusive(0, 2)
-                    ],
-                    temp: ["cold", "hot"][getRandomIntInclusive(0, 1)],
-                    outer_id: [
-                        "가디건",
-                        "자켓",
-                        "얇은코트",
-                        "두꺼운코트",
-                        "패딩",
-                    ][getRandomIntInclusive(0, 4)],
-                    top_id: ["민소매", "반팔", "긴팔", "셔츠", "니트"][
-                        getRandomIntInclusive(0, 4)
-                    ],
-                    bottom_id: ["반바지", "긴바지"][
-                        getRandomIntInclusive(0, 1)
-                    ],
-                    xLocation: random(34.468469558695375, 38.215952021543174),
-                    yLocation: random(126.25754765741554, 128.58236509939096),
-                },
-                withCredentials: true,
-            })
-        }
-    }
+    
 
     return (
         <Outer className="writePage">
@@ -773,7 +724,6 @@ export default function Write() {
                     >
                         등록
                     </Button>
-                    <Secret onClick={() => sFunc()}>.</Secret>
                 </TextSection>
             </DesktopRight>
         </Outer>

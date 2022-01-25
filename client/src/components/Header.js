@@ -93,6 +93,7 @@ const Center = styled.div`
   align-items: center;
   min-width: 350px;
   justify-content: space-around;
+  border: 1px solid red;
 
   @media screen and (min-width: 1081px) {
     flex-direction: row;
@@ -315,7 +316,9 @@ export default function Header({ isInput, isMobileLogo, isText }) {
         <img onClick={() => history.push("/")} src="img/img6.png" alt="logo" />
         <h2 onClick={() => history.push("/")}>There Weather</h2>
       </TitleAndLogo>
-      {isInput ? (
+
+      {/* 검색창 */}
+      {/* {isInput ? (
         <Center className="headerCenter">
           <InputAndSubmit className="inputAndSubmit">
             <Input
@@ -341,11 +344,6 @@ export default function Header({ isInput, isMobileLogo, isText }) {
                 />
               )}
             </Buttons2>
-            {/* <SearchBarAndDaumPost> */}
-            {/* <DaumPostcodeWrap> */}
-
-            {/* </DaumPostcodeWrap> */}
-            {/* </SearchBarAndDaumPost> */}
           </InputAndSubmit>
           {onFocus ? (
             <StyledPostCode
@@ -356,6 +354,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
             <></>
           )}
           {mapPage.mapPage ? (
+            // 지우기 금지
             // <Buttons className="headerButtons">
             //   <Button
             //     onClick={() => {
@@ -411,7 +410,9 @@ export default function Header({ isInput, isMobileLogo, isText }) {
         </Center>
       ) : (
         <Center className="headerCenter" />
-      )}
+      )} */}
+      {/* 검색창 끝 */}
+
       <MenuBarPC></MenuBarPC>
       {isLogin ? (
         <Buttons3 className="loginAndSingupButtons">
