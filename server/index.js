@@ -48,11 +48,11 @@ app.get("/api/2", (req, res) => {
     res.send("Hello World!!22!222ss33222299")
 })
 app.get("/api/1", (req, res) => {
-    res.send("Hello World!!22!222ss33222211")
+    res.send("Hello Worasdasdlasd22ss33222211")
 })
-app.get("/", (req, res) => {
-    res.send("Hello World!!ThereWeather!!!!")
-})
+// app.get("/", (req, res) => {
+//     res.send("Hello World!!ThereWeather!!!!")
+// })
 
 //겹치는거
 app.use("/api/users", upload.single("img"), userRouter)
