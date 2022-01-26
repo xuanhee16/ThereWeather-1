@@ -321,7 +321,7 @@ export default function Write() {
         ["패딩", "패딩"],
     ]
 
-    // 상의 더미데이터 (state 변수가 필요하게 될까?)
+    // 상의 더미데이터
     const clothesTop = [
         ["default", "상의 선택"],
         ["민소매", "민소매"],
@@ -336,6 +336,8 @@ export default function Write() {
         ["default", "하의 선택"],
         ["반바지", "반바지"],
         ["긴바지", "긴 바지"],
+        ["짧은치마", "짧은치마"],
+        ["긴치마", "긴치마"]
     ]
 
     // select 상태 관리 & 이벤트 핸들러
@@ -542,8 +544,8 @@ export default function Write() {
                     top_id: ["민소매", "반팔", "긴팔", "셔츠", "니트"][
                         getRandomIntInclusive(0, 4)
                     ],
-                    bottom_id: ["반바지", "긴바지"][
-                        getRandomIntInclusive(0, 1)
+                    bottom_id: ["반바지", "긴바지", "짧은치마", "긴치마"][
+                        getRandomIntInclusive(0, 3)
                     ],
                     xLocation: random(34.468469558695375, 38.215952021543174),
                     yLocation: random(126.25754765741554, 128.58236509939096),

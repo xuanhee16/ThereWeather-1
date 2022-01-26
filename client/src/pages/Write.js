@@ -348,7 +348,9 @@ export default function Write() {
     const clothesBottom = [
         ["default", "하의 선택"],
         ["반바지", "반바지"],
-        ["긴바지", "긴 바지"],
+        ["긴바지", "긴바지"],
+        ["짧은치마", "짧은치마"],
+        ["긴치마", "긴치마"]
     ]
 
     // select 상태 관리 & 이벤트 핸들러

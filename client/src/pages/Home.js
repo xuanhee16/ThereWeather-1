@@ -9,12 +9,14 @@ import { nanoid } from "nanoid";
 // import Loading from "./Loading";
 import Footer from "../components/Footer";
 import { compose } from "redux";
+// import Postit from "../../public/img/icons-write/postit.png";
 
 const HomeContainer = styled.div`
-  display: flex;
+/* border: orange solid 3px;// */
+  display: flex;  
   flex-direction: column;
   height: 100%;
-  background-color: var(--page-bg-color);
+  /* background-color: var(--page-bg-color); */
   ul {
     list-style: none;
   }
@@ -26,13 +28,13 @@ const HomeContainer = styled.div`
   @media screen and (min-width: 1500px) {
     margin: 0 auto;
     width: 90%;
-    border: 1px solid #aaa;
+    /* border: 1px solid #aaa; */
   }
   @media screen and (max-width: 1081px) {
     flex-direction: column;
     margin: 0 auto;
     padding: 0 2vw;
-    border: 1px solid #aaa;
+    /* border: 1px solid #aaa; */
     width: 85%;
     height: 100%;
   }
@@ -53,7 +55,7 @@ const FooterDiv = styled.div`
 
 // 날짜
 const TodaysDate = styled.div`
-  background-color: var(--page-bg-color);
+  /* background-color: var(--page-bg-color); */
   margin: 0 auto;
   height: 2rem;
   display: flex;
@@ -92,6 +94,7 @@ const TodaysDate = styled.div`
 
 // 왼쪽 container
 const LeftContainer1 = styled.div`
+/* border: blue solid 3px;// */
   display: flex;
   gap: 0.1rem;
   flex-direction: row;
@@ -125,6 +128,7 @@ const LeftContainer1 = styled.div`
 
 // 00구 주민예보
 const LeftNav1 = styled.nav`
+  /* border: solid red 1px;// */
   text-align: center;
   flex-basis: 310px;
   flex-grow: 1;
@@ -132,10 +136,12 @@ const LeftNav1 = styled.nav`
   padding: 10px;
   line-height: 3vh;
   height: 25%;
-  background-color: var(--page-bg-color);
+  /* background-color: var(--page-bg-color); */
   p {
     font-size: 1.2rem;
     margin-bottom: 1vh;
+    color: #FF6EAD;
+    font-weight: bold;
   }
   @media screen and (max-width: 1081px) {
     margin-top: 5px;
@@ -152,6 +158,8 @@ const LeftNav1 = styled.nav`
 `;
 // 기상청 일기예보
 const LeftNav2 = styled.div`
+  /* border: red solid 1px;// */
+  /* background-color: skyblue; */
   text-align: center;
   flex-basis: 310px;
   flex-grow: 1;
@@ -159,10 +167,12 @@ const LeftNav2 = styled.div`
   padding: 10px;
   line-height: 3vh;
   height: 35%;
-  background-color: var(--page-bg-color);
+  /* background-color: var(--page-bg-color); */
   p {
     font-size: 1.2rem;
     margin-bottom: 1vh;
+    color: #3b75eb;
+    font-weight: bold;
   }
   @media screen and (max-width: 687px) {
     border-bottom: 1px solid #8e8e8e;
@@ -171,6 +181,7 @@ const LeftNav2 = styled.div`
     line-height: 4vh;
   }
 `;
+
 // 00구 날씨 기반 추천 코디
 const LeftNav3 = styled.div`
   text-align: center;
@@ -178,11 +189,13 @@ const LeftNav3 = styled.div`
   flex-grow: 1;
   margin: 3px;
   padding: 10px;
-  background-color: var(--page-bg-color);
+  /* background-color: var(--page-bg-color); */
   height: 35%;
   p {
     font-size: 1.2rem;
     margin: 2vh 0;
+    color:#CD6BD9;
+    font-weight: bold;
   }
   .codiInfo {
     height: 80%;
@@ -235,6 +248,7 @@ const Codi = styled.img`
 
 // 오른쪽 container
 const RightContainer = styled.div`
+/* border: green solid 3px;// */
   display: grid;
   /* height:100vh; */
   width: 80vw;
@@ -562,34 +576,11 @@ export default function Home() {
               )}
             </div>
           </LeftNav1>
+         
           <LeftNav2>
-            {/* <p>기상청 일기예보</p>
-                      { weatherData && weatherData.item.map((info, index) => {
-                        return (
-                          <div className="weatherInfo" key={index}>
-                           <ul>
-                            <li className="weathers date">날짜: {info.baseDate[0]}</li> 
-                            <li className="weathers time">기준 예보시각: {info.baseTime[0]}</li> 
-                           </ul>
-                          </div>
-
-                        )
-                      })} */}
             <p>기상청 예보</p>
             <div className="weatherInfo">
               <ul>
-                {/* {console.log(weatherData.item)}  */}
-                {/* weatherData -> {item: Array(30)}, weatherData.item -> [ baseDate: '20211106',baseTime: '2130',category: 'T1H', fcstDate: '20211107', fcstTime: '0300', fcstValue: '10', nx: 59, ny: 128, ... ] */}
-                {/* { weatherData && weatherData.item.map((info, idx) => { return <li kye={idx}>날짜:{info.baseDate}</li> })[0] }
-                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>기준 예보시각: {info.baseTime}</li> })[0] }
-                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 기온: {info.fcstValue}℃</li> })[24] } 
-                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 바람세기: {info.fcstValue  < "9" ? "바람세기 약하거나 약간 강함" : info.fcstValue  < "14" ? "바람세기 강함" : "바람세기 매우 강함" }</li> })[54] } 
-                          { weatherData && weatherData.item.map((info, idx) => { return <li key={idx}>현재위치 날씨상태: {info.fcstValue === "0" ? "맑음" : info.fcstValue === "1" ? "비" : info.fcstValue === "3" ? "눈" : info.fcstValue === "5" ? "빗방울" : "눈날림" }</li> })[6] }  */}
-
-                {/* {weatherData &&
-                  weatherData.item.map((info) => {
-                    return <li key={nanoid()}>날짜:{info.baseDate}</li>;
-                  })[0]} */}
                 {weatherData &&
                   weatherData.item.map((info) => {
                     return (
@@ -647,6 +638,7 @@ export default function Home() {
               </ul>
             </div>
           </LeftNav2>
+        
           <LeftNav3>
             <p>날씨 기반 추천 코디</p>
             <div className="codiInfo">

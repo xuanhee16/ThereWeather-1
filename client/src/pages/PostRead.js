@@ -664,7 +664,7 @@ export default function PostRead() {
           description: "거기 날씨",
           imageUrl: postData.post_photo,
           link:{
-            mobileWebUrl: 'https://thereweather.space',
+            mobileWebUrl: 'https://thereweather.space/first',
             androidExecutionParams: 'test',
           },
         },
@@ -672,7 +672,7 @@ export default function PostRead() {
           {
             title: '거기날씨로 이동',
             link: {
-              mobileWebUrl: 'https://thereweather.space',
+              mobileWebUrl: 'https://thereweather.space/first',
             },
           },
         ]
