@@ -413,7 +413,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
           </button>
           <button onClick={() => history.push("/bookmarkorlogin")}>
             <p>Bookmark</p>
-          </button>
+          </button>   
           <button onClick={() => history.push("/map")}>
             <p>Map</p>
           </button>
