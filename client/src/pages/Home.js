@@ -158,7 +158,8 @@ const LeftNav1 = styled.nav`
 `;
 // 기상청 일기예보
 const LeftNav2 = styled.div`
-  /* border: red solid 1px;// */
+  border: #3b75eb solid 1px;//
+  border-radius: 4rem;//
   /* background-color: skyblue; */
   text-align: center;
   flex-basis: 310px;
