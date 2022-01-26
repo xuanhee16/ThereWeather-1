@@ -417,7 +417,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
           <button onClick={() => history.push("/map")}>
             <p>Map</p>
           </button>
-          <button>
+          <button>  
             <p>Write</p>
           </button>
           <button>
