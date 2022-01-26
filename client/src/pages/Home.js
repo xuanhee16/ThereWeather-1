@@ -128,7 +128,10 @@ const LeftContainer1 = styled.div`
 
 // 00구 주민예보
 const LeftNav1 = styled.nav`
-  /* border: solid red 1px;// */
+  background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("${process.env.PUBLIC_URL}img/icons-write/${"neighborhood"}.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   text-align: center;
   flex-basis: 310px;
   flex-grow: 1;
@@ -158,9 +161,10 @@ const LeftNav1 = styled.nav`
 `;
 // 기상청 일기예보
 const LeftNav2 = styled.div`
-  border: #3b75eb solid 1px;//
-  border-radius: 4rem;//
-  /* background-color: skyblue; */
+  background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("${process.env.PUBLIC_URL}img/icons-write/${"weather"}.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   text-align: center;
   flex-basis: 310px;
   flex-grow: 1;
@@ -578,7 +582,7 @@ export default function Home() {
             </div>
           </LeftNav1>
          
-          <LeftNav2>
+          <LeftNav2> 
             <p>기상청 예보</p>
             <div className="weatherInfo">
               <ul>
@@ -638,6 +642,7 @@ export default function Home() {
                   })[6]}
               </ul>
             </div>
+            {/* </img> */}
           </LeftNav2>
         
           <LeftNav3>
