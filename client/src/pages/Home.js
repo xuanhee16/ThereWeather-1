@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { updateWeatherInfo, updatePostId } from "../actions/index";
-import TopButton from "../components/TopButton";
+import TopButtonHome from "../components/TopButton-home";
 import { useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 // import Loading from "./Loading";
@@ -521,7 +521,7 @@ export default function Home() {
   return (
     <div className="homecontainer">
       {/* <Loading /> */}
-      <TopButton />
+      <TopButtonHome />
       <TodaysDate>
         <p id="curDate">날짜 : {todaysDate}</p>
         <p id="curLocation">위치 : {curAddress}</p>

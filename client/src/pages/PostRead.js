@@ -210,8 +210,6 @@ const ProfileImg = styled.img`
 
 // 게시물 사진 (있을 때, 없을때)
 const PostImg = styled.img`
-  // 이미지 사이즈(1000*750)
-  // 다시 확인필요
   width: 60rem;
   height: 40rem;
   display: block;
@@ -308,7 +306,7 @@ const TodayCodi = styled.div`
   }
 `;
 
-// 게시물 내용 scroll
+// 게시물 내용
 const Post = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
   margin: 0 auto;
@@ -350,7 +348,7 @@ const CommentSection = styled.div`
     width: 3rem;
   }
   @media screen and (max-width: 1081px) {
-    padding-bottom: 6rem;
+    padding-bottom: 5rem;
   }
 `;
 // 댓글작성
@@ -612,7 +610,7 @@ export default function PostRead() {
       }).then((res) => {
         console.log("res.data : ",res.data);
         getCommentList();
-        // window.location.replace("/readpost");
+        window.location.replace("/readpost");
 
       });
     }

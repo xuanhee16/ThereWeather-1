@@ -10,26 +10,24 @@ const Button = styled.div`
     bottom: 0;
     transition: all 0.3s;
     display: none;
-    
+    right: 0;
+
     img {
         width: 3rem;
         height: 3rem;
-        margin: 0 auto;
+        margin: 3rem;
         opacity: 0.7;
         background-color: var(--page-bg-color);
     }
 
     @media screen and (max-width: 1081px) {
         display: block;
-        height: 120px;
-        right: 47%;
+        height: 200px;
     }
     @media screen and (max-width: 761px) {
-        right: 46%;
+
     }
     @media screen and (max-width: 375px) {
-        height: 110px;
-        right: 42%;
     }
 `
 
@@ -71,7 +69,7 @@ export default function TopButton() {
         <Button>
             {btnStatus ? (
                 <img
-                    src={`${process.env.PUBLIC_URL}img/scroll-up2.png`}
+                    src={`${process.env.PUBLIC_URL}img/scroll-up.png`}
                     alt="top"
                     onClick={scrollToTop}
                 />
