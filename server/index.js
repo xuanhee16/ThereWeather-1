@@ -45,7 +45,7 @@ app.get("/2", (req, res) => {
     res.send("Hello sss22ss332s222")
 })
 app.get("/api/2", (req, res) => {
-    res.send("Hello World!!22!222ss33222299")
+    res.send("Hello sWorld!!22!222ss33222299")
 })
 app.get("/api/1", (req, res) => {
     res.send("Hello Worasda4sdlasd22ss33222211")
