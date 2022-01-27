@@ -90,6 +90,7 @@ const Button = styled.button`
   padding: 0.8rem;
   font-size: 1.2rem;
   font-weight: bold;
+  font-family: 'Gowun Dodum', sans-serif;
   color: white;
   /* background-color: ${(props) =>
     props.edit ? `var(--button-bg-edit)` : `var(--button-bg-negative)`}; */

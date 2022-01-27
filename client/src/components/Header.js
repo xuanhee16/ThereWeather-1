@@ -142,6 +142,7 @@ const MenuButtons = styled.div`
     font-size: 1.1rem;
     height: 2rem;
     line-height: 2.2rem;
+    font-family: 'Gowun Dodum', sans-serif;
   }
 
 `

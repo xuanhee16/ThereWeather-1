@@ -10,7 +10,9 @@ const Button = styled.button`
 // font-size: 11px;
 border:3px solid pink;
 font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
-font-family: 'IBM Plex Sans KR', sans-serif;
+font-family: 
+/* 'IBM Plex Sans KR', sans-serif; */
+'Gowun Dodum', sans-serif;
 
 padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
 margin: 0.5rem;

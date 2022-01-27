@@ -44,6 +44,7 @@ const ProfileArea = styled.div`
     // 비밀번호 수정, 회원탈퇴
     color: #336fc9;
     font-size: 1.5rem;
+    font-family: 'Gowun Dodum', sans-serif;
     margin-top: 1vh;
   }
   .mediaBox {
@@ -187,6 +188,7 @@ const GridArea = styled.div`
     font-size: 1.5rem;
     color: #336fc9;
     width: 5vw;
+    font-family: 'Gowun Dodum', sans-serif;
   }
 
   @media screen and (max-width: 1380px) {
@@ -207,6 +209,7 @@ const GridArea = styled.div`
 
     p {
       font-size: 2rem;
+      font-family: 'Gowun Dodum', sans-serif;
     }
     .item {
       margin: 0.5vh;

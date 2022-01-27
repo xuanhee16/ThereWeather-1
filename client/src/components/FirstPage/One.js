@@ -73,7 +73,9 @@ const Button = styled.button`
 // height: 45px;
 // font-size: 11px;
 // border:3px solid pink;
-font-family: 'IBM Plex Sans KR', sans-serif;
+/* font-family: 'IBM Plex Sans KR', sans-serif; */
+font-family: 'Gowun Dodum', sans-serif;
+font-weight: bold;
 
 font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
 padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};

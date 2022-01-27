@@ -38,6 +38,7 @@ const InfoBox = styled.div`
         color: black;
         margin: 0;
         line-height: 10vh;
+        font-family: 'Gowun Dodum', sans-serif;
         @media screen and (max-width: 375px) {
             font-size: 1rem;
         }
