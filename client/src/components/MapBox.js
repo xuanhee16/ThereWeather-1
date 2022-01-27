@@ -281,7 +281,7 @@ export default function Location({ bottom }) {
             // 마커 위치를 클릭한 위치로 옮깁니다
             // marker.setPosition(latlng)
             //클릭한 곳의 위치 경도를 콘솔로그 찍는 변수
-            var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이며, "
+            var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, "
             message += "경도는 " + latlng.getLng() + " 입니다"
             console.log(message)
         })

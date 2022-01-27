@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import MapBox from "../components/MapBox"
-import { changeMapPage } from "../actions/index"
+import { changeMapPage, mapSet } from "../actions/index"
 
 const Container = styled.div`
     background-color: var(--page-bg-color);
@@ -23,6 +23,8 @@ export default function Map() {
     // const { userInfo } = useSelector((state) => state.itemReducer)
     // dispatch(changeUser(axiosData))
     // {/* <Container2 src="/img/fhd.png" /> */}
+
+    const { kakao } = window
 
     useEffect(() => {
         dispatch(changeMapPage(true))
