@@ -18,7 +18,6 @@ import {
 } from "../actions/index";
 import React, { useState, useEffect } from "react";
 import DaumPostcode from "react-daum-postcode";
-import MenuBarPC from "../components/MenuBarPC";
 
 const HeaderOuter = styled.div`
   width: 100vw;
@@ -69,7 +68,6 @@ const TitleAndLogo = styled.div`
   justify-content: center;
   align-items: center;
   color: #231f20;
-  border: 1px solid red;
 
   & img {
     width: 20%;
@@ -93,7 +91,6 @@ const Center = styled.div`
   align-items: center;
   min-width: 350px;
   justify-content: space-around;
-  border: 1px solid red;
 
   @media screen and (min-width: 1081px) {
     flex-direction: row;
@@ -104,7 +101,49 @@ const Center = styled.div`
 
 // 메뉴버튼
 const MenuButtons = styled.div`
-  border: 1px solid purple;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+
+  button {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    transition: 800ms ease all;
+    
+  }
+  button:hover {
+    color: #FE7E9D;
+  }
+
+  button:before,button:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: pink;
+    transition:400ms ease all;
+  }
+  /* 버튼 선 */
+  button:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  button:hover:before,button:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+
+  p {
+    font-size: 1.1rem;
+    height: 2rem;
+    line-height: 2.2rem;
+  }
+
 `
 
 const InputAndSubmit = styled.div`
@@ -178,7 +217,7 @@ const Button = styled.button`
 `;
 
 const Button3 = styled.button`
-  font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
+  font-size: ${(props) => (props.isText ? "1rem" : "1rem")};
   font-family: "IBM Plex Sans KR", sans-serif;
 
   padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
@@ -192,8 +231,6 @@ const Button3 = styled.button`
   font-weight: 500;
   color: #000;
   background-color: #fff;
-  // border:3px solid pink;
-  // border: none;
   border-radius: 45px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
@@ -417,7 +454,7 @@ export default function Header({ isInput, isMobileLogo, isText }) {
           <button onClick={() => history.push("/map")}>
             <p>Map</p>
           </button>
-          <button>  
+          <button onClick={() => history.push("/writeorlogin")}>   
             <p>Write</p>
           </button>
           <button>
