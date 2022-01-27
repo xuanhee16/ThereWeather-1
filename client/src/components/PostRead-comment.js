@@ -31,6 +31,7 @@ const RightDiv = styled.div`
 const DeleteBtn = styled.button`
   display: block;
   border: 1px solid black;
+  font-family: 'Gowun Dodum', sans-serif;
 `
 const LikeBtn = styled.button`
   display: block;

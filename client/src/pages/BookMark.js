@@ -16,7 +16,7 @@ const Outer = styled.div`
   justify-content: start;
   align-items: center;
   background-color: var(--page-bg-color);
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   // padding-top: 100px;
 
@@ -275,9 +275,6 @@ export default function BookMark() {
 
   useEffect(() => {
     axios({
-      // url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
-      // url: url + `/bookmarklist?searchID=${userInfo.user_id}`,
-      // method: "get",
       url: url + "/bookmarklist",
       method: "post",
       data: {

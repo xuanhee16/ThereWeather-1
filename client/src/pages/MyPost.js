@@ -29,10 +29,12 @@ const Outer = styled.div`
   h2 {
     align-self: flex-start;
     margin: 2rem 0;
+    font-family: 'Gowun Dodum', sans-serif;
   }
 
   button {
     font-size: 1.5rem;
+    font-family: 'Gowun Dodum', sans-serif;
   }
 
   @media screen and (min-width: 1500px) {
@@ -59,6 +61,7 @@ const GridArea = styled.div`
   margin: 1rem;
   p {
     font-size: 28px;
+    font-family: 'Gowun Dodum', sans-serif;
   }
 
   .postItem {

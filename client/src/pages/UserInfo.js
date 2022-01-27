@@ -38,6 +38,7 @@ const InfoBox = styled.div`
         color: black;
         margin: 0;
         line-height: 10vh;
+        font-family: 'Gowun Dodum', sans-serif;
         @media screen and (max-width: 375px) {
             font-size: 1rem;
         }
@@ -98,12 +99,6 @@ export default function UserInfo() {
             <InfoBoxes>
                 <InfoBox onClick={() => history.push("/mypage")}>
                     <p>마이페이지</p>
-                </InfoBox>
-
-                <InfoBox>
-                    <button onClick={() => history.push("/messenger")}>
-                        <p>메신져</p>
-                    </button>
                 </InfoBox>
                 <InfoBox>
                     <button onClick={logoutBtnHandler}>

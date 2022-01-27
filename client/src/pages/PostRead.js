@@ -356,6 +356,7 @@ const PostComment = styled.div`
   margin-bottom: 2rem;
   button {
     border: 1px solid black;
+    font-family: 'Gowun Dodum', sans-serif;
   }
 `;
 // 댓글목록
