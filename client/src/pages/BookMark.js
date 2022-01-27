@@ -16,7 +16,7 @@ const Outer = styled.div`
   justify-content: start;
   align-items: center;
   background-color: var(--page-bg-color);
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   // padding-top: 100px;
 

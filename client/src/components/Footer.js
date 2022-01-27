@@ -8,6 +8,7 @@ const Outer = styled.div`
   /* margin: 1.5rem; */
   margin: 0 auto;
   font-family: "IBM Plex Sans KR", sans-serif;
+  width: 100%;
 
   background-color: #ffffff;
 

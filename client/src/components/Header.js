@@ -20,11 +20,9 @@ import React, { useState, useEffect } from "react";
 import DaumPostcode from "react-daum-postcode";
 
 const HeaderOuter = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 125px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: white;
   padding: 1rem;
@@ -33,21 +31,12 @@ const HeaderOuter = styled.div`
   left: 0;
   z-index: 100;
   border-bottom: 0.5px solid #dbdbdb;
-
-  h1 {
-    font-weight: bold;
-    font-size: 2.5rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  @media screen and (min-width: 1081px) {
-    width: 100vw;
-    background-color: white;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-  @media screen and (max-width: 375px) {
+  justify-content: space-between;
+  
+  @media screen and (max-width: 1081px) {
+    height: auto;
+    justify-content: space-between;
+    flex-direction: column;
   }
 `;
 
@@ -63,39 +52,51 @@ const Wing = styled.div`
   }
 `;
 
+
+// 로고
 const TitleAndLogo = styled.div`
-  display: ${(props) => (props.isMobileLogo ? "flex" : "none")};
-  justify-content: center;
+  /* display: ${(props) => (props.isMobileLogo ? "flex" : "none")}; //map일때 헤더 */
+  display: flex;
   align-items: center;
   color: #231f20;
-
-  & img {
-    width: 20%;
+  
+  p {
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+  img {
+    width: 4rem;
     margin-right: 0.5rem;
   }
 
-  @media screen and (min-width: 1081px) {
-    display: flex;
-    flex-growth: 1;
-    align-items: center;
-    justify-content: center;
-    width: 20vw;
+  @media screen and (max-width: 1081px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 500px) {
+    img {
+      width: 3rem;
+      margin-right: 0.3rem;
+    }
+    p {
+      font-size: 1.2rem;
+    }
   }
 `;
 
+// 메뉴
 const Center = styled.div`
   position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-width: 350px;
   justify-content: space-around;
+  flex-direction: row;
+  width: 55%;
 
-  @media screen and (min-width: 1081px) {
-    flex-direction: row;
-    flex-growth: 2;
-    width: 60vw;
+  @media screen and (max-width: 1081px) {
+    display: none;
   }
 `;
 
@@ -143,7 +144,6 @@ const MenuButtons = styled.div`
     height: 2rem;
     line-height: 2.2rem;
   }
-
 `
 
 const InputAndSubmit = styled.div`
@@ -214,12 +214,13 @@ const Button = styled.button`
   padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
   margin: 0.5rem;
   border-radius: 10%;
+  right: 0;
 `;
 
+// 오른쪽 로그인, 회원가입 버튼 
 const Button3 = styled.button`
   font-size: ${(props) => (props.isText ? "1rem" : "1rem")};
   font-family: "IBM Plex Sans KR", sans-serif;
-
   padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
   margin: 0.5rem;
   border-radius: 10%;
@@ -242,22 +243,37 @@ const Button3 = styled.button`
     box-shadow: 0px 15px 20px #f7cac9;
     color: #fff;
     transform: translateY(-4px);
+  }
 
-    @media screen and (max-width: 1081px) {
-      // 임시 추가
-      /* display: none; */
+  @media screen and (max-width: 1081px) {
+    display: none;
+
+    box-shadow: none;
+    letter-spacing: normal;
+    border-radius: 0;
+    margin: 0;
+    width: 100%;
+    transition: none;
+    background-color: #FFFFFF;
+
+    &:hover {
+      box-shadow: none;
+      transform: none;
+      color: #000;
+      background-color: pink;
     }
   }
 `;
-const Buttons3 = styled.button`
+
+// 오른쪽 로그인, 회원가입 버튼 div
+const Buttons3 = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
 
   @media screen and (max-width: 1081px) {
-    // 임시 추가
-    display: none;
+    flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -286,6 +302,23 @@ const Buttons2 = styled.div`
     height: 2rem;
   }
 `;
+
+// 모바일 화면 상단 메뉴아이콘
+const MobileMenuBar = styled.div`
+  display: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  img {
+    width: 100%;
+  }
+  @media screen and (max-width: 1081px) {
+    display: none;
+    /* display: block; */
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+  }
+`
 
 let url = process.env.REACT_APP_LOCAL_URL;
 if (!url) url = "https://thereweather.space/api";
@@ -337,13 +370,18 @@ export default function Header({ isInput, isMobileLogo, isText }) {
       });
   };
 
+  const [menuBar, setMenuBar] = useState()
+  const menuBarCick = () => {
+    
+  }
+
   return (
     <HeaderOuter className="header">
       {/* <MenuBar></MenuBar> */}
-
+      
       <TitleAndLogo className="titleAndLogo" isMobileLogo={isMobileLogo}>
         <img onClick={() => history.push("/")} src="img/img6.png" alt="logo" />
-        <h2 onClick={() => history.push("/")}>There Weather</h2>
+        <p onClick={() => history.push("/")}>There Weather</p>
       </TitleAndLogo>
 
       {/* 검색창 */}
@@ -442,7 +480,6 @@ export default function Header({ isInput, isMobileLogo, isText }) {
       )} */}
       {/* 검색창 끝 */}
 
-      {/* <MenuBarPC></MenuBarPC> */}
       <Center>
         <MenuButtons>
           <button onClick={() => history.push("/homeorlogin")}>
@@ -496,6 +533,12 @@ export default function Header({ isInput, isMobileLogo, isText }) {
           </Button3>
         </Buttons3>
       )}
+
+
+
+      <MobileMenuBar onClick={menuBarCick}>
+        <img src={`${process.env.PUBLIC_URL}img/menu-bar.png`}/>
+      </MobileMenuBar>
     </HeaderOuter>
   );
 }
