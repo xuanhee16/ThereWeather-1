@@ -5,38 +5,38 @@ import { TwoPictures } from "./Three"
 import styled from "styled-components"
 
 const Button = styled.button`
-// width: 140px;
-// height: 45px;
-// font-size: 11px;
-border:3px solid pink;
-font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
-font-family: 'IBM Plex Sans KR', sans-serif;
+    // width: 140px;
+    // height: 45px;
+    // font-size: 11px;
+    border:3px solid pink;
+    font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
+    font-family: 'IBM Plex Sans KR', sans-serif;
 
-padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
-margin: 0.5rem;
-border-radius: 10%;
-color: ${(props) => (props.bgGrey || props.isText ? "#ff6384" : "grey")};
-background-color: ${(props) =>
-    props.bgGrey || props.isText ? "white" : "white"};
-text-transform: uppercase;
-letter-spacing: 2.5px;
-font-weight: 500;
-color: #000;
-background-color: #fff;
-// border: none;
-border-radius: 45px;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-transition: all 0.3s ease 0s;
-cursor: pointer;
-outline: none;
-}
+    padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
+    margin: 0.5rem;
+    border-radius: 10%;
+    color: ${(props) => (props.bgGrey || props.isText ? "#ff6384" : "grey")};
+    background-color: ${(props) =>
+        props.bgGrey || props.isText ? "white" : "white"};
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    // border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
 
-&:hover {
-    background-color: pink;
-    box-shadow: 0px 15px 20px #f7cac9;
-    color: #fff;
-transform: translateY(-4px);
-}
+
+    &:hover {   
+        background-color: pink;
+        box-shadow: 0px 15px 20px #f7cac9;
+        color: #fff;
+        transform: translateY(-4px);
+    }
 `
 const Buttons = styled.button`
     height: 100%;
