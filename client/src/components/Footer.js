@@ -7,13 +7,10 @@ import OneChoiceModal from "./OneChoiceModal";
 const Outer = styled.div`
   /* margin: 1.5rem; */
   margin: 0 auto;
-  font-family: "IBM Plex Sans KR", sans-serif;
+  font-family: 'Gowun Dodum', sans-serif;
   width: 100%;
-
   background-color: #ffffff;
-
   height: 150px;
-
   background-color: white;
   /* display: flex; */
   /* align-items: center; */

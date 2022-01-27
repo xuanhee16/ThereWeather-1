@@ -55,6 +55,7 @@ const LoginStyledArticle = styled.article`
 `
 
 const FindBtn = styled.button`
+    font-family: 'Gowun Dodum', sans-serif;
     font-size: 1rem;
     margin: 3rem 14.5rem 0 14.5rem;
 
@@ -136,6 +137,7 @@ const LoginButton = styled.button`
     color: black;
     background-color: pink;
     border-radius: 1rem;
+    font-family: 'Gowun Dodum', sans-serif;
     &:hover {
         background-color: #ff7f9f;
         color: white;

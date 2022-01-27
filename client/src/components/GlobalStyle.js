@@ -6,7 +6,8 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body { 
-  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-family: 
+  'Gowun Dodum', sans-serif;
   height: 100%;
   }
 `

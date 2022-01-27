@@ -275,9 +275,6 @@ export default function BookMark() {
 
   useEffect(() => {
     axios({
-      // url: url + `/bookmarklist?searchID=${userInfo.user_id}&&searchPost=${postId}`,
-      // url: url + `/bookmarklist?searchID=${userInfo.user_id}`,
-      // method: "get",
       url: url + "/bookmarklist",
       method: "post",
       data: {
