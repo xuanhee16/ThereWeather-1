@@ -15,7 +15,8 @@ const Outer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  width: 100vw;
+  background-color: var(--page-bg-color);
+  width: 100%;
   min-height: 100vh;
   // padding-top: 100px;
 

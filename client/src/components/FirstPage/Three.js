@@ -8,7 +8,7 @@ export const TwoPictures = styled.div`
   justify-content: center;
 
   & > img {
-    width: 40vw;
+    width: 40%;
   }
 
   @media screen and (min-width: 1081px) {
