@@ -79,6 +79,7 @@ const ProfileArea = styled.div`
         font-size: 1.2rem;
       }
     }
+
   }
 
   @media screen and (max-width: 375px) {
@@ -128,18 +129,16 @@ const ButtonArea = styled.div`
   }
 
   @media screen and (max-width: 1081px) {
-    width: 100vw; // 가운데로 맞춤
-    align-items: center;
-    height: 10vh;
-    position: absolute;
-    bottom: 0;
-  }
-  @media screen and (max-width: 375px) {
-    padding: 0 15vw;
-    height: 20vh;
-    justify-content: space-between;
-    button {
-      font-size: 1rem;
+    .editpw {
+      width: 40%;
+      display: inline-block;
+      text-align: left;
+      p {
+        margin-top: 2vh;
+        justify-content: center;
+        line-height: 3vh;
+        font-size: 1.2rem;
+      }
     }
   }
 `;
@@ -354,10 +353,10 @@ export default function MyPage() {
             </p>
           </div>
           <ButtonArea>
-            <button onClick={() => history.push("/editpassword")}>
+            <button className="editpw" onClick={() => history.push("/editpassword")}>
               비밀번호 수정
             </button>
-            <button onClick={removeUserInfo}>회원탈퇴</button>
+            <button className="remove" onClick={removeUserInfo}>회원탈퇴</button>
             {isModalOpen === false ? null : (
               <ModalConfirm
                 yesHandler={modalYesButtonHandlers}
