@@ -717,7 +717,7 @@ export default function Login() {
     const [guestuserInfo, setGuestUserInfo] = useState({
         user_id: "guest",
         password: "!23qwe",
-        nickName: "게스트",
+        nickName: "GUEST ID",
         gender: "1",
         location: "제주특별자치도 서귀포시 가가로 14",
         user_photo: `${process.env.REACT_APP_CLIENTURL}/img/blankProfile.png`,
