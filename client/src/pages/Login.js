@@ -720,7 +720,7 @@ export default function Login() {
         nickName: "게스트",
         gender: "1",
         location: "제주특별자치도 서귀포시 가가로 14",
-        user_photo: `${url.slice(0, -3)}/image/blankProfile.png`,
+        user_photo: `${process.env.REACT_APP_CLIENTURL}/img/blankProfile.png`,
         email: "guestmail@naver.com",
     })
     function guestloginButtonHandler() {

@@ -408,6 +408,10 @@ export default function Location({ bottom }) {
                                 ? "<img src='img/codi/반바지.png' style='width:2rem;'/>"
                                 : $(data.positions)[n].bottom_id === "긴바지"
                                 ? "<img src='img/codi/긴바지.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].bottom_id === "짧은치마"
+                                ? "<img src='img/codi/짧은치마.png' style='width:2rem;'/>"
+                                : $(data.positions)[n].bottom_id === "긴치마"
+                                ? "<img src='img/codi/긴치마.png' style='width:2rem;'/>"
                                 : null
                         }
                         </box>
