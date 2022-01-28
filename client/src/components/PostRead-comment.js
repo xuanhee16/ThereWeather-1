@@ -100,7 +100,7 @@ export default function Comment({ content, commentDelete, userInfo }) {
       </LeftDiv>
 
       <RightDiv>
-        <DeleteBtn onClick={() => commentDelete(content.id)}>삭제</DeleteBtn>
+        <DeleteBtn onClick={() => commentDelete(content)}>삭제</DeleteBtn>
         <LikeBtn
           onClick={commentLike}
           // onClick={() => commentLike(content.id)}
