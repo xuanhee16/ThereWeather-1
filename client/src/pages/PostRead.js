@@ -62,7 +62,7 @@ const Title = styled.div`
   span {
     font-size: 2rem;
   }
- 
+
   @media screen and (max-width: 1081px) {
     width: 70%;
   }
@@ -79,11 +79,10 @@ const Title = styled.div`
   }
 `;
 
-const IconDiv = styled.div``
+const IconDiv = styled.div``;
 
 // 북마크 아이콘
-const BookmarkIcon = styled(Bookmark)`
-`;
+const BookmarkIcon = styled(Bookmark)``;
 // 프로필
 const Profile = styled.div`
   width: 60rem;
@@ -115,7 +114,6 @@ const Profile = styled.div`
   .location {
     font-size: 1.2rem;
   }
-
 
   @media screen and (max-width: 1081px) {
     width: 70%;
@@ -151,7 +149,6 @@ const SelectIcon = styled.div`
   width: 100%;
   ul {
     list-style: none;
-
   }
   li {
     color: #444444;
@@ -177,7 +174,7 @@ const SelectIcon = styled.div`
     .selectIcon {
       width: 100%;
       height: 100%;
-      filter: opacity(.5) drop-shadow(0 0 0 #c4c4c4);
+      filter: opacity(0.5) drop-shadow(0 0 0 #c4c4c4);
     }
   }
   .menu {
@@ -194,7 +191,7 @@ const SelectIcon = styled.div`
     transform: translateY(0);
     display: none;
   }
-`
+`;
 
 // 프로필 이미지
 const ProfileImg = styled.img`
@@ -244,7 +241,6 @@ const WeatherInfo = styled.div`
   @media screen and (max-width: 1081px) {
     margin-top: 1vh;
     margin-bottom: 1vw;
-
   }
   @media screen and (max-width: 769px) {
     img {
@@ -258,7 +254,6 @@ const WeatherInfo = styled.div`
 `;
 
 const Icon = styled.img`
-
   @media screen and (max-width: 1081px) {
     width: 3rem;
   }
@@ -291,7 +286,7 @@ const TodayCodi = styled.div`
     width: 5rem;
     height: auto;
     margin: 0 1rem;
-    filter: opacity(.5) drop-shadow(0 0 0 #aaa);
+    filter: opacity(0.5) drop-shadow(0 0 0 #aaa);
   }
 
   @media screen and (max-width: 769px) {
@@ -299,7 +294,6 @@ const TodayCodi = styled.div`
       width: 3rem;
       margin: 0 0.5rem;
     }
-    
   }
   @media screen and (max-width: 375px) {
     width: 50vw;
@@ -356,7 +350,7 @@ const PostComment = styled.div`
   margin-bottom: 2rem;
   button {
     border: 1px solid black;
-    font-family: 'Gowun Dodum', sans-serif;
+    font-family: "Gowun Dodum", sans-serif;
   }
 `;
 // 댓글목록
@@ -377,11 +371,11 @@ export default function PostRead() {
     (state) => state.itemReducer
   );
 
-  console.log("현재 접속한 유저",userInfo) //현재접속한 유저
-  console.log("포스트번호 : ",readPostId) //포스트번호
-  console.log(postInfo) //본인것만 보임
+  console.log("현재 접속한 유저", userInfo); //현재접속한 유저
+  console.log("포스트번호 : ", readPostId); //포스트번호
+  console.log(postInfo); //본인것만 보임
   const postIds = Number(readPostId);
-  console.log(postIds)
+  console.log(postIds);
 
   // postData state 변수
   const [postData, setPostData] = useState({
@@ -402,16 +396,16 @@ export default function PostRead() {
     address: "",
   });
   const [noIdWarning, setNoIdWarning] = useState("");
-  
+
   // 삭제, 수정, 공유하기 select list
   const [selectList, setSelectList] = useState(false);
   const selectListHandle = () => {
-    if(selectList === false) {
+    if (selectList === false) {
       setSelectList(true);
-    }else{
+    } else {
       setSelectList(false);
     }
-  }
+  };
 
   // 날짜 처리
   const formatDate = (dateString) => {
@@ -609,10 +603,9 @@ export default function PostRead() {
         },
         withCredentials: true,
       }).then((res) => {
-        console.log("res.data : ",res.data);
+        console.log("res.data : ", res.data);
         getCommentList();
         window.location.replace("/readpost");
-
       });
     }
   };
@@ -636,7 +629,7 @@ export default function PostRead() {
   };
 
   // 댓글삭제
-  const commentDelete = (commentId) => {
+  const commentDelete = (content) => {
     const token = JSON.parse(localStorage.getItem("ATOKEN"));
     axios({
       url: url + "/deletecomment",
@@ -646,40 +639,47 @@ export default function PostRead() {
         Authorization: `token ${token}`,
       },
       data: {
-        comment_id: commentId, // 댓글 아이디
+        comment_id: content.id,
+        comment_user_id: content.comment_user_id,
       },
       withCredentials: true,
     }).then((res) => {
-      window.location.replace("/readpost");
+      console.log(res);
+      if (res.data === "댓글을 작성자가 아닙니다.") {
+        alert(res.data);
+        window.location.replace("/readpost");
+      } else {
+        alert(res.data);
+        window.location.replace("/readpost");
+      }
     });
   };
 
   useEffect(() => {}, []);
-  
-  //카카오 공유 
+
+  //카카오 공유
   const shareKakao = () => {
-      Kakao.Link.sendDefault({
-        objectType: "feed",
-        content: {
-          title: postData.post_title,
-          description: "거기 날씨",
-          imageUrl: postData.post_photo,
-          link:{
-            mobileWebUrl: 'https://thereweather.space/first',
-            androidExecutionParams: 'test',
+    Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: postData.post_title,
+        description: "거기 날씨",
+        imageUrl: postData.post_photo,
+        link: {
+          mobileWebUrl: "https://thereweather.space/first",
+          androidExecutionParams: "test",
+        },
+      },
+      buttons: [
+        {
+          title: "거기날씨로 이동",
+          link: {
+            mobileWebUrl: "https://thereweather.space/first",
           },
         },
-        buttons: [
-          {
-            title: '거기날씨로 이동',
-            link: {
-              mobileWebUrl: 'https://thereweather.space/first',
-            },
-          },
-        ]
-      })
-  }
-
+      ],
+    });
+  };
 
   return (
     <Outer>
@@ -693,12 +693,12 @@ export default function PostRead() {
       <PostHeader className="postHeader">
         <Title className="title">
           <span>{postData.post_title}</span>
-        <IconDiv>
-          <BookmarkIcon
-            bookmarkHandler={bookmarkHandler}
-            color={bookmarked ? "#3b5fd9" : "#aaa"}
-          />
-        </IconDiv>
+          <IconDiv>
+            <BookmarkIcon
+              bookmarkHandler={bookmarkHandler}
+              color={bookmarked ? "#3b5fd9" : "#aaa"}
+            />
+          </IconDiv>
         </Title>
 
         <Profile className="userProfile">
@@ -712,17 +712,27 @@ export default function PostRead() {
             <span className="location">{postData.address}</span>
 
             <div className="selectBtn">
-              <img className="selectIcon" onClick={selectListHandle} src={`${process.env.PUBLIC_URL}img/menu-vertical-100.png`}/>
-              <div className={`menu ${selectList? "active" : "inactive"}`}>
+              <img
+                className="selectIcon"
+                onClick={selectListHandle}
+                src={`${process.env.PUBLIC_URL}img/menu-vertical-100.png`}
+              />
+              <div className={`menu ${selectList ? "active" : "inactive"}`}>
                 <ul>
                   <li value="delete" onClick={deletePost}>
-                    <img src={`${process.env.PUBLIC_URL}img/bin.png`} alt="삭제하기"/>
+                    <img
+                      src={`${process.env.PUBLIC_URL}img/bin.png`}
+                      alt="삭제하기"
+                    />
                     &nbsp;삭제하기
-                    </li>
-                    <li onClick={editPost}>
-                      <img src={`${process.env.PUBLIC_URL}img/edit-120.png`} alt="수정하기"/>                    
-                      &nbsp;수정하기
-                    </li>
+                  </li>
+                  <li onClick={editPost}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}img/edit-120.png`}
+                      alt="수정하기"
+                    />
+                    &nbsp;수정하기
+                  </li>
                   <li onClick={shareKakao}>
                     <img className="kakaoImg" src={kakaoIcon}></img>
                     &nbsp;공유하기
