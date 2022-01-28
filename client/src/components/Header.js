@@ -32,9 +32,17 @@ const HeaderOuter = styled.div`
   z-index: 100;
   border-bottom: 0.5px solid #dbdbdb;
   justify-content: space-between;
+
+  .mobileMenu.active {
+    
+  }
+  .mobileMenu.inactive {
+    display: none;
+  }
   
   @media screen and (max-width: 1081px) {
     height: auto;
+    padding: 1rem  0;
     justify-content: space-between;
     flex-direction: column;
   }
@@ -70,7 +78,7 @@ const TitleAndLogo = styled.div`
   }
 
   @media screen and (max-width: 1081px) {
-    width: 100%;
+    /* width: 100%; */   
   }
 
   @media screen and (max-width: 500px) {
@@ -246,24 +254,6 @@ const Button3 = styled.button`
     transform: translateY(-4px);
   }
 
-  @media screen and (max-width: 1081px) {
-    display: none;
-
-    box-shadow: none;
-    letter-spacing: normal;
-    border-radius: 0;
-    margin: 0;
-    width: 100%;
-    transition: none;
-    background-color: #FFFFFF;
-
-    &:hover {
-      box-shadow: none;
-      transform: none;
-      color: #000;
-      background-color: pink;
-    }
-  }
 `;
 
 // 오른쪽 로그인, 회원가입 버튼 div
@@ -273,8 +263,7 @@ const Buttons3 = styled.div`
   align-items: center;
 
   @media screen and (max-width: 1081px) {
-    flex-direction: column;
-    width: 100%;
+    display: none;
   }
 `;
 
@@ -313,13 +302,45 @@ const MobileMenuBar = styled.div`
     width: 100%;
   }
   @media screen and (max-width: 1081px) {
-    display: none;
-    /* display: block; */
+    display: block;
     position: absolute;
     right: 1rem;
     top: 1.5rem;
   }
 `
+
+const MobileMenuSection = styled.div`
+  width: 100%;
+  display: none;
+  
+  ul {
+    list-style: none;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  li {
+    padding: 0.5rem 0;
+  }
+
+  @media screen and (max-width: 1081px) {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+
+    li {
+      transition: all 0.3s ease 0s;
+
+      &:hover {
+        background-color: pink;
+        color: #f0f4f5;
+      }
+
+    }
+    
+  }
+
+`
+
 
 let url = process.env.REACT_APP_LOCAL_URL;
 if (!url) url = "https://thereweather.space/api";
@@ -369,11 +390,16 @@ export default function Header({ isInput, isMobileLogo, isText }) {
         dispatch(changeIsLogin(false));
         history.push("/");
       });
+      setMenuBarClick(false)
   };
 
-  const [menuBar, setMenuBar] = useState()
-  const menuBarCick = () => {
-    
+  const [menuBarClick, setMenuBarClick] = useState(false)
+  const menuBarHandler = () => {
+    if(menuBarClick === false){
+      setMenuBarClick(true)
+    }else{
+      setMenuBarClick(false)
+    }
   }
 
   return (
@@ -535,11 +561,42 @@ export default function Header({ isInput, isMobileLogo, isText }) {
         </Buttons3>
       )}
 
-
-
-      <MobileMenuBar onClick={menuBarCick}>
+      <MobileMenuBar onClick={menuBarHandler}>
         <img src={`${process.env.PUBLIC_URL}img/menu-bar.png`}/>
       </MobileMenuBar>
+      
+      <MobileMenuSection className={`mobileMenu ${menuBarClick? "active" : "inactive"}`}>
+        {isLogin? 
+          <ul>
+            <li onClick={logoutBtnHandler}>
+              <p>로그아웃</p>
+            </li>
+            <li onClick={() => {
+              history.push("/mypage")
+              setMenuBarClick(false)
+            }}>
+              <p>마이페이지</p>
+            </li>
+          </ul> 
+          :
+          <ul>
+            <li onClick={() => {
+              history.push("/login")
+              setMenuBarClick(false)
+            }}>
+              <p>로그인</p>
+            </li>
+            <li onClick={() => {
+              history.push("/signup")
+              setMenuBarClick(false)
+            }}
+              >
+              <p>회원가입</p>
+            </li>
+          </ul>
+        }
+      </MobileMenuSection>
+
     </HeaderOuter>
   );
 }
