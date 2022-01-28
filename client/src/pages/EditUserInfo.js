@@ -175,7 +175,7 @@ export default function Write() {
     const [photo, setPhoto] = useState("")
     const [uploadedImg, setUploadedImg] = useState({
         fileName: "blankPost.png",
-        filePath: `${url}/img/blankPost.png`,
+        filePath: `${process.env.REACT_APP_CLIENTURL}/img/blankProfile.png`,
     })
     if (!url) {
         url = "https://thereweather.space/api"
@@ -220,7 +220,7 @@ export default function Write() {
                 const { fileName } = res.data
                 setUploadedImg({
                     fileName,
-                    filePath: `${url.slice(0,-4)}/image/${fileName}`,
+                    filePath: `${url.slice(0, -4)}/image/${fileName}`,
                 })
                 alert("사진을 성공적으로 업로드 하였습니다!")
             })
