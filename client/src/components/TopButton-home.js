@@ -15,7 +15,8 @@ const Button = styled.div`
     img {
         width: 3rem;
         height: 3rem;
-        margin: 3rem;
+        /* margin: 2rem; */
+        margin-top: 2rem;
         opacity: 0.7;
         background-color: var(--page-bg-color);
     }
@@ -25,7 +26,9 @@ const Button = styled.div`
         height: 200px;
     }
     @media screen and (max-width: 761px) {
-
+        img {
+            margin: 0;
+        }
     }
     @media screen and (max-width: 375px) {
     }
