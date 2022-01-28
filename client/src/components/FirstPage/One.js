@@ -14,7 +14,7 @@ export const Contents = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 95vw;
 
     @media screen and (min-width: 1081px) {
         flex-direction: row;
@@ -69,12 +69,11 @@ export const AnimatedImg = styled.img`
     animation-delay: ${(props) => props.delay || null};
 `
 const Button = styled.button`
-
     // width: 140px;
     // height: 45px;
     // font-size: 11px;
     // border:3px solid pink;
-    font-family:  'Gowun Dodum', sans-serif;
+    font-family: "Gowun Dodum", sans-serif;
     font-size: ${(props) => (props.isText ? "1.6rem" : "1.6rem")};
     padding: ${(props) => (props.bgGrey ? ".6rem" : ".4rem")};
     margin: 0.5rem;
@@ -98,7 +97,7 @@ const Button = styled.button`
         background-color: pink;
         box-shadow: 0px 15px 20px #f7cac9;
         color: #fff;
-    transform: translateY(-4px);
+        transform: translateY(-4px);
     }
 `
 const Buttons = styled.button`

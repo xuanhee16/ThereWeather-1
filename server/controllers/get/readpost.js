@@ -36,7 +36,7 @@ module.exports = async function (req, res) {
                     console.log(level2)
                     console.log(level4L)
                     if (!level1 || !level2 || !level4L) {
-                        address = "주소를 찾을 수 없습니다"
+                        address = "주소를 찾을 수 없습니다~"
                     }
 
                     return {

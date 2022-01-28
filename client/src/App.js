@@ -28,7 +28,7 @@ import ChatRoom from "./pages/ChatRoom"
 import Footer from "../src/components/Footer"
 import FindAccount from "./pages/FindAccount"
 import FindPassword from "./pages/FindPassword"
-import { changeIsLogin, changeUser } from "./actions/index"
+import { changeIsLogin, changeUser, mapSet } from "./actions/index"
 import GlobalStyle from "./components/GlobalStyle"
 
 let url = process.env.REACT_APP_LOCAL_URL
@@ -40,6 +40,7 @@ if (!url) {
 export default function App() {
     const dispatch = useDispatch()
     const isInput = true
+
     const { isLogin } = useSelector((state) => state.itemReducer)
     useEffect(() => {
         //console.log(JSON.parse(localStorage.getItem("ATOKEN")))
