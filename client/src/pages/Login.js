@@ -329,7 +329,6 @@ if (!url) {
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
-    // console.log(url)
 
     // input 상태 관리, 유효성 검사
     const [idInput, setIdInput] = useState("")
@@ -364,9 +363,6 @@ export default function Login() {
                     accept: "application/json",
                 },
             }).then((res) => {
-                console.log(res.data)
-                console.log(res.data.email)
-                console.log(res.data.verified_email)
                 //구글에 정상 인증완료시-hoon
                 if (res.data.verified_email) {
                     //구글측의 정상인증 회원이지만, 우리사이트 간편가입 되어있는지 확인 요청 -hoon
@@ -380,7 +376,6 @@ export default function Login() {
                         },
                     }).then((res2) => {
                         // 소셜인증 되었으나 회원등록은 안된경우-hoon
-                        console.log(res2.data)
                         if (!res2.data) {
                             alert("소셜 간편 가입 필요")
                             setSocialLogined(true)
@@ -403,17 +398,14 @@ export default function Login() {
                         else {
                             // dispatch(changeIsLogin(res.data.verified_email))
                             alert("소셜 간편 가입 되어있는 회원")
-                            console.log(res.data.email)
                             // setInputSignUpData({
                             //     ...inputSignUpData,
                             //     idInput: res.data.email,
                             // })
-                            console.log(inputSignUpData.idInput)
                             setInputVaildMessage({
                                 ...inputVaildMessage,
                                 idInput: "",
                             })
-                            console.log(res.data.email)
                             socialAutoLogin(res.data.email)
                         }
                     })
@@ -425,7 +417,6 @@ export default function Login() {
             })
         }
     }, [])
-    //console.log(isLogin)
     const loginidOnChangeHanlder = (e) => {
         setIdInput((prevInput) => e.target.value)
 
@@ -466,7 +457,6 @@ export default function Login() {
                 }
             )
             .then((res) => {
-                //console.log(res.data.data)
                 localStorage.setItem(
                     "ATOKEN",
                     JSON.stringify(res.data.data.accessToken)
@@ -478,8 +468,6 @@ export default function Login() {
     }
     //간편가입완료했거나, 예전에 간편가입완료했던 소셜로그인사용자는 자동으로 로그인이 진행되게 하는 함수-hoon
     function socialAutoLogin(id) {
-        console.log("socialAutoLogin함수")
-        console.log(inputSignUpData.idInput)
         axios({
             url: url + "/sociallogin",
             method: "post",
@@ -487,7 +475,6 @@ export default function Login() {
                 user_id: id,
             },
         }).then((res) => {
-            console.log(res.data.data)
             localStorage.setItem(
                 "ATOKEN",
                 JSON.stringify(res.data.data.accessToken)
@@ -499,7 +486,6 @@ export default function Login() {
     }
 
     function googleLoginButtonHandler() {
-        console.log("구글 로그인 버튼 동작 확인")
         if (isLogin) {
             alert("이미 로그인상태입니다.")
         } else {
@@ -594,7 +580,6 @@ export default function Login() {
                     user_photo: uploadedImg.filePath,
                 },
             }).then((res) => {
-                //console.log(res)
                 if (res.status === 211) {
                     alert("아이디 중복입니다.")
                 } else if (res.status === 212) {
@@ -618,18 +603,14 @@ export default function Login() {
         Kakao.Auth.login({
             scope,
             success: function (response) {
-                //console.log(response);
                 //Kakao.Auth.setAccessToken(response.access_token)
-                //console.log(`get accesstoken: ${Kakao.Auth.getAccessToken()}`)
                 //let ACCESS_TOKEN = Kakao.Auth.getAccessToken();
                 //사용자 정보가져오기
                 Kakao.API.request({
                     url: "/v2/user/me",
                     success: function ({ kakao_account }) {
-                        //console.log(kakao_account)
                         const { email, profile } = kakao_account
                         let gender = kakao_account.gender !== "female" ? 1 : 2
-                        //console.log(gender)
                         axios({
                             url: url + "/kakaologin",
                             method: "post",
@@ -645,7 +626,6 @@ export default function Login() {
                             },
                         })
                             .then((res) => {
-                                // console.log(res)
                                 localStorage.setItem(
                                     "ATOKEN",
                                     JSON.stringify(res.data.data.accessToken)
@@ -669,13 +649,11 @@ export default function Login() {
 
     //아이디 찾기
     function findIdBtn() {
-        //   console.log("아이디 찾기 버튼")
         history.push("/findaccount")
     }
 
     //비밀번호 찾기
     function findPwBtn() {
-        console.log("비밀번호 찾기 버튼")
         history.push("/findpassword")
     }
 
@@ -686,11 +664,9 @@ export default function Login() {
 
     ////////////////////////////////////////////////
     const onSubmit = (e) => {
-        //console.log(e)
         e.preventDefault()
         const formData = new FormData()
         formData.append("img", photo)
-        //console.log(formData)
         axios
             .post(url + "/users/photo", formData, {
                 "Content-Type": "application/json",
@@ -710,7 +686,6 @@ export default function Login() {
     }
 
     const addFile = (e) => {
-        //console.log(e.target.files[0])
         setPhoto(e.target.files[0])
     }
     ////////////////////////////////
@@ -745,7 +720,6 @@ export default function Login() {
                 withCredentials: true,
             })
                 .then((res) => {
-                    //console.log(res.data.data)
                     localStorage.setItem(
                         "ATOKEN",
                         JSON.stringify(res.data.data.accessToken)

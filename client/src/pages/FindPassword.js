@@ -101,7 +101,6 @@ export default function FindPassword(){
     }
     
     function sendEmail() {
-        //console.log("이메일 전송 버튼")
         if(inputFindInfo.findId && !inputFindInfo.authCode){
           axios({
             url: url + "/users/findpw",
@@ -116,8 +115,6 @@ export default function FindPassword(){
             withCredentials: true
           })
           .then((res) => {
-              // console.log("이메일전송버튼 누르면",res.data.user_id)
-              // console.log(res); // user id, email 들어옴
               if(res.data === "no results"){
                   alert("가입된 정보가 아닙니다.")
               }
@@ -135,7 +132,6 @@ export default function FindPassword(){
       }
 
       function verification() {
-        //console.log("인증코드 버튼")
         axios({
           url: url + "/users/auth",
           method: "put",
@@ -150,7 +146,6 @@ export default function FindPassword(){
           withCredentials: true
         })
         .then((res) => {
-        //   console.log(res.data)
           if(res.data === true){ 
               alert("메일 인증 되었습니다.")
           }else{
@@ -161,7 +156,6 @@ export default function FindPassword(){
       
 
       function setNewPassword() {
-        // console.log("비밀번호 찾기 버튼")
         if(!inputFindInfo.findId && !inputFindInfo.authEmail && !inputFindInfo.authCode){
           alert("위 사항을 모두 입력해주세요.")
         }else{

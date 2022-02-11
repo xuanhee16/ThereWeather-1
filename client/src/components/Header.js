@@ -349,17 +349,14 @@ export default function Header({ isInput, isMobileLogo, isText }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { isLogin, mapPage } = useSelector((state) => state.itemReducer);
-  //console.log(mapPage);
   const [searchEvent, setSearchEvent] = useState("");
   //검색창에 사용할 포커스변수-hoon
   const [onFocus, setOnFocus] = useState(false);
-  //console.log("헤더는 찍히나?");
   // const [postOnFocus, setOnFocus] = useState(false)
 
   // isInput : Map 페이지 사용시 true
   // isMobileLogo : Map 페이지 사용시 false
   function handleComplete(e) {
-    console.log(e);
     setSearchEvent(e.roadAddress);
     setOnFocus(false);
   }
@@ -367,8 +364,6 @@ export default function Header({ isInput, isMobileLogo, isText }) {
   useEffect(() => {
     setweatherFilter(weatherFilter);
     dispatch(changeWeatherFilter(weatherFilter));
-
-    console.log(weatherFilter);
   }, [weatherFilter]);
 
   const logoutBtnHandler = (e) => {
@@ -416,7 +411,6 @@ export default function Header({ isInput, isMobileLogo, isText }) {
         <Center className="headerCenter">
           <InputAndSubmit className="inputAndSubmit">
             <Input
-              // onClick={(e) => console.log(e)}
               onChange={(e) => setSearchEvent(e.target.value)}
               type="text"
               placeholder="위치 검색"

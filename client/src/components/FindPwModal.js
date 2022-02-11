@@ -141,8 +141,7 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
         },
           withCredentials: true
         })
-        .then((res) => { 
-          // console.log("헤이헤이",res.data)
+        .then((res) => {
           alert("변경되었습니다. 다시 로그인해주세요:)")
           history.push("/login")
         })
@@ -160,7 +159,6 @@ export default function FindPwModal({closeBtn, userId, userEmail}) {
   
    useEffect(() => {
      if(strongPassword(inputNewPw.newPw)){
-      console.log("new password")
       setInputVaildMessage({...inputVaildMessage, newPwMsg: ""})
      }
      else {

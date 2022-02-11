@@ -371,11 +371,7 @@ export default function PostRead() {
     (state) => state.itemReducer
   );
 
-  console.log("현재 접속한 유저", userInfo); //현재접속한 유저
-  console.log("포스트번호 : ", readPostId); //포스트번호
-  console.log(postInfo); //본인것만 보임
   const postIds = Number(readPostId);
-  console.log(postIds);
 
   // postData state 변수
   const [postData, setPostData] = useState({
@@ -423,7 +419,6 @@ export default function PostRead() {
   let currentPostId = 0; // post id 저장
   // 글 불러오기
   useEffect(() => {
-    //console.log(JSON.parse(localStorage.getItem("ATOKEN")))
     //auth할차례
     if (localStorage.getItem("ATOKEN")) {
       axios({
@@ -433,7 +428,6 @@ export default function PostRead() {
           authorization: `token ${JSON.parse(localStorage.getItem("ATOKEN"))}`,
         },
       }).then((res) => {
-        //console.log(res.data.data)
         dispatch(changeUser(res.data.data));
 
         axios({
@@ -446,7 +440,6 @@ export default function PostRead() {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }).then((res) => {
-          //console.log(res.data)
           if (res.data !== "북마크없음") {
             setBookmarked(!bookmarked);
           }
@@ -462,14 +455,12 @@ export default function PostRead() {
           withCredentials: true,
         })
         .then((res) => {
-          // console.log("글 불러오기 : ",res.data)
           return setPostData((prev) => res.data);
         })
         .catch((err) => console.log(err));
     }
 
     let id;
-    // console.log(history.location.state);
     if (history.location.state) {
       id = history.location.state.postId;
     } else {
@@ -477,16 +468,11 @@ export default function PostRead() {
     }
 
     if (!id) {
-      //console.log("**postread: id가 없습니다**")
       setNoIdWarning((prev) => "잘못된 접근입니다.");
     } else {
       getOnePost(id);
       currentPostId = id;
     }
-
-    // console.log("글 불러오기 id : ", id);
-    // console.log("currentPostId : ", currentPostId);
-    ////////////////////////
   }, []);
 
   useEffect(() => {}, []);
@@ -502,13 +488,11 @@ export default function PostRead() {
 
   // 게시물 수정
   const editPost = () => {
-    //console.log("수정버튼동작확인")
     setEdit(true);
   };
 
   // 게시물 삭제
   const deletePost = (e) => {
-    //console.log("삭제버튼동작확인")
     setRemovePost(true);
   };
 
@@ -535,9 +519,7 @@ export default function PostRead() {
 
   //게시물 삭제 yes버튼
   const removeModalYes = () => {
-    // console.log('삭제완료')
     const token = JSON.parse(localStorage.getItem("ATOKEN"));
-    //console.log(token)
     axios({
       url: url + "/deletepost",
       method: "delete",
@@ -548,7 +530,6 @@ export default function PostRead() {
       data: { post_id: postIds },
       withCredentials: true,
     }).then((res) => {
-      //console.log(res.data)
       alert(res.data);
       // alert("삭제 완료")
       history.push("/mypage");
@@ -567,7 +548,6 @@ export default function PostRead() {
   };
 
   const bookmarkHandler = (e) => {
-    //console.log("글 읽기 - 북마크 버튼 동작 확인")
     axios({
       url: url + "/bookmark",
       method: "post",
@@ -575,7 +555,6 @@ export default function PostRead() {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     }).then((res) => {
-      //console.log(res.data)
       setBookmarked((prev) => !prev);
     });
   };
@@ -603,7 +582,6 @@ export default function PostRead() {
         },
         withCredentials: true,
       }).then((res) => {
-        console.log("res.data : ", res.data);
         getCommentList();
         window.location.replace("/readpost");
       });
@@ -644,7 +622,6 @@ export default function PostRead() {
       },
       withCredentials: true,
     }).then((res) => {
-      console.log(res);
       if (res.data === "댓글을 작성자가 아닙니다.") {
         alert(res.data);
         window.location.replace("/readpost");
