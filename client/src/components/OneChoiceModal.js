@@ -65,9 +65,6 @@ export default function OneChoiceModal({
   yesMessage,
   alertFunc,
 }) {
-  console.log(boolean);
-  console.log(yesMessage);
-
   return (
     <>
       {boolean ? (

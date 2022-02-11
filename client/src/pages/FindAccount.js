@@ -98,7 +98,6 @@ export default function FindAccount(){
     }
 
     function sendEmail() {
-      //console.log("이메일 전송 버튼")
       if(inputFindInfo.findNickName && !inputFindInfo.authCode){
         axios({
           url: url + "/findid",
@@ -113,7 +112,6 @@ export default function FindAccount(){
           withCredentials: true
         })
         .then((res) => {
-            //console.log(res)
             if(res.data === "no results"){
                 alert("가입된 정보가 아닙니다.")
             }
@@ -129,7 +127,6 @@ export default function FindAccount(){
     }
 
     function verification() {
-      //console.log("인증코드 버튼")
       axios({
         url: url + "/users/auth",
         method: "put",
@@ -144,7 +141,6 @@ export default function FindAccount(){
         withCredentials: true
       })
       .then((res) => {
-        console.log(res.data)
         if(res.data === true){ 
             alert("메일 인증 되었습니다.")
         }else{
@@ -154,10 +150,8 @@ export default function FindAccount(){
     }
 
     function findAccountId() {
-      //console.log("아이디 찾기 버튼")
 
       if(inputFindInfo.findNickName && inputFindInfo.authEmail && inputFindInfo.authCode){
-        //console.log("두둥")
         axios({
             url: url + "/findaccount",
             method: "post",
@@ -171,8 +165,7 @@ export default function FindAccount(){
             withCredentials: true
         })
         .then((res) => {
-            //닉네임, 아이디가 콘솔에 찍힙니닷 
-            console.log("헤이헤이",res.data)
+            //닉네임, 아이디가 콘솔에 찍힙니닷
             return setUserData((prev) => res.data) 
             // alert(res.data.nickName)
         })

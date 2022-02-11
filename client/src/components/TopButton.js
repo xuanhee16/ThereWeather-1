@@ -38,9 +38,6 @@ export default function TopButton() {
     const [ScrollY, setScrollY] = useState(0)
     const [btnStatus, setBtnStatus] = useState(false) // 버튼 상태
 
-    // console.log(window.pageYOffset)
-    // console.log(btnStatus)
-
     const handleFollow = () => {
         setScrollY(window.scrollY)
         if (ScrollY > 200) {
