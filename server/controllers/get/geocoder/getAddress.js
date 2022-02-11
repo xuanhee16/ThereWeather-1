@@ -1,15 +1,13 @@
 require("dotenv").config();
-const axios = require('axios');
+const axios = require("axios");
 
-module.exports = async function(xLocation, yLocation) {
+module.exports = async function (xLocation, yLocation) {
   try {
-    return (
-      axios({
-        method: 'get',
-        url: `http://api.vworld.kr/req/address?service=address&request=getAddress&version=2.0&crs=epsg:4326&point=${yLocation},${xLocation}&format=json&type=both&zipcode=false&simple=true&key=${process.env.GEOCODER_AUTH_KEY}`
-      })
-      .then(res => {
-        //console.log('**getAddress**', res.data);
+    return axios({
+      method: "get",
+      url: `http://api.vworld.kr/req/address?service=address&request=getAddress&version=2.0&crs=epsg:4326&point=${yLocation},${xLocation}&format=json&type=both&zipcode=false&simple=true&key=${process.env.GEOCODER_AUTH_KEY}`,
+    })
+      .then((res) => {
         let addressObj = {};
         if (!res.data.response.result[1]) {
           addressObj = res.data.response.result[0].structure;
@@ -19,11 +17,10 @@ module.exports = async function(xLocation, yLocation) {
 
         return addressObj;
       })
-      .catch(err => {
-        return 'bad request';
-      })
-    );
+      .catch((err) => {
+        return "bad request";
+      });
   } catch {
-    return 'bad request'
+    return "bad request";
   }
-}
+};
