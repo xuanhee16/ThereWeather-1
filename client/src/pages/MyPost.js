@@ -194,9 +194,8 @@ const CurPage = styled.button`
 const Button1 = styled.button`
     margin: 5px;
     color: black;
-    &: hover {
+    &:hover {
         margin: 5px;
-
         color: red;
     }
     // width: 30px;
@@ -218,9 +217,7 @@ export default function MyPost() {
         readPostId,
         curPage,
     } = useSelector((state) => state.itemReducer)
-    console.log(curPage)
     const [listLength, setListLength] = useState([])
-    console.log(listLength)
     //배열의 총 길이만 담고있는 변수
     const [currentPosts, setcurrentPosts] = useState([])
     //현재 포스트를 모두 담고 있는 변수
@@ -228,7 +225,6 @@ export default function MyPost() {
     //현재 페이지
     const [dividNum, setDividNum] = useState(6)
     //한페이지에 보여줄 포스트의 개수
-    console.log(userInfo)
     useEffect(() => {
         axios({
             url:
@@ -237,7 +233,6 @@ export default function MyPost() {
             method: "get",
             withCredentials: true,
         }).then((res) => {
-            //console.log(res.data)
             setListLength(res.data.length)
             setcurrentPosts(res.data.data)
             dispatch(userPosts(res.data))
@@ -252,7 +247,6 @@ export default function MyPost() {
             method: "get",
             withCredentials: true,
         }).then((res) => {
-            //console.log(res.data)
             setListLength(res.data.length)
             setcurrentPosts(res.data.data)
             dispatch(userPosts(res.data))
@@ -282,7 +276,6 @@ export default function MyPost() {
 
     // 게시물사진 클릭했을 때
     const postClickHandler = (e) => {
-        console.log("클릭은되나")
         let elem = e.target
         while (!elem.classList.contains("postItem")) {
             elem = elem.parentNode

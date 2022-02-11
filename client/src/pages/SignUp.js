@@ -246,7 +246,6 @@ export default function SignUp() {
         fileName: "blankProfile.png",
         filePath: `${process.env.REACT_APP_CLIENTURL}/img/blankProfile.png`,
     })
-    console.log(uploadedImg)
     const [codeOn, setCodeOn] = useState(false)
 
     const history = useHistory()
@@ -304,11 +303,9 @@ export default function SignUp() {
     useEffect(() => {
         //패스워드 유효성
         if (strongPassword(inputSignUpData.pwInput)) {
-            console.log("여긴엘스문아닌곳")
 
             setInputVaildMessage({ ...inputVaildMessage, pwInput: "" })
         } else if (!strongPassword(inputSignUpData.pwInput)) {
-            console.log("여긴엘스문인데")
             setInputVaildMessage({
                 ...inputVaildMessage,
                 pwInput: "사용 불가능한 패스워드 입니다.",
@@ -325,8 +322,6 @@ export default function SignUp() {
         } else {
             setPwCheckInputMessage("비밀번호가 일치 하지 않습니다.")
         }
-        console.log(inputSignUpData)
-        console.log(inputVaildMessage)
     }, [inputSignUpData.pwInput, pwCheckInput])
 
     useEffect(() => {
@@ -370,9 +365,7 @@ export default function SignUp() {
         setRoadUserAddress(complevent.roadAddress)
     }
     function emailSend() {
-        console.log("email 보내기")
         if (!inputVaildMessage.emailInput && !inputVaildMessage.idInput) {
-            console.log("정상수행가능")
             axios({
                 url: url + "/users/auth",
                 method: "post",
@@ -385,7 +378,6 @@ export default function SignUp() {
                 },
                 withCredentials: true,
             }).then((res) => {
-                console.log(res)
                 if (res.status === 200) {
                     alert("인증메일을 발송하였습니다")
                 } else {
@@ -393,12 +385,10 @@ export default function SignUp() {
                 }
             })
         } else {
-            console.log("안되는곳")
             alert("아이디, 이메일을 기입하세요")
         }
     }
     function codeSend() {
-        console.log("code 보내기")
         axios({
             url: url + "/users/auth",
             method: "put",
@@ -420,9 +410,7 @@ export default function SignUp() {
             }
         })
     }
-    console.log(userRoadAddress)
     function signupFunc(e) {
-        //console.log("프론트 콘솔:회원가입 입장");
         if (
             inputVaildMessage.idInput ||
             inputVaildMessage.pwInput ||
@@ -453,7 +441,6 @@ export default function SignUp() {
                 },
                 withCredentials: true,
             }).then((res) => {
-                console.log(res)
                 if (res.status === 211) {
                     alert("아이디 중복입니다.")
                 } else if (res.status === 212) {
@@ -467,11 +454,9 @@ export default function SignUp() {
     }
     ////////////////////////////////////////////////
     const onSubmit = (e) => {
-        console.log(e)
         e.preventDefault()
         const formData = new FormData()
         formData.append("img", photo)
-        console.log(formData)
         axios
             .post(url + "/users/photo", formData, {
                 "Content-Type": "multipart/form-data",
@@ -491,12 +476,10 @@ export default function SignUp() {
     }
 
     const addFile = (e) => {
-        console.log(e.target.files[0])
         setPhoto(e.target.files[0])
     }
     ////////////////////////////////////////////////////
     function duplicationTest() {
-        console.log("중복검사버튼")
         axios({
             url: url + "/users/duplicationtest",
             method: "post",

@@ -146,7 +146,6 @@ const BarGraphchild = styled.div`
 `
 
 export default function Location({ bottom }) {
-    console.log("mapbox임")
     const { searchWord, weatherFilter } = useSelector(
         (state) => state.itemReducer
     )
@@ -162,7 +161,6 @@ export default function Location({ bottom }) {
         snowy: 0,
     }) //그래프 통계용
     const [weatherApi, setweatherApi] = useState(0)
-    console.log(kakao)
     const [postList, setPostList] = useState([
         {
             bottom_id: "",
@@ -181,7 +179,6 @@ export default function Location({ bottom }) {
             yLocation: null,
         },
     ])
-    console.log(weatherFilter)
     let url =
         process.env.REACT_APP_LOCAL_URL || "https://thereweather.space/api"
 
@@ -208,10 +205,6 @@ export default function Location({ bottom }) {
 
                 // 마커와 인포윈도우를 표시합니다
                 displayMarker(locPosition, message)
-                console.log(locPosition)
-
-                console.log(lat) //위도
-                console.log(lon) //경도
                 dispatch(changeCurLocation(lat, lon))
             })
         } else {
@@ -261,7 +254,6 @@ export default function Location({ bottom }) {
                 //     map: map,
                 //     position: coords,
                 // })
-                // console.log(arguments)
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 // var infowindow = new kakao.maps.InfoWindow({
                 //     content: `<div style="width:150px;text-align:center;padding:6px 0;">${arguments[0][0].road_address.address_name} 지역</div>`,
@@ -283,7 +275,6 @@ export default function Location({ bottom }) {
             //클릭한 곳의 위치 경도를 콘솔로그 찍는 변수
             var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, "
             message += "경도는 " + latlng.getLng() + " 입니다"
-            console.log(message)
         })
         //////////////////////////////////////////고정-hoon/////////////////////////////////////////
 
@@ -300,9 +291,6 @@ export default function Location({ bottom }) {
             function (data) {
                 // 데이터에서 좌표 값을 가지고 마커를 표시합니다
                 // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-                // console.log(data)
-                // console.log($(data.positions))
-                // console.log($(data.positions[0]))
 
                 var markers = $(data.positions).map(function (i, position) {
                     return new kakao.maps.Marker({
@@ -313,12 +301,8 @@ export default function Location({ bottom }) {
                     })
                 })
 
-                console.log(markers)
-                console.log($(data.positions)[0])
                 $(data.positions).map((n, idx) => {
-                    console.log($(data.positions))
                     // $(data.positions).map((el) => {
-                    //     console.log(el)
                     //     if ($(data.positions)[el].weather === "sunny") {
                     //         setWeatherCount({
                     //             ...weatherCount,
@@ -454,7 +438,6 @@ export default function Location({ bottom }) {
             }
 
             timer = setTimeout(function () {
-                console.log("지도 위치가 변경 될 때마다 API요청")
                 // setWeatherCount({
                 //     sunny: 0,
                 //     cloudy: 0,
@@ -478,9 +461,6 @@ export default function Location({ bottom }) {
                     "북동쪽 위도, 경도는  " + neLatlng.toString() + "입니다 "
 
                 // setTimeout(() => {
-                console.log(message)
-                console.log(swLatlng)
-                console.log(neLatlng)
                 axios({
                     url:
                         url +
@@ -493,9 +473,7 @@ export default function Location({ bottom }) {
                     },
                     withCredentials: true,
                 }).then((res) => {
-                    console.log(res.data)
                     setPostList(res.data)
-                    console.log(postList)
                     let sunny = 0
                     let cloudy = 0
                     let rainy = 0
@@ -532,7 +510,6 @@ export default function Location({ bottom }) {
                     },
                     withCredentials: true,
                 }).then((res) => {
-                    console.log(res.data)
                     setweatherApi(res.data.fcstValue)
                 })
             }, 1000)
@@ -637,7 +614,6 @@ export default function Location({ bottom }) {
         margin: 0.1rem;
         // border: 1px solid black;
     `
-    console.log(weatherCount)
     const data = {
         labels: ["맑음", "구름", "비", "눈"],
         datasets: [
@@ -690,7 +666,6 @@ export default function Location({ bottom }) {
             }
         }
 
-        // console.log('**mapbox click id**',elem.id);
         dispatch(updatePostId(elem.id))
         history.push({
             pathname: "/readpost",
@@ -760,7 +735,6 @@ export default function Location({ bottom }) {
                             <GraphTitleDiv>동네 예보</GraphTitleDiv>
                             {postList.map((post) => {
                                 return (
-                                    // <PostBox onClick={() => console.log(post)}>
                                     <PostBox
                                         className="postbox"
                                         onClick={postBoxHandler}

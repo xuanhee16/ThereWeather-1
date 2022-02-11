@@ -327,9 +327,6 @@ export default function Home() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { item, curLocation } = useSelector((state) => state.itemReducer);
-  console.log(curLocation);
-  console.log("카카오 위도 : ", curLocation.lat); // map 페이지 거쳐야함
-  console.log("카카오 경도 : ", curLocation.lon);
 
   // const { userInfo } = useSelector((state) => state.itemReducer)
   // dispatch(changeUser(axiosData))
@@ -337,7 +334,6 @@ export default function Home() {
   const [weatherData, setWeatherData] = useState();
 
 //   useEffect(async () => {
-//     console.log(curLocation);
 //     if (curLocation.lat.length === 0) {
 //       await history.push("/map");
 //       history.push("/home");
@@ -353,15 +349,12 @@ export default function Home() {
       navigator.geolocation.getCurrentPosition(function (position) {
         let lat = position.coords.latitude, // 위도
           lon = position.coords.longitude; // 경도
-        console.log(lat, lon); //브라우저에 찍힘
         axios({
           url: url + "/map",
           method: "post",
           data: { lat: lat, lon: lon },
           withCredentials: true,
         }).then((res) => {
-          //console.log(res.data)
-          //console.log(res.data.item)
           setWeatherData(res.data);
           dispatch(updateWeatherInfo(res.data));
         });
@@ -374,7 +367,6 @@ export default function Home() {
   // 최근 게시물(위도, 경도, 지역범위 확인)
   const [currentPosts, setcurrentPosts] = useState([]);
   useEffect(() => {
-    console.log(navigator.geolocation);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
         let lat = curLocation.lat, // 위도
@@ -397,8 +389,6 @@ export default function Home() {
         let top = lon + 0.03750225;
         let bottom = lon - 0.03750225;
 
-        console.log(right, left, top, bottom);
-
         axios({
           url: url + "/home",
           method: "post",
@@ -412,9 +402,6 @@ export default function Home() {
           },
           withCredentials: true,
         }).then((res) => {
-          // console.log('res : ', res.data.address);
-          // console.log("address : ", res.data.address);
-          // console.log("게시글 데이터 : ", res.data.curtPost);
           setcurrentPosts(res.data.curtPost); // 주민예보글 렌더링 부분
           setcurAddress(res.data.address);
 
@@ -519,15 +506,10 @@ export default function Home() {
     setcurrentTop(maxTop);
     setcurrentBottom(maxBottom);
 
-    console.log("currentTemp : ", currentTemp);
-    console.log("currentWind : ", currentWind);
-    console.log("currentWeather : ", currentWeather);
-    console.log("outer : ", currentOuter); // 안나옴
   });
 
   // 게시물 사진 클릭
   const photoClickHandler = (e) => {
-    // console.log(e.target.id); // 게시물id 전달
     let elem = e.target;
 
     dispatch(updatePostId(elem.id));
