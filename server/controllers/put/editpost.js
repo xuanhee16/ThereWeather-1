@@ -1,7 +1,6 @@
 const { post, user } = require("../../models");
 
 module.exports = async (req, res) => {
-  //   console.log(req.body);
   const {
     user_id,
     post_id,
@@ -52,7 +51,6 @@ module.exports = async (req, res) => {
         },
         {
           where: {
-            // user_id: user_id,
             id: post_id,
           },
         }
